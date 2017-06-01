@@ -32,4 +32,12 @@ public class Form {
 		this.id = id;
 	}
 
+	public String getMethod() {
+		return "POST";	// TODO: Make this configurable
+	}
+
+	public boolean isHtml5Validate() {
+		return true; // TODO: Make this configurable
+	}
+
 }

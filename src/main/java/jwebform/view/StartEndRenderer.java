@@ -1,20 +1,28 @@
 package jwebform.view;
 
+import jwebform.Form;
+
 public class StartEndRenderer {
 	
-	public String getStart(Model startModel) {
+	Form form;
+	
+	public StartEndRenderer(Form form){
+		this.form = form;
+	}
+	
+	public String getStart() {
 		TagAttributes attribs = new TagAttributes();
-		attribs.addToAttribute("name", "FORMCHECKER_" + startModel.get("id"));
-		attribs.addToAttribute("method", startModel.getString("method"));
-		attribs.addToAttribute("id", startModel.getString("id"));
-		if (((Boolean) startModel.get("html5validate")).booleanValue() == true) {
+		attribs.addToAttribute("name", "FORMCHECKER_" + form.getId());
+		attribs.addToAttribute("method", form.getMethod());
+		attribs.addToAttribute("id", form.getId());
+		if (form.isHtml5Validate()) {
 			attribs.addToAttribute("novalidate", "");	
 		}
 		Tag startTag = new Tag("form", attribs);
 		return startTag.getStartHtml();
 	}
 	
-	public String getEnd(Model endModel) {
+	public String getEnd() {
 		Tag startTag = new Tag("form");
 		return startTag.getEndHtml();
 	}
