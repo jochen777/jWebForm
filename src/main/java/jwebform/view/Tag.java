@@ -4,6 +4,7 @@ package jwebform.view;
 public class Tag {
 	private String name;
 	private TagAttributes tagAttributes;
+	private String inner;
 	
 	public Tag(String name) {
 		this.name = name;
@@ -12,6 +13,11 @@ public class Tag {
 	public Tag(String name, TagAttributes tagAttributes) {
 		this(name);
 		this.tagAttributes = tagAttributes;
+	}
+
+	public Tag(String name, TagAttributes tagAttributes, String inner) {
+		this(name, tagAttributes);
+		this.inner = inner;
 	}
 
 
@@ -31,5 +37,9 @@ public class Tag {
 		return String.format("</%s>", name);
 	}
 	
+	public String getComplete() {
+		// RFE: automate closing tag, if empty inner
+		return getStartHtml() + inner + getEndHtml();
+	}
 	
 }

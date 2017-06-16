@@ -1,4 +1,4 @@
-package jwebform.element;
+package jwebform.element.structure;
 
 public interface TabIndexAwareElement extends Element {
 

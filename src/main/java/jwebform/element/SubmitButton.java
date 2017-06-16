@@ -1,5 +1,7 @@
 package jwebform.element;
 
+import jwebform.element.structure.TabIndexAwareElement;
+
 public class SubmitButton implements TabIndexAwareElement {
 
   String label = "Submit";

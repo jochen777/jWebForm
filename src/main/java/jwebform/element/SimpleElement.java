@@ -1,5 +1,7 @@
 package jwebform.element;
 
+import jwebform.element.structure.Element;
+
 public class SimpleElement implements Element{
 
 	@Override

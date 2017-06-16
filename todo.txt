@@ -1,14 +1,30 @@
  * - submit button (OK)
- * - simple input-element 
+ * - simple input-element
  * - validate elements
  * - preset elements
  * - elements should expose a model
  * - form-id (mehrere forms pro Seite!)
+ * - Formvalidator
  * - tabindex
  * - firstRun?
  * - xsrf
 * remove dependencies completly (pass a esacaper via function interface)
  * - maxLen (via request??)
- * - different themes: via: Each element has a hash of renderers. Hash has always "default", but can have more (bootstrap, mobile...)
+ * - different themes: via: Each element has a has of renderers. Hash has always "default", but can have more (bootstrap, mobile...)
  *   - you can add a set of renderers to a form to style differently
  * custom filters for request (max-len...)
+ * Idee: "Decoration" Klasse, um label, tabIndex, helptext aufzunehmen
+
+ 
+## Nüsse:
+
+* Wie kann man mit einer Zeile ein ganzes Theme ändern?
+* Wie bekommt man wrapper oder neuandordnungen hin?
+* Wie kann das Themening im Template aussehen?
+* Wie kann Captcha den Submit-Button ädnern?
+* Wie kann ein FormularRenderer die Anordnung der Inputs beeinflussen?
+* Tabindex
+* Wie kann man einen Fehler setzen? (z.B. ein FormularValidtorar... PW)
+
+
+ 

@@ -64,7 +64,7 @@ public class TagAttributes {
 	}
 
 	public String renderHtml() {
-		return this.buildAttributes();
+		return this.buildAttributes().trim();
 	}
 	
 	
