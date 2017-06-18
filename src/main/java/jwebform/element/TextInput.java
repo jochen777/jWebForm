@@ -2,6 +2,8 @@ package jwebform.element;
 
 import java.util.LinkedHashMap;
 
+import com.coverity.security.Escape;
+
 import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.element.structure.Validateable;
 import jwebform.view.Tag;
@@ -37,7 +39,7 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		attrs.put("tabindex", Integer.toString(tabIndex));
 		attrs.put("type", "text");
 		attrs.put("name", name);
-		attrs.put("value", value);
+		attrs.put("value", Escape.html(value));
 		TagAttributes inputTagAttr = new TagAttributes(attrs);
 		Tag inputTag = new Tag("input", inputTagAttr);
 		
