@@ -5,57 +5,67 @@ import java.util.List;
 
 import jwebform.element.structure.Element;
 import jwebform.element.structure.TabIndexAwareElement;
+import jwebform.element.structure.Validateable;
+import jwebform.env.Env;
 
 // Represents a form
 public class Form {
 
-  List<Element> elements = new ArrayList<>();
-  String id = "id";
+	List<Element> elements = new ArrayList<>();
+	String id = "id";
 
+	public FormResult run(Env env) {
+		// sort tab-indexes
+		sortTabIndexes();
 
-  public FormResult run(Env env) {
-    // sort tab-indexes
-    sortTabIndexes();
-    
-    // check first run. (?)
-    
-    // validate elements
-    
-    // validate form
-    return new FormResult(this);
-  }
+		// check first run. (?)
 
-  private void sortTabIndexes() {
-    int tabIndex = 0;
-    for (Element element : elements) {
-      if (element instanceof TabIndexAwareElement) {
-        tabIndex = ((TabIndexAwareElement) element).feedTabIndex(tabIndex);
-      }
-    }
-  }
+		// initialize and validate elements
+		runElements(env);
 
-  public void addElement(Element element) {
-    elements.add(element);
-  }
+		// validate form
+		return new FormResult(this);
+	}
 
-  List<Element> getElements() {
-    return elements;
-  }
+	private void runElements(Env env) {
+		for (Element element : elements) {
+			if (element instanceof Validateable) {
+				((Validateable) element).run(env.getRequest());
+			}
+		}
+	}
 
-  public String getId() {
-    return id;
-  }
+	private void sortTabIndexes() {
+		int tabIndex = 0;
+		for (Element element : elements) {
+			if (element instanceof TabIndexAwareElement) {
+				tabIndex = ((TabIndexAwareElement) element).feedTabIndex(tabIndex);
+			}
+		}
+	}
 
-  public void setId(String id) {
-    this.id = id;
-  }
+	public void addElement(Element element) {
+		elements.add(element);
+	}
 
-  public String getMethod() {
-    return "POST"; // TODO: Make this configurable
-  }
+	List<Element> getElements() {
+		return elements;
+	}
 
-  public boolean isHtml5Validate() {
-    return true; // TODO: Make this configurable
-  }
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getMethod() {
+		return "POST"; // TODO: Make this configurable
+	}
+
+	public boolean isHtml5Validate() {
+		return true; // TODO: Make this configurable
+	}
 
 }

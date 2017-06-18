@@ -6,6 +6,7 @@ import com.coverity.security.Escape;
 
 import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.element.structure.Validateable;
+import jwebform.env.Request;
 import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
@@ -43,7 +44,7 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		TagAttributes inputTagAttr = new TagAttributes(attrs);
 		Tag inputTag = new Tag("input", inputTagAttr);
 		
-		return labelTag.getComplete() + inputTag.getStartHtml();
+		return labelTag.getComplete() + inputTag.getStartHtml()+"\n";
 	}
 
 	@Override
@@ -59,6 +60,15 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 	public int feedTabIndex(int currentTabIndex) {
 		tabIndex = currentTabIndex;
 		return tabIndex;
+	}
+
+	@Override
+	public void run(Request request) {
+		if (request.getParameter(name) != null) {
+			this.value = request.getParameter(name);	
+		}
+		
+		
 	}
 	
 	

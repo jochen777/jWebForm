@@ -19,7 +19,7 @@ public class StartEndRenderer {
 			attribs.addToAttribute("novalidate", "");	
 		}
 		Tag startTag = new Tag("form", attribs);
-		return startTag.getStartHtml();
+		return startTag.getStartHtml()+"\n";
 	}
 	
 	public String getEnd() {
