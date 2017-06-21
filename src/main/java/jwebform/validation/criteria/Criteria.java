@@ -12,6 +12,10 @@ public class Criteria {
 	private static final ZipCode zipCode = new ZipCode();
 	private static final PostcodeCA postcodeCA = new PostcodeCA();
 
+	public static Criterion required() {
+		return new Required();
+	}
+
 	public static Criterion and(Criterion... criteria) {
 		return new And(criteria);
 	}

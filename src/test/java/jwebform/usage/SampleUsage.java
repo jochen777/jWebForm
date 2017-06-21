@@ -11,6 +11,8 @@ import jwebform.element.SimpleElement;
 import jwebform.element.SubmitButton;
 import jwebform.element.TextInput;
 import jwebform.env.Env;
+import jwebform.validation.Validator;
+import jwebform.validation.criteria.Criteria;
 
 public class SampleUsage {
 
@@ -24,8 +26,8 @@ public class SampleUsage {
 			assertEquals("<form name=\"FORMCHECKER_id\" method=\"POST\" "
 					+ "id=\"id\" novalidate>\nsimple\n"
 					+ "simple\n"
-					+ "<label for=\"form-id-textInput\">SampleTextInput:</label>"
-					+ "<input tabindex=\"0\" type=\"text\" name=\"textInput\" value=\"Peter&quot;Paul\">\n"
+					+ "<div class=\"form-group\"><label for=\"form-id-textInput\">SampleTextInput:</label>"
+					+ "<input tabindex=\"0\" type=\"text\" name=\"textInput\" value=\"Peter&quot;Paul\"></div>\n"
 					+ "<input tabindex=\"0\" type=\"submit\" value=\"Submit\"></form>", view.getHtml());
 		}
 	}
@@ -34,7 +36,7 @@ public class SampleUsage {
 		Form f = new Form();
 		f.addElement(new SimpleElement());
 		f.addElement(new SimpleElement());
-		f.addElement(new TextInput("textInput", "SampleTextInput", "Peter\"Paul", ""));
+		f.addElement(new TextInput("textInput", "SampleTextInput", "Peter\"Paul", "", new Validator(Criteria.required())));
 		f.addElement(new SubmitButton("Submit"));
 		return f;
 	}

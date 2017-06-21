@@ -6,3 +6,5 @@ Opensource-Tipps? (Maven-Central, Git-Repo struktur...)
 Git - Repo ohne "owner"?
 Api-Feedback: Gute Beispiele, gutes Buch?
 * Wie kann ich die vielen instanceof verhindern?
+* Logging ohne dependency?
+* soll sich das Element selbst zeichnen können - oder soll das lieber ein "Renderer" übernehmen?

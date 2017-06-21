@@ -1,11 +1,12 @@
 package jwebform.element.structure;
 
 import jwebform.env.Request;
+import jwebform.validation.ValidationResult;
 
 // this form-element can be validated
 public interface Validateable {
 
-	public void run(Request request);
+	public ValidationResult run(Request request);
 	
 	// TODO: getValidationResult()
 	

@@ -10,6 +10,12 @@ public class Tag {
 		this.name = name;
 	}
 
+	public Tag(String name, String attribName, String attribValue) {
+		this(name);
+		TagAttributes tagAttributes = new TagAttributes(attribName, attribValue);
+		this.tagAttributes = tagAttributes;
+	}
+	
 	public Tag(String name, TagAttributes tagAttributes) {
 		this(name);
 		this.tagAttributes = tagAttributes;

@@ -7,21 +7,15 @@ import com.coverity.security.Escape;
 import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.element.structure.Validateable;
 import jwebform.env.Request;
+import jwebform.validation.Criterion;
+import jwebform.validation.ValidationResult;
+import jwebform.validation.Validator;
 import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
 public class TextInput implements TabIndexAwareElement, Validateable {
 	
 	String name;
-
-	public TextInput(String name, String label, String value, String helptext) {
-		super();
-		this.name = name;
-		this.label = label;
-		this.value = value;
-		this.helptext = helptext;
-	}
-
 	// TBD: Does it make sense to introduce a Label class here?
 	String label;
 	
@@ -31,8 +25,30 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 	
 	int tabIndex=0;
 
+	Validator validator;
+	
+	private ValidationResult validationResult = null;
+	
+	public TextInput(String name, String label, String value, String helptext, Validator validator) {
+		this.name = name;
+		this.label = label;
+		this.value = value;
+		this.helptext = helptext;
+		this.validator = validator;
+		
+		
+	}
+
+
 	@Override
 	public String getHtml() {
+		Tag wrapper = new Tag("div", "class", "form-group");
+		if (validationResult != null && validationResult.isValid) {
+			wrapper.getTagAttributes().addToAttribute("class", " has-success");	
+		}
+		if (validationResult != null && !validationResult.isValid) {
+			wrapper.getTagAttributes().addToAttribute("class", " has-error");
+		}
 		TagAttributes labelTagAttr = new TagAttributes("for", "form-id-"+name);
 		Tag labelTag = new Tag("label", labelTagAttr, label+":");
 
@@ -44,7 +60,7 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		TagAttributes inputTagAttr = new TagAttributes(attrs);
 		Tag inputTag = new Tag("input", inputTagAttr);
 		
-		return labelTag.getComplete() + inputTag.getStartHtml()+"\n";
+		return wrapper.getStartHtml() + labelTag.getComplete() + inputTag.getStartHtml()+ wrapper.getEndHtml() +"\n";
 	}
 
 	@Override
@@ -63,11 +79,12 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 	}
 
 	@Override
-	public void run(Request request) {
+	public ValidationResult run(Request request) {
 		if (request.getParameter(name) != null) {
-			this.value = request.getParameter(name);	
+			this.value = request.getParameter(name);
+			validationResult = validator.validate(this);
 		}
-		
+		return validationResult;
 		
 	}
 	

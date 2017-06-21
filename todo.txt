@@ -1,5 +1,5 @@
  * - submit button (OK)
- * - simple input-element
+ * - simple input-element (OK)
  * - validate elements
  * - preset elements
  * - elements should expose a model
