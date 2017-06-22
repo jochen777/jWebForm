@@ -25,9 +25,9 @@ public class SampleUsage {
 	
 	@Test
 	public void normalUsageFirstRun() {
-		Form f = createForm();
 		Env env = new Env(it -> null);
-		FormResult result = f.run(env);
+		Form f = createForm(env);
+		FormResult result = f.run();
 		if (result.isOk()) {
 			View view = result.getView();
 			assertEquals(expectedFormStart + exectedSimpleElement
@@ -42,9 +42,9 @@ public class SampleUsage {
 
 	@Test
 	public void normalUsageSubmitSuccess() {
-		Form f = createForm();
 		Env env = new Env(it -> it);
-		FormResult result = f.run(env);
+		Form f = createForm(env);
+		FormResult result = f.run();
 		if (result.isOk()) {
 			View view = result.getView();
 			assertEquals(expectedFormStart + exectedSimpleElement
@@ -59,9 +59,9 @@ public class SampleUsage {
 	
 	@Test
 	public void normalUsageSubmitError() {
-		Form f = createForm();
 		Env env = new Env(it -> "");
-		FormResult result = f.run(env);
+		Form f = createForm(env);
+		FormResult result = f.run();
 		if (result.isOk()) {
 			View view = result.getView();
 			assertEquals(expectedFormStart + exectedSimpleElement
@@ -75,13 +75,13 @@ public class SampleUsage {
 	}
 	
 	
-	private Form createForm() {
+	private Form createForm(Env env) {
 		Form f = new Form();
 		f.addElement(new SimpleElement());
 		f.addElement(new SimpleElement());
-		TextInput textInput = new TextInput("textInput", "SampleTextInput", "Peter\"Paul", "", new Validator(Criteria.required()));
+		TextInput textInput = new TextInput("textInput", env.getRequest(), "SampleTextInput", "Peter\"Paul", "", new Validator(Criteria.required()));
 		f.addElement(textInput);
-		TextInput textInput2 = new TextInput("textInput2", "SampleTextInput", "Peter\"Paul", "", new Validator(Criteria.required()));
+		TextInput textInput2 = new TextInput("textInput2", env.getRequest(), "SampleTextInput", "Peter\"Paul", "", new Validator(Criteria.required()));
 		f.addElement(textInput2);
 		f.addElement(new SubmitButton("Submit"));
 		return f;

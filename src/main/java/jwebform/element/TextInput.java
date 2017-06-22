@@ -15,25 +15,25 @@ import jwebform.view.TagAttributes;
 
 public class TextInput implements TabIndexAwareElement, Validateable {
 	
-	String name;
+	private String name;
 	// TBD: Does it make sense to introduce a Label class here?
-	String label;
+	private String label;
 	
-	String value;
+	private String value;
 
-	String helptext;
+	private String helptext;
 	
-	Validator validator;
+	private Validator validator;
 	
 	private ValidationResult validationResult = null;
 	
-	public TextInput(String name, String label, String initialValue, String helptext, Validator validator) {
+	public TextInput(String name, Request request, String label, String initialValue, String helptext, Validator validator) {
 		this.name = name;
 		this.label = label;
 		this.value = initialValue;
 		this.helptext = helptext;
 		this.validator = validator;
-		
+		run(request);
 		
 	}
 
@@ -73,14 +73,16 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		return value;
 	}
 
-
-
-	@Override
-	public ValidationResult run(Request request) {
+	private void run(Request request) {
 		if (request.getParameter(name) != null) {
 			this.value = request.getParameter(name);
 			validationResult = validator.validate(this);
 		}
+	}
+
+
+	@Override
+	public ValidationResult getValidationResult() {
 		return validationResult;
 		
 	}

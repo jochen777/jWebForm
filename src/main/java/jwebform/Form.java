@@ -7,6 +7,7 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.element.structure.Validateable;
 import jwebform.env.Env;
+import jwebform.env.Request;
 
 // Represents a form
 public class Form {
@@ -14,23 +15,11 @@ public class Form {
 	List<Element> elements = new ArrayList<>();
 	String id = "id";
 
-	public FormResult run(Env env) {
-		// check first run. (?)
-
-		// initialize and validate elements
-		runElements(env);
-
+	public FormResult run() {
 		// validate form
 		return new FormResult(this);
 	}
 
-	private void runElements(Env env) {
-		for (Element element : elements) {
-			if (element instanceof Validateable) {
-				((Validateable) element).run(env.getRequest());
-			}
-		}
-	}
 
 	
 	public void addElement(Element element) {
@@ -56,5 +45,8 @@ public class Form {
 	public boolean isHtml5Validate() {
 		return true; // TODO: Make this configurable
 	}
+
+
+
 
 }
