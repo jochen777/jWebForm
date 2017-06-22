@@ -15,9 +15,6 @@ public class Form {
 	String id = "id";
 
 	public FormResult run(Env env) {
-		// sort tab-indexes
-		sortTabIndexes();
-
 		// check first run. (?)
 
 		// initialize and validate elements
@@ -35,15 +32,7 @@ public class Form {
 		}
 	}
 
-	private void sortTabIndexes() {
-		int tabIndex = 0;
-		for (Element element : elements) {
-			if (element instanceof TabIndexAwareElement) {
-				tabIndex = ((TabIndexAwareElement) element).feedTabIndex(tabIndex);
-			}
-		}
-	}
-
+	
 	public void addElement(Element element) {
 		elements.add(element);
 	}

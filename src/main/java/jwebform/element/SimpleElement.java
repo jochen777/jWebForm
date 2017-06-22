@@ -5,7 +5,7 @@ import jwebform.element.structure.Element;
 public class SimpleElement implements Element{
 
 	@Override
-	public String getHtml() {
+	public String getHtml(int tabIndex) {
 		return "simple\n";
 	}
 

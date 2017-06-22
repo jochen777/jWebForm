@@ -23,8 +23,6 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 
 	String helptext;
 	
-	int tabIndex=0;
-
 	Validator validator;
 	
 	private ValidationResult validationResult = null;
@@ -41,7 +39,7 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 
 
 	@Override
-	public String getHtml() {
+	public String getHtml(int tabIndex) {
 		String errorMessage = "";
 		Tag wrapper = new Tag("div", "class", "form-group");
 		if (validationResult != null && validationResult.isValid) {
@@ -75,11 +73,7 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		return value;
 	}
 
-	@Override
-	public int feedTabIndex(int currentTabIndex) {
-		tabIndex = currentTabIndex;
-		return tabIndex+1;
-	}
+
 
 	@Override
 	public ValidationResult run(Request request) {
@@ -89,6 +83,12 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		}
 		return validationResult;
 		
+	}
+
+
+	@Override
+	public int getTabIndexIncrement() {
+		return 1;
 	}
 	
 	

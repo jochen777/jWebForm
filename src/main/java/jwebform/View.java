@@ -1,5 +1,7 @@
 package jwebform;
 
+import jwebform.element.structure.Element;
+import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.view.StartEndRenderer;
 
 public class View {
@@ -15,7 +17,13 @@ public class View {
 		StartEndRenderer startEndRenderer = new StartEndRenderer(form);	// RFE: Remove new
 		StringBuilder html = new StringBuilder();
 		html.append(startEndRenderer.getStart());
-		form.getElements().forEach(element -> html.append(element.getHtml()));
+		int tabIndex = 0;
+		for (Element element : form.getElements()) {
+			html.append(element.getHtml(tabIndex));
+			if (element instanceof TabIndexAwareElement) {
+				tabIndex += ((TabIndexAwareElement) element).getTabIndexIncrement();
+			}
+		}
 		html.append(startEndRenderer.getEnd());
 		return html.toString();
 	}

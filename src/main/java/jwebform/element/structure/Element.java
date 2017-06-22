@@ -2,5 +2,5 @@ package jwebform.element.structure;
 
 public interface Element {
 
-	public String getHtml();
+	public String getHtml(int tabIndex);
 }
