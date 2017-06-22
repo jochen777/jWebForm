@@ -1,13 +1,15 @@
  * - submit button (OK)
  * - simple input-element (OK)
- * - validate elements
- * - preset elements
- * - elements should expose a model
+ * - validate elements (OK)
+ * - preset elements (OK)
+ * - elements should expose a model (OK)
  * - form-id (mehrere forms pro Seite!)
  * - Formvalidator
  * - tabindex
  * - firstRun?
  * - xsrf
+ * placeholder
+ * could Element be immutable or the others too?
 * remove dependencies completly (pass a esacaper via function interface)
  * - maxLen (via request??)
  * - different themes: via: Each element has a has of renderers. Hash has always "default", but can have more (bootstrap, mobile...)

@@ -20,7 +20,8 @@ public class SampleUsage {
 			+ "id=\"id\" novalidate>\n";
 	String exectedFormEnd = "</form>";
 	String exectedSimpleElement = "simple\n";
-	String exectedSubmitButton = "<input tabindex=\"0\" type=\"submit\" value=\"Submit\">";
+	String exectedSubmitButton = "<input tabindex=\"2\" type=\"submit\" value=\"Submit\">";
+	
 	
 	@Test
 	public void normalUsageFirstRun() {
@@ -33,6 +34,8 @@ public class SampleUsage {
 					+ exectedSimpleElement
 					+ "<div class=\"form-group\"><label for=\"form-id-textInput\">SampleTextInput:</label>"
 					+ "<input tabindex=\"0\" type=\"text\" name=\"textInput\" value=\"Peter&quot;Paul\"></div>\n"
+					+ "<div class=\"form-group\"><label for=\"form-id-textInput2\">SampleTextInput:</label>"
+					+ "<input tabindex=\"1\" type=\"text\" name=\"textInput2\" value=\"Peter&quot;Paul\"></div>\n"
 					+ exectedSubmitButton + exectedFormEnd, view.getHtml());
 		}
 	}
@@ -48,6 +51,8 @@ public class SampleUsage {
 					+ exectedSimpleElement
 					+ "<div class=\"form-group has-success\"><label for=\"form-id-textInput\">SampleTextInput:</label>"
 					+ "<input tabindex=\"0\" type=\"text\" name=\"textInput\" value=\"textInput\"></div>\n"
+					+ "<div class=\"form-group has-success\"><label for=\"form-id-textInput2\">SampleTextInput:</label>"
+					+ "<input tabindex=\"1\" type=\"text\" name=\"textInput2\" value=\"textInput2\"></div>\n"
 					+ exectedSubmitButton + exectedFormEnd, view.getHtml());
 		}
 	}
@@ -63,6 +68,8 @@ public class SampleUsage {
 					+ exectedSimpleElement
 					+ "<div class=\"form-group has-error\">Problem: jformchecker.required<br><label for=\"form-id-textInput\">SampleTextInput:</label>"
 					+ "<input tabindex=\"0\" type=\"text\" name=\"textInput\" value></div>\n"
+					+ "<div class=\"form-group has-error\">Problem: jformchecker.required<br><label for=\"form-id-textInput2\">SampleTextInput:</label>"
+					+ "<input tabindex=\"1\" type=\"text\" name=\"textInput2\" value></div>\n"
 					+ exectedSubmitButton + exectedFormEnd, view.getHtml());
 		}
 	}
@@ -74,6 +81,8 @@ public class SampleUsage {
 		f.addElement(new SimpleElement());
 		TextInput textInput = new TextInput("textInput", "SampleTextInput", "Peter\"Paul", "", new Validator(Criteria.required()));
 		f.addElement(textInput);
+		TextInput textInput2 = new TextInput("textInput2", "SampleTextInput", "Peter\"Paul", "", new Validator(Criteria.required()));
+		f.addElement(textInput2);
 		f.addElement(new SubmitButton("Submit"));
 		return f;
 	}

@@ -78,7 +78,7 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 	@Override
 	public int feedTabIndex(int currentTabIndex) {
 		tabIndex = currentTabIndex;
-		return tabIndex;
+		return tabIndex+1;
 	}
 
 	@Override
