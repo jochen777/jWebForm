@@ -29,10 +29,10 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 	
 	private ValidationResult validationResult = null;
 	
-	public TextInput(String name, String label, String value, String helptext, Validator validator) {
+	public TextInput(String name, String label, String initialValue, String helptext, Validator validator) {
 		this.name = name;
 		this.label = label;
-		this.value = value;
+		this.value = initialValue;
 		this.helptext = helptext;
 		this.validator = validator;
 		
@@ -42,12 +42,14 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 
 	@Override
 	public String getHtml() {
+		String errorMessage = "";
 		Tag wrapper = new Tag("div", "class", "form-group");
 		if (validationResult != null && validationResult.isValid) {
 			wrapper.getTagAttributes().addToAttribute("class", " has-success");	
 		}
 		if (validationResult != null && !validationResult.isValid) {
 			wrapper.getTagAttributes().addToAttribute("class", " has-error");
+			errorMessage = "Problem: " + validationResult.getMessage() + "<br>";
 		}
 		TagAttributes labelTagAttr = new TagAttributes("for", "form-id-"+name);
 		Tag labelTag = new Tag("label", labelTagAttr, label+":");
@@ -60,11 +62,12 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		TagAttributes inputTagAttr = new TagAttributes(attrs);
 		Tag inputTag = new Tag("input", inputTagAttr);
 		
-		return wrapper.getStartHtml() + labelTag.getComplete() + inputTag.getStartHtml()+ wrapper.getEndHtml() +"\n";
+		return wrapper.getStartHtml() +errorMessage+ labelTag.getComplete() + inputTag.getStartHtml()+ wrapper.getEndHtml() +"\n";
 	}
 
 	@Override
-	public void overwriteValidationResult() {
+	public void overwriteValidationResult(ValidationResult vr) {
+		this.validationResult = vr;
 	}
 
 	@Override

@@ -11,7 +11,7 @@ public interface Validateable {
 	// TODO: getValidationResult()
 	
 	// TODO: Must take arguemnt ValidationResult
-	public void overwriteValidationResult();
+	public void overwriteValidationResult(ValidationResult vr);
 	
 	// TODO: Do we really need this?
 	public String getValue();
