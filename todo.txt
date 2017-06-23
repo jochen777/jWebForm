@@ -3,8 +3,10 @@
  * - validate elements (OK)
  * - preset elements (OK)
  * - elements should expose a model (OK)
- * - form-id (mehrere forms pro Seite!)
+ *  check if complete form is valid
  * - Formvalidator
+ * - komplex input-form
+ * - form-id (mehrere forms pro Seite!)
  * - tabindex
  * - firstRun?
  * - xsrf

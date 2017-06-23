@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jwebform.element.structure.Element;
-import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.element.structure.Validateable;
-import jwebform.env.Env;
-import jwebform.env.Request;
+import jwebform.validation.ValidationResult;
 
 // Represents a form
 public class Form {
@@ -17,7 +15,21 @@ public class Form {
 
 	public FormResult run() {
 		// validate form
-		return new FormResult(this);
+		return new FormResult(this, checkIfValid());
+	}
+
+
+
+	private boolean checkIfValid() {
+		for (Element element : elements) {
+			if (element instanceof Validateable) {
+				ValidationResult vr = ((Validateable) element).getValidationResult();
+				if (vr == null || !vr.isValid) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 
@@ -45,8 +57,6 @@ public class Form {
 	public boolean isHtml5Validate() {
 		return true; // TODO: Make this configurable
 	}
-
-
 
 
 }
