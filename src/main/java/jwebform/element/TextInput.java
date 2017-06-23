@@ -7,7 +7,7 @@ import com.coverity.security.Escape;
 import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.element.structure.Validateable;
 import jwebform.env.Request;
-import jwebform.validation.Criterion;
+import jwebform.util.StringUtils;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
@@ -38,6 +38,12 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 
 
 	@Override
+	public String getValue() {
+		return value;
+	}
+
+
+	@Override
 	public String getHtml(int tabIndex) {
 		String errorMessage = "";
 		Tag wrapper = new Tag("div", "class", "form-group");
@@ -56,20 +62,40 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		attrs.put("type", "text");
 		attrs.put("name", name);
 		attrs.put("value", Escape.html(value));
+
+		String helpHTML = "";
+		if (!StringUtils.isEmpty(helptext)) {
+			TagAttributes helpAttributes = new TagAttributes();
+			helpAttributes.addToAttribute("id", "helpBlock-" + name);
+			helpAttributes.addToAttribute("class", "help-block");
+			Tag help = new Tag("span",helpAttributes, helptext);
+			helpHTML = help.getComplete();
+			attrs.put("aria-describedby", "helpBlock-" + name);
+		}
+
+		
 		TagAttributes inputTagAttr = new TagAttributes(attrs);
 		Tag inputTag = new Tag("input", inputTagAttr);
 		
-		return wrapper.getStartHtml() +errorMessage+ labelTag.getComplete() + inputTag.getStartHtml()+ wrapper.getEndHtml() +"\n";
+		return wrapper.getStartHtml() +errorMessage+ labelTag.getComplete() + inputTag.getStartHtml()+ helpHTML + wrapper.getEndHtml() +"\n";
 	}
+
+	@Override
+	public ValidationResult getValidationResult() {
+		return validationResult;
+		
+	}
+
+
+	@Override
+	public int getTabIndexIncrement() {
+		return 1;
+	}
+
 
 	@Override
 	public void overwriteValidationResult(ValidationResult vr) {
 		//this.validationResult = vr;
-	}
-
-	@Override
-	public String getValue() {
-		return value;
 	}
 
 	private String setupValue(Request request, String initialValue){
@@ -84,19 +110,6 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 			return validator.validate(this);
 		}
 		return null;
-	}
-
-
-	@Override
-	public ValidationResult getValidationResult() {
-		return validationResult;
-		
-	}
-
-
-	@Override
-	public int getTabIndexIncrement() {
-		return 1;
 	}
 	
 	
