@@ -48,10 +48,10 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 	public String getHtml(int tabIndex) {
 		String errorMessage = "";
 		Tag wrapper = new Tag("div", "class", "form-group");
-		if (validationResult != null && validationResult.isValid) {
+		if (validationResult != ValidationResult.undefined() && validationResult.isValid) {
 			wrapper.getTagAttributes().addToAttribute("class", " has-success");	
 		}
-		if (validationResult != null && !validationResult.isValid) {
+		if (validationResult != ValidationResult.undefined() && !validationResult.isValid) {
 			wrapper.getTagAttributes().addToAttribute("class", " has-error");
 			errorMessage = "Problem: " + validationResult.getMessage() + "<br>";
 		}
@@ -115,7 +115,7 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		if (request.getParameter(name) != null) {
 			return validator.validate(this);
 		}
-		return null;
+		return ValidationResult.undefined();
 	}
 	
 	

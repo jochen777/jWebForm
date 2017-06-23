@@ -12,7 +12,9 @@ public class ValidationResult {
 	
 	// caching:
 	private static ValidationResult okResult =  new ValidationResult(true, "", null, null);
-
+	private static ValidationResult undefinedResult =  new ValidationResult(false, "", null, null);
+	
+	
 	public boolean isValid() {
 		return isValid;
 	}
@@ -54,11 +56,14 @@ public class ValidationResult {
 	}
 	
 	public static ValidationResult ok() {
-		// RFE: Could return always the same object! will reduce memory
-		// footprint!
 		return okResult;
 	}
 
+	public static ValidationResult undefined() {
+		return undefinedResult;
+	}
+
+	
 	public String getTranslatedMessage() {
 		return translatedMessage;
 	}

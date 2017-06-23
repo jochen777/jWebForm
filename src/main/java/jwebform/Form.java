@@ -23,8 +23,7 @@ public class Form {
 	private boolean checkIfValid() {
 		for (Element element : elements) {
 			if (element instanceof Validateable) {
-				ValidationResult vr = ((Validateable) element).getValidationResult();
-				if (vr == null || !vr.isValid) {
+				if (!((Validateable) element).getValidationResult().isValid) {
 					return false;
 				}
 			}
