@@ -8,7 +8,7 @@
  * - tabindex
  * - firstRun?
  * - xsrf
- * placeholder
+ * placeholder (OK)
  * could Element be immutable or the others too?
 * remove dependencies completly (pass a esacaper via function interface)
  * - maxLen (via request??)

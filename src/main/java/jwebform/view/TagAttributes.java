@@ -4,6 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.coverity.security.Escape;
+
 // class that holds html tag-attributes
 // RFE: make it immutable
 public class TagAttributes {
@@ -81,7 +83,10 @@ public class TagAttributes {
 		if (StringUtils.isEmpty(value)) {
 			attrStr.append(key);
 		} else {
-			attrStr.append(key).append("=\"").append(value).append("\"");
+			// avoid quoting space:
+			String escapedValue = Escape.html(value);
+			escapedValue = escapedValue.replaceAll("&#x20;", " ");
+			attrStr.append(key).append("=\"").append(escapedValue).append("\"");
 		}
 		attrStr.append(" ");
 		return attrStr.toString();

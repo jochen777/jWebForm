@@ -2,14 +2,12 @@ package jwebform.element;
 
 import java.util.LinkedHashMap;
 
-import com.coverity.security.Escape;
-
 import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.element.structure.Validateable;
 import jwebform.env.Request;
-import jwebform.util.StringUtils;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
+import jwebform.view.StringUtils;
 import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
@@ -27,12 +25,15 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 	
 	final private ValidationResult validationResult;
 	
-	public TextInput(String name, Request request, String label, String initialValue, String helptext, Validator validator) {
+	final private String placeholder;
+	
+	public TextInput(String name, Request request, String label, String initialValue, String helptext, String placeholder, Validator validator) {
 		this.name = name;
 		this.label = label;
 		this.helptext = helptext;
 		this.validator = validator;
 		this.value = this.setupValue(request, initialValue);
+		this.placeholder = placeholder;
 		this.validationResult = this.validate(request);
 	}
 
@@ -61,7 +62,11 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		attrs.put("tabindex", Integer.toString(tabIndex));
 		attrs.put("type", "text");
 		attrs.put("name", name);
-		attrs.put("value", Escape.html(value));
+		attrs.put("value", value);
+		
+		if (!StringUtils.isEmpty(placeholder)) {
+			attrs.put("placeholder", placeholder);
+		}
 
 		String helpHTML = "";
 		if (!StringUtils.isEmpty(helptext)) {
@@ -73,6 +78,7 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 			attrs.put("aria-describedby", "helpBlock-" + name);
 		}
 
+		
 		
 		TagAttributes inputTagAttr = new TagAttributes(attrs);
 		Tag inputTag = new Tag("input", inputTagAttr);
