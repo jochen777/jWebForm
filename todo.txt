@@ -3,22 +3,20 @@
  * - validate elements (OK)
  * - preset elements (OK)
  * - elements should expose a model (OK)
- *  check if complete form is valid
- * - Formvalidator
- * - komplex input-form
- * - form-id (mehrere forms pro Seite!)
- * - tabindex
- * - firstRun?
- * - xsrf
+ *  check if complete form is valid (OK)
+ * - Formvalidator (OK)
+ * - tabindex(OK)
  * placeholder (OK)
+ * - komplex input-form
+ * - xsrf
+ * - firstRun? / * - form-id (mehrere forms pro Seite!. Entscheidung: edited=1 oder form-element-ids. (Symfony: form-element-ids - vielleicht diese optional machen - also nur einsetzen, wenn zwei Forms am start sind?)
  * could Element be immutable or the others too?
-* remove dependencies completly (pass a esacaper via function interface)
  * - maxLen (via request??)
- * - different themes: via: Each element has a has of renderers. Hash has always "default", but can have more (bootstrap, mobile...)
+ * - different themes: via: Each element has a hash of renderers. Hash has always "default", but can have more (bootstrap, mobile...)
  *   - you can add a set of renderers to a form to style differently
  * custom filters for request (max-len...)
  * Idee: "Decoration" Klasse, um label, tabIndex, helptext aufzunehmen
-
+* Idee: Render-Hints für Renderer
  
 ## Nüsse:
 
@@ -27,8 +25,8 @@
 * Wie kann das Themening im Template aussehen?
 * Wie kann Captcha den Submit-Button ädnern?
 * Wie kann ein FormularRenderer die Anordnung der Inputs beeinflussen?
-* Tabindex
-* Wie kann man einen Fehler setzen? (z.B. ein FormularValidtorar... PW)
+* Tabindex (OK)
+* Wie kann man einen Fehler setzen? (z.B. ein FormularValidtorar... PW) (OK)
 
 
  
