@@ -1,16 +1,21 @@
 package jwebform;
 
+import java.util.Map;
+
 import jwebform.element.structure.Element;
 import jwebform.element.structure.TabIndexAwareElement;
+import jwebform.validation.ValidationResult;
 import jwebform.view.StartEndRenderer;
 
 public class View {
 
 	Form form;
+	Map<Element, ValidationResult> overridenValidationResults;
 	
-	public View(Form form) {
+	public View(Form form, Map<Element, ValidationResult> overridenValidationResults) {
 		super();
 		this.form = form;
+		this.overridenValidationResults = overridenValidationResults;
 	}
 
 	public String getHtml() {
@@ -19,7 +24,8 @@ public class View {
 		html.append(startEndRenderer.getStart());
 		int tabIndex = 0;
 		for (Element element : form.getElements()) {
-			html.append(element.getHtml(tabIndex));
+			ValidationResult overridenValidationResult = overridenValidationResults.get(element);
+			html.append(element.getHtml(tabIndex, overridenValidationResult));
 			if (element instanceof TabIndexAwareElement) {
 				tabIndex += ((TabIndexAwareElement) element).getTabIndexIncrement();
 			}

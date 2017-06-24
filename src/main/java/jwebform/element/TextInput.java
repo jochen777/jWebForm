@@ -45,15 +45,19 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 
 
 	@Override
-	public String getHtml(int tabIndex) {
+	public String getHtml(int tabIndex, ValidationResult overrideValidationResult) {
+		ValidationResult validationResultToWorkWith = validationResult;
+		if (overrideValidationResult != null) {
+			validationResultToWorkWith = overrideValidationResult;
+		}
 		String errorMessage = "";
 		Tag wrapper = new Tag("div", "class", "form-group");
-		if (validationResult != ValidationResult.undefined() && validationResult.isValid) {
+		if (validationResultToWorkWith != ValidationResult.undefined() && validationResultToWorkWith.isValid) {
 			wrapper.getTagAttributes().addToAttribute("class", " has-success");	
 		}
-		if (validationResult != ValidationResult.undefined() && !validationResult.isValid) {
+		if (validationResultToWorkWith != ValidationResult.undefined() && !validationResultToWorkWith.isValid) {
 			wrapper.getTagAttributes().addToAttribute("class", " has-error");
-			errorMessage = "Problem: " + validationResult.getMessage() + "<br>";
+			errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
 		}
 		TagAttributes labelTagAttr = new TagAttributes("for", "form-id-"+name);
 		Tag labelTag = new Tag("label", labelTagAttr, label+":");
@@ -117,6 +121,8 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		}
 		return ValidationResult.undefined();
 	}
+
+
 	
 	
 	

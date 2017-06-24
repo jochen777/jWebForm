@@ -92,6 +92,9 @@ public class SampleUsage {
 		TextInput textInput2 = new TextInput("textInput2", env.getRequest(), "SampleTextInput", "Peter\"Paul", "Help-Text", placeholder,  new Validator(Criteria.required()));
 		f.addElement(textInput2);
 		f.addElement(new SubmitButton("Submit"));
+		
+		
+		
 		return f;
 	}
 }
