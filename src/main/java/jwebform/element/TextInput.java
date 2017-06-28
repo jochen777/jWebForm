@@ -103,11 +103,6 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 	}
 
 
-	@Override
-	public void overwriteValidationResult(ValidationResult vr) {
-		//this.validationResult = vr;
-	}
-
 	private String setupValue(Request request, String initialValue){
 		if (request.getParameter(name) != null) {
 			return request.getParameter(name);

@@ -8,6 +8,10 @@
  * - tabindex(OK)
  * placeholder (OK)
  * - komplex input-form
+  * set internal value
+  * validate date
+  * korrect validation-display for date
+ 
  * - xsrf
  * - firstRun? / * - form-id (mehrere forms pro Seite!. Entscheidung: edited=1 oder form-element-ids. (Symfony: form-element-ids - vielleicht diese optional machen - also nur einsetzen, wenn zwei Forms am start sind?)
  * could Element be immutable or the others too?

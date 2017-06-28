@@ -7,7 +7,6 @@ public interface Validateable {
 
 	public ValidationResult getValidationResult();
 	
-	public void overwriteValidationResult(ValidationResult vr);
 	
 	// TODO: Do we really need this?
 	public String getValue();

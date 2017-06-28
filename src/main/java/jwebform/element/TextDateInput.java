@@ -2,16 +2,13 @@ package jwebform.element;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
 
 import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.element.structure.Validateable;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
-import jwebform.view.StringUtils;
-import jwebform.view.Tag;
-import jwebform.view.TagAttributes;
+import jwebform.validation.criteria.Criteria;
 
 /**
  * Date-Input with simple text-fields
@@ -32,16 +29,27 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 	
 	final private ValidationResult validationResult;
 	
-	final private String placeholder;
 	
-	public TextDateInput(String name, Request request, String label, LocalDate initialValue, String helptext, String placeholder, Validator validator) {
+	final private TextInput day;
+	final private TextInput month;
+	final private TextInput year;
+	
+	public TextDateInput(String name, Request request, String label, LocalDate initialValue, String helptext, Validator validator) {
 		this.name = name;
 		this.label = label;
 		this.helptext = helptext;
 		this.validator = validator;
 		this.value = this.setupValue(request, initialValue);
-		this.placeholder = placeholder;
 		this.validationResult = this.validate(request);
+		Validator numberValidator = new Validator(Criteria.number());
+		
+		String presetDay = initialValue != null?String.valueOf(initialValue.getDayOfMonth()):"";
+		String presetMonth = initialValue != null?String.valueOf(initialValue.getMonthValue()):"";
+		String presetYear = initialValue != null?String.valueOf(initialValue.getYear()):"";
+		
+		this.day = new TextInput(name+"day", request, "Day", presetDay, "", "", numberValidator);
+		this.month = new TextInput(name+"month", request, "Month", presetMonth, "", "", numberValidator);
+		this.year = new TextInput(name+"year", request, "Year", presetYear, "", "", numberValidator);
 	}
 
 
@@ -57,43 +65,9 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 		if (overrideValidationResult != null) {
 			validationResultToWorkWith = overrideValidationResult;
 		}
-		String errorMessage = "";
-		Tag wrapper = new Tag("div", "class", "form-group");
-		if (validationResultToWorkWith != ValidationResult.undefined() && validationResultToWorkWith.isValid) {
-			wrapper.getTagAttributes().addToAttribute("class", " has-success");	
-		}
-		if (validationResultToWorkWith != ValidationResult.undefined() && !validationResultToWorkWith.isValid) {
-			wrapper.getTagAttributes().addToAttribute("class", " has-error");
-			errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
-		}
-		TagAttributes labelTagAttr = new TagAttributes("for", "form-id-"+name);
-		Tag labelTag = new Tag("label", labelTagAttr, label+":");
-
-		LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
-		attrs.put("tabindex", Integer.toString(tabIndex));
-		attrs.put("type", "text");
-		attrs.put("name", name);
-		
-		if (!StringUtils.isEmpty(placeholder)) {
-			attrs.put("placeholder", placeholder);
-		}
-
-		String helpHTML = "";
-		if (!StringUtils.isEmpty(helptext)) {
-			TagAttributes helpAttributes = new TagAttributes();
-			helpAttributes.addToAttribute("id", "helpBlock-" + name);
-			helpAttributes.addToAttribute("class", "help-block");
-			Tag help = new Tag("span",helpAttributes, helptext);
-			helpHTML = help.getComplete();
-			attrs.put("aria-describedby", "helpBlock-" + name);
-		}
-
-		
-		
-		TagAttributes inputTagAttr = new TagAttributes(attrs);
-		Tag inputTag = new Tag("input", inputTagAttr);
-		
-		return wrapper.getStartHtml() +errorMessage+ labelTag.getComplete() + inputTag.getStartHtml()+ helpHTML + wrapper.getEndHtml() +"\n";
+		return label + "<br/>" + day.getHtml(tabIndex, null) +
+				month.getHtml(tabIndex+1, null) +
+				year.getHtml(tabIndex+2, null) + "<br>" + helptext;
 	}
 
 	@Override
@@ -105,14 +79,9 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 
 	@Override
 	public int getTabIndexIncrement() {
-		return 1;
+		return 3;
 	}
 
-
-	@Override
-	public void overwriteValidationResult(ValidationResult vr) {
-		//this.validationResult = vr;
-	}
 
 	private LocalDate setupValue(Request request, LocalDate initialValue){
 		String day;
