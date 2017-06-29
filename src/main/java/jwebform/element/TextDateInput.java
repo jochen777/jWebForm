@@ -1,5 +1,6 @@
 package jwebform.element;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -9,6 +10,7 @@ import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
+import jwebform.view.StringUtils;
 
 /**
  * Date-Input with simple text-fields
@@ -39,17 +41,36 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 		this.label = label;
 		this.helptext = helptext;
 		this.validator = validator;
-		this.value = this.setupValue(request, initialValue);
-		this.validationResult = this.validate(request);
+		
+		// RFE: Better use the values from this.day, this.month, this.year and do the calculation with that!!
+		boolean allEmpty = checkEmptys(this.name, request);
+		ValidationResult tempValidationResult;
+		LocalDate tempDate;
+		try {
+			tempDate = this.setupValue(request, initialValue, allEmpty);
+			tempValidationResult = ValidationResult.ok();
+		} catch (DateTimeException | NumberFormatException e) {
+			tempValidationResult = ValidationResult.fail("jformchecker.wrong_date_format");
+			tempDate = initialValue;
+		}
+		this.value = tempDate;
+		this.validationResult = tempValidationResult;
 		Validator numberValidator = new Validator(Criteria.number());
 		
 		String presetDay = initialValue != null?String.valueOf(initialValue.getDayOfMonth()):"";
 		String presetMonth = initialValue != null?String.valueOf(initialValue.getMonthValue()):"";
 		String presetYear = initialValue != null?String.valueOf(initialValue.getYear()):"";
 		
-		this.day = new TextInput(name+"day", request, "Day", presetDay, "", "", numberValidator);
-		this.month = new TextInput(name+"month", request, "Month", presetMonth, "", "", numberValidator);
-		this.year = new TextInput(name+"year", request, "Year", presetYear, "", "", numberValidator);
+		this.day = new TextInput(name+"_day", request, "Day", presetDay, "", "", numberValidator);
+		this.month = new TextInput(name+"_month", request, "Month", presetMonth, "", "", numberValidator);
+		this.year = new TextInput(name+"_year", request, "Year", presetYear, "", "", numberValidator);
+	}
+
+
+	private boolean checkEmptys(String name, Request request) {
+		return (request.getParameter(name+"_day") == null &&
+				request.getParameter(name+"_month") == null && 
+				request.getParameter(name+"_year") == null);
 	}
 
 
@@ -65,7 +86,12 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 		if (overrideValidationResult != null) {
 			validationResultToWorkWith = overrideValidationResult;
 		}
-		return label + "<br/>" + day.getHtml(tabIndex, null) +
+		String errorMessage = "";
+		if (validationResultToWorkWith != ValidationResult.undefined() && !validationResultToWorkWith.isValid) {
+			errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
+		}
+
+		return label + "<br/>" + errorMessage + day.getHtml(tabIndex, null) +
 				month.getHtml(tabIndex+1, null) +
 				year.getHtml(tabIndex+2, null) + "<br>" + helptext;
 	}
@@ -83,23 +109,21 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 	}
 
 
-	private LocalDate setupValue(Request request, LocalDate initialValue){
-		String day;
-		if (request.getParameter(name+"_DAY") != null) {
-			day = request.getParameter(name+"_DAY");
+	// May throw execption!!
+	private LocalDate setupValue(Request request, LocalDate initialValue, boolean allEmpty){
+		if (allEmpty) {
+			return initialValue;
 		}
-		return initialValue;
-	}
-	
-	private ValidationResult validate(Request request) {
-		if (request.getParameter(name) != null) {
-			return validator.validate(this);
-		}
-		return ValidationResult.undefined();
+		int day = getDefaultValueFromRequest(request, "_day");
+		int month = getDefaultValueFromRequest(request, "_month");
+		int year = getDefaultValueFromRequest(request, "_year");
+		return LocalDate.of(year, month, day);
 	}
 
 
-	
+	private int getDefaultValueFromRequest(Request request, String addition) {
+		return Integer.parseInt(request.getParameter(name+addition));
+	}
 	
 	
 }
