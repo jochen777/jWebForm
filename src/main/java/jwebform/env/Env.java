@@ -20,5 +20,13 @@ public class Env {
 	public Request getRequest() {
 		return request;
 	}
+
+	public SessionGet getSessionGet() {
+		return sessionGet;
+	}
+
+	public SessionSet getSessionSet() {
+		return sessionSet;
+	}
 	
 }
