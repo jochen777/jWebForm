@@ -2,6 +2,9 @@ package jwebform.view;
 
 /**
  * Some basic string utils to avoid dependance to commons
+ * 
+ * RFE: Make this public private!
+ * 
  * @author jochen
  *
  */
