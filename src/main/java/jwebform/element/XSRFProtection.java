@@ -24,6 +24,7 @@ public class XSRFProtection implements Validateable, Element{
 	public XSRFProtection(Env env) {
 		
 		// TODO: Add proper Errors, if env is "session-empty"!
+		// TODO: What happens, if session runs out and user want's a new code?
 		
 		// is firstrun - then generate a complete new token
 		StringBuilder tags = new StringBuilder();
