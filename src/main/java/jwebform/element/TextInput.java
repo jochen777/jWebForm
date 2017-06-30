@@ -46,10 +46,8 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 
 	@Override
 	public String getHtml(int tabIndex, ValidationResult overrideValidationResult) {
-		ValidationResult validationResultToWorkWith = validationResult;
-		if (overrideValidationResult != null) {
-			validationResultToWorkWith = overrideValidationResult;
-		}
+		ValidationResult validationResultToWorkWith = overrideValidationResult==null?validationResult:overrideValidationResult;
+		
 		String errorMessage = "";
 		Tag wrapper = new Tag("div", "class", "form-group");
 		if (validationResultToWorkWith != ValidationResult.undefined() && validationResultToWorkWith.isValid) {

@@ -10,7 +10,6 @@ import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
-import jwebform.view.StringUtils;
 
 /**
  * Date-Input with simple text-fields
@@ -82,10 +81,7 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 
 	@Override
 	public String getHtml(int tabIndex, ValidationResult overrideValidationResult) {
-		ValidationResult validationResultToWorkWith = validationResult;
-		if (overrideValidationResult != null) {
-			validationResultToWorkWith = overrideValidationResult;
-		}
+		ValidationResult validationResultToWorkWith = overrideValidationResult==null?validationResult:overrideValidationResult;
 		String errorMessage = "";
 		if (validationResultToWorkWith != ValidationResult.undefined() && !validationResultToWorkWith.isValid) {
 			errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
