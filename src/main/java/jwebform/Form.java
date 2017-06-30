@@ -19,6 +19,8 @@ public class Form {
 	// RFE: This could be the only store for elements. we don't need the list.
 	private Map<Element, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
 
+	protected String method = "POST";
+	
 	public FormResult run() {
 		// validate form
 		return new FormResult(this, checkIfValid(), overridenValidationResults);
@@ -73,7 +75,7 @@ public class Form {
 	}
 
 	public String getMethod() {
-		return "POST"; // TODO: Make this configurable
+		return method;
 	}
 
 	public boolean isHtml5Validate() {
