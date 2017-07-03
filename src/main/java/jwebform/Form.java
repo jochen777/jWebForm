@@ -7,28 +7,34 @@ import java.util.Map;
 
 import jwebform.element.structure.Element;
 import jwebform.element.structure.Validateable;
+import jwebform.validation.FormValidationResult;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 
 // Represents a form
 public class Form {
 
-	List<Element> elements = new ArrayList<>();
-	String id = "id";
-	List<FormValidator> formValidators = new ArrayList<>();
-	// RFE: This could be the only store for elements. we don't need the list.
-	private Map<Element, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
+	final List<Element> elements = new ArrayList<>();
+	final String id;
+	final List<FormValidator> formValidators = new ArrayList<>();
 
 	protected String method = "POST";
 	
+	public Form(String id, List<Element> elements, List<FormValidator> formValidators) {
+		this.elements.addAll(elements);
+		this.id = id;
+		this.formValidators.addAll(formValidators);
+	}
+	
+	
 	public FormResult run() {
 		// validate form
-		return new FormResult(this, checkIfValid(), overridenValidationResults);
+		return new FormResult(this, checkIfValid());
 	}
 
 
 
-	private boolean checkIfValid() {
+	private FormValidationResult checkIfValid() {
 		// check each element
 		boolean completeResult = true;
 		for (Element element : elements) {
@@ -40,38 +46,25 @@ public class Form {
 			}
 		}
 		// run the form-validators
+		Map<Element, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
+
 		for (FormValidator formValidator : formValidators) {
-			completeResult = formValidator.validate(this)?completeResult:false;
+			overridenValidationResults.putAll(formValidator.validate(elements));
 		}
 		
-		return completeResult;
+		FormValidationResult formValidationResult = new FormValidationResult(completeResult, overridenValidationResults);
+		return formValidationResult;
 	}
 
 
 	
-	public void addElement(Element element) {
-		elements.add(element);
-	}
-	
-	public void overrideValidationResult(Element element, ValidationResult validationResult) {
-		overridenValidationResults.put(element, validationResult);
-	}
-
 	List<Element> getElements() {
 		return elements;
 	}
 
 	
-	public void addFormValidator(FormValidator formValidator) {
-		formValidators.add(formValidator);
-	}
-	
 	public String getId() {
 		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getMethod() {

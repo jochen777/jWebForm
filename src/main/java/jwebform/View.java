@@ -9,11 +9,10 @@ import jwebform.view.StartEndRenderer;
 
 public class View {
 
-	Form form;
-	Map<Element, ValidationResult> overridenValidationResults;
+	private final Form form;
+	private final Map<Element, ValidationResult> overridenValidationResults;
 	
 	public View(Form form, Map<Element, ValidationResult> overridenValidationResults) {
-		super();
 		this.form = form;
 		this.overridenValidationResults = overridenValidationResults;
 	}

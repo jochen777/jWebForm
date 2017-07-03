@@ -10,6 +10,7 @@ import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
+import jwebform.view.StringUtils;
 
 /**
  * Date-Input with simple text-fields
@@ -35,18 +36,24 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 	final private TextInput month;
 	final private TextInput year;
 	
-	public TextDateInput(String name, Request request, String label, LocalDate initialValue, String helptext, Validator validator) {
+	
+	public TextDateInput(String formId, String name, Request request, String label, LocalDate initialValue, String helptext, Validator validator) {
 		this.name = name;
 		this.label = label;
 		this.helptext = helptext;
 		this.validator = validator;
 		
-		// RFE: Better use the values from this.day, this.month, this.year and do the calculation with that!!
-		boolean allEmpty = checkEmptys(this.name, request);
+		Validator numberValidator = new Validator(Criteria.number());
+
+		this.day = new TextInput(formId, name+"_day", request, "Day", String.valueOf(initialValue.getDayOfMonth()),
+				"", "", numberValidator);
+		this.month = new TextInput(formId, name+"_month", request, "Month", String.valueOf(initialValue.getMonthValue()), "", "", numberValidator);
+		this.year = new TextInput(formId, name+"_year", request, "Year", String.valueOf(initialValue.getYear()), "", "", numberValidator);
+
 		ValidationResult tempValidationResult;
 		LocalDate tempDate;
 		try {
-			tempDate = this.setupValue(request, initialValue, allEmpty);
+			tempDate = this.setupValue(initialValue);
 			tempValidationResult = ValidationResult.ok();
 		} catch (DateTimeException | NumberFormatException e) {
 			tempValidationResult = ValidationResult.fail("jformchecker.wrong_date_format");
@@ -54,22 +61,15 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 		}
 		this.value = tempDate;
 		this.validationResult = tempValidationResult;
-		Validator numberValidator = new Validator(Criteria.number());
 		
-		String presetDay = initialValue != null?String.valueOf(initialValue.getDayOfMonth()):"";
-		String presetMonth = initialValue != null?String.valueOf(initialValue.getMonthValue()):"";
-		String presetYear = initialValue != null?String.valueOf(initialValue.getYear()):"";
 		
-		this.day = new TextInput(name+"_day", request, "Day", presetDay, "", "", numberValidator);
-		this.month = new TextInput(name+"_month", request, "Month", presetMonth, "", "", numberValidator);
-		this.year = new TextInput(name+"_year", request, "Year", presetYear, "", "", numberValidator);
 	}
 
 
-	private boolean checkEmptys(String name, Request request) {
-		return (request.getParameter(name+"_day") == null &&
-				request.getParameter(name+"_month") == null && 
-				request.getParameter(name+"_year") == null);
+	private boolean checkAllEmpty() {
+		return (StringUtils.isEmpty(this.day.getValue())  &&
+				StringUtils.isEmpty(this.month.getValue()) && 
+				StringUtils.isEmpty(this.year.getValue()));
 	}
 
 
@@ -78,6 +78,9 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 		return value.format(DateTimeFormatter.ISO_DATE);
 	}
 
+	public LocalDate getDateValue() {
+		return value;
+	}
 
 	@Override
 	public String getHtml(int tabIndex, ValidationResult overrideValidationResult) {
@@ -106,19 +109,19 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 
 
 	// May throw execption!!
-	private LocalDate setupValue(Request request, LocalDate initialValue, boolean allEmpty){
-		if (allEmpty) {
+	private LocalDate setupValue(LocalDate initialValue){
+		if (checkAllEmpty()) {
 			return initialValue;
 		}
-		int day = getDefaultValueFromRequest(request, "_day");
-		int month = getDefaultValueFromRequest(request, "_month");
-		int year = getDefaultValueFromRequest(request, "_year");
+		int day = getDefaultValueFromRequest(this.day);
+		int month = getDefaultValueFromRequest(this.month);
+		int year = getDefaultValueFromRequest(this.year);
 		return LocalDate.of(year, month, day);
 	}
 
 
-	private int getDefaultValueFromRequest(Request request, String addition) {
-		return Integer.parseInt(request.getParameter(name+addition));
+	private int getDefaultValueFromRequest(TextInput input) {
+		return Integer.parseInt(input.getValue());
 	}
 	
 	

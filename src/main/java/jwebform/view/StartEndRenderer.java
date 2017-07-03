@@ -4,7 +4,7 @@ import jwebform.Form;
 
 public class StartEndRenderer {
 	
-	Form form;
+	private final Form form;
 	
 	public StartEndRenderer(Form form){
 		this.form = form;
@@ -12,7 +12,7 @@ public class StartEndRenderer {
 	
 	public String getStart() {
 		TagAttributes attribs = new TagAttributes();
-		attribs.addToAttribute("name", "FORMCHECKER_" + form.getId());
+		attribs.addToAttribute("name", form.getId() + "-FORMCHECKER");
 		attribs.addToAttribute("method", form.getMethod());
 		attribs.addToAttribute("id", form.getId());
 		if (form.isHtml5Validate()) {

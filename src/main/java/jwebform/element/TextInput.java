@@ -27,11 +27,14 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 	
 	final private String placeholder;
 	
-	public TextInput(String name, Request request, String label, String initialValue, String helptext, String placeholder, Validator validator) {
+	final private String formId;
+	
+	public TextInput(String formId, String name, Request request, String label, String initialValue, String helptext, String placeholder, Validator validator) {
 		this.name = name;
 		this.label = label;
 		this.helptext = helptext;
 		this.validator = validator;
+		this.formId = formId+"-";
 		this.value = this.setupValue(request, initialValue);
 		this.placeholder = placeholder;
 		this.validationResult = this.validate(request);
@@ -57,13 +60,13 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 			wrapper.getTagAttributes().addToAttribute("class", " has-error");
 			errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
 		}
-		TagAttributes labelTagAttr = new TagAttributes("for", "form-id-"+name);
+		TagAttributes labelTagAttr = new TagAttributes("for", formId+name);
 		Tag labelTag = new Tag("label", labelTagAttr, label+":");
 
 		LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
 		attrs.put("tabindex", Integer.toString(tabIndex));
 		attrs.put("type", "text");
-		attrs.put("name", name);
+		attrs.put("name", formId + name);
 		attrs.put("value", value);
 		
 		if (!StringUtils.isEmpty(placeholder)) {
@@ -102,14 +105,14 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 
 
 	private String setupValue(Request request, String initialValue){
-		if (request.getParameter(name) != null) {
-			return request.getParameter(name);
+		if (request.getParameter(formId + name) != null) {
+			return request.getParameter(formId+name);
 		}
 		return initialValue;
 	}
 	
 	private ValidationResult validate(Request request) {
-		if (request.getParameter(name) != null) {
+		if (request.getParameter(formId+name) != null) {
 			return validator.validate(this);
 		}
 		return ValidationResult.undefined();

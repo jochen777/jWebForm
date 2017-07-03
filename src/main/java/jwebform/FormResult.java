@@ -1,28 +1,23 @@
 package jwebform;
 
-import java.util.Map;
-
-import jwebform.element.structure.Element;
-import jwebform.validation.ValidationResult;
+import jwebform.validation.FormValidationResult;
 
 public class FormResult {
 
-	private Form form;
-	private boolean valid;
-	Map<Element, ValidationResult> overridenValidationResults;
+	private final Form form;
+	private final FormValidationResult formValidationResult;
 	
-	public FormResult(Form form, boolean valid,  Map<Element, ValidationResult> overridenValidationResults) {
+	public FormResult(Form form, FormValidationResult formValidationResult) {
 		this.form = form;
-		this.valid = valid;
-		this.overridenValidationResults = overridenValidationResults;
+		this.formValidationResult = formValidationResult;
 	}
 	 
 	public boolean isOk() {
-		return valid;
+		return formValidationResult.isFormIsValid();
 	}
 
 	public View getView() {
-		return new View(form, overridenValidationResults);
+		return new View(form, formValidationResult.getOverridenValidationResults());
 	}
 
 }
