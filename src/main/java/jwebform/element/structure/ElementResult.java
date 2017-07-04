@@ -7,15 +7,20 @@ public class ElementResult {
 
 	private final String html;
 	private final ValidationResult validationResult;		// or just boolean "valid"?
-	private final String value;
+	private final String value;	// Better Object??
 	private final String name;	// Element name
 	
 	public ElementResult(String name, String html) {
+		this(name, html, ValidationResult.undefined(), "");
+	}
+	
+	public ElementResult(String name, String html, ValidationResult vr, String value) {
 		this.name = name;
 		this.html = html;
-		this.validationResult = ValidationResult.undefined();
-		this.value = "";
+		this.validationResult = vr;
+		this.value = value;
 	}
+	
 
 	public String getHtml() {
 		return html;
