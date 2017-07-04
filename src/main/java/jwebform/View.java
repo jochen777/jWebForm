@@ -23,7 +23,7 @@ public class View {
 		StartEndRenderer startEndRenderer = new StartEndRenderer(form);	// RFE: Remove new
 		StringBuilder html = new StringBuilder();
 		html.append(startEndRenderer.getStart());
-		int tabIndex = 0;
+		int tabIndex = 1;
 		for (Element element : form.getElements()) {
 			ValidationResult overridenValidationResult = overridenValidationResults.get(element);
 			RenderInfos renderInfos = new RenderInfos(form.id, tabIndex, null, ValidationResult.undefined());

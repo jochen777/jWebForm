@@ -91,12 +91,16 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 		if (validationResultToWorkWith != ValidationResult.undefined() && !validationResultToWorkWith.isValid) {
 			errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
 		}
-		
+		ElementResult dayResult = day.getHtml(renderInfos);
+		RenderInfos monthRenderInfos = renderInfos.cloneWithNewTabIndexIncrease(day.getTabIndexIncrement());
+		ElementResult monthResult = month.getHtml(monthRenderInfos);
+		RenderInfos yearRenderInfos = monthRenderInfos.cloneWithNewTabIndexIncrease(month.getTabIndexIncrement());
+		ElementResult yearResult = year.getHtml(yearRenderInfos);
 		ElementResult result = new ElementResult(name, label + "<br/>" 
-//				+ 
-//				errorMessage + day.getHtml(tabIndex, null) +
-//				month.getHtml(tabIndex+1, null) +
-//				year.getHtml(tabIndex+2, null) + "<br>" + helptext
+				+ 
+				errorMessage + dayResult.getHtml() +
+				monthResult.getHtml() +
+				yearResult.getHtml() + "<br>" + helptext
 				
 				);
 		return result;

@@ -17,6 +17,10 @@ public class RenderInfos {
 		this.overrideValidationResult = overrideValidationResult;
 		this.env = env;
 	}
+	
+	public RenderInfos cloneWithNewTabIndexIncrease(int tabIndexIncrease) {
+		return new RenderInfos(formId, tabIndex + tabIndexIncrease, env, overrideValidationResult);
+	}
 
 	public String getFormId() {
 		return formId;
