@@ -21,8 +21,7 @@ public class Validator  {
 		}
 	}
 
-	public ValidationResult validate(Validateable elem) {
-		String value = elem.getValue();
+	public ValidationResult validate(Validateable elem, String value) {	// RFE: Better just object??
 		ValidationResult vr = ValidationResult.ok();
 		if (value != null) {
 			vr = allCriteriaSatisfied(elem);

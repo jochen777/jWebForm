@@ -115,7 +115,7 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 	
 	private ValidationResult validate(Request request) {
 		if (request.getParameter(formId+name) != null) {
-			return validator.validate(this);
+			return validator.validate(this, getValue());
 		}
 		return ValidationResult.undefined();
 	}
