@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import jwebform.element.structure.Element;
+import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.Validateable;
+import jwebform.env.Env;
 import jwebform.validation.FormValidationResult;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -27,16 +30,27 @@ public class Form {
 	}
 	
 	
-	public FormResult run() {
+	public FormResult run(Env env) {
 		// validate form
-		return new FormResult(this, checkIfValid());
+		return new FormResult(this, checkIfValid(env));
 	}
 
 
 
-	private FormValidationResult checkIfValid() {
+	private FormValidationResult checkIfValid(Env env) {
 		// check each element
 		boolean completeResult = true;
+		int tabIndex = 1;
+		/*
+		for (Element element : elements) {
+			RenderInfos renderInfos = new RenderInfos(id, tabIndex, env, ValidationResult.undefined());
+			ElementResult result = element.getHtml(renderInfos);
+			if (!result.getValidationResult().isValid) {
+				completeResult = false;
+				break;
+			}
+		}
+		*/
 		for (Element element : elements) {
 			if (element instanceof Validateable) {
 				if (!((Validateable) element).getValidationResult().isValid) {

@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -18,6 +20,8 @@ import jwebform.element.TextInput;
 import jwebform.element.XSRFProtection;
 import jwebform.element.structure.Element;
 import jwebform.env.Env;
+import jwebform.validation.FormValidator;
+import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
 
@@ -30,7 +34,7 @@ public class SampleUsage {
 				(k,v) -> {}
 				); 
 		Form f = createForm(env);
-		FormResult result = f.run();
+		FormResult result = f.run(env);
 
 		InputStream in = this.getClass().getClassLoader()
 				.getResourceAsStream("test/expectedHTMLExampleForm_firstrun.html");
@@ -45,7 +49,7 @@ public class SampleUsage {
 				(k,v) -> {}
 				); 
 		Form f = createForm(env);
-		FormResult result = f.run();
+		FormResult result = f.run(env);
 
 		InputStream in = this.getClass().getClassLoader()
 				.getResourceAsStream("test/expectedHTMLExampleForm_submitted.html");
@@ -60,7 +64,7 @@ public class SampleUsage {
 				(k,v) -> {}
 				); 
 		Form f = createForm(env);
-		FormResult result = f.run();
+		FormResult result = f.run(env);
 
 		InputStream in = this.getClass().getClassLoader()
 				.getResourceAsStream("test/expectedHTMLExampleForm_error.html");
@@ -69,6 +73,7 @@ public class SampleUsage {
 	}
 
 	private Form createForm(Env env) {
+		// TODO: Add Custom FormValidator
 		String formId = "fid";
 		List<Element> elements = new ArrayList<>();
 		XSRFProtection protection = new XSRFProtection(env, true);	// no random values, so we can expect constant html
@@ -87,7 +92,16 @@ public class SampleUsage {
 		elements.add(textInput2);
 		elements.add(new SubmitButton("Submit"));
 
-		Form f = new Form(formId, elements, new ArrayList<>());
+		List<FormValidator> formValidators = new ArrayList<>();
+		formValidators.add(it -> {
+			final Map<Element, ValidationResult> overridenValidationResults = new HashMap<>();
+			if (textInput.getValue().length() > 3) {
+				overridenValidationResults.put(textInput, ValidationResult.fail("not_ok"));
+			}
+			return overridenValidationResults;
+			});
+		
+		Form f = new Form(formId, elements, formValidators);
 
 		return f;
 	}
