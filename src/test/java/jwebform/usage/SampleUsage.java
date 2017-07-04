@@ -2,6 +2,8 @@ package jwebform.usage;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +11,11 @@ import org.junit.Test;
 
 import jwebform.Form;
 import jwebform.FormResult;
-import jwebform.View;
 import jwebform.element.SimpleElement;
 import jwebform.element.SubmitButton;
+import jwebform.element.TextDateInput;
 import jwebform.element.TextInput;
+import jwebform.element.XSRFProtection;
 import jwebform.element.structure.Element;
 import jwebform.env.Env;
 import jwebform.validation.Validator;
@@ -20,113 +23,78 @@ import jwebform.validation.criteria.Criteria;
 
 public class SampleUsage {
 
-  String fid = "id";
-  String expectedFormStart =
-      "<form name=\""+fid+"-FORMCHECKER\" method=\"POST\" " + "id=\""+fid+"\" novalidate>\n";
-  String exectedFormEnd = "</form>";
-  String exectedSimpleElement = "simple\n";
-  String exectedSubmitButton = "<input tabindex=\"2\" type=\"submit\" value=\"Submit\">";
-  String expectedHelpForTextInput =
-      "<span id=\"helpBlock-textInput2\" class=\"help-block\">Help-Text</span>";
-  String placeholder = "thisplaceholder";
+	@Test
+	public void testnormalUsageFirstRun() {
+		Env env = new Env(it -> null, // this simulates the first run (all values null)
+				t -> t,
+				(k,v) -> {}
+				); 
+		Form f = createForm(env);
+		FormResult result = f.run();
 
+		InputStream in = this.getClass().getClassLoader()
+				.getResourceAsStream("test/expectedHTMLExampleForm_firstrun.html");
+		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
 
+	}
 
-  @Test
-  public void normalUsageFirstRun() {
-    Env env = new Env(it -> null);
-    Form f = createForm(env);
-    FormResult result = f.run();
-    if (result.isOk()) {
-      View view = result.getView();
-      assertEquals(
-          expectedFormStart + exectedSimpleElement + exectedSimpleElement
-              + wrapFormGroupNeutral("<label for=\""+fid+"-textInput\">SampleTextInput:</label>"
-                  + "<input tabindex=\"0\" type=\"text\" name=\"fid-textInput\" value=\"Peter&quot;Paul\">")
-              + wrapFormGroupNeutral("<label for=\""+fid+"-textInput2\">SampleTextInput:</label>"
-                  + "<input tabindex=\"1\" type=\"text\" name=\""+fid+"-textInput2\" value=\"Peter&quot;Paul\" placeholder=\""
-                  + placeholder + "\" aria-describedby=\"helpBlock-textInput2\">"
-                  + expectedHelpForTextInput)
-              + exectedSubmitButton + exectedFormEnd,
-          view.getHtml());
-    }
-  }
+	@Test
+	public void testnormalUsageSubmitSuccess() {
+		Env env = new Env(it -> it, // this simulates the input of the names
+				t -> t,
+				(k,v) -> {}
+				); 
+		Form f = createForm(env);
+		FormResult result = f.run();
 
- 
+		InputStream in = this.getClass().getClassLoader()
+				.getResourceAsStream("test/expectedHTMLExampleForm_submitted.html");
+		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
 
-  @Test
-  public void normalUsageSubmitSuccess() {
-    Env env = new Env(it -> it);
-    Form f = createForm(env);
-    FormResult result = f.run();
-    if (result.isOk()) {
-      View view = result.getView();
-      assertEquals(
-          expectedFormStart + exectedSimpleElement + exectedSimpleElement
-              + wrapFormGroupSuccess("<label for=\""+fid+"-textInput\">SampleTextInput:</label>"
-              + "<input tabindex=\"0\" type=\"text\" name=\""+fid+"-textInput\" value=\""+fid+"-textInput\">")
-              + wrapFormGroupSuccess("<label for=\""+fid+"-textInput2\">SampleTextInput:</label>"
-              + "<input tabindex=\"1\" type=\"text\" name=\""+fid+"-textInput2\" value=\""+fid+"-textInput2\" placeholder=\""
-              + placeholder + "\" aria-describedby=\"helpBlock-textInput2\">"
-              + expectedHelpForTextInput )
-              + exectedSubmitButton + exectedFormEnd,
-          view.getHtml());
-    }
-  }
+	}
 
-  @Test
-  public void normalUsageSubmitError() {
-    Env env = new Env(it -> "");
-    Form f = createForm(env);
-    FormResult result = f.run();
-    if (result.isOk()) {
-      View view = result.getView();
-      assertEquals(
-          expectedFormStart + exectedSimpleElement + exectedSimpleElement
-              + wrapFormGroupError("Problem: jformchecker.required<br><label for=\""+fid+"-textInput\">SampleTextInput:</label>"
-              + "<input tabindex=\"0\" type=\"text\" name=\""+fid+"-textInput\" value>")
-              + wrapFormGroupError("Problem: jformchecker.required<br><label for=\""+fid+"-textInput2\">SampleTextInput:</label>"
-              + "<input tabindex=\"1\" type=\"text\" name=\""+fid+"-textInput2\" value placeholder=\""
-              + placeholder + "\" aria-describedby=\"helpBlock-textInput2\">"
-              + expectedHelpForTextInput)
-              + exectedSubmitButton + exectedFormEnd,
-          view.getHtml());
-    }
-  }
+	@Test
+	public void testnormalUsageSubmitError() {
+		Env env = new Env(it -> "", // this simulates empty inputs
+				t -> t,
+				(k,v) -> {}
+				); 
+		Form f = createForm(env);
+		FormResult result = f.run();
 
+		InputStream in = this.getClass().getClassLoader()
+				.getResourceAsStream("test/expectedHTMLExampleForm_error.html");
+		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
 
-  private Form createForm(Env env) {
-    String formId = fid;
-    List<Element> elements = new ArrayList<>();
-    elements.add(new SimpleElement());
-    elements.add(new SimpleElement());
-    TextInput textInput = new TextInput(formId, "textInput", env.getRequest(), "SampleTextInput",
-        "Peter\"Paul", "", "", new Validator(Criteria.required()));
-    elements.add(textInput);
-    TextInput textInput2 = new TextInput(formId, "textInput2", env.getRequest(), "SampleTextInput",
-        "Peter\"Paul", "Help-Text", placeholder, new Validator(Criteria.required()));
-    elements.add(textInput2);
-    elements.add(new SubmitButton("Submit"));
+	}
 
-    Form f = new Form(formId, elements, new ArrayList<>());
+	private Form createForm(Env env) {
+		String formId = "fid";
+		List<Element> elements = new ArrayList<>();
+		XSRFProtection protection = new XSRFProtection(env, true);	// no random values, so we can expect constant html
+		elements.add(protection);
+		elements.add(new SimpleElement());
+		elements.add(new SimpleElement());
 
-    return f;
-  }
-  
-  private String wrapFormGroup(String content, String classAddition) {
-    return "<div class=\"form-group" + (classAddition.length() > 0 ? " " + classAddition : "")
-        + "\">" + content + "</div>\n";
-  }
+		TextInput textInput = new TextInput(formId, "textInput", env.getRequest(), "TextInputLabel", "Peter\"Paul", "",
+				"", new Validator(Criteria.required()));
+		elements.add(textInput);
 
-  private String wrapFormGroupNeutral(String content) {
-    return wrapFormGroup(content, "");
-  }
+		TextDateInput date = new TextDateInput(formId, "dateInput", env.getRequest(), "Please insert date", LocalDate.of(2017, 7, 4),"datehelptext", new Validator());
+		elements.add(date);
+		TextInput textInput2 = new TextInput(formId, "textInput2", env.getRequest(), "TextInputLabel2", "Peter\"Paul",
+				"Help-Text", "Placeholder", new Validator(Criteria.required()));
+		elements.add(textInput2);
+		elements.add(new SubmitButton("Submit"));
 
-  private String wrapFormGroupError(String content) {
-    return wrapFormGroup(content, "has-error");
-  }
+		Form f = new Form(formId, elements, new ArrayList<>());
 
-  private String wrapFormGroupSuccess(String content) {
-    return wrapFormGroup(content, "has-success");
-  }
+		return f;
+	}
+
+	static String convertStreamToString(java.io.InputStream is) {
+		java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+		return s.hasNext() ? s.next() : "";
+	}
+
 }

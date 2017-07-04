@@ -22,10 +22,16 @@ public class XSRFProtection implements Validateable, Element{
 	private final SecureRandom random = new SecureRandom();
 	private final String rendererdHtml;
 	
-
 	public XSRFProtection(Env env) {
+		this(env, false);
+	}
+	
+	// do not use staticTokenname = true in runtim. Use it only for testing
+	public XSRFProtection(Env env, boolean staticTokenName) {
 		
-		// TODO: Add proper Errors, if env is "session-empty"!
+		if (env.getSessionGet() == null || env.getSessionSet() == null) {
+			throw new SessionMissingException();
+		}
 		// TODO: What happens, if session runs out and user want's a new code?
 		
 		// is firstrun - then generate a complete new token
@@ -47,8 +53,8 @@ public class XSRFProtection implements Validateable, Element{
 
 		validationResult = tempValidationResult;
 		
-		name = "token-" + Math.random();
-		xsrfVal = getRandomValue();
+		name = "token-" + (staticTokenName?"":Math.random());
+		xsrfVal = (staticTokenName?"static":getRandomValue());
 		env.getSessionSet().setAttribute(name, xsrfVal);
 
 		tags.append("<input type=\"hidden\" name=\"" + TOKENNAME + "\" value=\"" + Escape.htmlText(name)
@@ -89,5 +95,17 @@ public class XSRFProtection implements Validateable, Element{
 		return result;	// no representation
 	}
 
+	
+	public class SessionMissingException extends RuntimeException {
+		private static final long serialVersionUID = 1L;
+
+		public SessionMissingException(){
+			super("Session data missing in Env. \nPlease provide sessionGet() and sessionSet() in Env!\n\n...This is needed for XSRF-Protection."
+					+ "\n\nExample: \nnew Env(requestParamName -> request.getParameter(requestParamName),	// Request"
+					+ "\nsessionParamName -> request.getSession().getAttribute(sessionParamName), // SessionGet"
+					+ "\n(sessionParamName, value) -> request.getSession().setAttribute(sessionParamName, value) // SessionSet"
+					+ "\n);");
+		}
+	}
 	
 }
