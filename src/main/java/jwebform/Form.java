@@ -8,7 +8,6 @@ import java.util.Map;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.RenderInfos;
-import jwebform.element.structure.Validateable;
 import jwebform.env.Env;
 import jwebform.validation.FormValidationResult;
 import jwebform.validation.FormValidator;
@@ -41,16 +40,16 @@ public class Form {
 		// check each element
 		boolean completeResult = true;
 		int tabIndex = 1;
-		/*
+		Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
 		for (Element element : elements) {
 			RenderInfos renderInfos = new RenderInfos(id, tabIndex, env, ValidationResult.undefined());
 			ElementResult result = element.getHtml(renderInfos);
+			elementResults.put(element, result);
 			if (!result.getValidationResult().isValid) {
 				completeResult = false;
-				break;
 			}
 		}
-		*/
+		/*/
 		for (Element element : elements) {
 			if (element instanceof Validateable) {
 				if (!((Validateable) element).getValidationResult().isValid) {
@@ -59,6 +58,7 @@ public class Form {
 				}
 			}
 		}
+		*/
 		// run the form-validators
 		Map<Element, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
 
