@@ -2,6 +2,8 @@ package jwebform.element;
 
 import java.util.LinkedHashMap;
 
+import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.element.structure.Validateable;
 import jwebform.env.Request;
@@ -13,19 +15,19 @@ import jwebform.view.TagAttributes;
 
 public class TextInput implements TabIndexAwareElement, Validateable {
 	
-	final private String name;
+	final private String name; //
 	// TBD: Does it make sense to introduce a Label class here?
-	final private String label;
+	final private String label; //
 	
 	final private String value;
 
-	final private String helptext;
+	final private String helptext; //
 	
-	final private Validator validator;
+	final private Validator validator;	//
 	
 	final private ValidationResult validationResult;
 	
-	final private String placeholder;
+	final private String placeholder; //
 	
 	final private String formId;
 	
@@ -48,8 +50,8 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 
 
 	@Override
-	public String getHtml(int tabIndex, ValidationResult overrideValidationResult) {
-		ValidationResult validationResultToWorkWith = overrideValidationResult==null?validationResult:overrideValidationResult;
+	public ElementResult getHtml(RenderInfos renderInfos) {
+		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult()==ValidationResult.undefined()?validationResult:renderInfos.getOverrideValidationResult();
 		
 		String errorMessage = "";
 		Tag wrapper = new Tag("div", "class", "form-group");
@@ -64,7 +66,7 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		Tag labelTag = new Tag("label", labelTagAttr, label+":");
 
 		LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
-		attrs.put("tabindex", Integer.toString(tabIndex));
+		attrs.put("tabindex", Integer.toString(renderInfos.getTabIndex()));
 		attrs.put("type", "text");
 		attrs.put("name", formId + name);
 		attrs.put("value", value);
@@ -87,8 +89,8 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		
 		TagAttributes inputTagAttr = new TagAttributes(attrs);
 		Tag inputTag = new Tag("input", inputTagAttr);
-		
-		return wrapper.getStartHtml() +errorMessage+ labelTag.getComplete() + inputTag.getStartHtml()+ helpHTML + wrapper.getEndHtml() +"\n";
+		ElementResult result = new ElementResult(name, wrapper.getStartHtml() +errorMessage+ labelTag.getComplete() + inputTag.getStartHtml()+ helpHTML + wrapper.getEndHtml() +"\n");
+		return result;
 	}
 
 	@Override

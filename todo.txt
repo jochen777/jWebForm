@@ -15,7 +15,13 @@
  * - xsrf (OK)
  
  * - firstRun? / * - form-id (mehrere forms pro Seite!. Entscheidung: edited=1 oder form-element-ids. (Symfony: form-element-ids - vielleicht diese optional machen - also nur einsetzen, wenn zwei Forms am start sind?) (OK)
+ 
+ * Refactor and extend test (date, xsrf-protection, date)
+ * idee: Die GetHTML Methode bekommt erst den Request und macht dann das nötige. nicht schon der Konstruktor.
+ * Idee: ElementResult bekommt nicht html-string, sondern render-objekt
+ 
  * Everything immutable!
+ * test 2 forms on the same page.
  * REFACTORINGS!! (RenderHints, Decoration)
  
  * could Element be immutable or the others too? (OK)

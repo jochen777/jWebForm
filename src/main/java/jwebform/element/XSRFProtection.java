@@ -6,6 +6,8 @@ import java.util.Base64;
 import com.coverity.security.Escape;
 
 import jwebform.element.structure.Element;
+import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.Validateable;
 import jwebform.env.Env;
 import jwebform.validation.ValidationResult;
@@ -76,13 +78,15 @@ public class XSRFProtection implements Validateable, Element{
 	}
 
 	@Override
-	public String getHtml(int tabIndex, ValidationResult overridenValidationResult) {
-		ValidationResult validationResultToWorkWith = overridenValidationResult==null?validationResult:overridenValidationResult;
+	public ElementResult getHtml(RenderInfos renderInfos) {
+		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult()==ValidationResult.undefined()?validationResult:renderInfos.getOverrideValidationResult();
 		String problemDescription = "";
 		if (!validationResultToWorkWith.isValid) {
 			problemDescription = "XSRF Problem!<br>";	// RFE: MAke this nicer/configurable!
 		}
-		return problemDescription + rendererdHtml;	// no representation
+		ElementResult result = new ElementResult("xsrf_protection", problemDescription + rendererdHtml);
+
+		return result;	// no representation
 	}
 
 	

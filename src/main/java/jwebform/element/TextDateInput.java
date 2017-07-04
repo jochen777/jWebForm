@@ -4,6 +4,8 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.element.structure.Validateable;
 import jwebform.env.Request;
@@ -83,16 +85,21 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 	}
 
 	@Override
-	public String getHtml(int tabIndex, ValidationResult overrideValidationResult) {
-		ValidationResult validationResultToWorkWith = overrideValidationResult==null?validationResult:overrideValidationResult;
+	public ElementResult getHtml(RenderInfos renderInfos) {
+		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult()==ValidationResult.undefined()?validationResult:renderInfos.getOverrideValidationResult();
 		String errorMessage = "";
 		if (validationResultToWorkWith != ValidationResult.undefined() && !validationResultToWorkWith.isValid) {
 			errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
 		}
-
-		return label + "<br/>" + errorMessage + day.getHtml(tabIndex, null) +
-				month.getHtml(tabIndex+1, null) +
-				year.getHtml(tabIndex+2, null) + "<br>" + helptext;
+		
+		ElementResult result = new ElementResult(name, label + "<br/>" 
+//				+ 
+//				errorMessage + day.getHtml(tabIndex, null) +
+//				month.getHtml(tabIndex+1, null) +
+//				year.getHtml(tabIndex+2, null) + "<br>" + helptext
+				
+				);
+		return result;
 	}
 
 	@Override
