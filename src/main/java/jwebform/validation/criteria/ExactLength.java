@@ -17,8 +17,8 @@ public final class ExactLength implements Criterion {
 	}
 
 	@Override
-	public ValidationResult validate(Validateable value) {
-		boolean isValid = value.getValue().length() == length;
+	public ValidationResult validate(String value) {
+		boolean isValid = value.length() == length;
 		if (!isValid) {
 			return ValidationResult.fail("jformchecker.exact_lenght", Integer.valueOf(length));
 		}

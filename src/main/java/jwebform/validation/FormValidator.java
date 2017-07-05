@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import jwebform.element.structure.Element;
+import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 
 // Validates a complete Form
@@ -16,5 +17,5 @@ public interface FormValidator {
 	 * @param form
 	 * @return
 	 */
-	public Map<Element, ValidationResult> validate(List<Element> elements);
+	public Map<Element, ValidationResult> validate(Map<Element, ElementResult> elements);
 }

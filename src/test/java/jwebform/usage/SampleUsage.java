@@ -82,7 +82,8 @@ public class SampleUsage {
 		List<FormValidator> formValidators = new ArrayList<>();
 		formValidators.add(it -> {
 			final Map<Element, ValidationResult> overridenValidationResults = new HashMap<>();
-			if (textInput.getValue().length() > 3) {
+			String valueOfTextInput = it.get(textInput).getValue();
+			if (valueOfTextInput.length() > 3) {
 				overridenValidationResults.put(textInput, ValidationResult.fail("not_ok"));
 			}
 			return overridenValidationResults;

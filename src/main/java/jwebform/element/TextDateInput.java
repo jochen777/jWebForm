@@ -25,13 +25,15 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 	// TBD: Does it make sense to introduce a Label class here?
 	final private String label;
 	
-	final private LocalDate value;
+	//final private LocalDate value;
 
 	final private String helptext;
 	
 	final private Validator validator;
 	
-	final private ValidationResult validationResult;
+	//final private ValidationResult validationResult;
+	
+	final private LocalDate initialValue;
 	
 	
 	final private TextInput day;
@@ -44,6 +46,7 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 		this.label = label;
 		this.helptext = helptext;
 		this.validator = validator;
+		this.initialValue = initialValue;
 		
 		Validator numberValidator = new Validator(Criteria.number());
 
@@ -52,55 +55,48 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 		this.month = new TextInput(formId, name+"_month", request, "Month", String.valueOf(initialValue.getMonthValue()), "", "", numberValidator);
 		this.year = new TextInput(formId, name+"_year", request, "Year", String.valueOf(initialValue.getYear()), "", "", numberValidator);
 
-		ValidationResult tempValidationResult;
-		LocalDate tempDate;
-		try {
-			tempDate = this.setupValue(initialValue);
-			tempValidationResult = ValidationResult.ok();
-		} catch (DateTimeException | NumberFormatException e) {
-			tempValidationResult = ValidationResult.fail("jformchecker.wrong_date_format");
-			tempDate = initialValue;
-		}
-		this.value = tempDate;
-		this.validationResult = tempValidationResult;
-		
-		
 	}
 
 
-	private boolean checkAllEmpty() {
-		return (StringUtils.isEmpty(this.day.getValue())  &&
-				StringUtils.isEmpty(this.month.getValue()) && 
-				StringUtils.isEmpty(this.year.getValue()));
-	}
-
+	
 
 	@Override
 	public String getValue() {
-		return value.format(DateTimeFormatter.ISO_DATE);
+		return "";//value.format(DateTimeFormatter.ISO_DATE);
 	}
 
 	public LocalDate getDateValue() {
-		return value;
+		return null;
 	}
 
 	@Override
 	public ElementResult getHtml(RenderInfos renderInfos) {
-		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult()==ValidationResult.undefined()?validationResult:renderInfos.getOverrideValidationResult();
-		String errorMessage = "";
-		if (validationResultToWorkWith != ValidationResult.undefined() && !validationResultToWorkWith.isValid) {
-			errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
-		}
 		ElementResult dayResult = day.getHtml(renderInfos);
 		RenderInfos monthRenderInfos = renderInfos.cloneWithNewTabIndexIncrease(day.getTabIndexIncrement());
 		ElementResult monthResult = month.getHtml(monthRenderInfos);
 		RenderInfos yearRenderInfos = monthRenderInfos.cloneWithNewTabIndexIncrease(month.getTabIndexIncrement());
 		ElementResult yearResult = year.getHtml(yearRenderInfos);
+		
+		LocalDate value = initialValue;
+		ValidationResult validationResult = ValidationResult.ok();
+		try {
+			value = this.setupValue(this.initialValue, dayResult.getValue(), monthResult.getValue(), yearResult.getValue());
+		} catch (DateTimeException | NumberFormatException e) {
+			validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
+		}
+		
+		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult()==ValidationResult.undefined()?validationResult:renderInfos.getOverrideValidationResult();
+		String errorMessage = "";
+		if (validationResultToWorkWith != ValidationResult.undefined() && !validationResultToWorkWith.isValid) {
+			errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
+		}
 		ElementResult result = new ElementResult(name, label + "<br/>" 
 				+ 
 				errorMessage + dayResult.getHtml() +
 				monthResult.getHtml() +
-				yearResult.getHtml() + "<br>" + helptext
+				yearResult.getHtml() + "<br>" + helptext,
+				validationResult, 
+				value.format(DateTimeFormatter.ISO_DATE)
 				
 				);
 		return result;
@@ -108,7 +104,7 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 
 	@Override
 	public ValidationResult getValidationResult() {
-		return validationResult;
+		return null;//validationResult;
 		
 	}
 
@@ -120,19 +116,21 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 
 
 	// May throw execption!!
-	private LocalDate setupValue(LocalDate initialValue){
-		if (checkAllEmpty()) {
-			return initialValue;
+	private LocalDate setupValue(LocalDate initialValue, String dayStr, String monthStr, String yearStr){
+		if(StringUtils.isEmpty(dayStr) && 
+				StringUtils.isEmpty(monthStr) &&
+				StringUtils.isEmpty(yearStr) ) {
+			return initialValue;	// TODO: maybe this is wrong: if nothing is entered, it can't be the initial value!
 		}
-		int day = getDefaultValueFromRequest(this.day);
-		int month = getDefaultValueFromRequest(this.month);
-		int year = getDefaultValueFromRequest(this.year);
+		int day = getDefaultValueFromRequest(dayStr);
+		int month = getDefaultValueFromRequest(monthStr);
+		int year = getDefaultValueFromRequest(yearStr);
 		return LocalDate.of(year, month, day);
 	}
+	
 
-
-	private int getDefaultValueFromRequest(TextInput input) {
-		return Integer.parseInt(input.getValue());
+	private int getDefaultValueFromRequest(String input) {
+		return Integer.parseInt(input);
 	}
 	
 	

@@ -19,9 +19,9 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 	// TBD: Does it make sense to introduce a Label class here?
 	final private String label; //
 	
-	final private String value;
-
 	final private String helptext; //
+	
+	final private String initialValue;
 	
 	final private Validator validator;	//
 	
@@ -37,21 +37,24 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		this.helptext = helptext;
 		this.validator = validator;
 		this.formId = formId+"-";
-		this.value = this.setupValue(request, initialValue);
+		this.initialValue = initialValue;
 		this.placeholder = placeholder;
-		this.validationResult = this.validate(request);
+		this.validationResult = ValidationResult.undefined(); //this.validate(request);
 	}
 
 
 	@Override
 	public String getValue() {
-		return value;
+		return "";
 	}
 
 
 	@Override
 	public ElementResult getHtml(RenderInfos renderInfos) {
-		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult()==ValidationResult.undefined()?validationResult:renderInfos.getOverrideValidationResult();
+		String value = this.setupValue(renderInfos.getEnv().getRequest(), initialValue);
+
+		ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value);
+		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult()==ValidationResult.undefined()?vr:renderInfos.getOverrideValidationResult();
 		
 		String errorMessage = "";
 		Tag wrapper = new Tag("div", "class", "form-group");
@@ -89,7 +92,8 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		
 		TagAttributes inputTagAttr = new TagAttributes(attrs);
 		Tag inputTag = new Tag("input", inputTagAttr);
-		ElementResult result = new ElementResult(name, wrapper.getStartHtml() +errorMessage+ labelTag.getComplete() + inputTag.getStartHtml()+ helpHTML + wrapper.getEndHtml() +"\n");
+		String html = wrapper.getStartHtml() +errorMessage+ labelTag.getComplete() + inputTag.getStartHtml()+ helpHTML + wrapper.getEndHtml() +"\n";
+		ElementResult result = new ElementResult(name, html, vr, value);
 		return result;
 	}
 
@@ -113,9 +117,9 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		return initialValue;
 	}
 	
-	private ValidationResult validate(Request request) {
+	private ValidationResult validate(Request request, String value) {
 		if (request.getParameter(formId+name) != null) {
-			return validator.validate(this, getValue());
+			return validator.validate(value);
 		}
 		return ValidationResult.undefined();
 	}

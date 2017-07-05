@@ -15,8 +15,8 @@ public final class Required implements Criterion {
 	}
 
 	@Override
-	public ValidationResult validate(Validateable value) {
-		if (value.getValue() == null || "".equals(value.getValue().trim())) {
+	public ValidationResult validate(String value) {
+		if (value == null || "".equals(value.trim())) {
 			return ValidationResult.fail("jformchecker.required");
 		}
 		return ValidationResult.ok();

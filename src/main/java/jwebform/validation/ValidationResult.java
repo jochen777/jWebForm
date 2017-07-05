@@ -67,5 +67,10 @@ public class ValidationResult {
 	public String getTranslatedMessage() {
 		return translatedMessage;
 	}
+	
+	@Override
+	public String toString() {
+		return "ValidationResulut:" + this.isValid + "(" + this.message + ")";
+	}
 
 }

@@ -17,8 +17,8 @@ public final class MinLength implements Criterion {
 	}
 
 	@Override
-	public ValidationResult validate(Validateable value) {
-		boolean isValid = value.getValue().length() >= minLength;
+	public ValidationResult validate(String value) {
+		boolean isValid = value.length() >= minLength;
 		if (!isValid) {
 			return ValidationResult.fail("jformchecker.min_len", minLength);
 		}

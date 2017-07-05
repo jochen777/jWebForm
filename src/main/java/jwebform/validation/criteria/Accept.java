@@ -21,10 +21,10 @@ public class Accept implements Criterion {
 	}
 
 	@Override
-	public ValidationResult validate(Validateable value) {
+	public ValidationResult validate(String value) {
 		boolean isValid = false;
 		for (String v : acceptableValues) {
-			if (areEqual(v, value.getValue()))
+			if (areEqual(v, value))
 				isValid = true;
 		}
 		if (!isValid) {

@@ -17,10 +17,10 @@ public final class StartsWith implements Criterion {
 	}
 
 	@Override
-	public ValidationResult validate(Validateable value) {
+	public ValidationResult validate(String value) {
 		boolean isValid = false;
 		for (String prefix : prefixes) {
-			if (value.getValue().startsWith(prefix))
+			if (value.startsWith(prefix))
 				isValid = true;
 		}
 

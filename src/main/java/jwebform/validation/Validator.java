@@ -21,18 +21,18 @@ public class Validator  {
 		}
 	}
 
-	public ValidationResult validate(Validateable elem, String value) {	// RFE: Better just object??
+	public ValidationResult validate(String value) {	// RFE: Better just object??
 		ValidationResult vr = ValidationResult.ok();
 		if (value != null) {
-			vr = allCriteriaSatisfied(elem);
+			vr = allCriteriaSatisfied(value);
 		} 
 		return vr;
 	}
 
 	// RFE: Maybe return here an array? So we can have more than one error-message per field.
-	private ValidationResult allCriteriaSatisfied(Validateable elem) {
+	private ValidationResult allCriteriaSatisfied(String value) {
 		for (Criterion criterion : criteria) {
-			ValidationResult vr = criterion.validate(elem);
+			ValidationResult vr = criterion.validate(value);
 			if (!vr.isValid()) {
 				return vr;
 			}

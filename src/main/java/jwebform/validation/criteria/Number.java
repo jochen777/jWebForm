@@ -15,9 +15,9 @@ public final class Number implements Criterion {
 	}
 
 	@Override
-	public ValidationResult validate(Validateable value) {
+	public ValidationResult validate(String value) {
 		try {
-			Integer.parseInt(value.getValue());
+			Integer.parseInt(value);
 			return ValidationResult.ok();
 		} catch (NumberFormatException e) {
 			return ValidationResult.fail("jformchecker.not_a_number");

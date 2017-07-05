@@ -31,7 +31,7 @@ public class Form {
 	
 	public FormResult run(Env env) {
 		// validate form
-		return new FormResult(this, checkIfValid(env));
+		return new FormResult(this, checkIfValid(env), env);
 	}
 
 
@@ -63,7 +63,7 @@ public class Form {
 		Map<Element, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
 
 		for (FormValidator formValidator : formValidators) {
-			overridenValidationResults.putAll(formValidator.validate(elements));
+			overridenValidationResults.putAll(formValidator.validate(elementResults));
 		}
 		
 		FormValidationResult formValidationResult = new FormValidationResult(completeResult, overridenValidationResults);

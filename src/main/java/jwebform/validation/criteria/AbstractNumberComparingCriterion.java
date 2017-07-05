@@ -12,9 +12,9 @@ import jwebform.validation.ValidationResult;
  */
 public abstract class AbstractNumberComparingCriterion implements Criterion {
 	@Override
-	public ValidationResult validate(Validateable value) {
+	public ValidationResult validate(String value) {
 		try {
-			int input = Integer.parseInt(value.getValue());
+			int input = Integer.parseInt(value);
 			return validateNumberAndSetError(input);
 		} catch (NumberFormatException e) {
 			return ValidationResult.fail("jformchecker.not_a_number");

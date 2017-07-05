@@ -20,7 +20,7 @@ public final class And implements Criterion {
 	}
 
 	@Override
-	public ValidationResult validate(Validateable value) {
+	public ValidationResult validate(String value) {
 		for (Criterion criterion : criteria) {
 			ValidationResult vr = criterion.validate(value);
 			if (!vr.isValid) {

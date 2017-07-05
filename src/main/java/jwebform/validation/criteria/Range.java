@@ -19,9 +19,9 @@ public final class Range implements Criterion {
 	}
 
 	@Override
-	public ValidationResult validate(Validateable value) {
+	public ValidationResult validate(String value) {
 		try {
-			int intVal = Integer.parseInt(value.getValue());
+			int intVal = Integer.parseInt(value);
 			boolean isValid = intVal > max && intVal < min;
 			if (!isValid) {
 				// range=The value must be between %d and %d

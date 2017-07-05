@@ -26,8 +26,8 @@ public class CaseInsensitiveRegex implements Criterion {
 	}
 
 	@Override
-	public ValidationResult validate(Validateable value) {
-		boolean isValid = pattern.matcher(value.getValue()).find();
+	public ValidationResult validate(String value) {
+		boolean isValid = pattern.matcher(value).find();
 		if (!isValid) {
 			return ValidationResult.fail(errorMsg);
 		}

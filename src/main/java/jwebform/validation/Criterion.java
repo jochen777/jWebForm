@@ -16,6 +16,6 @@ public interface Criterion {
 	 * @return a ValidationResult which holds true or false for validaton result
 	 *         and a potential errormsg
 	 */
-	public ValidationResult validate(Validateable value);
+	public ValidationResult validate(String value);
 
 }

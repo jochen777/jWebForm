@@ -6,6 +6,7 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.TabIndexAwareElement;
+import jwebform.env.Env;
 import jwebform.validation.ValidationResult;
 import jwebform.view.StartEndRenderer;
 
@@ -13,10 +14,12 @@ public class View {
 
 	private final Form form;
 	private final Map<Element, ValidationResult> overridenValidationResults;
+	private final Env env;
 	
-	public View(Form form, Map<Element, ValidationResult> overridenValidationResults) {
+	public View(Form form, Map<Element, ValidationResult> overridenValidationResults, Env env) {
 		this.form = form;
 		this.overridenValidationResults = overridenValidationResults;
+		this.env = env;
 	}
 
 	public String getHtml() {
@@ -29,7 +32,7 @@ public class View {
 			if (overridenValidationResult == null) {
 				overridenValidationResult = ValidationResult.undefined();
 			}
-			RenderInfos renderInfos = new RenderInfos(form.id, tabIndex, null, overridenValidationResult);
+			RenderInfos renderInfos = new RenderInfos(form.id, tabIndex, env, overridenValidationResult);
 			ElementResult result = element.getHtml(renderInfos);
 			html.append(result.getHtml());
 			if (element instanceof TabIndexAwareElement) {
