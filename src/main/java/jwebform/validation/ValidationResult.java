@@ -8,7 +8,7 @@ package jwebform.validation;
  */
 public class ValidationResult {
 
-	public boolean isValid = false;
+	public final boolean isValid;
 	
 	// caching:
 	private static ValidationResult okResult =  new ValidationResult(true, "", null, null);

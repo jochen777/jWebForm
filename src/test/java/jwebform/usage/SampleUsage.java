@@ -1,6 +1,7 @@
 package jwebform.usage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
 import java.time.LocalDate;
@@ -36,8 +37,8 @@ public class SampleUsage {
 				t -> t,
 				(k,v) -> {}
 				); 
-		testFormAgainstRequest(env, "test/expectedHTMLExampleForm_firstrun.html");
-
+		boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_firstrun.html");
+		assertTrue("The form should be false, because it is the firstrun", !result);
 	}
 
 
@@ -95,13 +96,14 @@ public class SampleUsage {
 		return f;
 	}
 
-	private void testFormAgainstRequest(Env env, String templateName) {
+	private boolean testFormAgainstRequest(Env env, String templateName) {
 		Form f = createForm();
 		FormResult result = f.run(env);
 
 		InputStream in = this.getClass().getClassLoader()
 				.getResourceAsStream(templateName);
 		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
+		return result.isOk();
 	}
 
 	
