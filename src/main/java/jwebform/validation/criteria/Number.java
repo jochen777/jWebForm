@@ -1,5 +1,7 @@
 package jwebform.validation.criteria;
 
+import java.util.regex.Pattern;
+
 import jwebform.validation.Criterion;
 import jwebform.validation.ValidationResult;
 
@@ -13,14 +15,16 @@ public final class Number implements Criterion {
 	Number() {
 	}
 
+	static Pattern pattern = Pattern.compile("[0-9]+");
+	
 	@Override
 	public ValidationResult validate(String value) {
-		try {
-			Integer.parseInt(value);
-			return ValidationResult.ok();
-		} catch (NumberFormatException e) {
-			return ValidationResult.fail("jformchecker.not_a_number");
+		if (value != null && value.length() > 0) {
+			if (pattern.matcher(value).matches()) {
+				return ValidationResult.ok();
+			}
 		}
+		return ValidationResult.fail("jformchecker.not_a_number");
 	}
 
 }
