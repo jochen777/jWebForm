@@ -24,13 +24,12 @@ public class TextInput implements TabIndexAwareElement {
 	
 	final private Validator validator;	//
 	
-	final private ValidationResult validationResult;
 	
 	final private String placeholder; //
 	
 	final private String formId;
 	
-	public TextInput(String formId, String name, Request request, String label, String initialValue, String helptext, String placeholder, Validator validator) {
+	public TextInput(String formId, String name, String label, String initialValue, String helptext, String placeholder, Validator validator) {
 		this.name = name;
 		this.label = label;
 		this.helptext = helptext;
@@ -38,7 +37,6 @@ public class TextInput implements TabIndexAwareElement {
 		this.formId = formId+"-";
 		this.initialValue = initialValue;
 		this.placeholder = placeholder;
-		this.validationResult = ValidationResult.undefined(); //this.validate(request);
 	}
 
 	@Override

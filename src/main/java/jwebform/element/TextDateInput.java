@@ -49,10 +49,10 @@ public class TextDateInput implements TabIndexAwareElement{
 		
 		Validator numberValidator = new Validator(Criteria.number());
 
-		this.day = new TextInput(formId, name+"_day", request, "Day", String.valueOf(initialValue.getDayOfMonth()),
+		this.day = new TextInput(formId, name+"_day", "Day", String.valueOf(initialValue.getDayOfMonth()),
 				"", "", numberValidator);
-		this.month = new TextInput(formId, name+"_month", request, "Month", String.valueOf(initialValue.getMonthValue()), "", "", numberValidator);
-		this.year = new TextInput(formId, name+"_year", request, "Year", String.valueOf(initialValue.getYear()), "", "", numberValidator);
+		this.month = new TextInput(formId, name+"_month", "Month", String.valueOf(initialValue.getMonthValue()), "", "", numberValidator);
+		this.year = new TextInput(formId, name+"_year", "Year", String.valueOf(initialValue.getYear()), "", "", numberValidator);
 
 	}
 
