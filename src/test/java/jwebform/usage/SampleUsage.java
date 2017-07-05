@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import jwebform.Form;
 import jwebform.FormResult;
+import jwebform.element.OneFieldDecoration;
 import jwebform.element.SimpleElement;
 import jwebform.element.SubmitButton;
 import jwebform.element.TextDateInput;
@@ -68,15 +69,14 @@ public class SampleUsage {
 		elements.add(new SimpleElement());
 		elements.add(new SimpleElement());
 
-		TextInput textInput = new TextInput("textInput", "TextInputLabel", "Peter\"Paul", "",
-				"", new Validator(Criteria.required()));
+		TextInput textInput = new TextInput("textInput", new OneFieldDecoration("TextInputLabel"), "Peter\"Paul", new Validator(Criteria.required()));
 		
 		elements.add(textInput);
 
-		TextDateInput date = new TextDateInput("dateInput", "Please insert date", LocalDate.of(2017, 7, 4),"datehelptext", new Validator());
+		TextDateInput date = new TextDateInput("dateInput", new OneFieldDecoration("Please insert date", "datehelptext", ""), LocalDate.of(2017, 7, 4), new Validator());
 		elements.add(date);
-		TextInput textInput2 = new TextInput("textInput2", "TextInputLabel2", "Peter\"Paul",
-				"Help-Text", "Placeholder", new Validator(Criteria.required()));
+		TextInput textInput2 = new TextInput("textInput2", new OneFieldDecoration("TextInputLabel2", "Help-Text", "Placeholder"), "Peter\"Paul",
+				new Validator(Criteria.required()));
 		elements.add(textInput2);
 		elements.add(new SubmitButton("Submit"));
 

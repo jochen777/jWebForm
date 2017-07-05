@@ -16,23 +16,18 @@ public class TextInput implements TabIndexAwareElement {
 	
 	final private String name; //
 	// TBD: Does it make sense to introduce a Label class here?
-	final private String label; //
-	
-	final private String helptext; //
 	
 	final private String initialValue;
 	
 	final private Validator validator;	//
 	
-	final private String placeholder; //
+	final private OneFieldDecoration decoration;
 	
-	public TextInput(String name, String label, String initialValue, String helptext, String placeholder, Validator validator) {
+	public TextInput(String name, OneFieldDecoration decoration, String initialValue, Validator validator) {
 		this.name = name;
-		this.label = label;
-		this.helptext = helptext;
 		this.validator = validator;
 		this.initialValue = initialValue;
-		this.placeholder = placeholder;
+		this.decoration = decoration;
 	}
 
 	@Override
@@ -53,7 +48,7 @@ public class TextInput implements TabIndexAwareElement {
 			errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
 		}
 		TagAttributes labelTagAttr = new TagAttributes("for", formId+name);
-		Tag labelTag = new Tag("label", labelTagAttr, label+":");
+		Tag labelTag = new Tag("label", labelTagAttr, decoration.getLabel()+":");
 
 		LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
 		attrs.put("tabindex", Integer.toString(renderInfos.getTabIndex()));
@@ -61,16 +56,16 @@ public class TextInput implements TabIndexAwareElement {
 		attrs.put("name", formId + name);
 		attrs.put("value", value);
 		
-		if (!StringUtils.isEmpty(placeholder)) {
-			attrs.put("placeholder", placeholder);
+		if (!StringUtils.isEmpty(decoration.getPlaceholder())) {
+			attrs.put("placeholder", decoration.getPlaceholder());
 		}
 
 		String helpHTML = "";
-		if (!StringUtils.isEmpty(helptext)) {
+		if (!StringUtils.isEmpty(decoration.getHelptext())) {
 			TagAttributes helpAttributes = new TagAttributes();
 			helpAttributes.addToAttribute("id", "helpBlock-" + name);
 			helpAttributes.addToAttribute("class", "help-block");
-			Tag help = new Tag("span",helpAttributes, helptext);
+			Tag help = new Tag("span",helpAttributes, decoration.getHelptext());
 			helpHTML = help.getComplete();
 			attrs.put("aria-describedby", "helpBlock-" + name);
 		}

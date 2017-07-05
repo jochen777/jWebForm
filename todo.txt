@@ -20,9 +20,10 @@
  * idee: Die GetHTML Methode bekommt erst den Request und macht dann das nötige. nicht schon der Konstruktor. (OK)
  * Idee: ElementResult bekommt nicht html-string, sondern render-objekt (OK)
  
- * Everything immutable!
- * test 2 forms on the same page.
- * REFACTORINGS!! (RenderHints, Decoration)
+ * Everything immutable! (OK)
+ * test 2 forms on the same page. (OK)
+ * REFACTORINGS!! (RenderHints (OK), Decoration)
+ * fix form-result
  
  * could Element be immutable or the others too? (OK)
  * - maxLen (via request??)
