@@ -70,6 +70,7 @@ public class SampleUsage {
 
 		TextInput textInput = new TextInput("textInput", "TextInputLabel", "Peter\"Paul", "",
 				"", new Validator(Criteria.required()));
+		
 		elements.add(textInput);
 
 		TextDateInput date = new TextDateInput("dateInput", "Please insert date", LocalDate.of(2017, 7, 4),"datehelptext", new Validator());

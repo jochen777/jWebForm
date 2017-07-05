@@ -1,6 +1,6 @@
 # jWebForm
 
-HTML Forms in Java made easy.  
+HTML Forms in Java made easy. (currently in experimental stage!!)  
 
 [Quickstart](doc/quickstart.md)
 
