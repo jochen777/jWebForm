@@ -31,7 +31,7 @@ public class TextInput implements TabIndexAwareElement {
 	}
 
 	@Override
-	public ElementResult getHtml(RenderInfos renderInfos) {
+	public ElementResult run(RenderInfos renderInfos) {
 		String formId = renderInfos.getFormId() + "-";
 		String value = this.setupValue(renderInfos.getEnv().getRequest(), initialValue, formId);
 

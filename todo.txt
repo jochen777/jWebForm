@@ -22,7 +22,7 @@
  
  * Everything immutable! (OK)
  * test 2 forms on the same page. (OK)
- * REFACTORINGS!! (RenderHints (OK), Decoration)
+ * REFACTORINGS!! (RenderHints (OK), Decoration (OK))
  * fix form-result
  
  * could Element be immutable or the others too? (OK)
@@ -30,8 +30,6 @@
  * - different themes: via: Each element has a hash of renderers. Hash has always "default", but can have more (bootstrap, mobile...)
  *   - you can add a set of renderers to a form to style differently
  * custom filters for request (max-len...)
- * Idee: "Decoration" Klasse, um label, tabIndex, helptext aufzunehmen
-* Idee: Render-Hints für getHTML
  
 ## Nüsse:
 

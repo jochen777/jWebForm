@@ -42,7 +42,7 @@ public class XSRFProtection implements Element{
 
 
 	@Override
-	public ElementResult getHtml(RenderInfos renderInfos) {
+	public ElementResult run(RenderInfos renderInfos) {
 		Env env = renderInfos.getEnv();
 		
 		if (env.getSessionGet() == null || env.getSessionSet() == null) {

@@ -8,7 +8,7 @@ public class SimpleElement implements Element{
 
 	
 	@Override
-	public ElementResult getHtml(RenderInfos renderInfos) {
+	public ElementResult run(RenderInfos renderInfos) {
 		return new ElementResult("simple", "simple\n");
 	}
 

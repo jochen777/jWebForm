@@ -60,12 +60,12 @@ public class TextDateInput implements TabIndexAwareElement{
 	}
 
 	@Override
-	public ElementResult getHtml(RenderInfos renderInfos) {
-		ElementResult dayResult = day.getHtml(renderInfos);
+	public ElementResult run(RenderInfos renderInfos) {
+		ElementResult dayResult = day.run(renderInfos);
 		RenderInfos monthRenderInfos = renderInfos.cloneWithNewTabIndexIncrease(day.getTabIndexIncrement());
-		ElementResult monthResult = month.getHtml(monthRenderInfos);
+		ElementResult monthResult = month.run(monthRenderInfos);
 		RenderInfos yearRenderInfos = monthRenderInfos.cloneWithNewTabIndexIncrease(month.getTabIndexIncrement());
-		ElementResult yearResult = year.getHtml(yearRenderInfos);
+		ElementResult yearResult = year.run(yearRenderInfos);
 		
 		LocalDate value = initialValue;
 		ValidationResult validationResult = ValidationResult.ok();

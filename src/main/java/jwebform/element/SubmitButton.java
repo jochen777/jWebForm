@@ -18,7 +18,7 @@ public class SubmitButton implements TabIndexAwareElement {
 	}
 
 	@Override
-	public ElementResult getHtml(RenderInfos renderInfos) {
+	public ElementResult run(RenderInfos renderInfos) {
 		return new ElementResult("submit", "<input tabindex=\"" + renderInfos.getTabIndex() + "\" type=\"submit\" value=\"" + label + "\">");
 	}
 

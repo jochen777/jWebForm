@@ -43,7 +43,7 @@ public class Form {
 		Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
 		for (Element element : elements) {
 			RenderInfos renderInfos = new RenderInfos(id, tabIndex, env, ValidationResult.undefined());
-			ElementResult result = element.getHtml(renderInfos);
+			ElementResult result = element.run(renderInfos);
 			elementResults.put(element, result);
 			if (!result.getValidationResult().isValid) {
 				completeResult = false;
