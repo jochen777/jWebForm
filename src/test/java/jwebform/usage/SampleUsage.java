@@ -63,7 +63,7 @@ public class SampleUsage {
 		// TODO: Add Custom FormValidator
 		String formId = "fid";
 		List<Element> elements = new ArrayList<>();
-		XSRFProtection protection = new XSRFProtection(env, true);	// no random values, so we can expect constant html
+		XSRFProtection protection = new XSRFProtection(true);	// no random values, so we can expect constant html
 		elements.add(protection);
 		elements.add(new SimpleElement());
 		elements.add(new SimpleElement());

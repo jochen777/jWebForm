@@ -17,16 +17,33 @@ public class XSRFProtection implements Element{
 	private final String TOKENNAME = "tokenname";
 	private final String TOKENVAL = "tokenVal";
 	
-	private final ValidationResult validationResult;
 	private final SecureRandom random = new SecureRandom();
-	private final String rendererdHtml;
 	
-	public XSRFProtection(Env env) {
-		this(env, false);
+	private final boolean staticTokenName;
+	
+	public XSRFProtection() {
+		this(false);
 	}
 	
 	// do not use staticTokenname = true in runtim. Use it only for testing
-	public XSRFProtection(Env env, boolean staticTokenName) {
+	public XSRFProtection(boolean staticTokenName) {
+		this.staticTokenName = staticTokenName;
+		
+	}
+
+	private String getRandomValue() {
+		final byte[] bytes = new byte[32];
+		random.nextBytes(bytes);
+		return Base64.getEncoder().encodeToString(bytes);
+	}
+
+	
+	
+
+
+	@Override
+	public ElementResult getHtml(RenderInfos renderInfos) {
+		Env env = renderInfos.getEnv();
 		
 		if (env.getSessionGet() == null || env.getSessionSet() == null) {
 			throw new SessionMissingException();
@@ -50,7 +67,7 @@ public class XSRFProtection implements Element{
 			tempValidationResult = ValidationResult.fail("formchecker.xsrf_problem");
 			}
 
-		validationResult = tempValidationResult;
+		ValidationResult validationResult = tempValidationResult;
 		
 		name = "token-" + (staticTokenName?"":Math.random());
 		xsrfVal = (staticTokenName?"static":getRandomValue());
@@ -61,21 +78,8 @@ public class XSRFProtection implements Element{
 		tags.append("<input type=\"hidden\" name=\"" + TOKENVAL + "\" value=\"" + Escape.htmlText(xsrfVal)
 				+ "\">\n");
 		
-		rendererdHtml = tags.toString();
-	}
-
-	private String getRandomValue() {
-		final byte[] bytes = new byte[32];
-		random.nextBytes(bytes);
-		return Base64.getEncoder().encodeToString(bytes);
-	}
-
-	
-	
-
-
-	@Override
-	public ElementResult getHtml(RenderInfos renderInfos) {
+		String rendererdHtml = tags.toString();
+		
 		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult()==ValidationResult.undefined()?validationResult:renderInfos.getOverrideValidationResult();
 		String problemDescription = "";
 		if (!validationResultToWorkWith.isValid) {
