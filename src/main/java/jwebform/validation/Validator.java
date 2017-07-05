@@ -3,8 +3,6 @@ package jwebform.validation;
 import java.util.ArrayList;
 import java.util.List;
 
-import jwebform.element.structure.Validateable;
-
 /**
  * Validator, that checks a form-element
  * 

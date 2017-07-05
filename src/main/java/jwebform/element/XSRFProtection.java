@@ -8,12 +8,11 @@ import com.coverity.security.Escape;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.RenderInfos;
-import jwebform.element.structure.Validateable;
 import jwebform.env.Env;
 import jwebform.validation.ValidationResult;
 
 // Form-Elmement, that provides XSRF protection
-public class XSRFProtection implements Validateable, Element{
+public class XSRFProtection implements Element{
 
 	private final String TOKENNAME = "tokenname";
 	private final String TOKENVAL = "tokenVal";
@@ -73,15 +72,7 @@ public class XSRFProtection implements Validateable, Element{
 
 	
 	
-	@Override
-	public ValidationResult getValidationResult() {
-		return validationResult;
-	}
 
-	@Override
-	public String getValue() {
-		return "";	// no value (just ValidationResult)
-	}
 
 	@Override
 	public ElementResult getHtml(RenderInfos renderInfos) {

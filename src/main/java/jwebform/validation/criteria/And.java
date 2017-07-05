@@ -1,6 +1,5 @@
 package jwebform.validation.criteria;
 
-import jwebform.element.structure.Validateable;
 import jwebform.validation.Criterion;
 import jwebform.validation.ValidationResult;
 

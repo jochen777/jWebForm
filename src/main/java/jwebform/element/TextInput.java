@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.TabIndexAwareElement;
-import jwebform.element.structure.Validateable;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -13,7 +12,7 @@ import jwebform.view.StringUtils;
 import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
-public class TextInput implements TabIndexAwareElement, Validateable {
+public class TextInput implements TabIndexAwareElement {
 	
 	final private String name; //
 	// TBD: Does it make sense to introduce a Label class here?
@@ -41,13 +40,6 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		this.placeholder = placeholder;
 		this.validationResult = ValidationResult.undefined(); //this.validate(request);
 	}
-
-
-	@Override
-	public String getValue() {
-		return "";
-	}
-
 
 	@Override
 	public ElementResult getHtml(RenderInfos renderInfos) {
@@ -95,12 +87,6 @@ public class TextInput implements TabIndexAwareElement, Validateable {
 		String html = wrapper.getStartHtml() +errorMessage+ labelTag.getComplete() + inputTag.getStartHtml()+ helpHTML + wrapper.getEndHtml() +"\n";
 		ElementResult result = new ElementResult(name, html, vr, value);
 		return result;
-	}
-
-	@Override
-	public ValidationResult getValidationResult() {
-		return validationResult;
-		
 	}
 
 

@@ -1,7 +1,5 @@
 package jwebform.validation;
 
-import jwebform.element.structure.Validateable;
-
 /**
  * A criterion that checks a formchecker element
  * 

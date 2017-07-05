@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.TabIndexAwareElement;
-import jwebform.element.structure.Validateable;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -19,7 +18,7 @@ import jwebform.view.StringUtils;
  * @author jochen
  *
  */
-public class TextDateInput implements TabIndexAwareElement, Validateable {
+public class TextDateInput implements TabIndexAwareElement{
 	
 	final private String name;
 	// TBD: Does it make sense to introduce a Label class here?
@@ -60,10 +59,6 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 
 	
 
-	@Override
-	public String getValue() {
-		return "";//value.format(DateTimeFormatter.ISO_DATE);
-	}
 
 	public LocalDate getDateValue() {
 		return null;
@@ -100,12 +95,6 @@ public class TextDateInput implements TabIndexAwareElement, Validateable {
 				
 				);
 		return result;
-	}
-
-	@Override
-	public ValidationResult getValidationResult() {
-		return null;//validationResult;
-		
 	}
 
 

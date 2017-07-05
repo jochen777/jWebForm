@@ -2,7 +2,6 @@ package jwebform.validation.criteria;
 
 import java.util.regex.Pattern;
 
-import jwebform.element.structure.Validateable;
 import jwebform.validation.Criterion;
 import jwebform.validation.ValidationResult;
 

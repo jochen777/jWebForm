@@ -1,11 +1,9 @@
 package jwebform.validation;
 
-import java.util.List;
 import java.util.Map;
 
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
-import jwebform.env.Env;
 
 // Validates a complete Form
 @FunctionalInterface
