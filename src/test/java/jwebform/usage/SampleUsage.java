@@ -27,20 +27,18 @@ import jwebform.validation.criteria.Criteria;
 
 public class SampleUsage {
 
+	// TODO: Test if complete form is valid!!
+	
 	@Test
 	public void testnormalUsageFirstRun() {
 		Env env = new Env(it -> null, // this simulates the first run (all values null)
 				t -> t,
 				(k,v) -> {}
 				); 
-		Form f = createForm(env);
-		FormResult result = f.run(env);
-
-		InputStream in = this.getClass().getClassLoader()
-				.getResourceAsStream("test/expectedHTMLExampleForm_firstrun.html");
-		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
+		testFormAgainstRequest(env, "test/expectedHTMLExampleForm_firstrun.html");
 
 	}
+
 
 	@Test
 	public void testnormalUsageSubmitSuccess() {
@@ -48,13 +46,7 @@ public class SampleUsage {
 				t -> t,
 				(k,v) -> {}
 				); 
-		Form f = createForm(env);
-		FormResult result = f.run(env);
-
-		InputStream in = this.getClass().getClassLoader()
-				.getResourceAsStream("test/expectedHTMLExampleForm_submitted.html");
-		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
-
+		testFormAgainstRequest(env, "test/expectedHTMLExampleForm_submitted.html");
 	}
 
 	@Test
@@ -63,12 +55,7 @@ public class SampleUsage {
 				t -> t,
 				(k,v) -> {}
 				); 
-		Form f = createForm(env);
-		FormResult result = f.run(env);
-
-		InputStream in = this.getClass().getClassLoader()
-				.getResourceAsStream("test/expectedHTMLExampleForm_error.html");
-		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
+		testFormAgainstRequest(env, "test/expectedHTMLExampleForm_error.html");
 
 	}
 
@@ -106,6 +93,16 @@ public class SampleUsage {
 		return f;
 	}
 
+	private void testFormAgainstRequest(Env env, String templateName) {
+		Form f = createForm(env);
+		FormResult result = f.run(env);
+
+		InputStream in = this.getClass().getClassLoader()
+				.getResourceAsStream(templateName);
+		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
+	}
+
+	
 	static String convertStreamToString(java.io.InputStream is) {
 		java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
 		return s.hasNext() ? s.next() : "";
