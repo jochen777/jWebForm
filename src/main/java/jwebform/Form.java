@@ -45,7 +45,7 @@ public class Form {
 			RenderInfos renderInfos = new RenderInfos(id, tabIndex, env, ValidationResult.undefined());
 			ElementResult result = element.run(renderInfos);
 			elementResults.put(element, result);
-			if (!result.getValidationResult().isValid) {
+			if (result.getValidationResult() != ValidationResult.ok()) {
 				completeResult = false;
 			}
 		}
@@ -62,6 +62,7 @@ public class Form {
 		// run the form-validators
 		Map<Element, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
 
+		// TODO: If something breaks here then set the completeResult to false!
 		for (FormValidator formValidator : formValidators) {
 			overridenValidationResults.putAll(formValidator.validate(elementResults));
 		}

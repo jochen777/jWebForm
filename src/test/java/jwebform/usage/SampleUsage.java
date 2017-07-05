@@ -44,11 +44,12 @@ public class SampleUsage {
 
 	@Test
 	public void testnormalUsageSubmitSuccess() {
-		Env env = new Env(it -> it, // this simulates the input of the names
+		Env env = new Env(it -> "1", // this simulates the input of the names
 				t -> t,
 				(k,v) -> {}
 				); 
-		testFormAgainstRequest(env, "test/expectedHTMLExampleForm_submitted.html");
+		boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_submitted.html");
+		assertTrue("The form should be true, because input-fields should be okay", result);
 	}
 
 	@Test
@@ -57,8 +58,8 @@ public class SampleUsage {
 				t -> t,
 				(k,v) -> {}
 				); 
-		testFormAgainstRequest(env, "test/expectedHTMLExampleForm_error.html");
-
+		boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_error.html");
+		assertTrue("The form should be false, because some fields are required or reqire a number", !result);
 	}
 
 	private Form createForm() {

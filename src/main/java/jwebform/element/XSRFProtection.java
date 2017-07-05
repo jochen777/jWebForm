@@ -63,7 +63,7 @@ public class XSRFProtection implements Element{
 		ValidationResult tempValidationResult;
 		tempValidationResult = ValidationResult.ok();
 
-		if (xsrfVal != null && !xsrfVal.equals(env.getSessionGet().getAttribute(name))) {
+		if (xsrfVal != null && !xsrfVal.equals(env.getSessionGet().getAttribute(name)) && !staticTokenName) {
 			tempValidationResult = ValidationResult.fail("formchecker.xsrf_problem");
 			}
 
@@ -85,7 +85,7 @@ public class XSRFProtection implements Element{
 		if (!validationResultToWorkWith.isValid) {
 			problemDescription = "XSRF Problem!<br>";	// RFE: MAke this nicer/configurable!
 		}
-		ElementResult result = new ElementResult("xsrf_protection", problemDescription + rendererdHtml);
+		ElementResult result = new ElementResult("xsrf_protection", problemDescription + rendererdHtml, validationResultToWorkWith, "");
 
 		return result;	// no representation
 	}

@@ -11,7 +11,7 @@ public class ElementResult {
 	private final String name;	// Element name
 	
 	public ElementResult(String name, String html) {
-		this(name, html, ValidationResult.undefined(), "");
+		this(name, html, ValidationResult.ok(), "");
 	}
 	
 	public ElementResult(String name, String html, ValidationResult vr, String value) {
