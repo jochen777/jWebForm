@@ -24,26 +24,23 @@ public class TextInput implements TabIndexAwareElement {
 	
 	final private Validator validator;	//
 	
-	
 	final private String placeholder; //
 	
-	final private String formId;
-	
-	public TextInput(String formId, String name, String label, String initialValue, String helptext, String placeholder, Validator validator) {
+	public TextInput(String name, String label, String initialValue, String helptext, String placeholder, Validator validator) {
 		this.name = name;
 		this.label = label;
 		this.helptext = helptext;
 		this.validator = validator;
-		this.formId = formId+"-";
 		this.initialValue = initialValue;
 		this.placeholder = placeholder;
 	}
 
 	@Override
 	public ElementResult getHtml(RenderInfos renderInfos) {
-		String value = this.setupValue(renderInfos.getEnv().getRequest(), initialValue);
+		String formId = renderInfos.getFormId() + "-";
+		String value = this.setupValue(renderInfos.getEnv().getRequest(), initialValue, formId);
 
-		ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value);
+		ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value, formId);
 		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult()==ValidationResult.undefined()?vr:renderInfos.getOverrideValidationResult();
 		
 		String errorMessage = "";
@@ -78,8 +75,6 @@ public class TextInput implements TabIndexAwareElement {
 			attrs.put("aria-describedby", "helpBlock-" + name);
 		}
 
-		
-		
 		TagAttributes inputTagAttr = new TagAttributes(attrs);
 		Tag inputTag = new Tag("input", inputTagAttr);
 		String html = wrapper.getStartHtml() +errorMessage+ labelTag.getComplete() + inputTag.getStartHtml()+ helpHTML + wrapper.getEndHtml() +"\n";
@@ -93,23 +88,17 @@ public class TextInput implements TabIndexAwareElement {
 		return 1;
 	}
 
-
-	private String setupValue(Request request, String initialValue){
+	private String setupValue(Request request, String initialValue, String formId){
 		if (request.getParameter(formId + name) != null) {
 			return request.getParameter(formId+name);
 		}
 		return initialValue;
 	}
 	
-	private ValidationResult validate(Request request, String value) {
+	private ValidationResult validate(Request request, String value, String formId) {
 		if (request.getParameter(formId+name) != null) {
 			return validator.validate(value);
 		}
 		return ValidationResult.undefined();
 	}
-
-
-	
-	
-	
 }

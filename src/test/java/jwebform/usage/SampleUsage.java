@@ -68,13 +68,13 @@ public class SampleUsage {
 		elements.add(new SimpleElement());
 		elements.add(new SimpleElement());
 
-		TextInput textInput = new TextInput(formId, "textInput", "TextInputLabel", "Peter\"Paul", "",
+		TextInput textInput = new TextInput("textInput", "TextInputLabel", "Peter\"Paul", "",
 				"", new Validator(Criteria.required()));
 		elements.add(textInput);
 
 		TextDateInput date = new TextDateInput(formId, "dateInput", "Please insert date", LocalDate.of(2017, 7, 4),"datehelptext", new Validator());
 		elements.add(date);
-		TextInput textInput2 = new TextInput(formId, "textInput2", "TextInputLabel2", "Peter\"Paul",
+		TextInput textInput2 = new TextInput("textInput2", "TextInputLabel2", "Peter\"Paul",
 				"Help-Text", "Placeholder", new Validator(Criteria.required()));
 		elements.add(textInput2);
 		elements.add(new SubmitButton("Submit"));
