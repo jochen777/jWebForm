@@ -59,7 +59,7 @@ public class SampleUsage {
 
 	}
 
-	private Form createForm(Env env) {
+	private Form createForm() {
 		// TODO: Add Custom FormValidator
 		String formId = "fid";
 		List<Element> elements = new ArrayList<>();
@@ -95,7 +95,7 @@ public class SampleUsage {
 	}
 
 	private void testFormAgainstRequest(Env env, String templateName) {
-		Form f = createForm(env);
+		Form f = createForm();
 		FormResult result = f.run(env);
 
 		InputStream in = this.getClass().getClassLoader()
