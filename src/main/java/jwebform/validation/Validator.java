@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Validator  {
 	
-	List <Criterion> criteria = new ArrayList<>();
+	private final List <Criterion> criteria = new ArrayList<>();
 	
 	public Validator(Criterion ... inputCriterium){
 		for (Criterion cirterion : inputCriterium) {

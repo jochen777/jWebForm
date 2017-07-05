@@ -32,7 +32,7 @@ public class View {
 			if (overridenValidationResult == null) {
 				overridenValidationResult = ValidationResult.undefined();
 			}
-			RenderInfos renderInfos = new RenderInfos(form.id, tabIndex, env, overridenValidationResult);
+			RenderInfos renderInfos = new RenderInfos(form.getId(), tabIndex, env, overridenValidationResult);
 			ElementResult result = element.getHtml(renderInfos);
 			html.append(result.getHtml());
 			if (element instanceof TabIndexAwareElement) {

@@ -16,9 +16,9 @@ import jwebform.validation.ValidationResult;
 // Represents a form
 public class Form {
 
-	final List<Element> elements = new ArrayList<>();
-	final String id;
-	final List<FormValidator> formValidators = new ArrayList<>();
+	private final List<Element> elements = new ArrayList<>();
+	private final String id;
+	private final List<FormValidator> formValidators = new ArrayList<>();
 
 	protected String method = "POST";
 	

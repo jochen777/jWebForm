@@ -9,7 +9,7 @@ import com.coverity.security.Escape;
 // class that holds html tag-attributes
 // RFE: make it immutable
 public class TagAttributes {
-	LinkedHashMap<String, String> attributes;
+	private final LinkedHashMap<String, String> attributes;
 
 	public TagAttributes(Map<String, String> attribs) {
 		attributes = new LinkedHashMap<>(attribs);

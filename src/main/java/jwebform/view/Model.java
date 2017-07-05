@@ -4,18 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 // Model to transport values from from to view
+@Deprecated
 public class Model {
 	Map<String, Object> content = new HashMap<>();
 	
-	public Model (Map<String, Object> initialContent) {
+	private Model (Map<String, Object> initialContent) {
 		content.putAll(initialContent);
 	}
 	
-	public Model (String key, Object value) {
+	private Model (String key, Object value) {
 		this.put(key, value);
 	}
 	
-	public Model() {
+	private Model() {
 	}
 	
 	
