@@ -49,22 +49,17 @@ public class Form {
 				completeResult = false;
 			}
 		}
-		/*/
-		for (Element element : elements) {
-			if (element instanceof Validateable) {
-				if (!((Validateable) element).getValidationResult().isValid) {
-					completeResult = false;
-					break;
-				}
-			}
-		}
-		*/
+		
 		// run the form-validators
 		Map<Element, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
 
-		// TODO: If something breaks here then set the completeResult to false!
+		
 		for (FormValidator formValidator : formValidators) {
 			overridenValidationResults.putAll(formValidator.validate(elementResults));
+		}
+		// If something breaks here then set the completeResult to false!
+		if (overridenValidationResults.size() > 0) {
+			completeResult = false;	// TODO: This must not be true. Eventually some overrides goes from wrong to true. So make this algorith more clever!
 		}
 		
 		FormValidationResult formValidationResult = new FormValidationResult(completeResult, overridenValidationResults);
