@@ -76,10 +76,9 @@ public class Form {
 
 	private Map<Element, ElementResult> processElements(Env env) {
 		// check each element
-		int tabIndex = 1;
 		Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
 		for (Element element : elements) {
-			RenderInfos renderInfos = new RenderInfos(id, tabIndex, env);
+			RenderInfos renderInfos = new RenderInfos(id, env);
 			ElementResult result = element.run(renderInfos);
 			elementResults.put(element, result);
 		}
