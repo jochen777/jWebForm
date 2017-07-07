@@ -9,7 +9,6 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.RenderInfos;
-import jwebform.element.structure.ValidationInfos;
 import jwebform.env.Env;
 import jwebform.validation.ValidationResult;
 
@@ -135,20 +134,6 @@ public class XSRFProtection implements Element {
     }
   }
 
-  @Override
-  public ValidationResult validate(ValidationInfos validationInfos) {
-    String name = validationInfos.getEnv().getRequest().getParameter(TOKENNAME);
-    String xsrfVal = validationInfos.getEnv().getRequest().getParameter(TOKENVAL);
-
-    ValidationResult tempValidationResult;
-    tempValidationResult = ValidationResult.ok();
-
-    if (xsrfVal != null
-        && !xsrfVal.equals(validationInfos.getEnv().getSessionGet().getAttribute(name))
-        && !staticTokenName) {
-      tempValidationResult = ValidationResult.fail("formchecker.xsrf_problem");
-    }
-    return tempValidationResult;
-  }
+  
 
 }

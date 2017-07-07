@@ -4,7 +4,6 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.TabIndexAwareElement;
-import jwebform.element.structure.ValidationInfos;
 import jwebform.validation.ValidationResult;
 
 public class SubmitButton implements TabIndexAwareElement {
@@ -45,10 +44,5 @@ public class SubmitButton implements TabIndexAwareElement {
 		
 	}
 
-	@Override
-	public ValidationResult validate(ValidationInfos validationInfos) {
-		return ValidationResult.ok();
-	}
-	
 
 }

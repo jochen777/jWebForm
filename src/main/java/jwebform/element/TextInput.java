@@ -6,7 +6,6 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.TabIndexAwareElement;
-import jwebform.element.structure.ValidationInfos;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -40,50 +39,7 @@ public class TextInput implements TabIndexAwareElement {
 
     TextInputRenderer renderer = new TextInputRenderer(formId, value, renderInfos.getTabIndex());
     ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value, formId);
-    /*
-    ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult();
-    ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value, formId);
-    validationResultToWorkWith = vr;
-
-    String errorMessage = "";
-    Tag wrapper = new Tag("div", "class", "form-group");
-    if (validationResultToWorkWith != ValidationResult.undefined()
-        && validationResultToWorkWith.isValid) {
-      wrapper.getTagAttributes().addToAttribute("class", " has-success");
-    }
-    if (validationResultToWorkWith != ValidationResult.undefined()
-        && !validationResultToWorkWith.isValid) {
-      wrapper.getTagAttributes().addToAttribute("class", " has-error");
-      errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
-    }
-    TagAttributes labelTagAttr = new TagAttributes("for", formId + name);
-    Tag labelTag = new Tag("label", labelTagAttr, decoration.getLabel() + ":");
-
-    LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
-    attrs.put("tabindex", Integer.toString(renderInfos.getTabIndex()));
-    attrs.put("type", "text");
-    attrs.put("name", formId + name);
-    attrs.put("value", value);
-
-    if (!StringUtils.isEmpty(decoration.getPlaceholder())) {
-      attrs.put("placeholder", decoration.getPlaceholder());
-    }
-
-    String helpHTML = "";
-    if (!StringUtils.isEmpty(decoration.getHelptext())) {
-      TagAttributes helpAttributes = new TagAttributes();
-      helpAttributes.addToAttribute("id", "helpBlock-" + name);
-      helpAttributes.addToAttribute("class", "help-block");
-      Tag help = new Tag("span", helpAttributes, decoration.getHelptext());
-      helpHTML = help.getComplete();
-      attrs.put("aria-describedby", "helpBlock-" + name);
-    }
-
-    TagAttributes inputTagAttr = new TagAttributes(attrs);
-    Tag inputTag = new Tag("input", inputTagAttr);
-    String html = wrapper.getStartHtml() + errorMessage + labelTag.getComplete()
-        + inputTag.getStartHtml() + helpHTML + wrapper.getEndHtml() + "\n";
-    */
+    
     ElementResult result = new ElementResult(name, renderer, "", vr, value);
     return result;
   }
@@ -168,13 +124,7 @@ public class TextInput implements TabIndexAwareElement {
     return ValidationResult.undefined();
   }
 
-  @Override
-  public ValidationResult validate(ValidationInfos validationInfos) {
-    String formId = validationInfos.getFormId() + "-";
-    String value = this.setupValue(validationInfos.getEnv().getRequest(), initialValue, formId);
-    ValidationResult vr = this.validate(validationInfos.getEnv().getRequest(), value, formId);
-    return vr;
-  }
+ 
 
   @Override
   public String toString() {

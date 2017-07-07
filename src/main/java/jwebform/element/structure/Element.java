@@ -1,11 +1,8 @@
 package jwebform.element.structure;
 
-import jwebform.validation.ValidationResult;
-
+@FunctionalInterface
 public interface Element {
 
 	public ElementResult run(RenderInfos renderInfos);
-	
-	public ValidationResult validate(ValidationInfos validationInfos);
 	
 }

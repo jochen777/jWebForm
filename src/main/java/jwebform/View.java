@@ -14,12 +14,10 @@ public class View {
 
 	private final Form form;
 	private final Map<Element, ElementResult> elementResults;
-	private final Env env;
 	
-	public View(Form form, Map<Element, ElementResult> elementResults, Env env) {
+	public View(Form form, Map<Element, ElementResult> elementResults) {
 		this.form = form;
 		this.elementResults = elementResults;
-		this.env = env;
 	}
 
 	public String getHtml() {
@@ -36,18 +34,6 @@ public class View {
 			html.append(renderedHtml);
 		});
 		
-		/*for (Element element : form.getElements()) {
-			ValidationResult overridenValidationResult = overridenValidationResults.get(element);
-			if (overridenValidationResult == null) {
-				overridenValidationResult = ValidationResult.undefined();
-			}
-			RenderInfos renderInfos = new RenderInfos(form.getId(), tabIndex, env, overridenValidationResult);
-			ElementResult result = element.run(renderInfos);
-			html.append(result.getHtml());
-			if (element instanceof TabIndexAwareElement) {
-				tabIndex += ((TabIndexAwareElement) element).getTabIndexIncrement();
-			}
-		}*/
 		html.append(startEndRenderer.getEnd());
 		return html.toString();
 	}

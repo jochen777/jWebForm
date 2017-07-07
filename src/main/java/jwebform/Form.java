@@ -36,7 +36,7 @@ public class Form {
 		Map<Element, ElementResult> correctedElementResults = correctElementResults(elementResults, overridenValidationResults);
 		boolean formIsValid = checkAllValidationResults(correctedElementResults);
 		
-		return new FormResult(this, env, correctedElementResults, formIsValid);
+		return new FormResult(this, correctedElementResults, formIsValid);
 	}
 
 

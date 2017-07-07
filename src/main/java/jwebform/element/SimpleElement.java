@@ -4,7 +4,6 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.RenderInfos;
-import jwebform.element.structure.ValidationInfos;
 import jwebform.validation.ValidationResult;
 
 public class SimpleElement implements Element{
@@ -22,11 +21,6 @@ public class SimpleElement implements Element{
 			return "simple\n";
 		}
 		
-	}
-
-	@Override
-	public ValidationResult validate(ValidationInfos validationInfos) {
-		return ValidationResult.ok();
 	}
 
 }
