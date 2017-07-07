@@ -4,10 +4,10 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.RenderInfos;
-import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
@@ -18,7 +18,7 @@ import jwebform.view.StringUtils;
  * @author jochen
  *
  */
-public class TextDateInput implements TabIndexAwareElement{
+public class TextDateInput implements Element{
 	
 	final private String name;
 	
@@ -57,9 +57,9 @@ public class TextDateInput implements TabIndexAwareElement{
 	@Override
 	public ElementResult run(RenderInfos renderInfos) {
 		ElementResult dayResult = day.run(renderInfos);
-		RenderInfos monthRenderInfos = renderInfos.cloneWithNewTabIndexIncrease(day.getTabIndexIncrement());
+		RenderInfos monthRenderInfos = renderInfos.cloneWithNewTabIndexIncrease(dayResult.getTabIndexIncrement());
 		ElementResult monthResult = month.run(monthRenderInfos);
-		RenderInfos yearRenderInfos = monthRenderInfos.cloneWithNewTabIndexIncrease(month.getTabIndexIncrement());
+		RenderInfos yearRenderInfos = monthRenderInfos.cloneWithNewTabIndexIncrease(monthResult.getTabIndexIncrement());
 		ElementResult yearResult = year.run(yearRenderInfos);
 		
 		LocalDate value = initialValue;
@@ -74,7 +74,7 @@ public class TextDateInput implements TabIndexAwareElement{
 		ElementResult result = new ElementResult(name, renderer,
             validationResult, 
             value.format(DateTimeFormatter.ISO_DATE)
-            );
+           ,3 );
 		return result;
 	}
 
@@ -92,17 +92,16 @@ public class TextDateInput implements TabIndexAwareElement{
     }
 
     @Override
-    public String getHTML(ValidationResult vr) {
+    public String getHTML(ValidationResult vr, int tabIndex) {
       String errorMessage = "";
       if (vr != ValidationResult.undefined() && !vr.isValid) {
           errorMessage = "Problem: " + vr.getMessage() + "<br>";
       }
       String html = decoration.getLabel() + "<br/>" 
               + 
-              errorMessage + dayResult.getHtmlProducer().getHTML(dayResult.getValidationResult()) +
-              monthResult.getHtmlProducer().getHTML(monthResult.getValidationResult()) +
-              yearResult.getHtmlProducer().getHTML(yearResult.getValidationResult()) + "<br>" + decoration.getHelptext()
-              ;
+              errorMessage + dayResult.getHtmlProducer().getHTML(dayResult.getValidationResult(), tabIndex) +
+              monthResult.getHtmlProducer().getHTML(monthResult.getValidationResult(), tabIndex+1) +
+              yearResult.getHtmlProducer().getHTML(yearResult.getValidationResult(), tabIndex+2) + "<br>" + decoration.getHelptext();
       return html;
     }
 	  
@@ -110,10 +109,6 @@ public class TextDateInput implements TabIndexAwareElement{
 	
 	
 
-	@Override
-	public int getTabIndexIncrement() {
-		return 3;
-	}
 
 
 	// May throw execption!!

@@ -8,7 +8,6 @@ import java.util.Map;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.RenderInfos;
-import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.env.Env;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -58,7 +57,7 @@ public class Form {
 		overridenValidationResults.forEach(
 				(element, overridenValidationResult) -> {
 					ElementResult re = elementResults.get(element);
-					elementResults.put(element, new ElementResult(re.getName(), re.getHtmlProducer(), overridenValidationResult, re.getValue()));
+					elementResults.put(element, new ElementResult(re.getName(), re.getHtmlProducer(), overridenValidationResult, re.getValue(), re.getTabIndexIncrement()));
 				}
 				);
 		return elementResults;
@@ -83,9 +82,6 @@ public class Form {
 			RenderInfos renderInfos = new RenderInfos(id, tabIndex, env);
 			ElementResult result = element.run(renderInfos);
 			elementResults.put(element, result);
-			if (element instanceof TabIndexAwareElement) {
-				tabIndex += ((TabIndexAwareElement) element).getTabIndexIncrement();
-			}
 		}
 		return elementResults;
 	}

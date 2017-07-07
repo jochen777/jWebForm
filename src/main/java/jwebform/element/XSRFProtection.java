@@ -77,7 +77,7 @@ public class XSRFProtection implements Element {
         + Escape.htmlText(xsrfVal) + "\">\n");
 
 
-    ElementResult result = new ElementResult("xsrf_protection", new XsrfRenderer(), tempValidationResult, "");
+    ElementResult result = new ElementResult("xsrf_protection", new XsrfRenderer(), tempValidationResult, "",0);
 
     return result; // no representation
   }
@@ -89,7 +89,7 @@ public class XSRFProtection implements Element {
     }
 
     @Override
-    public String getHTML(ValidationResult vr) {
+    public String getHTML(ValidationResult vr, int tabIndex) {
       StringBuilder tags = new StringBuilder();
 
       String name = "token-" + (staticTokenName ? "" : Math.random());

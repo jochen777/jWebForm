@@ -4,5 +4,5 @@ import jwebform.validation.ValidationResult;
 
 @FunctionalInterface
 public interface HTMLProducer {
-	String getHTML(ValidationResult vr);
+	String getHTML(ValidationResult vr, int tabIndex);
 }

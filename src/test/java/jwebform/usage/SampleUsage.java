@@ -21,6 +21,7 @@ import jwebform.element.TextDateInput;
 import jwebform.element.TextInput;
 import jwebform.element.XSRFProtection;
 import jwebform.element.structure.Element;
+import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -72,7 +73,6 @@ public class SampleUsage {
 		elements.add(new SimpleElement());
 
 		TextInput textInput = new TextInput("textInput", new OneFieldDecoration("TextInputLabel"), "Peter\"Paul", new Validator(Criteria.required()));
-		
 		elements.add(textInput);
 
 		TextDateInput date = new TextDateInput("dateInput", new OneFieldDecoration("Please insert date", "datehelptext", ""), LocalDate.of(2017, 7, 4), new Validator());

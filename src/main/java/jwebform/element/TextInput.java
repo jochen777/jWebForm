@@ -2,10 +2,10 @@ package jwebform.element;
 
 import java.util.LinkedHashMap;
 
+import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.RenderInfos;
-import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -13,7 +13,7 @@ import jwebform.view.StringUtils;
 import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
-public class TextInput implements TabIndexAwareElement {
+public class TextInput implements Element {
 
   final private String name; //
   // TBD: Does it make sense to introduce a Label class here?
@@ -37,10 +37,10 @@ public class TextInput implements TabIndexAwareElement {
     String formId = renderInfos.getFormId() + "-";
     String value = this.setupValue(renderInfos.getEnv().getRequest(), initialValue, formId);
 
-    TextInputRenderer renderer = new TextInputRenderer(formId, value, renderInfos.getTabIndex());
+    TextInputRenderer renderer = new TextInputRenderer(formId, value);
     ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value, formId);
     
-    ElementResult result = new ElementResult(name, renderer, vr, value);
+    ElementResult result = new ElementResult(name, renderer, vr, value, 1);
     return result;
   }
 
@@ -48,18 +48,16 @@ public class TextInput implements TabIndexAwareElement {
 
     private final String formId;
     private final String value;
-    private final int tabIndex;
     
-    public TextInputRenderer(String formId, String value, int tabIndex) {
+    public TextInputRenderer(String formId, String value) {
       this.formId = formId;
       this.value = value;
-      this.tabIndex = tabIndex;
     }
 
     
 
     @Override
-    public String getHTML(ValidationResult vr) {
+    public String getHTML(ValidationResult vr, int tabIndex) {
 
       String errorMessage = "";
       Tag wrapper = new Tag("div", "class", "form-group");
@@ -104,11 +102,6 @@ public class TextInput implements TabIndexAwareElement {
 
   }
 
-
-  @Override
-  public int getTabIndexIncrement() {
-    return 1;
-  }
 
   private String setupValue(Request request, String initialValue, String formId) {
     if (request.getParameter(formId + name) != null) {

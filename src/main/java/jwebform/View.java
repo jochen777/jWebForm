@@ -20,11 +20,14 @@ public class View {
 		StartEndRenderer startEndRenderer = new StartEndRenderer(form);	// RFE: Remove new
 		StringBuilder html = new StringBuilder();
 		html.append(startEndRenderer.getStart());
-		elementResults.forEach((element, elementResult)  -> {
+		int tabIndex = 1;
+		for (Map.Entry<Element, ElementResult> entry : elementResults.entrySet()) {
+			ElementResult elementResult = entry.getValue();
 		  String renderedHtml;
-		    renderedHtml = elementResult.getHtmlProducer().getHTML(elementResult.getValidationResult());
+		    renderedHtml = elementResult.getHtmlProducer().getHTML(elementResult.getValidationResult(), tabIndex);
 			html.append(renderedHtml);
-		});
+			tabIndex += elementResult.getTabIndexIncrement();
+		}
 		
 		html.append(startEndRenderer.getEnd());
 		return html.toString();

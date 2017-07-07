@@ -9,16 +9,18 @@ public class ElementResult {
 	private final String value;	// Better Object??
 	private final String name;	// Element name
 	private final HTMLProducer htmlProducer;
+	private final int tabIndexIncrement;
 	
 	public ElementResult(String name, HTMLProducer htmlProducer) {
-		this(name, htmlProducer, ValidationResult.ok(), "");
+		this(name, htmlProducer, ValidationResult.ok(), "", 1);
 	}
 	
-	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value) {
+	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value, int tabIndexIncrement) {
 		this.name = name;
 		this.htmlProducer = htmlProducer;
 		this.validationResult = vr;
 		this.value = value;
+		this.tabIndexIncrement = tabIndexIncrement;
 	}
 	
 
@@ -36,6 +38,10 @@ public class ElementResult {
 
 	public HTMLProducer getHtmlProducer() {
 		return htmlProducer;
+	}
+
+	public int getTabIndexIncrement() {
+		return tabIndexIncrement;
 	}
 	
 }
