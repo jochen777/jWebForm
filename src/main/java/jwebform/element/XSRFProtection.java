@@ -39,7 +39,7 @@ public class XSRFProtection implements Element {
   }
 
   @Override
-  public ElementResult run(PrepareInfos renderInfos) {
+  public ElementResult prepare(PrepareInfos renderInfos) {
     Env env = renderInfos.getEnv();
 
     if (env.getSessionGet() == null || env.getSessionSet() == null) {

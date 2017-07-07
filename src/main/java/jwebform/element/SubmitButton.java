@@ -20,7 +20,7 @@ public class SubmitButton implements Element {
 	}
 
 	@Override
-	public ElementResult run(PrepareInfos renderInfos) {
+	public ElementResult prepare(PrepareInfos renderInfos) {
 		return new ElementResult("submit", new SubmitRenderer(), ValidationResult.ok(), "", 1);
 	}
 

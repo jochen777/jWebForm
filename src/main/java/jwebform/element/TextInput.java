@@ -33,7 +33,7 @@ public class TextInput implements Element {
   }
 
   @Override
-  public ElementResult run(PrepareInfos renderInfos) {
+  public ElementResult prepare(PrepareInfos renderInfos) {
     String formId = renderInfos.getFormId() + "-";
     String value = this.setupValue(renderInfos.getEnv().getRequest(), initialValue, formId);
 

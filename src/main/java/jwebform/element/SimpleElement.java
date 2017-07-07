@@ -9,7 +9,7 @@ import jwebform.validation.ValidationResult;
 public class SimpleElement implements Element{
 
 	@Override
-	public ElementResult run(PrepareInfos renderInfos) {
+	public ElementResult prepare(PrepareInfos renderInfos) {
 		return new ElementResult("simple", new SimpleElementRenderer(), 
 				ValidationResult.ok(), "", 0);
 	}

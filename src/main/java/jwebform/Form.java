@@ -79,7 +79,7 @@ public class Form {
 		Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
 		for (Element element : elements) {
 			PrepareInfos renderInfos = new PrepareInfos(id, env);
-			ElementResult result = element.run(renderInfos);
+			ElementResult result = element.prepare(renderInfos);
 			elementResults.put(element, result);
 		}
 		return elementResults;

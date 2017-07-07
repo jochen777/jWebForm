@@ -55,12 +55,12 @@ public class TextDateInput implements Element{
 	}
 
 	@Override
-	public ElementResult run(PrepareInfos renderInfos) {
-		ElementResult dayResult = day.run(renderInfos);
+	public ElementResult prepare(PrepareInfos renderInfos) {
+		ElementResult dayResult = day.prepare(renderInfos);
 		PrepareInfos monthRenderInfos = renderInfos.cloneWithNewTabIndexIncrease(dayResult.getTabIndexIncrement());
-		ElementResult monthResult = month.run(monthRenderInfos);
+		ElementResult monthResult = month.prepare(monthRenderInfos);
 		PrepareInfos yearRenderInfos = monthRenderInfos.cloneWithNewTabIndexIncrease(monthResult.getTabIndexIncrement());
-		ElementResult yearResult = year.run(yearRenderInfos);
+		ElementResult yearResult = year.prepare(yearRenderInfos);
 		
 		LocalDate value = initialValue;
 		ValidationResult validationResult = ValidationResult.ok();
