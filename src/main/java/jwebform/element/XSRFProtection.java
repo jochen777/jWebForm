@@ -16,113 +16,139 @@ import jwebform.validation.ValidationResult;
 // Form-Elmement, that provides XSRF protection
 public class XSRFProtection implements Element {
 
-	private final String TOKENNAME = "tokenname";
-	private final String TOKENVAL = "tokenVal";
+  private final String TOKENNAME = "tokenname";
+  private final String TOKENVAL = "tokenVal";
 
-	private final SecureRandom random = new SecureRandom();
+  private final SecureRandom random = new SecureRandom();
 
-	private final boolean staticTokenName;
+  private final boolean staticTokenName;
 
-	public XSRFProtection() {
-		this(false);
-	}
+  public XSRFProtection() {
+    this(false);
+  }
 
-	// do not use staticTokenname = true in runtim. Use it only for testing
-	public XSRFProtection(boolean staticTokenName) {
-		this.staticTokenName = staticTokenName;
+  // do not use staticTokenname = true in runtim. Use it only for testing
+  public XSRFProtection(boolean staticTokenName) {
+    this.staticTokenName = staticTokenName;
 
-	}
+  }
 
-	private String getRandomValue() {
-		final byte[] bytes = new byte[32];
-		random.nextBytes(bytes);
-		return Base64.getEncoder().encodeToString(bytes);
-	}
+  private String getRandomValue() {
+    final byte[] bytes = new byte[32];
+    random.nextBytes(bytes);
+    return Base64.getEncoder().encodeToString(bytes);
+  }
 
-	@Override
-	public ElementResult run(RenderInfos renderInfos) {
-		Env env = renderInfos.getEnv();
+  @Override
+  public ElementResult run(RenderInfos renderInfos) {
+    Env env = renderInfos.getEnv();
 
-		if (env.getSessionGet() == null || env.getSessionSet() == null) {
-			throw new SessionMissingException();
-		}
-		
-		// ############ validation 
-		
-		String name = renderInfos.getEnv().getRequest().getParameter(TOKENNAME);
-		String xsrfVal = renderInfos.getEnv().getRequest().getParameter(TOKENVAL);
+    if (env.getSessionGet() == null || env.getSessionSet() == null) {
+      throw new SessionMissingException();
+    }
 
-		ValidationResult tempValidationResult;
-		tempValidationResult = ValidationResult.ok();
+    // ############ validation
 
-		if (xsrfVal != null && !xsrfVal.equals(renderInfos.getEnv().getSessionGet().getAttribute(name))
-				&& !staticTokenName) {
-			tempValidationResult = ValidationResult.fail("formchecker.xsrf_problem");
-		}
+    String name = renderInfos.getEnv().getRequest().getParameter(TOKENNAME);
+    String xsrfVal = renderInfos.getEnv().getRequest().getParameter(TOKENVAL);
 
-		
-		// ###############
-		
-		// TODO: What happens, if session runs out and user want's a new code?
+    ValidationResult tempValidationResult;
+    tempValidationResult = ValidationResult.ok();
 
-		// is firstrun - then generate a complete new token
-		StringBuilder tags = new StringBuilder();
+    if (xsrfVal != null && !xsrfVal.equals(renderInfos.getEnv().getSessionGet().getAttribute(name))
+        && !staticTokenName) {
+      tempValidationResult = ValidationResult.fail("formchecker.xsrf_problem");
+    }
 
-		name = "token-" + (staticTokenName ? "" : Math.random());
-		xsrfVal = (staticTokenName ? "static" : getRandomValue());
-		env.getSessionSet().setAttribute(name, xsrfVal);
 
-		tags.append("<input type=\"hidden\" name=\"" + TOKENNAME + "\" value=\"" + Escape.htmlText(name) + "\">");
-		tags.append("<input type=\"hidden\" name=\"" + TOKENVAL + "\" value=\"" + Escape.htmlText(xsrfVal) + "\">\n");
+    // ###############
 
-		String rendererdHtml = tags.toString();
+    // TODO: What happens, if session runs out and user want's a new code?
 
-		ValidationResult validationResultToWorkWith = tempValidationResult;
-		String problemDescription = "";
-		if (!validationResultToWorkWith.isValid) {
-			problemDescription = "XSRF Problem!<br>"; // RFE: MAke this
-														// nicer/configurable!
-		}
-		ElementResult result = new ElementResult("xsrf_protection", null, problemDescription + rendererdHtml,
-				validationResultToWorkWith, "");
+    // is firstrun - then generate a complete new token
+    StringBuilder tags = new StringBuilder();
 
-		return result; // no representation
-	}
+    name = "token-" + (staticTokenName ? "" : Math.random());
+    xsrfVal = (staticTokenName ? "static" : getRandomValue());
+    env.getSessionSet().setAttribute(name, xsrfVal);
 
-	public class XsrfRenderer implements HTMLProducer {
+    tags.append("<input type=\"hidden\" name=\"" + TOKENNAME + "\" value=\"" + Escape.htmlText(name)
+        + "\">");
+    tags.append("<input type=\"hidden\" name=\"" + TOKENVAL + "\" value=\""
+        + Escape.htmlText(xsrfVal) + "\">\n");
 
-		@Override
-		public String getHTML(ValidationResult vr) {
-			return null;
-		}
+    String rendererdHtml = tags.toString();
 
-	}
+    ValidationResult validationResultToWorkWith = tempValidationResult;
+    String problemDescription = "";
+    if (!validationResultToWorkWith.isValid) {
+      problemDescription = "XSRF Problem!<br>"; // RFE: MAke this
+                                                // nicer/configurable!
+    }
+    ElementResult result = new ElementResult("xsrf_protection", new XsrfRenderer(),
+        problemDescription + rendererdHtml, validationResultToWorkWith, "");
 
-	public class SessionMissingException extends RuntimeException {
-		private static final long serialVersionUID = 1L;
+    return result; // no representation
+  }
 
-		public SessionMissingException() {
-			super("Session data missing in Env. \nPlease provide sessionGet() and sessionSet() in Env!\n\n...This is needed for XSRF-Protection."
-					+ "\n\nExample: \nnew Env(requestParamName -> request.getParameter(requestParamName),	// Request"
-					+ "\nsessionParamName -> request.getSession().getAttribute(sessionParamName), // SessionGet"
-					+ "\n(sessionParamName, value) -> request.getSession().setAttribute(sessionParamName, value) // SessionSet"
-					+ "\n);");
-		}
-	}
+  public class XsrfRenderer implements HTMLProducer {
 
-	@Override
-	public ValidationResult validate(ValidationInfos validationInfos) {
-		String name = validationInfos.getEnv().getRequest().getParameter(TOKENNAME);
-		String xsrfVal = validationInfos.getEnv().getRequest().getParameter(TOKENVAL);
 
-		ValidationResult tempValidationResult;
-		tempValidationResult = ValidationResult.ok();
+    public XsrfRenderer() {
+    }
 
-		if (xsrfVal != null && !xsrfVal.equals(validationInfos.getEnv().getSessionGet().getAttribute(name))
-				&& !staticTokenName) {
-			tempValidationResult = ValidationResult.fail("formchecker.xsrf_problem");
-		}
-		return tempValidationResult;
-	}
+    @Override
+    public String getHTML(ValidationResult vr) {
+      StringBuilder tags = new StringBuilder();
+
+      String name = "token-" + (staticTokenName ? "" : Math.random());
+      String xsrfVal = (staticTokenName ? "static" : getRandomValue());
+
+      tags.append("<input type=\"hidden\" name=\"" + TOKENNAME + "\" value=\""
+          + Escape.htmlText(name) + "\">");
+      tags.append("<input type=\"hidden\" name=\"" + TOKENVAL + "\" value=\""
+          + Escape.htmlText(xsrfVal) + "\">\n");
+
+      String rendererdHtml = tags.toString();
+
+      String problemDescription = "";
+      if (!vr.isValid) {
+        problemDescription = "XSRF Problem!<br>"; // RFE: MAke this
+                                                  // nicer/configurable!
+      }
+      return problemDescription + rendererdHtml;
+
+    }
+
+  }
+
+  public class SessionMissingException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
+
+    public SessionMissingException() {
+      super(
+          "Session data missing in Env. \nPlease provide sessionGet() and sessionSet() in Env!\n\n...This is needed for XSRF-Protection."
+              + "\n\nExample: \nnew Env(requestParamName -> request.getParameter(requestParamName),	// Request"
+              + "\nsessionParamName -> request.getSession().getAttribute(sessionParamName), // SessionGet"
+              + "\n(sessionParamName, value) -> request.getSession().setAttribute(sessionParamName, value) // SessionSet"
+              + "\n);");
+    }
+  }
+
+  @Override
+  public ValidationResult validate(ValidationInfos validationInfos) {
+    String name = validationInfos.getEnv().getRequest().getParameter(TOKENNAME);
+    String xsrfVal = validationInfos.getEnv().getRequest().getParameter(TOKENVAL);
+
+    ValidationResult tempValidationResult;
+    tempValidationResult = ValidationResult.ok();
+
+    if (xsrfVal != null
+        && !xsrfVal.equals(validationInfos.getEnv().getSessionGet().getAttribute(name))
+        && !staticTokenName) {
+      tempValidationResult = ValidationResult.fail("formchecker.xsrf_problem");
+    }
+    return tempValidationResult;
+  }
 
 }

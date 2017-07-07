@@ -12,7 +12,7 @@ public class SimpleElement implements Element{
 	
 	@Override
 	public ElementResult run(RenderInfos renderInfos) {
-		return new ElementResult("simple", new SimpleElementRenderer(), "simple\n");
+		return new ElementResult("simple", new SimpleElementRenderer(), "");
 	}
 
 	public class SimpleElementRenderer implements HTMLProducer {

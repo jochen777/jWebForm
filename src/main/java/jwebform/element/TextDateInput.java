@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.element.structure.ValidationInfos;
@@ -46,7 +47,7 @@ public class TextDateInput implements TabIndexAwareElement{
 		Validator numberValidator = new Validator(Criteria.number());
 
 		this.day = new TextInput(name+"_day", new OneFieldDecoration("Day"), String.valueOf(initialValue.getDayOfMonth()),
-				 numberValidator);
+		    numberValidator);
 		this.month = new TextInput(name+"_month",  new OneFieldDecoration("Month"), String.valueOf(initialValue.getMonthValue()),  numberValidator);
 		this.year = new TextInput(name+"_year",  new OneFieldDecoration("Year"), String.valueOf(initialValue.getYear()), numberValidator);
 
@@ -76,6 +77,7 @@ public class TextDateInput implements TabIndexAwareElement{
 			validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
 		}
 		
+        /*
 		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult()==ValidationResult.undefined()?validationResult:renderInfos.getOverrideValidationResult();
 		String errorMessage = "";
 		if (validationResultToWorkWith != ValidationResult.undefined() && !validationResultToWorkWith.isValid) {
@@ -90,9 +92,46 @@ public class TextDateInput implements TabIndexAwareElement{
 				value.format(DateTimeFormatter.ISO_DATE)
 				
 				);
+	    */
+		TextDateInputRenderer renderer = new TextDateInputRenderer(dayResult, monthResult, yearResult);
+		ElementResult result = new ElementResult(name, renderer, "",
+            validationResult, 
+            value.format(DateTimeFormatter.ISO_DATE)
+            );
 		return result;
 	}
 
+	public class TextDateInputRenderer implements HTMLProducer {
+
+	  private final ElementResult dayResult;
+	  private final ElementResult monthResult;
+	  private final ElementResult yearResult;
+	  
+    public TextDateInputRenderer(ElementResult dayResult, ElementResult monthResult,
+        ElementResult yearResult) {
+      this.dayResult = dayResult;
+      this.monthResult = monthResult;
+      this.yearResult = yearResult;
+    }
+
+    @Override
+    public String getHTML(ValidationResult vr) {
+      String errorMessage = "";
+      if (vr != ValidationResult.undefined() && !vr.isValid) {
+          errorMessage = "Problem: " + vr.getMessage() + "<br>";
+      }
+      String html = decoration.getLabel() + "<br/>" 
+              + 
+              errorMessage + dayResult.getHtmlProducer().getHTML(dayResult.getValidationResult()) +
+              monthResult.getHtmlProducer().getHTML(monthResult.getValidationResult()) +
+              yearResult.getHtmlProducer().getHTML(yearResult.getValidationResult()) + "<br>" + decoration.getHelptext()
+              ;
+      return html;
+    }
+	  
+	}
+	
+	
 
 	@Override
 	public int getTabIndexIncrement() {

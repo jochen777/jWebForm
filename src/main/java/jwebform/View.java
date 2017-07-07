@@ -26,9 +26,15 @@ public class View {
 		StartEndRenderer startEndRenderer = new StartEndRenderer(form);	// RFE: Remove new
 		StringBuilder html = new StringBuilder();
 		html.append(startEndRenderer.getStart());
-		elementResults.forEach((element, elementResult)  ->
-			html.append(elementResult.getHtml())
-				);
+		elementResults.forEach((element, elementResult)  -> {
+		  String renderedHtml;
+		  if (elementResult.getHtmlProducer() != null) {
+		    renderedHtml = elementResult.getHtmlProducer().getHTML(elementResult.getValidationResult());
+		  } else {
+		    renderedHtml = elementResult.getHtml();
+		  }
+			html.append(renderedHtml);
+		});
 		
 		/*for (Element element : form.getElements()) {
 			ValidationResult overridenValidationResult = overridenValidationResults.get(element);
