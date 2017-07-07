@@ -1,5 +1,6 @@
 package jwebform.element.structure;
 
+// RFE: Remove this.
 public interface TabIndexAwareElement extends Element {
 
   /*

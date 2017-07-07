@@ -45,7 +45,6 @@ public class Form {
 		boolean formIsValid = true;
 		for (Map.Entry<Element, ElementResult> entry : correctedElementResults.entrySet()) {
 			if (entry.getValue().getValidationResult() != ValidationResult.ok()) {
-				System.err.println("Wrong: " + entry.getKey().toString());
 				formIsValid = false;
 				break;
 			}
@@ -81,14 +80,11 @@ public class Form {
 		int tabIndex = 1;
 		Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
 		for (Element element : elements) {
-			RenderInfos renderInfos = new RenderInfos(id, tabIndex, env, ValidationResult.undefined());
+			RenderInfos renderInfos = new RenderInfos(id, tabIndex, env);
 			ElementResult result = element.run(renderInfos);
 			elementResults.put(element, result);
 			if (element instanceof TabIndexAwareElement) {
 				tabIndex += ((TabIndexAwareElement) element).getTabIndexIncrement();
-			}
-			if (result.getValidationResult() != ValidationResult.ok() && result.getValidationResult() != ValidationResult.undefined()) {
-				System.err.println("Wrong in first run: " + element + ":" + result.getValidationResult() );
 			}
 		}
 		return elementResults;
