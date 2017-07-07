@@ -8,7 +8,7 @@ import com.coverity.security.Escape;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.RenderInfos;
+import jwebform.element.structure.PrepareInfos;
 import jwebform.env.Env;
 import jwebform.validation.ValidationResult;
 
@@ -39,7 +39,7 @@ public class XSRFProtection implements Element {
   }
 
   @Override
-  public ElementResult run(RenderInfos renderInfos) {
+  public ElementResult run(PrepareInfos renderInfos) {
     Env env = renderInfos.getEnv();
 
     if (env.getSessionGet() == null || env.getSessionSet() == null) {

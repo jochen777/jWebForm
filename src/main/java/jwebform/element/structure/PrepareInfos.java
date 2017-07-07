@@ -2,19 +2,19 @@ package jwebform.element.structure;
 
 import jwebform.env.Env;
 
-// information that are needed to render a form element completly
-public class RenderInfos {
+// information that are needed to prepare a form element completly
+public class PrepareInfos {
 	private final String formId;
 	private final Env env;
 	// maybe: MessageSource, AdditionalAttributes
 	
-	public RenderInfos(String formId, Env env) {
+	public PrepareInfos(String formId, Env env) {
 		this.formId = formId;
 		this.env = env;
 	}
 	
-	public RenderInfos cloneWithNewTabIndexIncrease(int tabIndexIncrease) {
-		return new RenderInfos(formId, env);
+	public PrepareInfos cloneWithNewTabIndexIncrease(int tabIndexIncrease) {
+		return new PrepareInfos(formId, env);
 	}
 
 	public String getFormId() {

@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.RenderInfos;
+import jwebform.element.structure.PrepareInfos;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
@@ -55,11 +55,11 @@ public class TextDateInput implements Element{
 	}
 
 	@Override
-	public ElementResult run(RenderInfos renderInfos) {
+	public ElementResult run(PrepareInfos renderInfos) {
 		ElementResult dayResult = day.run(renderInfos);
-		RenderInfos monthRenderInfos = renderInfos.cloneWithNewTabIndexIncrease(dayResult.getTabIndexIncrement());
+		PrepareInfos monthRenderInfos = renderInfos.cloneWithNewTabIndexIncrease(dayResult.getTabIndexIncrement());
 		ElementResult monthResult = month.run(monthRenderInfos);
-		RenderInfos yearRenderInfos = monthRenderInfos.cloneWithNewTabIndexIncrease(monthResult.getTabIndexIncrement());
+		PrepareInfos yearRenderInfos = monthRenderInfos.cloneWithNewTabIndexIncrease(monthResult.getTabIndexIncrement());
 		ElementResult yearResult = year.run(yearRenderInfos);
 		
 		LocalDate value = initialValue;

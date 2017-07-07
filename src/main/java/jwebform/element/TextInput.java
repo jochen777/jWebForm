@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.RenderInfos;
+import jwebform.element.structure.PrepareInfos;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -33,7 +33,7 @@ public class TextInput implements Element {
   }
 
   @Override
-  public ElementResult run(RenderInfos renderInfos) {
+  public ElementResult run(PrepareInfos renderInfos) {
     String formId = renderInfos.getFormId() + "-";
     String value = this.setupValue(renderInfos.getEnv().getRequest(), initialValue, formId);
 
