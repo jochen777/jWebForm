@@ -22,12 +22,7 @@ public class TextDateInput implements TabIndexAwareElement{
 	
 	final private String name;
 	
-	//final private LocalDate value;
-
-	
 	final private Validator validator;
-	
-	//final private ValidationResult validationResult;
 	
 	final private LocalDate initialValue;
 	final private OneFieldDecoration decoration;
@@ -75,22 +70,6 @@ public class TextDateInput implements TabIndexAwareElement{
 			validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
 		}
 		
-        /*
-		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult()==ValidationResult.undefined()?validationResult:renderInfos.getOverrideValidationResult();
-		String errorMessage = "";
-		if (validationResultToWorkWith != ValidationResult.undefined() && !validationResultToWorkWith.isValid) {
-			errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
-		}
-		ElementResult result = new ElementResult(name, null, decoration.getLabel() + "<br/>" 
-				+ 
-				errorMessage + dayResult.getHtml() +
-				monthResult.getHtml() +
-				yearResult.getHtml() + "<br>" + decoration.getHelptext(),
-				validationResult, 
-				value.format(DateTimeFormatter.ISO_DATE)
-				
-				);
-	    */
 		TextDateInputRenderer renderer = new TextDateInputRenderer(dayResult, monthResult, yearResult);
 		ElementResult result = new ElementResult(name, renderer,
             validationResult, 
