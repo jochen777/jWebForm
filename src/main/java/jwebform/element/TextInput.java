@@ -52,7 +52,7 @@ public class TextInput implements TabIndexAwareElement {
 		TagAttributes labelTagAttr = new TagAttributes("for", formId+name);
 		Tag labelTag = new Tag("label", labelTagAttr, decoration.getLabel()+":");
 
-		LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
+		LinkedHashMap<String, String> attrs = new LinkedHashMap<>(); 
 		attrs.put("tabindex", Integer.toString(renderInfos.getTabIndex()));
 		attrs.put("type", "text");
 		attrs.put("name", formId + name);
