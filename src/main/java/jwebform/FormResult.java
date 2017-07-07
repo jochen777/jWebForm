@@ -4,7 +4,6 @@ import java.util.Map;
 
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
-import jwebform.env.Env;
 
 public class FormResult {
 

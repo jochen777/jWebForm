@@ -1,7 +1,6 @@
 package jwebform.element.structure;
 
 import jwebform.env.Env;
-import jwebform.validation.ValidationResult;
 
 // information that are needed to render a form element completly
 public class RenderInfos {
@@ -28,7 +27,6 @@ public class RenderInfos {
 		return tabIndex;
 	}
 
-	
 	public Env getEnv() {
 		return env;
 	}
