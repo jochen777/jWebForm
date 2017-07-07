@@ -8,8 +8,8 @@ import java.util.Map;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.RenderInfos;
+import jwebform.element.structure.TabIndexAwareElement;
 import jwebform.env.Env;
-import jwebform.validation.FormValidationResult;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 
@@ -31,41 +31,70 @@ public class Form {
 	
 	public FormResult run(Env env) {
 		// validate form
-		return new FormResult(this, checkIfValid(env), env);
+		Map<Element, ElementResult> elementResults = processElements(env);
+		Map<Element, ValidationResult> overridenValidationResults = runFormValidations(elementResults);
+		Map<Element, ElementResult> correctedElementResults = correctElementResults(elementResults, overridenValidationResults);
+		boolean formIsValid = checkAllValidationResults(correctedElementResults);
+		
+		return new FormResult(this, env, correctedElementResults, formIsValid);
 	}
 
 
 
-	private FormValidationResult checkIfValid(Env env) {
+	private boolean checkAllValidationResults(Map<Element, ElementResult> correctedElementResults) {
+		boolean formIsValid = true;
+		for (Map.Entry<Element, ElementResult> entry : correctedElementResults.entrySet()) {
+			if (entry.getValue().getValidationResult() != ValidationResult.ok()) {
+				System.err.println("Wrong: " + entry.getKey().toString());
+				formIsValid = false;
+				break;
+			}
+		}
+		return formIsValid;
+	}
+
+
+	private Map<Element, ElementResult> correctElementResults(Map<Element, ElementResult> elementResults,
+			Map<Element, ValidationResult> overridenValidationResults) {
+		overridenValidationResults.forEach(
+				(element, overridenValidationResult) -> {
+					ElementResult re = elementResults.get(element);
+					elementResults.put(element, new ElementResult(re.getName(), re.getHtmlProducer(), re.getHtml(), overridenValidationResult, re.getValue()));
+				}
+				);
+		return elementResults;
+	}
+
+
+	private Map<Element, ValidationResult> runFormValidations(Map<Element, ElementResult> elementResults) {
+		// run the form-validators
+		Map<Element, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
+		for (FormValidator formValidator : formValidators) {
+			overridenValidationResults.putAll(formValidator.validate(elementResults));
+		}
+		return overridenValidationResults;
+	}
+
+
+	private Map<Element, ElementResult> processElements(Env env) {
 		// check each element
-		boolean completeResult = true;
 		int tabIndex = 1;
 		Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
 		for (Element element : elements) {
 			RenderInfos renderInfos = new RenderInfos(id, tabIndex, env, ValidationResult.undefined());
 			ElementResult result = element.run(renderInfos);
 			elementResults.put(element, result);
-			if (result.getValidationResult() != ValidationResult.ok()) {
-				completeResult = false;
+			if (element instanceof TabIndexAwareElement) {
+				tabIndex += ((TabIndexAwareElement) element).getTabIndexIncrement();
+			}
+			if (result.getValidationResult() != ValidationResult.ok() && result.getValidationResult() != ValidationResult.undefined()) {
+				System.err.println("Wrong in first run: " + element + ":" + result.getValidationResult() );
 			}
 		}
-		
-		// run the form-validators
-		Map<Element, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
-
-		
-		for (FormValidator formValidator : formValidators) {
-			overridenValidationResults.putAll(formValidator.validate(elementResults));
-		}
-		// If something breaks here then set the completeResult to false!
-		if (overridenValidationResults.size() > 0) {
-			completeResult = false;	// TODO: This must not be true. Eventually some overrides goes from wrong to true. So make this algorith more clever!
-		}
-		
-		FormValidationResult formValidationResult = new FormValidationResult(completeResult, overridenValidationResults);
-		return formValidationResult;
+		return elementResults;
 	}
 
+	
 
 	
 	List<Element> getElements() {

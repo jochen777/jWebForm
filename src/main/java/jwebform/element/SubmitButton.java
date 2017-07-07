@@ -1,8 +1,11 @@
 package jwebform.element;
 
 import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.TabIndexAwareElement;
+import jwebform.element.structure.ValidationInfos;
+import jwebform.validation.ValidationResult;
 
 public class SubmitButton implements TabIndexAwareElement {
 
@@ -19,7 +22,7 @@ public class SubmitButton implements TabIndexAwareElement {
 
 	@Override
 	public ElementResult run(RenderInfos renderInfos) {
-		return new ElementResult("submit", "<input tabindex=\"" + renderInfos.getTabIndex() + "\" type=\"submit\" value=\"" + label + "\">");
+		return new ElementResult("submit", new SubmitRenderer(renderInfos.getTabIndex()), "<input tabindex=\"" + renderInfos.getTabIndex() + "\" type=\"submit\" value=\"" + label + "\">");
 	}
 
 	@Override
@@ -27,5 +30,25 @@ public class SubmitButton implements TabIndexAwareElement {
 		return 1;
 	}
 
+	public class SubmitRenderer implements HTMLProducer {
+		
+		private final int tabIndex;
+		
+		public SubmitRenderer(int tabIndex) {
+			this.tabIndex = tabIndex;
+		}
+
+		@Override
+		public String getHTML(ValidationResult vr) {
+			return "<input tabindex=\"" + tabIndex + "\" type=\"submit\" value=\"" + label + "\">";
+		}
+		
+	}
+
+	@Override
+	public ValidationResult validate(ValidationInfos validationInfos) {
+		return ValidationResult.ok();
+	}
+	
 
 }

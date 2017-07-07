@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.TabIndexAwareElement;
+import jwebform.element.structure.ValidationInfos;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -35,8 +36,9 @@ public class TextInput implements TabIndexAwareElement {
 		String formId = renderInfos.getFormId() + "-";
 		String value = this.setupValue(renderInfos.getEnv().getRequest(), initialValue, formId);
 
+		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult();
 		ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value, formId);
-		ValidationResult validationResultToWorkWith = renderInfos.getOverrideValidationResult()==ValidationResult.undefined()?vr:renderInfos.getOverrideValidationResult();
+		validationResultToWorkWith = vr;
 		
 		String errorMessage = "";
 		Tag wrapper = new Tag("div", "class", "form-group");
@@ -73,7 +75,7 @@ public class TextInput implements TabIndexAwareElement {
 		TagAttributes inputTagAttr = new TagAttributes(attrs);
 		Tag inputTag = new Tag("input", inputTagAttr);
 		String html = wrapper.getStartHtml() +errorMessage+ labelTag.getComplete() + inputTag.getStartHtml()+ helpHTML + wrapper.getEndHtml() +"\n";
-		ElementResult result = new ElementResult(name, html, vr, value);
+		ElementResult result = new ElementResult(name, null, html, validationResultToWorkWith, value);
 		return result;
 	}
 
@@ -95,5 +97,18 @@ public class TextInput implements TabIndexAwareElement {
 			return validator.validate(value);
 		}
 		return ValidationResult.undefined();
+	}
+
+	@Override
+	public ValidationResult validate(ValidationInfos validationInfos) {
+		String formId = validationInfos.getFormId() + "-";
+		String value = this.setupValue(validationInfos.getEnv().getRequest(), initialValue, formId);
+		ValidationResult vr = this.validate(validationInfos.getEnv().getRequest(), value, formId);
+		return vr;
+		}
+	
+	@Override
+	public String toString() {
+		return String.format("TextInput. name=%s", name);
 	}
 }

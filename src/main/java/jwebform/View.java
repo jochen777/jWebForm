@@ -13,12 +13,12 @@ import jwebform.view.StartEndRenderer;
 public class View {
 
 	private final Form form;
-	private final Map<Element, ValidationResult> overridenValidationResults;
+	private final Map<Element, ElementResult> elementResults;
 	private final Env env;
 	
-	public View(Form form, Map<Element, ValidationResult> overridenValidationResults, Env env) {
+	public View(Form form, Map<Element, ElementResult> elementResults, Env env) {
 		this.form = form;
-		this.overridenValidationResults = overridenValidationResults;
+		this.elementResults = elementResults;
 		this.env = env;
 	}
 
@@ -26,8 +26,11 @@ public class View {
 		StartEndRenderer startEndRenderer = new StartEndRenderer(form);	// RFE: Remove new
 		StringBuilder html = new StringBuilder();
 		html.append(startEndRenderer.getStart());
-		int tabIndex = 1;
-		for (Element element : form.getElements()) {
+		elementResults.forEach((element, elementResult)  ->
+			html.append(elementResult.getHtml())
+				);
+		
+		/*for (Element element : form.getElements()) {
 			ValidationResult overridenValidationResult = overridenValidationResults.get(element);
 			if (overridenValidationResult == null) {
 				overridenValidationResult = ValidationResult.undefined();
@@ -38,7 +41,7 @@ public class View {
 			if (element instanceof TabIndexAwareElement) {
 				tabIndex += ((TabIndexAwareElement) element).getTabIndexIncrement();
 			}
-		}
+		}*/
 		html.append(startEndRenderer.getEnd());
 		return html.toString();
 	}

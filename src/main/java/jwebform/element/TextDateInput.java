@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.RenderInfos;
 import jwebform.element.structure.TabIndexAwareElement;
+import jwebform.element.structure.ValidationInfos;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -80,7 +81,7 @@ public class TextDateInput implements TabIndexAwareElement{
 		if (validationResultToWorkWith != ValidationResult.undefined() && !validationResultToWorkWith.isValid) {
 			errorMessage = "Problem: " + validationResultToWorkWith.getMessage() + "<br>";
 		}
-		ElementResult result = new ElementResult(name, decoration.getLabel() + "<br/>" 
+		ElementResult result = new ElementResult(name, null, decoration.getLabel() + "<br/>" 
 				+ 
 				errorMessage + dayResult.getHtml() +
 				monthResult.getHtml() +
@@ -115,6 +116,29 @@ public class TextDateInput implements TabIndexAwareElement{
 
 	private int getDefaultValueFromRequest(String input) {
 		return Integer.parseInt(input);
+	}
+
+
+
+
+
+	@Override
+	public ValidationResult validate(ValidationInfos validationInfos) {
+		return null;
+		/*
+		ElementResult dayResult = day.run(renderInfos);
+		RenderInfos monthRenderInfos = renderInfos.cloneWithNewTabIndexIncrease(day.getTabIndexIncrement());
+		ElementResult monthResult = month.run(monthRenderInfos);
+		RenderInfos yearRenderInfos = monthRenderInfos.cloneWithNewTabIndexIncrease(month.getTabIndexIncrement());
+		ElementResult yearResult = year.run(yearRenderInfos);
+		
+		LocalDate value = initialValue;
+		ValidationResult validationResult = ValidationResult.ok();
+		try {
+			value = this.setupValue(this.initialValue, dayResult.getValue(), monthResult.getValue(), yearResult.getValue());
+		} catch (DateTimeException | NumberFormatException e) {
+			validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
+		}*/
 	}
 	
 	

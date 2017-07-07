@@ -9,14 +9,16 @@ public class ElementResult {
 	private final ValidationResult validationResult;		// or just boolean "valid"?
 	private final String value;	// Better Object??
 	private final String name;	// Element name
+	private final HTMLProducer htmlProducer;
 	
-	public ElementResult(String name, String html) {
-		this(name, html, ValidationResult.ok(), "");
+	public ElementResult(String name, HTMLProducer htmlProducer, String html) {
+		this(name, htmlProducer, html, ValidationResult.ok(), "");
 	}
 	
-	public ElementResult(String name, String html, ValidationResult vr, String value) {
+	public ElementResult(String name, HTMLProducer htmlProducer, String html /* TODO: Remove this */, ValidationResult vr, String value) {
 		this.name = name;
 		this.html = html;
+		this.htmlProducer = htmlProducer;
 		this.validationResult = vr;
 		this.value = value;
 	}
@@ -36,6 +38,10 @@ public class ElementResult {
 
 	public String getName() {
 		return name;
+	}
+
+	public HTMLProducer getHtmlProducer() {
+		return htmlProducer;
 	}
 	
 }
