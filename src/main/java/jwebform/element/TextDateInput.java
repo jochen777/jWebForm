@@ -92,7 +92,7 @@ public class TextDateInput implements TabIndexAwareElement{
 				);
 	    */
 		TextDateInputRenderer renderer = new TextDateInputRenderer(dayResult, monthResult, yearResult);
-		ElementResult result = new ElementResult(name, renderer, "",
+		ElementResult result = new ElementResult(name, renderer,
             validationResult, 
             value.format(DateTimeFormatter.ISO_DATE)
             );

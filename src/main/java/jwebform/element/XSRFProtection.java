@@ -76,16 +76,8 @@ public class XSRFProtection implements Element {
     tags.append("<input type=\"hidden\" name=\"" + TOKENVAL + "\" value=\""
         + Escape.htmlText(xsrfVal) + "\">\n");
 
-    String rendererdHtml = tags.toString();
 
-    ValidationResult validationResultToWorkWith = tempValidationResult;
-    String problemDescription = "";
-    if (!validationResultToWorkWith.isValid) {
-      problemDescription = "XSRF Problem!<br>"; // RFE: MAke this
-                                                // nicer/configurable!
-    }
-    ElementResult result = new ElementResult("xsrf_protection", new XsrfRenderer(),
-        problemDescription + rendererdHtml, validationResultToWorkWith, "");
+    ElementResult result = new ElementResult("xsrf_protection", new XsrfRenderer(), tempValidationResult, "");
 
     return result; // no representation
   }

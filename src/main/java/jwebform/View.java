@@ -22,11 +22,7 @@ public class View {
 		html.append(startEndRenderer.getStart());
 		elementResults.forEach((element, elementResult)  -> {
 		  String renderedHtml;
-		  if (elementResult.getHtmlProducer() != null) {
 		    renderedHtml = elementResult.getHtmlProducer().getHTML(elementResult.getValidationResult());
-		  } else {
-		    renderedHtml = elementResult.getHtml();
-		  }
 			html.append(renderedHtml);
 		});
 		

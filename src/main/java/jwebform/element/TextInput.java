@@ -40,7 +40,7 @@ public class TextInput implements TabIndexAwareElement {
     TextInputRenderer renderer = new TextInputRenderer(formId, value, renderInfos.getTabIndex());
     ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value, formId);
     
-    ElementResult result = new ElementResult(name, renderer, "", vr, value);
+    ElementResult result = new ElementResult(name, renderer, vr, value);
     return result;
   }
 
