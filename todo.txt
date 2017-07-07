@@ -25,6 +25,7 @@
  * REFACTORINGS!! (RenderHints (OK), Decoration (OK))
  * fix form-result (OK)
  * could Element be immutable or the others too? (OK)
+ * introduce HTMLProducer and avoid two loops over elements (OK)
  
  * introduce custom validator, that set the xsrf protection to okay for testing!
  * fix form-result finally
