@@ -66,21 +66,13 @@ public class SampleUsage {
 	private Form createForm() {
 		// TODO: Add Custom FormValidator
 		String formId = "fid";
-		List<Element> elements = new ArrayList<>();
 		XSRFProtection protection = new XSRFProtection(true);	// no random values, so we can expect constant html
-		elements.add(protection);
-		elements.add(new SimpleElement());
-		elements.add(new SimpleElement());
 
 		TextInput textInput = new TextInput("textInput", new OneFieldDecoration("TextInputLabel"), "Peter\"Paul", new Validator(Criteria.required()));
-		elements.add(textInput);
 
 		TextDateInput date = new TextDateInput("dateInput", new OneFieldDecoration("Please insert date", "datehelptext", ""), LocalDate.of(2017, 7, 4), new Validator());
-		elements.add(date);
 		TextInput textInput2 = new TextInput("textInput2", new OneFieldDecoration("TextInputLabel2", "Help-Text", "Placeholder"), "Peter\"Paul",
 				new Validator(Criteria.required()));
-		elements.add(textInput2);
-		elements.add(new SubmitButton("Submit"));
 
 		List<FormValidator> formValidators = new ArrayList<>();
 		formValidators.add(it -> {
@@ -92,7 +84,15 @@ public class SampleUsage {
 			return overridenValidationResults;
 			});
 		
-		Form f = new Form(formId, elements, formValidators);
+		Form f = new Form(formId, formValidators, 
+		    protection, 
+		    new SimpleElement(), 
+		    new SimpleElement(), 
+		    textInput, 
+		    date, 
+		    textInput2, 
+		    new SubmitButton("Submit")
+		    );
 
 		return f;
 	}

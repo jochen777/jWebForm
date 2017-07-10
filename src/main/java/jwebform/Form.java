@@ -1,6 +1,7 @@
 package jwebform;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,13 @@ public class Form {
 		this.id = id;
 		this.formValidators.addAll(formValidators);
 	}
-	
+
+	   public Form(String id, List<FormValidator> formValidators, Element ... elements) {
+	        this.elements.addAll(Arrays.asList(elements));
+	        this.id = id;
+	        this.formValidators.addAll(formValidators);
+	    }
+
 	
 	public FormResult run(Env env) {
 		// validate form
