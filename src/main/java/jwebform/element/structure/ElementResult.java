@@ -10,6 +10,7 @@ public class ElementResult {
 	private final String name;	// Element name
 	private final HTMLProducer htmlProducer;
 	private final int tabIndexIncrement;
+	// TODO: Add a link to the source object
 	
 	public ElementResult(String name, HTMLProducer htmlProducer) {
 		this(name, htmlProducer, ValidationResult.ok(), "", 1);
