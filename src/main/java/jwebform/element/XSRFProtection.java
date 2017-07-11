@@ -2,6 +2,7 @@ package jwebform.element;
 
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.List;
 
 import com.coverity.security.Escape;
 
@@ -77,7 +78,7 @@ public class XSRFProtection implements Element {
         + Escape.htmlText(xsrfVal) + "\">\n");
 
 
-    ElementResult result = new ElementResult("xsrf_protection", new XsrfRenderer(), tempValidationResult, "",0);
+    ElementResult result = new ElementResult("xsrf_protection", new XsrfRenderer(), tempValidationResult, "",0, this, "jwebform.element.XSRFProtection");
 
     return result; // no representation
   }
@@ -89,7 +90,7 @@ public class XSRFProtection implements Element {
     }
 
     @Override
-    public String getHTML(ValidationResult vr, int tabIndex) {
+    public String getHTML(Element inputSource, String formId, Object value, int tabIndex, ValidationResult vr, List<ElementResult> childs){
       StringBuilder tags = new StringBuilder();
 
       String name = "token-" + (staticTokenName ? "" : Math.random());

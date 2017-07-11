@@ -1,5 +1,7 @@
 package jwebform.element;
 
+import java.util.List;
+
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
@@ -21,13 +23,13 @@ public class SubmitButton implements Element {
 
 	@Override
 	public ElementResult prepare(PrepareInfos renderInfos) {
-		return new ElementResult("submit", new SubmitRenderer(), ValidationResult.ok(), "", 1);
+		return new ElementResult("submit", new SubmitRenderer(), ValidationResult.ok(), "", 1, this, "jwebform.element.SubmitButton");
 	}
 
 	public class SubmitRenderer implements HTMLProducer {
 		
 		@Override
-		public String getHTML(ValidationResult vr, int tabIndex) {
+		public String getHTML(Element inputSource, String formId, Object value, int tabIndex, ValidationResult vr, List<ElementResult> childs){
 			return "<input tabindex=\"" + tabIndex + "\" type=\"submit\" value=\"" + label + "\">";
 		}
 		

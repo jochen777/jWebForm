@@ -4,16 +4,20 @@ import java.util.Map;
 
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.HTMLProducer;
+import jwebform.element.structure.Theme;
 import jwebform.view.StartEndRenderer;
 
 public class View {
 
 	private final Form form;
 	private final Map<Element, ElementResult> elementResults;
+	private final Theme theme;
 	
-	public View(Form form, Map<Element, ElementResult> elementResults) {
+	public View(Form form, Map<Element, ElementResult> elementResults, Theme theme) {
 		this.form = form;
 		this.elementResults = elementResults;
+		this.theme = theme;
 	}
 
 	public String getHtml() {
@@ -23,8 +27,13 @@ public class View {
 		int tabIndex = 1;
 		for (Map.Entry<Element, ElementResult> entry : elementResults.entrySet()) {
 			ElementResult elementResult = entry.getValue();
-		  String renderedHtml;
-		    renderedHtml = elementResult.getHtmlProducer().getHTML(elementResult.getValidationResult(), tabIndex);
+			String renderedHtml;
+			HTMLProducer htmlProducer = elementResult.getHtmlProducer(); 
+			if (theme.getHtmlProducer().containsKey(elementResult.getRenderKey())) {
+				htmlProducer = theme.getHtmlProducer().get(elementResult.getRenderKey()); 
+			}
+		    renderedHtml = htmlProducer.getHTML(elementResult.getSource(), form.getId(), elementResult.getValue(), 
+		    		tabIndex, elementResult.getValidationResult(), elementResult.getChilds());
 			html.append(renderedHtml);
 			tabIndex += elementResult.getTabIndexIncrement();
 		}

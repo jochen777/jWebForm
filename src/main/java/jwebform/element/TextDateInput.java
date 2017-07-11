@@ -3,6 +3,8 @@ package jwebform.element;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
@@ -62,6 +64,11 @@ public class TextDateInput implements Element{
 		PrepareInfos yearRenderInfos = monthRenderInfos.cloneWithNewTabIndexIncrease(monthResult.getTabIndexIncrement());
 		ElementResult yearResult = year.prepare(yearRenderInfos);
 		
+		List<ElementResult> childs = new ArrayList<>();
+		childs.add(dayResult);
+		childs.add(monthResult);
+		childs.add(yearResult);
+		
 		LocalDate value = initialValue;
 		ValidationResult validationResult = ValidationResult.ok();
 		try {
@@ -74,7 +81,7 @@ public class TextDateInput implements Element{
 		ElementResult result = new ElementResult(name, renderer,
             validationResult, 
             value.format(DateTimeFormatter.ISO_DATE)
-           ,3 );
+           ,3, this, "jwebform.element.TextDateInput", childs);
 		return result;
 	}
 
@@ -92,24 +99,23 @@ public class TextDateInput implements Element{
     }
 
     @Override
-    public String getHTML(ValidationResult vr, int tabIndex) {
-      String errorMessage = "";
-      if (vr != ValidationResult.undefined() && !vr.isValid) {
-          errorMessage = "Problem: " + vr.getMessage() + "<br>";
-      }
-      String html = decoration.getLabel() + "<br/>" 
-              + 
-              errorMessage + dayResult.getHtmlProducer().getHTML(dayResult.getValidationResult(), tabIndex) +
-              monthResult.getHtmlProducer().getHTML(monthResult.getValidationResult(), tabIndex+1) +
-              yearResult.getHtmlProducer().getHTML(yearResult.getValidationResult(), tabIndex+2) + "<br>" + decoration.getHelptext();
-      return html;
-    }
-	  
+    public String getHTML(Element inputSource, String formId, Object value, int tabIndex, ValidationResult vr, List<ElementResult> childs){
+			String errorMessage = "";
+			if (vr != ValidationResult.undefined() && !vr.isValid) {
+				errorMessage = "Problem: " + vr.getMessage() + "<br>";
+			}
+			String html = decoration.getLabel() + "<br/>" + errorMessage
+					+ dayResult.getHtmlProducer().getHTML(day, formId, dayResult.getValue(), tabIndex,
+							dayResult.getValidationResult(), null)
+					+ monthResult.getHtmlProducer().getHTML(month, formId, monthResult.getValue(), tabIndex + 1,
+							monthResult.getValidationResult(), null)
+					+ yearResult.getHtmlProducer().getHTML(year, formId, yearResult.getValue(), tabIndex + 2,
+							yearResult.getValidationResult(), null)
+					+ "<br>" + decoration.getHelptext();
+			return html;
+		}
+
 	}
-	
-	
-
-
 
 	// May throw execption!!
 	private LocalDate setupValue(LocalDate initialValue, String dayStr, String monthStr, String yearStr){
@@ -129,6 +135,32 @@ public class TextDateInput implements Element{
 		return Integer.parseInt(input);
 	}
 
+	public String getName() {
+		return name;
+	}
 
+	public Validator getValidator() {
+		return validator;
+	}
+
+	public LocalDate getInitialValue() {
+		return initialValue;
+	}
+
+	public OneFieldDecoration getDecoration() {
+		return decoration;
+	}
+
+	public TextInput getDay() {
+		return day;
+	}
+
+	public TextInput getMonth() {
+		return month;
+	}
+
+	public TextInput getYear() {
+		return year;
+	}
 	
 }

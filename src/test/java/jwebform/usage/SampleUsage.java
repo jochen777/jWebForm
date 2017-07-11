@@ -20,6 +20,7 @@ import jwebform.element.SubmitButton;
 import jwebform.element.TextDateInput;
 import jwebform.element.TextInput;
 import jwebform.element.XSRFProtection;
+import jwebform.element.renderer.bootstrap.BootstrapTheme;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
@@ -103,7 +104,7 @@ public class SampleUsage {
 
 		InputStream in = this.getClass().getClassLoader()
 				.getResourceAsStream(templateName);
-		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
+		assertEquals(convertStreamToString(in).trim(), result.getView(new BootstrapTheme()).getHtml().trim());
 		return result.isOk();
 	}
 

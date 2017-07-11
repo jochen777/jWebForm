@@ -2,8 +2,10 @@ package jwebform;
 
 import java.util.Map;
 
+import jwebform.element.renderer.bootstrap.BootstrapTheme;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.Theme;
 
 public class FormResult {
 
@@ -21,8 +23,8 @@ public class FormResult {
 		return formIsValid;
 	}
 
-	public View getView() {
-		return new View(form, elementResults);
+	public View getView(Theme theme) {
+		return new View(form, elementResults, theme);
 	}
 
 
