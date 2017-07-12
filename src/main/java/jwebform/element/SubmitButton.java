@@ -23,14 +23,18 @@ public class SubmitButton implements Element {
 
 	@Override
 	public ElementResult prepare(PrepareInfos renderInfos) {
-		return new ElementResult("submit", new SubmitRenderer(), ValidationResult.ok(), "", 1, this, "jwebform.element.SubmitButton");
+		HTMLProducer producer = renderInfos.getTheme().getHtmlProducer().get("jwebform.element.SubmitButton");
+		if (producer == null) {
+			producer = new SubmitRenderer();
+		}
+		return new ElementResult("submit", producer, ValidationResult.ok(), "", 1, this, "jwebform.element.SubmitButton");
 	}
 
 	public class SubmitRenderer implements HTMLProducer {
 		
 		@Override
 		public String getHTML(Element inputSource, String formId, Object value, int tabIndex, ValidationResult vr, List<ElementResult> childs){
-			return "<input tabindex=\"" + tabIndex + "\" type=\"submit\" value=\"" + label + "\">";
+			return "<input tabindex=\"" + tabIndex + "\" type=\"submit\" value=\"" + label + "\"><!-- own renderer -->";
 		}
 		
 	}

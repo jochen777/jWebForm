@@ -77,7 +77,11 @@ public class TextDateInput implements Element{
 			validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
 		}
 		
-		TextDateInputRenderer renderer = new TextDateInputRenderer(dayResult, monthResult, yearResult);
+		HTMLProducer renderer = renderInfos.getTheme().getHtmlProducer().get("jwebform.element.TextDateInput");
+		if (renderer == null) {
+			renderer = new TextDateInputRenderer(dayResult, monthResult, yearResult);
+		}
+		
 		ElementResult result = new ElementResult(name, renderer,
             validationResult, 
             value.format(DateTimeFormatter.ISO_DATE)

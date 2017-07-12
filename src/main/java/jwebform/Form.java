@@ -9,6 +9,7 @@ import java.util.Map;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.PrepareInfos;
+import jwebform.element.structure.Theme;
 import jwebform.env.Env;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -35,9 +36,9 @@ public class Form {
 	    }
 
 	
-	public FormResult run(Env env) {
+	public FormResult run(Env env, Theme theme) {
 		// validate form
-		Map<Element, ElementResult> elementResults = processElements(env);
+		Map<Element, ElementResult> elementResults = processElements(env, theme);
 		Map<Element, ValidationResult> overridenValidationResults = runFormValidations(elementResults);
 		Map<Element, ElementResult> correctedElementResults = correctElementResults(elementResults, overridenValidationResults);
 		boolean formIsValid = checkAllValidationResults(correctedElementResults);
@@ -82,11 +83,11 @@ public class Form {
 	}
 
 
-	private Map<Element, ElementResult> processElements(Env env) {
+	private Map<Element, ElementResult> processElements(Env env, Theme theme) {
 		// check each element
 		Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
 		for (Element element : elements) {
-			PrepareInfos renderInfos = new PrepareInfos(id, env);
+			PrepareInfos renderInfos = new PrepareInfos(id, env, theme);
 			ElementResult result = element.prepare(renderInfos);
 			elementResults.put(element, result);
 		}

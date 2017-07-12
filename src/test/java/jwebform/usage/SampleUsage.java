@@ -100,7 +100,7 @@ public class SampleUsage {
 
 	private boolean testFormAgainstRequest(Env env, String templateName) {
 		Form f = createForm();
-		FormResult result = f.run(env);
+		FormResult result = f.run(env, new BootstrapTheme());
 
 		InputStream in = this.getClass().getClassLoader()
 				.getResourceAsStream(templateName);
