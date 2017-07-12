@@ -6,17 +6,18 @@ import jwebform.element.TextDateInput;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
+import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
 
 public class BootstrapTextDateInputRenderer implements HTMLProducer{
 
 	
 	@Override
-	public String getHTML(Element inputSource, String formId, Object value, int tabIndex, ValidationResult vr, List<ElementResult> childs) {
+	public String getHTML(ProducerInfos pi) {
 		TextDateInput source = (TextDateInput)inputSource; 
 		 String errorMessage = "";
-	      if (vr != ValidationResult.undefined() && !vr.isValid) {
-	          errorMessage = "Problem: " + vr.getMessage() + "<br>";
+	      if (pi.getVr() != ValidationResult.undefined() && !pi.getVr().isValid) {
+	          errorMessage = "Problem: " + pi.getVr().getMessage() + "<br>";
 	      }
 	      BootstrapTextInputRenderer htmlProducer = new BootstrapTextInputRenderer();
 	      String html = source.getDecoration().getLabel() + "<br/>" 

@@ -1,11 +1,10 @@
 package jwebform.element;
 
-import java.util.List;
-
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
+import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
 
 public class SimpleElement implements Element{
@@ -18,7 +17,7 @@ public class SimpleElement implements Element{
 
 	public class SimpleElementRenderer implements HTMLProducer {
 		@Override
-		public String getHTML(Element inputSource, String formId, Object value, int tabIndex, ValidationResult vr, List<ElementResult> childs){
+		public String getHTML(ProducerInfos producerInfos){
 			return "simple\n";
 		}
 		

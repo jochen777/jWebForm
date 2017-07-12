@@ -1,11 +1,10 @@
 package jwebform.element;
 
-import java.util.List;
-
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
+import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
 
 public class SubmitButton implements Element {
@@ -16,27 +15,34 @@ public class SubmitButton implements Element {
 		this.label = label;
 	}
 
-	
-	public String getLabel() {
-		return label;
-	}
-
 	@Override
 	public ElementResult prepare(PrepareInfos renderInfos) {
-		HTMLProducer producer = renderInfos.getTheme().getHtmlProducer().get("jwebform.element.SubmitButton");
+		SubmitRenderer producer = (SubmitRenderer)renderInfos.getTheme().getHtmlProducer().get("jwebform.element.SubmitButton");
 		if (producer == null) {
-			producer = new SubmitRenderer();
+			producer = new DefaultSubmitRenderer();
 		}
-		return new ElementResult("submit", producer, ValidationResult.ok(), "", 1, this, "jwebform.element.SubmitButton");
+		producer.setLabel(label);
+		return new ElementResult("submit", (HTMLProducer)producer, ValidationResult.ok(), "", 1, this, "jwebform.element.SubmitButton");
 	}
 
-	public class SubmitRenderer implements HTMLProducer {
+	public class DefaultSubmitRenderer implements HTMLProducer, SubmitRenderer {
+		
+		private String label;
 		
 		@Override
-		public String getHTML(Element inputSource, String formId, Object value, int tabIndex, ValidationResult vr, List<ElementResult> childs){
-			return "<input tabindex=\"" + tabIndex + "\" type=\"submit\" value=\"" + label + "\"><!-- own renderer -->";
+		public String getHTML(ProducerInfos producerInfos){
+			return "<input tabindex=\"" + producerInfos.getTabIndex() + "\" type=\"submit\" value=\"" + label + "\"><!-- own renderer -->";
+		}
+
+		@Override
+		public void setLabel(String label) {
+			this.label = label;
 		}
 		
+	}
+	
+	public interface SubmitRenderer {
+		public void setLabel(String label);
 	}
 
 

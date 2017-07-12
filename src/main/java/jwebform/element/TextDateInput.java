@@ -10,6 +10,7 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
+import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
@@ -103,18 +104,16 @@ public class TextDateInput implements Element{
     }
 
     @Override
-    public String getHTML(Element inputSource, String formId, Object value, int tabIndex, ValidationResult vr, List<ElementResult> childs){
+    public String getHTML(ProducerInfos pi){
 			String errorMessage = "";
-			if (vr != ValidationResult.undefined() && !vr.isValid) {
-				errorMessage = "Problem: " + vr.getMessage() + "<br>";
+			if (pi.getVr() != ValidationResult.undefined() && !pi.getVr().isValid) {
+				errorMessage = "Problem: " + pi.getVr().getMessage() + "<br>";
 			}
 			String html = decoration.getLabel() + "<br/>" + errorMessage
-					+ dayResult.getHtmlProducer().getHTML(day, formId, dayResult.getValue(), tabIndex,
-							dayResult.getValidationResult(), null)
-					+ monthResult.getHtmlProducer().getHTML(month, formId, monthResult.getValue(), tabIndex + 1,
-							monthResult.getValidationResult(), null)
-					+ yearResult.getHtmlProducer().getHTML(year, formId, yearResult.getValue(), tabIndex + 2,
-							yearResult.getValidationResult(), null)
+					+ dayResult.getHtmlProducer().getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex(), dayResult.getValidationResult(), null))
+							
+					+ monthResult.getHtmlProducer().getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex()+1, monthResult.getValidationResult(), null))
+					+ yearResult.getHtmlProducer().getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex()+2, yearResult.getValidationResult(), null))
 					+ "<br>" + decoration.getHelptext();
 			return html;
 		}
