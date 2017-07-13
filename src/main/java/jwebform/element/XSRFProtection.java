@@ -78,7 +78,7 @@ public class XSRFProtection implements Element {
         + Escape.htmlText(xsrfVal) + "\">\n");
 
 
-    ElementResult result = new ElementResult("xsrf_protection", new XsrfRenderer(), tempValidationResult, "",0, this, "jwebform.element.XSRFProtection");
+    ElementResult result = new ElementResult("xsrf_protection", new XsrfRenderer(), tempValidationResult, "",0, "jwebform.element.XSRFProtection");
 
     return result; // no representation
   }

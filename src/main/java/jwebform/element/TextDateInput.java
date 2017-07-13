@@ -91,7 +91,7 @@ public class TextDateInput implements Element {
     }
 
     ElementResult result = new ElementResult(name, renderer, validationResult,
-        value.format(DateTimeFormatter.ISO_DATE), 3, this, "jwebform.element.TextDateInput",
+        value.format(DateTimeFormatter.ISO_DATE), 3, "jwebform.element.TextDateInput",
         childs, new TextDateData(decoration));
     return result;
   }

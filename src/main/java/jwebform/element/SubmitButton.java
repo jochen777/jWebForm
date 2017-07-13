@@ -23,7 +23,7 @@ public class SubmitButton implements Element {
     if (producer == null) {
       producer = new DefaultSubmitRenderer();
     }
-    return new ElementResult("submit", (HTMLProducer) producer, ValidationResult.ok(), "", 1, this,
+    return new ElementResult("submit", (HTMLProducer) producer, ValidationResult.ok(), "", 1, 
         "jwebform.element.SubmitButton", null, new SubmitButtonData(label));
   }
 

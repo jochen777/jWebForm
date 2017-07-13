@@ -12,7 +12,7 @@ public class SimpleElement implements Element{
 	@Override
 	public ElementResult prepare(PrepareInfos renderInfos) {
 		return new ElementResult("simple", new SimpleElementRenderer(), 
-				ValidationResult.ok(), "", 0, this, "jwebform.element.SimpleElement");
+				ValidationResult.ok(), "", 0, "jwebform.element.SimpleElement");
 	}
 
 	public class SimpleElementRenderer implements HTMLProducer {

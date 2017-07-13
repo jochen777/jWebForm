@@ -15,27 +15,25 @@ public class ElementResult {
 	private final String name;	// Element name
 	private final HTMLProducer htmlProducer;
 	private final int tabIndexIncrement;
-	private final Element source;
 	private final String renderKey;
 	private final StaticRenderData staticRenderData;
 	private final List<ElementResult> childs;
 	
 	public ElementResult(String name, HTMLProducer htmlProducer) {
-		this(name, htmlProducer, ValidationResult.ok(), "", 1, null, "", new ArrayList<>(), new EmptyRenderData());
+		this(name, htmlProducer, ValidationResult.ok(), "", 1, "", new ArrayList<>(), new EmptyRenderData());
 	}
 	
-	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value, int tabIndexIncrement, Element source, String renderKey) {
-		this(name, htmlProducer, vr, value, tabIndexIncrement, source, renderKey, new ArrayList<>(), new EmptyRenderData());
+	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value, int tabIndexIncrement, String renderKey) {
+		this(name, htmlProducer, vr, value, tabIndexIncrement, renderKey, new ArrayList<>(), new EmptyRenderData());
 	}
 	
-	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value, int tabIndexIncrement, Element source, String renderKey, List<ElementResult> childs, StaticRenderData staticRenderData) {
+	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value, int tabIndexIncrement, String renderKey, List<ElementResult> childs, StaticRenderData staticRenderData) {
 		this.name = name;
 		this.htmlProducer = htmlProducer;
 		this.validationResult = vr;
 		this.value = value;
 		this.tabIndexIncrement = tabIndexIncrement;
 		this.staticRenderData = staticRenderData;
-		this.source = source;
 		this.renderKey = renderKey;
 		this.childs = childs;
 	}
@@ -59,10 +57,6 @@ public class ElementResult {
 
 	public int getTabIndexIncrement() {
 		return tabIndexIncrement;
-	}
-
-	public Element getSource() {
-		return source;
 	}
 
 	public String getRenderKey() {

@@ -66,8 +66,7 @@ public class Form {
 				(element, overridenValidationResult) -> {
 					ElementResult re = elementResults.get(element);
 					elementResults.put(element, new ElementResult(re.getName(), re.getHtmlProducer(), 
-							overridenValidationResult, re.getValue(), re.getTabIndexIncrement(), 
-							re.getSource(), re.getRenderKey(), re.getChilds(), re.getStaticRenderData()));
+							overridenValidationResult, re.getValue(), re.getTabIndexIncrement(), re.getRenderKey(), re.getChilds(), re.getStaticRenderData()));
 				}
 				);
 		return elementResults;
@@ -87,8 +86,8 @@ public class Form {
 	private Map<Element, ElementResult> processElements(Env env, Theme theme) {
 		// check each element
 		Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
+        PrepareInfos renderInfos = new PrepareInfos(id, env, theme);
 		for (Element element : elements) {
-			PrepareInfos renderInfos = new PrepareInfos(id, env, theme);
 			ElementResult result = element.prepare(renderInfos);
 			elementResults.put(element, result);
 		}

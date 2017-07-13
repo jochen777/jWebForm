@@ -42,7 +42,7 @@ public class TextInput implements Element {
 			producer = new TextInputRenderer();
 		}
         TextInputRenderData renderData = new TextInputRenderData(value, decoration, name);
-		return new ElementResult(name, producer, vr, value, 1, this, "jwebform.element.TextInput", null, renderData);
+		return new ElementResult(name, producer, vr, value, 1, "jwebform.element.TextInput", null, renderData);
 	}
 
     // very simple version!
