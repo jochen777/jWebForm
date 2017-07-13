@@ -126,7 +126,7 @@ public class TextDateInput implements Element {
                   monthResult.getValidationResult(), null, monthResult.getStaticRenderData()))
           + yearResult.getHtmlProducer().getHTML(new ProducerInfos(pi.getFormId(),
               pi.getTabIndex() + 2, yearResult.getValidationResult(), null, yearResult.getStaticRenderData()))
-          + "<br>" + decoration.getHelptext();
+          + "<br>" + decoration.getHelptext()+"<-- internal renderer -->";
       return html;
     }
 
@@ -149,34 +149,6 @@ public class TextDateInput implements Element {
 
   private int getDefaultValueFromRequest(String input) {
     return Integer.parseInt(input);
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public Validator getValidator() {
-    return validator;
-  }
-
-  public LocalDate getInitialValue() {
-    return initialValue;
-  }
-
-  public OneFieldDecoration getDecoration() {
-    return decoration;
-  }
-
-  public TextInput getDay() {
-    return day;
-  }
-
-  public TextInput getMonth() {
-    return month;
-  }
-
-  public TextInput getYear() {
-    return year;
   }
 
 }

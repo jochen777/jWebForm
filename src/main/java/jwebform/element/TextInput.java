@@ -16,12 +16,11 @@ import jwebform.view.TagAttributes;
 
 public class TextInput implements Element {
 
-	final private String name; //
-	// TBD: Does it make sense to introduce a Label class here?
+	final private String name; 
 
 	final private String initialValue;
 
-	final private Validator validator; //
+	final private Validator validator; 
 
 	final private OneFieldDecoration decoration;
 
@@ -35,24 +34,23 @@ public class TextInput implements Element {
 	@Override
 	public ElementResult prepare(PrepareInfos renderInfos) {
 		String formId = renderInfos.getFormId() + "-";
-		String value = this.setupValue(renderInfos.getEnv().getRequest(), initialValue, formId);
+		String value = this.fetchValue(renderInfos.getEnv().getRequest(), initialValue, formId);
 
 		ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value, formId);
 		HTMLProducer producer = renderInfos.getTheme().getHtmlProducer().get("jwebform.element.TextInput");
-		TextInputRenderData renderData = new TextInputRenderData(value, decoration, name);
 		if (producer == null) {
 			producer = new TextInputRenderer();
 		}
-
+        TextInputRenderData renderData = new TextInputRenderData(value, decoration, name);
 		return new ElementResult(name, producer, vr, value, 1, this, "jwebform.element.TextInput", null, renderData);
 	}
 
+    // very simple version!
 	public class TextInputRenderer implements HTMLProducer {
-
+	    
 		@Override
 		public String getHTML(ProducerInfos producerInfos) {
 		    TextInputRenderData data = (TextInputRenderData)producerInfos.getStaticRenderData();
-			// very simple version!
 			String errorMessage = "Problem: " + producerInfos.getVr().getMessage() + "<br>";
 			LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
 			attrs.put("tabindex", Integer.toString(producerInfos.getTabIndex()));
@@ -68,7 +66,7 @@ public class TextInput implements Element {
 		}
 	}
 
-	private String setupValue(Request request, String initialValue, String formId) {
+	private String fetchValue(Request request, String initialValue, String formId) {
 		if (request.getParameter(formId + name) != null) {
 			return request.getParameter(formId + name);
 		}

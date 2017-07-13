@@ -15,7 +15,6 @@ public class BootstrapTextInputRenderer implements HTMLProducer{
 	@Override
 	public String getHTML(ProducerInfos pi) {
 	  TextInputRenderData data = (TextInputRenderData)pi.getStaticRenderData();
-	  System.err.println("Name:" + data.name);
 		String formId = pi.getFormId() + "-";
 		String errorMessage = "";
 	      Tag wrapper = new Tag("div", "class", "form-group");
