@@ -102,7 +102,6 @@ public class TextDateInput implements Element {
     public TextDateData(OneFieldDecoration decoration) {
       this.decoration = decoration;
     }
-    
   }
   
   public class TextDateInputRenderer implements HTMLProducer {
