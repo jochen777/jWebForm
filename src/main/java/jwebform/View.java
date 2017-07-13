@@ -5,6 +5,7 @@ import java.util.Map;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
+import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.Theme;
 import jwebform.view.StartEndRenderer;
 
@@ -29,11 +30,13 @@ public class View {
 			ElementResult elementResult = entry.getValue();
 			String renderedHtml;
 			HTMLProducer htmlProducer = elementResult.getHtmlProducer(); 
-			if (theme.getHtmlProducer().containsKey(elementResult.getRenderKey())) {
-				htmlProducer = theme.getHtmlProducer().get(elementResult.getRenderKey()); 
-			}
-		    renderedHtml = htmlProducer.getHTML(elementResult.getSource(), form.getId(), elementResult.getValue(), 
-		    		tabIndex, elementResult.getValidationResult(), elementResult.getChilds());
+//			if (theme.getHtmlProducer().containsKey(elementResult.getRenderKey())) {
+//				htmlProducer = theme.getHtmlProducer().get(elementResult.getRenderKey()); 
+//			}
+			ProducerInfos pi = new ProducerInfos(form.getId(), tabIndex, 
+			    elementResult.getValidationResult(), elementResult.getChilds(), 
+			    elementResult.getStaticRenderData());
+		    renderedHtml = htmlProducer.getHTML(pi);
 			html.append(renderedHtml);
 			tabIndex += elementResult.getTabIndexIncrement();
 		}

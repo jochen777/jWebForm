@@ -5,45 +5,45 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
 import jwebform.element.structure.ProducerInfos;
+import jwebform.element.structure.StaticRenderData;
 import jwebform.validation.ValidationResult;
 
 public class SubmitButton implements Element {
 
-	private final String label;
-	
-	public SubmitButton(String label) {
-		this.label = label;
-	}
+  private final String label;
 
-	@Override
-	public ElementResult prepare(PrepareInfos renderInfos) {
-		SubmitRenderer producer = (SubmitRenderer)renderInfos.getTheme().getHtmlProducer().get("jwebform.element.SubmitButton");
-		if (producer == null) {
-			producer = new DefaultSubmitRenderer();
-		}
-		producer.setLabel(label);
-		return new ElementResult("submit", (HTMLProducer)producer, ValidationResult.ok(), "", 1, this, "jwebform.element.SubmitButton");
-	}
+  public SubmitButton(String label) {
+    this.label = label;
+  }
 
-	public class DefaultSubmitRenderer implements HTMLProducer, SubmitRenderer {
-		
-		private String label;
-		
-		@Override
-		public String getHTML(ProducerInfos producerInfos){
-			return "<input tabindex=\"" + producerInfos.getTabIndex() + "\" type=\"submit\" value=\"" + label + "\"><!-- own renderer -->";
-		}
+  @Override
+  public ElementResult prepare(PrepareInfos renderInfos) {
+    HTMLProducer producer = renderInfos.getTheme().getHtmlProducer()
+        .get("jwebform.element.SubmitButton");
+    if (producer == null) {
+      producer = new DefaultSubmitRenderer();
+    }
+    return new ElementResult("submit", (HTMLProducer) producer, ValidationResult.ok(), "", 1, this,
+        "jwebform.element.SubmitButton", null, new SubmitButtonData(label));
+  }
 
-		@Override
-		public void setLabel(String label) {
-			this.label = label;
-		}
-		
-	}
-	
-	public interface SubmitRenderer {
-		public void setLabel(String label);
-	}
+  public class DefaultSubmitRenderer implements HTMLProducer {
 
+    @Override
+    public String getHTML(ProducerInfos producerInfos) {
+      return "<input tabindex=\"" + producerInfos.getTabIndex() + "\" type=\"submit\" value=\""
+          + label + "\"><!-- own renderer -->";
+    }
+
+  }
+
+  public class SubmitButtonData implements StaticRenderData {
+    public final String label;
+
+    public SubmitButtonData(String label) {
+      this.label = label;
+    }
+
+  }
 
 }

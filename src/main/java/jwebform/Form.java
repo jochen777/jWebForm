@@ -66,7 +66,8 @@ public class Form {
 				(element, overridenValidationResult) -> {
 					ElementResult re = elementResults.get(element);
 					elementResults.put(element, new ElementResult(re.getName(), re.getHtmlProducer(), 
-							overridenValidationResult, re.getValue(), re.getTabIndexIncrement(), re.getSource(), re.getRenderKey()));
+							overridenValidationResult, re.getValue(), re.getTabIndexIncrement(), 
+							re.getSource(), re.getRenderKey(), re.getChilds(), re.getStaticRenderData()));
 				}
 				);
 		return elementResults;

@@ -7,6 +7,7 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
 import jwebform.element.structure.ProducerInfos;
+import jwebform.element.structure.StaticRenderData;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -37,31 +38,27 @@ public class TextInput implements Element {
 		String value = this.setupValue(renderInfos.getEnv().getRequest(), initialValue, formId);
 
 		ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value, formId);
-		TextInputRenderer_ producer = (TextInputRenderer_)renderInfos.getTheme().getHtmlProducer().get("jwebform.element.TextInput");
+		HTMLProducer producer = renderInfos.getTheme().getHtmlProducer().get("jwebform.element.TextInput");
+		TextInputRenderData renderData = new TextInputRenderData(value, decoration, name);
 		if (producer == null) {
 			producer = new TextInputRenderer();
 		}
-		producer.setup(value, decoration, name);
 
-		return new ElementResult(name, producer, vr, value, 1, this, "jwebform.element.TextInput");
+		return new ElementResult(name, producer, vr, value, 1, this, "jwebform.element.TextInput", null, renderData);
 	}
 
-	public class TextInputRenderer implements TextInputRenderer_ {
-
-		String value; 
-		OneFieldDecoration decoration; 
-		String name;
-		
+	public class TextInputRenderer implements HTMLProducer {
 
 		@Override
 		public String getHTML(ProducerInfos producerInfos) {
+		    TextInputRenderData data = (TextInputRenderData)producerInfos.getStaticRenderData();
 			// very simple version!
 			String errorMessage = "Problem: " + producerInfos.getVr().getMessage() + "<br>";
 			LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
 			attrs.put("tabindex", Integer.toString(producerInfos.getTabIndex()));
 			attrs.put("type", "text");
 			attrs.put("name", producerInfos.getFormId() + "-" + name);
-			attrs.put("value", (String) value);
+			attrs.put("value", data.value);
 			TagAttributes inputTagAttr = new TagAttributes(attrs);
 			Tag inputTag = new Tag("input", inputTagAttr);
 			String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml();
@@ -69,16 +66,6 @@ public class TextInput implements Element {
 			return html;
 
 		}
-
-		@Override
-		public void setup(String value, OneFieldDecoration decoration, String name) {
-			this.value = value;
-			this.decoration = decoration;
-			this.name = name;
-			
-		}
-
-
 	}
 
 	private String setupValue(Request request, String initialValue, String formId) {
@@ -100,8 +87,14 @@ public class TextInput implements Element {
 		return String.format("TextInput. name=%s", name);
 	}
 
-	
-	public interface TextInputRenderer_ extends HTMLProducer {
-		public void setup(String value, OneFieldDecoration decoration, String name);
+	public class TextInputRenderData implements StaticRenderData{
+      public final String value; 
+      public final OneFieldDecoration decoration; 
+      public final String name;
+      public TextInputRenderData(String value, OneFieldDecoration decoration, String name) {
+        this.value = value;
+        this.decoration = decoration;
+        this.name = name;
+      }
 	}
 }

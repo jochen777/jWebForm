@@ -1,20 +1,15 @@
 package jwebform.element.renderer.bootstrap;
 
-import jwebform.element.SubmitButton.SubmitRenderer;
+import jwebform.element.SubmitButton.SubmitButtonData;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.ProducerInfos;
 
-public class BootstrapSubmitButtonRenderer implements HTMLProducer, SubmitRenderer{
+public class BootstrapSubmitButtonRenderer implements HTMLProducer{
 
-	String label;
-	
 	@Override
 	public String getHTML(ProducerInfos pi) {
-		return "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"submit\" value=\"" + label + "\">";
+	    SubmitButtonData data = (SubmitButtonData) pi.getStaticRenderData();
+		return "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"submit\" value=\"" + data.label + "\">";
 	}
 
-	@Override
-	public void setLabel(String label) {
-		this.label = label;
-	}
 }

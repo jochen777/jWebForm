@@ -1,9 +1,6 @@
 package jwebform.element.renderer.bootstrap;
 
-import java.util.List;
-
-import jwebform.element.TextDateInput;
-import jwebform.element.structure.Element;
+import jwebform.element.TextDateInput.TextDateData;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.ProducerInfos;
@@ -11,21 +8,28 @@ import jwebform.validation.ValidationResult;
 
 public class BootstrapTextDateInputRenderer implements HTMLProducer{
 
-	
 	@Override
 	public String getHTML(ProducerInfos pi) {
-		TextDateInput source = (TextDateInput)inputSource; 
-		 String errorMessage = "";
-	      if (pi.getVr() != ValidationResult.undefined() && !pi.getVr().isValid) {
-	          errorMessage = "Problem: " + pi.getVr().getMessage() + "<br>";
-	      }
-	      BootstrapTextInputRenderer htmlProducer = new BootstrapTextInputRenderer();
-	      String html = source.getDecoration().getLabel() + "<br/>" 
-	              + 
-	              errorMessage + htmlProducer.getHTML(source.getDay(), formId, childs.get(0).getValue(), tabIndex, childs.get(0).getValidationResult(), null) +
-	              htmlProducer.getHTML(source.getMonth(), formId, childs.get(1).getValue(), tabIndex+1, childs.get(1).getValidationResult(), null) +
-	              htmlProducer.getHTML(source.getYear(), formId, childs.get(2).getValue(), tabIndex+2, childs.get(2).getValidationResult(), null) 
-	              + "<br>" + source.getDecoration().getHelptext();
-	      return html;
-	}
+	  TextDateData data = (TextDateData)pi.getStaticRenderData();
+	  String errorMessage = "";
+      if (pi.getVr() != ValidationResult.undefined() && !pi.getVr().isValid) {
+        errorMessage = "Problem: " + pi.getVr().getMessage() + "<br>";
+      }
+      ElementResult dayResult = pi.getChilds().get(0);
+      ElementResult monthResult = pi.getChilds().get(1);
+      ElementResult yearResult = pi.getChilds().get(2);
+      String html = data.decoration.getLabel() + "<br/>" + errorMessage
+          + dayResult.getHtmlProducer()
+              .getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex(),
+                  dayResult.getValidationResult(), null, dayResult.getStaticRenderData()))
+
+          + monthResult.getHtmlProducer()
+              .getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1,
+                  monthResult.getValidationResult(), null, monthResult.getStaticRenderData()))
+          + yearResult.getHtmlProducer().getHTML(new ProducerInfos(pi.getFormId(),
+              pi.getTabIndex() + 2, yearResult.getValidationResult(), null,
+              yearResult.getStaticRenderData()))
+          + "<br>" + data.decoration.getHelptext();
+      return html;	}
+
 }
