@@ -1,15 +1,16 @@
 package jwebform.element;
 
-import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
-import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticRenderData;
+import jwebform.element.structure.Themable;
 import jwebform.validation.ValidationResult;
 
-public class SubmitButton implements Element {
+public class SubmitButton implements Themable {
 
+  public static String KEY = "jwebform.element.SubmitButton";
+  
   private final String label;
 
   public SubmitButton(String label) {
@@ -18,23 +19,9 @@ public class SubmitButton implements Element {
 
   @Override
   public ElementResult prepare(PrepareInfos renderInfos) {
-    HTMLProducer producer = renderInfos.getTheme().getHtmlProducer()
-        .get("jwebform.element.SubmitButton");
-    if (producer == null) {
-      producer = new DefaultSubmitRenderer();
-    }
-    return new ElementResult("submit", (HTMLProducer) producer, ValidationResult.ok(), "", 1, 
-        "jwebform.element.SubmitButton", null, new SubmitButtonData(label));
-  }
-
-  public class DefaultSubmitRenderer implements HTMLProducer {
-
-    @Override
-    public String getHTML(ProducerInfos producerInfos) {
-      return "<input tabindex=\"" + producerInfos.getTabIndex() + "\" type=\"submit\" value=\""
-          + label + "\"><!-- own renderer -->";
-    }
-
+    HTMLProducer producer = renderInfos.getTheme().getProducer(this);
+    return new ElementResult("submit", producer, ValidationResult.ok(), "", 1, 
+        this.getKey(), null, new SubmitButtonData(label));
   }
 
   public class SubmitButtonData implements StaticRenderData {
@@ -44,6 +31,17 @@ public class SubmitButton implements Element {
       this.label = label;
     }
 
+  }
+
+  @Override
+  public String getKey() {
+    return SubmitButton.KEY;
+  }
+
+  @Override
+  public HTMLProducer getDefault() {
+    return producerInfos -> "<input tabindex=\"" + producerInfos.getTabIndex() + "\" type=\"submit\" value=\""
+        + label + "\"><!-- own renderer -->";
   }
 
 }

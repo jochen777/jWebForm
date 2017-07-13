@@ -47,10 +47,10 @@
 * Wie kann Captcha den Submit-Button ädnern? -> Es braucht einen modifizierten Submit-Button dafür. Also etwa: CatpachSubmit()
 
 
-* Wie kann man mit einer Zeile ein ganzes Theme ändern?
+* Wie kann man mit einer Zeile ein ganzes Theme ändern? (OK)
 * Wie bekommt man _wrapper_ oder neuandordnungen hin?
-* Wie kann das Themening im Template aussehen?
-* Wie kann ein FormularRenderer die Anordnung der Inputs beeinflussen?
+* Wie kann das Themening im Template aussehen? 
+* Wie kann ein FormularRenderer die Anordnung der Inputs beeinflussen? 
 
 
  
