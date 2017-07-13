@@ -41,7 +41,7 @@ public class TextInput implements Element {
 		if (producer == null) {
 			producer = new TextInputRenderer();
 		}
-        TextInputRenderData renderData = new TextInputRenderData(value, decoration, name);
+        TextInputRenderData renderData = new TextInputRenderData(decoration);
 		return new ElementResult(name, producer, vr, value, 1, "jwebform.element.TextInput", null, renderData);
 	}
 
@@ -50,13 +50,12 @@ public class TextInput implements Element {
 	    
 		@Override
 		public String getHTML(ProducerInfos producerInfos) {
-		    TextInputRenderData data = (TextInputRenderData)producerInfos.getStaticRenderData();
 			String errorMessage = "Problem: " + producerInfos.getVr().getMessage() + "<br>";
 			LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
 			attrs.put("tabindex", Integer.toString(producerInfos.getTabIndex()));
 			attrs.put("type", "text");
 			attrs.put("name", producerInfos.getFormId() + "-" + name);
-			attrs.put("value", data.value);
+			attrs.put("value", producerInfos.getValue());
 			TagAttributes inputTagAttr = new TagAttributes(attrs);
 			Tag inputTag = new Tag("input", inputTagAttr);
 			String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml();
@@ -86,13 +85,9 @@ public class TextInput implements Element {
 	}
 
 	public class TextInputRenderData implements StaticRenderData{
-      public final String value; 
       public final OneFieldDecoration decoration; 
-      public final String name;
-      public TextInputRenderData(String value, OneFieldDecoration decoration, String name) {
-        this.value = value;
+      public TextInputRenderData(OneFieldDecoration decoration) {
         this.decoration = decoration;
-        this.name = name;
       }
 	}
 }

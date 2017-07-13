@@ -35,7 +35,7 @@ public class View {
 //			}
 			ProducerInfos pi = new ProducerInfos(form.getId(), tabIndex, 
 			    elementResult.getValidationResult(), elementResult.getChilds(), 
-			    elementResult.getStaticRenderData());
+			    elementResult.getStaticRenderData(), elementResult.getName(), elementResult.getValue());
 		    renderedHtml = htmlProducer.getHTML(pi);
 			html.append(renderedHtml);
 			tabIndex += elementResult.getTabIndexIncrement();

@@ -10,13 +10,18 @@ public class ProducerInfos {
 	private final ValidationResult vr;
 	private final List<ElementResult> childs;
 	private final StaticRenderData staticRenderData;
+	private final String name;
+	private final String value;
 	
-	public ProducerInfos(String formId, int tabIndex, ValidationResult vr, List<ElementResult> childs, StaticRenderData staticRenderData) {
+	public ProducerInfos(String formId, int tabIndex, ValidationResult vr, 
+	    List<ElementResult> childs, StaticRenderData staticRenderData, String name, String value) {
 		this.formId = formId;
 		this.tabIndex = tabIndex;
 		this.vr = vr;
 		this.childs = childs;
 		this.staticRenderData = staticRenderData;
+		this.name = name;
+		this.value = value;
 	}
 
 	public String getFormId() {
@@ -37,5 +42,13 @@ public class ProducerInfos {
 
   public StaticRenderData getStaticRenderData() {
     return staticRenderData;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getValue() {
+    return value;
   }
 }

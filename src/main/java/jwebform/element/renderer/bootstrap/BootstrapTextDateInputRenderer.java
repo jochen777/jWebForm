@@ -21,14 +21,16 @@ public class BootstrapTextDateInputRenderer implements HTMLProducer{
       String html = data.decoration.getLabel() + "<br/>" + errorMessage
           + dayResult.getHtmlProducer()
               .getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex(),
-                  dayResult.getValidationResult(), null, dayResult.getStaticRenderData()))
+                  dayResult.getValidationResult(), null, dayResult.getStaticRenderData(), dayResult.getName(), dayResult.getValue()))
 
           + monthResult.getHtmlProducer()
               .getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1,
-                  monthResult.getValidationResult(), null, monthResult.getStaticRenderData()))
+                  monthResult.getValidationResult(), null, 
+                  monthResult.getStaticRenderData(),
+                  monthResult.getName(), monthResult.getValue()))
           + yearResult.getHtmlProducer().getHTML(new ProducerInfos(pi.getFormId(),
-              pi.getTabIndex() + 2, yearResult.getValidationResult(), null,
-              yearResult.getStaticRenderData()))
+              pi.getTabIndex() + 2, yearResult.getValidationResult(), null, yearResult.getStaticRenderData(),
+              yearResult.getName(), yearResult.getValue()))
           + "<br>" + data.decoration.getHelptext();
       return html;	}
 
