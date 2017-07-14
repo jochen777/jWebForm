@@ -22,8 +22,8 @@ public class FormResult {
 		return formIsValid;
 	}
 
-	public View getView(Theme theme) {
-		return new View(form, elementResults, theme);
+	public View getView() {
+		return new View(form, elementResults);
 	}
 
 

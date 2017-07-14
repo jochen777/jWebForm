@@ -14,7 +14,7 @@ public class BootstrapTheme implements Theme {
 	
 	public BootstrapTheme() {
 		htmlProducer = new HashMap<>();
-		htmlProducer.put( TextInput.KEY, new BootstrapTextInputRenderer());
+		htmlProducer.put( TextInput.KEY, new FastBootstrapTextInputRenderer());
 		htmlProducer.put( TextDateInput.KEY, new BootstrapTextDateInputRenderer());
 		htmlProducer.put( SubmitButton.KEY, new BootstrapSubmitButtonRenderer());
 	}

@@ -19,8 +19,15 @@ public class ElementResult {
 	private final Element source;
 	private final List<ElementResult> childs;
 	
+	public static final String EMPTY = "";
+	public static final List<ElementResult> NOCHILDS = new ArrayList<>();
+	
 	public ElementResult(String name, HTMLProducer htmlProducer) {
-		this(name, htmlProducer, ValidationResult.ok(), "", 1, "", new ArrayList<>(), null);
+		this(name, htmlProducer, ValidationResult.ok(), EMPTY, 0, EMPTY, new ArrayList<>(), null);
+	}
+	
+	public ElementResult(String name, HTMLProducer htmlProducer, Element source) {
+		this(name, htmlProducer, ValidationResult.ok(), EMPTY, 0, EMPTY, NOCHILDS, source);
 	}
 	
 	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value, int tabIndexIncrement, String renderKey) {
@@ -37,6 +44,10 @@ public class ElementResult {
 		this.source = source;
 		this.renderKey = renderKey;
 		this.childs = childs;
+	}
+	
+	public ElementResult cloneWithNewValidationResult(ValidationResult newValidationResult) {
+		return new ElementResult(name, htmlProducer, newValidationResult, value, tabIndexIncrement, renderKey, childs, source);
 	}
 	
 

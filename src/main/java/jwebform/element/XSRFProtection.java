@@ -53,11 +53,12 @@ public class XSRFProtection implements Element {
     String xsrfVal = renderInfos.getEnv().getRequest().getParameter(TOKENVAL);
 
     ValidationResult tempValidationResult;
-    tempValidationResult = ValidationResult.ok();
 
     if (xsrfVal != null && !xsrfVal.equals(renderInfos.getEnv().getSessionGet().getAttribute(name))
         && !staticTokenName) {
       tempValidationResult = ValidationResult.fail("formchecker.xsrf_problem");
+    } else {
+    	tempValidationResult = ValidationResult.ok();
     }
 
 
@@ -66,19 +67,8 @@ public class XSRFProtection implements Element {
     // TODO: What happens, if session runs out and user want's a new code?
 
     // is firstrun - then generate a complete new token
-    StringBuilder tags = new StringBuilder();
 
-    name = "token-" + (staticTokenName ? "" : Math.random());
-    xsrfVal = (staticTokenName ? "static" : getRandomValue());
-    env.getSessionSet().setAttribute(name, xsrfVal);
-
-    tags.append("<input type=\"hidden\" name=\"" + TOKENNAME + "\" value=\"" + Escape.htmlText(name)
-        + "\">");
-    tags.append("<input type=\"hidden\" name=\"" + TOKENVAL + "\" value=\""
-        + Escape.htmlText(xsrfVal) + "\">\n");
-
-
-    ElementResult result = new ElementResult("xsrf_protection", new XsrfRenderer(), tempValidationResult, "",0, "jwebform.element.XSRFProtection");
+    ElementResult result = new ElementResult("xsrf_protection", new XsrfRenderer(), tempValidationResult, "",0, "");
 
     return result; // no representation
   }

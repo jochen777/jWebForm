@@ -17,37 +17,63 @@ import jwebform.validation.ValidationResult;
 // Represents a form
 public class Form {
 
-	private final List<Element> elements = new ArrayList<>();
+	private final List<Element> elements;
 	private final String id;
-	private final List<FormValidator> formValidators = new ArrayList<>();
+	private final List<FormValidator> formValidators;
 
 	protected String method = "POST";
-	
+
 	public Form(String id, List<Element> elements, List<FormValidator> formValidators) {
-		this.elements.addAll(elements);
+		this.elements = elements;
 		this.id = id;
-		this.formValidators.addAll(formValidators);
+		this.formValidators = formValidators;
 	}
 
-	   public Form(String id, List<FormValidator> formValidators, Element ... elements) {
-	        this.elements.addAll(Arrays.asList(elements));
-	        this.id = id;
-	        this.formValidators.addAll(formValidators);
-	    }
+	public Form(String id, List<FormValidator> formValidators, Element... elements) {
+		this(id, Arrays.asList(elements), formValidators);
+	}
 
-	
 	public FormResult run(Env env, Theme theme) {
 		// validate form
 		Map<Element, ElementResult> elementResults = processElements(env, theme);
 		Map<Element, ValidationResult> overridenValidationResults = runFormValidations(elementResults);
-		Map<Element, ElementResult> correctedElementResults = correctElementResults(elementResults, overridenValidationResults);
+		Map<Element, ElementResult> correctedElementResults = correctElementResults(elementResults,
+				overridenValidationResults);
 		boolean formIsValid = checkAllValidationResults(correctedElementResults);
-		
+
 		return new FormResult(this, correctedElementResults, formIsValid);
 	}
 
+	private Map<Element, ElementResult> processElements(Env env, Theme theme) {
+		// check each element
+		Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
+		PrepareInfos renderInfos = new PrepareInfos(id, env, theme);
+		for (Element element : elements) {
+			ElementResult result = element.prepare(renderInfos);
+			elementResults.put(element, result);
+		}
+		return elementResults;
+	}
 
+	private Map<Element, ValidationResult> runFormValidations(Map<Element, ElementResult> elementResults) {
+		// run the form-validators
+		Map<Element, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
+		for (FormValidator formValidator : formValidators) {
+			overridenValidationResults.putAll(formValidator.validate(elementResults));
+		}
+		return overridenValidationResults;
+	}
 
+	private Map<Element, ElementResult> correctElementResults(Map<Element, ElementResult> elementResults,
+			Map<Element, ValidationResult> overridenValidationResults) {
+		overridenValidationResults.forEach((element, overridenValidationResult) -> {
+			ElementResult re = elementResults.get(element);
+			elementResults.put(element, re.cloneWithNewValidationResult(overridenValidationResult));
+		});
+		return elementResults;
+	}
+
+	
 	private boolean checkAllValidationResults(Map<Element, ElementResult> correctedElementResults) {
 		boolean formIsValid = true;
 		for (Map.Entry<Element, ElementResult> entry : correctedElementResults.entrySet()) {
@@ -60,48 +86,12 @@ public class Form {
 	}
 
 
-	private Map<Element, ElementResult> correctElementResults(Map<Element, ElementResult> elementResults,
-			Map<Element, ValidationResult> overridenValidationResults) {
-		overridenValidationResults.forEach(
-				(element, overridenValidationResult) -> {
-					ElementResult re = elementResults.get(element);
-					elementResults.put(element, new ElementResult(re.getName(), re.getHtmlProducer(), 
-							overridenValidationResult, re.getValue(), re.getTabIndexIncrement(), re.getRenderKey(), re.getChilds(), re.getSource()));
-				}
-				);
-		return elementResults;
-	}
-
-
-	private Map<Element, ValidationResult> runFormValidations(Map<Element, ElementResult> elementResults) {
-		// run the form-validators
-		Map<Element, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
-		for (FormValidator formValidator : formValidators) {
-			overridenValidationResults.putAll(formValidator.validate(elementResults));
-		}
-		return overridenValidationResults;
-	}
-
-
-	private Map<Element, ElementResult> processElements(Env env, Theme theme) {
-		// check each element
-		Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
-        PrepareInfos renderInfos = new PrepareInfos(id, env, theme);
-		for (Element element : elements) {
-			ElementResult result = element.prepare(renderInfos);
-			elementResults.put(element, result);
-		}
-		return elementResults;
-	}
-
 	
 
-	
 	List<Element> getElements() {
 		return elements;
 	}
 
-	
 	public String getId() {
 		return id;
 	}
@@ -113,6 +103,5 @@ public class Form {
 	public boolean isHtml5Validate() {
 		return true; // TODO: Make this configurable
 	}
-
 
 }

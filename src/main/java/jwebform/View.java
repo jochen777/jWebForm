@@ -13,12 +13,10 @@ public class View {
 
 	private final Form form;
 	private final Map<Element, ElementResult> elementResults;
-	private final Theme theme;
 	
-	public View(Form form, Map<Element, ElementResult> elementResults, Theme theme) {
+	public View(Form form, Map<Element, ElementResult> elementResults) {
 		this.form = form;
 		this.elementResults = elementResults;
-		this.theme = theme;
 	}
 
 	public String getHtml() {

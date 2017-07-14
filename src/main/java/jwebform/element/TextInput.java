@@ -36,7 +36,7 @@ public class TextInput implements Themable {
 		String formId = renderInfos.getFormId() + "-";
 		String value = this.fetchValue(renderInfos.getEnv().getRequest(), initialValue, formId);
 		ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value, formId);
-		return new ElementResult(name, renderInfos.getTheme().getProducer(this), vr, value, 1, KEY, null, this);
+		return new ElementResult(name, renderInfos.getTheme().getProducer(this), vr, value, 1, KEY, ElementResult.NOCHILDS, this);
 	}
 
    

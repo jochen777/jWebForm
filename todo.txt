@@ -28,7 +28,7 @@
  * introduce HTMLProducer and avoid two loops over elements (OK)
  
  * never use null
- * introduce performance-tests
+ * introduce performance-tests (OK)
  
  * introduce custom validator, that set the xsrf protection to okay for testing!
  * fix form-result finally

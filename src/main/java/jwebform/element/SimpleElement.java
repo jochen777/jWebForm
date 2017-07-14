@@ -9,8 +9,7 @@ public class SimpleElement implements Element{
 
 	@Override
 	public ElementResult prepare(PrepareInfos renderInfos) {
-		return new ElementResult("simple", producerInfos -> "simple\n", 
-				ValidationResult.ok(), "", 0, "jwebform.element.SimpleElement");
+		return new ElementResult("simple", producerInfos -> "simple\n");
 	}
 
 }

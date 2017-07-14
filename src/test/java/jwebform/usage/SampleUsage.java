@@ -103,7 +103,7 @@ public class SampleUsage {
 
 		InputStream in = this.getClass().getClassLoader()
 				.getResourceAsStream(templateName);
-		assertEquals(convertStreamToString(in).trim(), result.getView(new BootstrapTheme()).getHtml().trim());
+		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
 		return result.isOk();
 	}
 
