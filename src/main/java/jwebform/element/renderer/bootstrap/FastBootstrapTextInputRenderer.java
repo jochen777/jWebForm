@@ -1,7 +1,5 @@
 package jwebform.element.renderer.bootstrap;
 
-import java.util.LinkedHashMap;
-
 import com.coverity.security.Escape;
 
 import jwebform.element.OneFieldDecoration;
@@ -10,8 +8,6 @@ import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
 import jwebform.view.StringUtils;
-import jwebform.view.Tag;
-import jwebform.view.TagAttributes;
 
 public class FastBootstrapTextInputRenderer implements HTMLProducer {
 
@@ -51,11 +47,10 @@ public class FastBootstrapTextInputRenderer implements HTMLProducer {
 		if (val.length() > 0) {
 			val = "=\"" + Escape.html(val) + "\"";
 		}
-		String inputHtml = "<input tabindex=\""+ pi.getTabIndex()+"\" type=\"text\" name=\""+formId+""+pi.getName()+"\" value"+val+""+placeholder+""+aria+">";
+		String inputHtml = "<input tabindex=\""+ pi.getTabIndex()+"\" type=\"text\" name=\""+formId+pi.getName()+"\" value"+val+placeholder+aria+">";
 
-		String html = "<div class=\"form-group" + errorClass +"\">" + errorMessage + labelStr + inputHtml
-				+ helpHTML + "</div>\n"; 
-		return html;
+		StringBuffer buf = new StringBuffer("<div class=\"form-group");
+		return buf.append(errorClass).append("\">").append(errorMessage).append(labelStr).append(inputHtml).append(helpHTML).append("</div>\n").toString();
 	}
 
 }
