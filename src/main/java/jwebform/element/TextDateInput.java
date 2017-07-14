@@ -11,7 +11,7 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
 import jwebform.element.structure.ProducerInfos;
-import jwebform.element.structure.StaticRenderData;
+import jwebform.element.structure.Themable;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
@@ -23,14 +23,16 @@ import jwebform.view.StringUtils;
  * @author jochen
  *
  */
-public class TextDateInput implements Element {
+public class TextDateInput implements Themable {
+	
+	public final static String KEY = "jwebform.element.TextDateInput";
 
   final private String name;
 
   final private Validator validator;
 
   final private LocalDate initialValue;
-  final private OneFieldDecoration decoration;
+  final public OneFieldDecoration decoration;
 
   final private TextInput day;
   final private TextInput month;
@@ -84,55 +86,13 @@ public class TextDateInput implements Element {
       validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
     }
 
-    HTMLProducer renderer =
-        renderInfos.getTheme().getHtmlProducer().get("jwebform.element.TextDateInput");
-    if (renderer == null) {
-      renderer = new TextDateInputRenderer();
-    }
-
-    ElementResult result = new ElementResult(name, renderer, validationResult,
-        value.format(DateTimeFormatter.ISO_DATE), 3, "jwebform.element.TextDateInput",
-        childs, new TextDateData(decoration));
+    ElementResult result = new ElementResult(name, renderInfos.getTheme().getProducer(this), validationResult,
+        value.format(DateTimeFormatter.ISO_DATE), 3,KEY,
+        childs, this);
     return result;
   }
 
-  public class TextDateData implements StaticRenderData {
-    public final OneFieldDecoration decoration;
-
-    public TextDateData(OneFieldDecoration decoration) {
-      this.decoration = decoration;
-    }
-  }
   
-  public class TextDateInputRenderer implements HTMLProducer {
-
-    @Override
-    public String getHTML(ProducerInfos pi) {
-      String errorMessage = "";
-      if (pi.getVr() != ValidationResult.undefined() && !pi.getVr().isValid) {
-        errorMessage = "Problem: " + pi.getVr().getMessage() + "<br>";
-      }
-      ElementResult dayResult = pi.getChilds().get(0);
-      ElementResult monthResult = pi.getChilds().get(1);
-      ElementResult yearResult = pi.getChilds().get(2);
-      String html = decoration.getLabel() + "<br/>" + errorMessage
-          + dayResult.getHtmlProducer()
-              .getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex(),
-                  dayResult.getValidationResult(), null, dayResult.getStaticRenderData(), dayResult.getName(), dayResult.getValue()))
-
-          + monthResult.getHtmlProducer()
-              .getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1,
-                  monthResult.getValidationResult(), null, 
-                  monthResult.getStaticRenderData(),
-                  monthResult.getName(), monthResult.getValue()))
-          + yearResult.getHtmlProducer().getHTML(new ProducerInfos(pi.getFormId(),
-              pi.getTabIndex() + 2, yearResult.getValidationResult(), null, yearResult.getStaticRenderData(),
-              yearResult.getName(), yearResult.getValue()))
-          + "<br>" + decoration.getHelptext()+"<-- internal renderer -->";
-      return html;
-    }
-
-  }
 
   // May throw execption!!
   private LocalDate setupValue(LocalDate initialValue, String dayStr, String monthStr,
@@ -152,5 +112,42 @@ public class TextDateInput implements Element {
   private int getDefaultValueFromRequest(String input) {
     return Integer.parseInt(input);
   }
+
+
+
+@Override
+public String getKey() {
+	return KEY;
+}
+
+
+
+@Override
+public HTMLProducer getDefault() {
+	return pi -> {
+		String errorMessage = "";
+	      if (pi.getVr() != ValidationResult.undefined() && !pi.getVr().isValid) {
+	        errorMessage = "Problem: " + pi.getVr().getMessage() + "<br>";
+	      }
+	      ElementResult dayResult = pi.getChilds().get(0);
+	      ElementResult monthResult = pi.getChilds().get(1);
+	      ElementResult yearResult = pi.getChilds().get(2);
+	      String html = decoration.getLabel() + "<br/>" + errorMessage
+	          + dayResult.getHtmlProducer()
+	              .getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex(),
+	                  dayResult.getValidationResult(), null, dayResult.getSource(), dayResult.getName(), dayResult.getValue()))
+
+	          + monthResult.getHtmlProducer()
+	              .getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1,
+	                  monthResult.getValidationResult(), null, 
+	                  monthResult.getSource(),
+	                  monthResult.getName(), monthResult.getValue()))
+	          + yearResult.getHtmlProducer().getHTML(new ProducerInfos(pi.getFormId(),
+	              pi.getTabIndex() + 2, yearResult.getValidationResult(), null, yearResult.getSource(),
+	              yearResult.getName(), yearResult.getValue()))
+	          + "<br>" + decoration.getHelptext()+"<-- internal renderer -->";
+	      return html;
+	};
+}
 
 }

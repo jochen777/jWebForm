@@ -22,7 +22,6 @@ import jwebform.element.TextInput;
 import jwebform.element.XSRFProtection;
 import jwebform.element.renderer.bootstrap.BootstrapTheme;
 import jwebform.element.structure.Element;
-import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -84,7 +83,6 @@ public class SampleUsage {
 			}
 			return overridenValidationResults;
 			});
-		
 
 		Form f = new Form(formId, formValidators, 
 		    protection, 

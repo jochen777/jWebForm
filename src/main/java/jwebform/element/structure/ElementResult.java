@@ -16,24 +16,25 @@ public class ElementResult {
 	private final HTMLProducer htmlProducer;
 	private final int tabIndexIncrement;
 	private final String renderKey;
-	private final StaticRenderData staticRenderData;
+	private final Element source;
 	private final List<ElementResult> childs;
 	
 	public ElementResult(String name, HTMLProducer htmlProducer) {
-		this(name, htmlProducer, ValidationResult.ok(), "", 1, "", new ArrayList<>(), new EmptyRenderData());
+		this(name, htmlProducer, ValidationResult.ok(), "", 1, "", new ArrayList<>(), null);
 	}
 	
 	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value, int tabIndexIncrement, String renderKey) {
-		this(name, htmlProducer, vr, value, tabIndexIncrement, renderKey, new ArrayList<>(), new EmptyRenderData());
+		this(name, htmlProducer, vr, value, tabIndexIncrement, renderKey, new ArrayList<>(), null);
 	}
 	
-	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value, int tabIndexIncrement, String renderKey, List<ElementResult> childs, StaticRenderData staticRenderData) {
+	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value, 
+			int tabIndexIncrement, String renderKey, List<ElementResult> childs, Element source) {
 		this.name = name;
 		this.htmlProducer = htmlProducer;
 		this.validationResult = vr;
 		this.value = value;
 		this.tabIndexIncrement = tabIndexIncrement;
-		this.staticRenderData = staticRenderData;
+		this.source = source;
 		this.renderKey = renderKey;
 		this.childs = childs;
 	}
@@ -67,8 +68,9 @@ public class ElementResult {
 		return childs;
 	}
 
-  public StaticRenderData getStaticRenderData() {
-    return staticRenderData;
-  }
+	public Element getSource() {
+		return source;
+	}
+
 	
 }

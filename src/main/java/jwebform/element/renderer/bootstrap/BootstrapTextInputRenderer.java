@@ -2,7 +2,8 @@ package jwebform.element.renderer.bootstrap;
 
 import java.util.LinkedHashMap;
 
-import jwebform.element.TextInput.TextInputRenderData;
+import jwebform.element.OneFieldDecoration;
+import jwebform.element.TextInput;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
@@ -14,7 +15,7 @@ public class BootstrapTextInputRenderer implements HTMLProducer{
 	
 	@Override
 	public String getHTML(ProducerInfos pi) {
-	  TextInputRenderData data = (TextInputRenderData)pi.getStaticRenderData();
+	  OneFieldDecoration decoration = ((TextInput)pi.getSource()).decoration;
 		String formId = pi.getFormId() + "-";
 		String errorMessage = "";
 	      Tag wrapper = new Tag("div", "class", "form-group");
@@ -28,7 +29,7 @@ public class BootstrapTextInputRenderer implements HTMLProducer{
 	        errorMessage = "Problem: " + pi.getVr().getMessage() + "<br>";
 	      }
 	      TagAttributes labelTagAttr = new TagAttributes("for", formId + pi.getName());
-	      Tag labelTag = new Tag("label", labelTagAttr, data.decoration.getLabel() + ":");
+	      Tag labelTag = new Tag("label", labelTagAttr, decoration.getLabel() + ":");
 
 	      LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
 	      attrs.put("tabindex", Integer.toString(pi.getTabIndex()));
@@ -36,16 +37,16 @@ public class BootstrapTextInputRenderer implements HTMLProducer{
 	      attrs.put("name", formId + pi.getName());
 	      attrs.put("value", pi.getValue());
 
-	      if (!StringUtils.isEmpty(data.decoration.getPlaceholder())) {
-	        attrs.put("placeholder", data.decoration.getPlaceholder());
+	      if (!StringUtils.isEmpty(decoration.getPlaceholder())) {
+	        attrs.put("placeholder", decoration.getPlaceholder());
 	      }
 
 	      String helpHTML = "";
-	      if (!StringUtils.isEmpty(data.decoration.getHelptext())) {
+	      if (!StringUtils.isEmpty(decoration.getHelptext())) {
 	        TagAttributes helpAttributes = new TagAttributes();
 	        helpAttributes.addToAttribute("id", "helpBlock-" + pi.getName());
 	        helpAttributes.addToAttribute("class", "help-block");
-	        Tag help = new Tag("span", helpAttributes, data.decoration.getHelptext());
+	        Tag help = new Tag("span", helpAttributes, decoration.getHelptext());
 	        helpHTML = help.getComplete();
 	        attrs.put("aria-describedby", "helpBlock-" + pi.getName());
 	      }

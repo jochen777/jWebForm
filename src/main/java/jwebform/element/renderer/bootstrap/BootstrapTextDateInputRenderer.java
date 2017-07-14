@@ -1,6 +1,7 @@
 package jwebform.element.renderer.bootstrap;
 
-import jwebform.element.TextDateInput.TextDateData;
+import jwebform.element.OneFieldDecoration;
+import jwebform.element.TextDateInput;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.ProducerInfos;
@@ -10,7 +11,7 @@ public class BootstrapTextDateInputRenderer implements HTMLProducer{
 
 	@Override
 	public String getHTML(ProducerInfos pi) {
-	  TextDateData data = (TextDateData)pi.getStaticRenderData();
+      OneFieldDecoration decoration = ((TextDateInput)pi.getSource()).decoration; 
 	  String errorMessage = "";
       if (pi.getVr() != ValidationResult.undefined() && !pi.getVr().isValid) {
         errorMessage = "Problem: " + pi.getVr().getMessage() + "<br>";
@@ -18,20 +19,20 @@ public class BootstrapTextDateInputRenderer implements HTMLProducer{
       ElementResult dayResult = pi.getChilds().get(0);
       ElementResult monthResult = pi.getChilds().get(1);
       ElementResult yearResult = pi.getChilds().get(2);
-      String html = data.decoration.getLabel() + "<br/>" + errorMessage
+      String html = decoration.getLabel() + "<br/>" + errorMessage
           + dayResult.getHtmlProducer()
               .getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex(),
-                  dayResult.getValidationResult(), null, dayResult.getStaticRenderData(), dayResult.getName(), dayResult.getValue()))
+                  dayResult.getValidationResult(), null, dayResult.getSource(), dayResult.getName(), dayResult.getValue()))
 
           + monthResult.getHtmlProducer()
               .getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1,
                   monthResult.getValidationResult(), null, 
-                  monthResult.getStaticRenderData(),
+                  monthResult.getSource(),
                   monthResult.getName(), monthResult.getValue()))
           + yearResult.getHtmlProducer().getHTML(new ProducerInfos(pi.getFormId(),
-              pi.getTabIndex() + 2, yearResult.getValidationResult(), null, yearResult.getStaticRenderData(),
+              pi.getTabIndex() + 2, yearResult.getValidationResult(), null, yearResult.getSource(),
               yearResult.getName(), yearResult.getValue()))
-          + "<br>" + data.decoration.getHelptext();
+          + "<br>" + decoration.getHelptext();
       return html;	}
 
 }

@@ -2,19 +2,19 @@ package jwebform.element;
 
 import java.util.LinkedHashMap;
 
-import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
-import jwebform.element.structure.ProducerInfos;
-import jwebform.element.structure.StaticRenderData;
+import jwebform.element.structure.Themable;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
-public class TextInput implements Element {
+public class TextInput implements Themable {
+	
+	public final static String KEY = "jwebform.element.TextInput";
 
 	final private String name; 
 
@@ -22,7 +22,7 @@ public class TextInput implements Element {
 
 	final private Validator validator; 
 
-	final private OneFieldDecoration decoration;
+	final public OneFieldDecoration decoration;
 
 	public TextInput(String name, OneFieldDecoration decoration, String initialValue, Validator validator) {
 		this.name = name;
@@ -35,36 +35,11 @@ public class TextInput implements Element {
 	public ElementResult prepare(PrepareInfos renderInfos) {
 		String formId = renderInfos.getFormId() + "-";
 		String value = this.fetchValue(renderInfos.getEnv().getRequest(), initialValue, formId);
-
 		ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value, formId);
-		HTMLProducer producer = renderInfos.getTheme().getHtmlProducer().get("jwebform.element.TextInput");
-		if (producer == null) {
-			producer = new TextInputRenderer();
-		}
-        TextInputRenderData renderData = new TextInputRenderData(decoration);
-		return new ElementResult(name, producer, vr, value, 1, "jwebform.element.TextInput", null, renderData);
+		return new ElementResult(name, renderInfos.getTheme().getProducer(this), vr, value, 1, KEY, null, this);
 	}
 
-    // very simple version!
-	public class TextInputRenderer implements HTMLProducer {
-	    
-		@Override
-		public String getHTML(ProducerInfos producerInfos) {
-			String errorMessage = "Problem: " + producerInfos.getVr().getMessage() + "<br>";
-			LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
-			attrs.put("tabindex", Integer.toString(producerInfos.getTabIndex()));
-			attrs.put("type", "text");
-			attrs.put("name", producerInfos.getFormId() + "-" + name);
-			attrs.put("value", producerInfos.getValue());
-			TagAttributes inputTagAttr = new TagAttributes(attrs);
-			Tag inputTag = new Tag("input", inputTagAttr);
-			String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml();
-
-			return html;
-
-		}
-	}
-
+   
 	private String fetchValue(Request request, String initialValue, String formId) {
 		if (request.getParameter(formId + name) != null) {
 			return request.getParameter(formId + name);
@@ -84,10 +59,27 @@ public class TextInput implements Element {
 		return String.format("TextInput. name=%s", name);
 	}
 
-	public class TextInputRenderData implements StaticRenderData{
-      public final OneFieldDecoration decoration; 
-      public TextInputRenderData(OneFieldDecoration decoration) {
-        this.decoration = decoration;
-      }
+	@Override
+	public String getKey() {
+		return KEY;
 	}
+
+	 // very simple version!
+	@Override
+	public HTMLProducer getDefault() {
+		return producerInfos -> {
+			String errorMessage = "Problem: " + producerInfos.getVr().getMessage() + "<br>";
+			LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
+			attrs.put("tabindex", Integer.toString(producerInfos.getTabIndex()));
+			attrs.put("type", "text");
+			attrs.put("name", producerInfos.getFormId() + "-" + name);
+			attrs.put("value", producerInfos.getValue());
+			TagAttributes inputTagAttr = new TagAttributes(attrs);
+			Tag inputTag = new Tag("input", inputTagAttr);
+			String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml();
+
+			return html;
+		};
+	}
+
 }

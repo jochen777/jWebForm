@@ -9,17 +9,17 @@ public class ProducerInfos {
 	private final int tabIndex;
 	private final ValidationResult vr;
 	private final List<ElementResult> childs;
-	private final StaticRenderData staticRenderData;
 	private final String name;
 	private final String value;
+	private final Element source;
 	
 	public ProducerInfos(String formId, int tabIndex, ValidationResult vr, 
-	    List<ElementResult> childs, StaticRenderData staticRenderData, String name, String value) {
+	    List<ElementResult> childs, Element source, String name, String value) {
 		this.formId = formId;
 		this.tabIndex = tabIndex;
 		this.vr = vr;
 		this.childs = childs;
-		this.staticRenderData = staticRenderData;
+		this.source = source;
 		this.name = name;
 		this.value = value;
 	}
@@ -40,9 +40,6 @@ public class ProducerInfos {
 		return childs;
 	}
 
-  public StaticRenderData getStaticRenderData() {
-    return staticRenderData;
-  }
 
   public String getName() {
     return name;
@@ -51,4 +48,8 @@ public class ProducerInfos {
   public String getValue() {
     return value;
   }
+
+public Element getSource() {
+	return source;
+}
 }
