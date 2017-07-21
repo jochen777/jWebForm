@@ -26,5 +26,9 @@ public class FormResult {
 		return new View(form, elementResults);
 	}
 
+	public Map<Element, ElementResult> getElementResults() {
+		return elementResults;
+	}
+
 
 }

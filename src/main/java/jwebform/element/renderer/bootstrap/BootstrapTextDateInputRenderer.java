@@ -29,6 +29,7 @@ public class BootstrapTextDateInputRenderer implements HTMLProducer{
                   monthResult.getValidationResult(), null, 
                   monthResult.getSource(),
                   monthResult.getName(), monthResult.getValue()))
+              
           + yearResult.getHtmlProducer().getHTML(new ProducerInfos(pi.getFormId(),
               pi.getTabIndex() + 2, yearResult.getValidationResult(), null, yearResult.getSource(),
               yearResult.getName(), yearResult.getValue()))

@@ -19,15 +19,17 @@ public class ElementResult {
 	private final Element source;
 	private final List<ElementResult> childs;
 	
-	public static final String EMPTY = "";
+	public static final String EMPTY_STRING = "";
 	public static final List<ElementResult> NOCHILDS = new ArrayList<>();
 	
+	// RFE: Builder, der checkt, ob Themable element übergeben wird. wenn ja, muss kein producer angegeben werden. ansonsten ist nur name mandatory
+	
 	public ElementResult(String name, HTMLProducer htmlProducer) {
-		this(name, htmlProducer, ValidationResult.ok(), EMPTY, 0, EMPTY, new ArrayList<>(), null);
+		this(name, htmlProducer, ValidationResult.ok(), EMPTY_STRING, 0, EMPTY_STRING, new ArrayList<>(), null);
 	}
 	
 	public ElementResult(String name, HTMLProducer htmlProducer, Element source) {
-		this(name, htmlProducer, ValidationResult.ok(), EMPTY, 0, EMPTY, NOCHILDS, source);
+		this(name, htmlProducer, ValidationResult.ok(), EMPTY_STRING, 0, EMPTY_STRING, NOCHILDS, source);
 	}
 	
 	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value, int tabIndexIncrement, String renderKey) {

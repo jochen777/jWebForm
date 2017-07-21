@@ -63,9 +63,28 @@ public class SampleUsage {
 		assertTrue("The form should be false, because some fields are required or reqire a number", !result);
 	}
 
-	private Form createForm() {
-		// TODO: Add Custom FormValidator
-		String formId = "fid";
+	
+
+	private boolean testFormAgainstRequest(Env env, String templateName) {
+		MyFormBuilder formBuilder = new MyFormBuilder();
+		Form f = formBuilder.buildForm();
+		FormResult result = f.run(env, new BootstrapTheme());
+
+		InputStream in = this.getClass().getClassLoader()
+				.getResourceAsStream(templateName);
+		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
+		System.err.println("Date: " + formBuilder.getDateValue(result));
+		return result.isOk();
+	}
+
+	
+	static String convertStreamToString(java.io.InputStream is) {
+		java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+		return s.hasNext() ? s.next() : "";
+	}
+	
+	public class MyFormBuilder {
+
 		XSRFProtection protection = new XSRFProtection(true);	// no random values, so we can expect constant html
 
 		TextInput textInput = new TextInput("textInput", new OneFieldDecoration("TextInputLabel"), "Peter\"Paul", new Validator(Criteria.required()));
@@ -74,43 +93,43 @@ public class SampleUsage {
 		TextInput textInput2 = new TextInput("textInput2", new OneFieldDecoration("TextInputLabel2", "Help-Text", "Placeholder"), "Peter\"Paul",
 				new Validator(Criteria.required()));
 
-		List<FormValidator> formValidators = new ArrayList<>();
-		formValidators.add(it -> {
-			final Map<Element, ValidationResult> overridenValidationResults = new HashMap<>();
-			String valueOfTextInput = it.get(textInput).getValue();
-			if (valueOfTextInput.length() > 3) {
-				overridenValidationResults.put(textInput, ValidationResult.fail("not_ok"));
-			}
-			return overridenValidationResults;
-			});
+		
+		public MyFormBuilder() {
+			
+		}
+		
+		public String getDateValue(FormResult formResult) {
+			return formResult.getElementResults().get(date).getValue();
+		}
 
-		Form f = new Form(formId, formValidators, 
-		    protection, 
-		    new SimpleElement(), 
-		    new SimpleElement(), 
-		    textInput, 
-		    date, 
-		    textInput2, 
-		    new SubmitButton("Submit")
-		    );
+		public Form buildForm() {
+			String formId = "fid";
+			
+			List<FormValidator> formValidators = new ArrayList<>();
+			formValidators.add(it -> {
+				final Map<Element, ValidationResult> overridenValidationResults = new HashMap<>();
+				String valueOfTextInput = it.get(textInput).getValue();
+				if (valueOfTextInput.length() > 3) {
+					overridenValidationResults.put(textInput, ValidationResult.fail("not_ok"));
+				}
+				return overridenValidationResults;
+				});
 
-		return f;
-	}
+			Form f = new Form(formId, formValidators, 
+			    protection, 
+			    new SimpleElement(), 
+			    new SimpleElement(), 
+			    textInput, 
+			    date, 
+			    textInput2, 
+			    new SubmitButton("Submit")
+			    );
 
-	private boolean testFormAgainstRequest(Env env, String templateName) {
-		Form f = createForm();
-		FormResult result = f.run(env, new BootstrapTheme());
+			return f;
 
-		InputStream in = this.getClass().getClassLoader()
-				.getResourceAsStream(templateName);
-		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
-		return result.isOk();
-	}
-
-	
-	static String convertStreamToString(java.io.InputStream is) {
-		java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-		return s.hasNext() ? s.next() : "";
+		}
+		
+		
 	}
 
 }
