@@ -6,7 +6,6 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.ProducerInfos;
-import jwebform.element.structure.Theme;
 import jwebform.view.StartEndRenderer;
 
 public class View {
