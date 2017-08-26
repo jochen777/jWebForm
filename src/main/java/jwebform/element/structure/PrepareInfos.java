@@ -6,17 +6,15 @@ import jwebform.env.Env;
 public class PrepareInfos {
 	private final String formId;
 	private final Env env;
-	private final Theme theme;
 	// maybe: MessageSource, AdditionalAttributes
 	
-	public PrepareInfos(String formId, Env env, Theme theme) {
+	public PrepareInfos(String formId, Env env) {
 		this.formId = formId;
 		this.env = env;
-		this.theme = theme;
 	}
 	
 	public PrepareInfos cloneWithNewTabIndexIncrease(int tabIndexIncrease) {
-		return new PrepareInfos(formId, env, theme);
+		return new PrepareInfos(formId, env);
 	}
 
 	public String getFormId() {
@@ -27,8 +25,5 @@ public class PrepareInfos {
 		return env;
 	}
 
-	public Theme getTheme() {
-		return theme;
-	}
 	
 }

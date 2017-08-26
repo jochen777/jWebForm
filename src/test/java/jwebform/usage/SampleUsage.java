@@ -68,11 +68,11 @@ public class SampleUsage {
 	private boolean testFormAgainstRequest(Env env, String templateName) {
 		MyFormBuilder formBuilder = new MyFormBuilder();
 		Form f = formBuilder.buildForm();
-		FormResult result = f.run(env, new BootstrapTheme());
+		FormResult result = f.run(env);
 
 		InputStream in = this.getClass().getClassLoader()
 				.getResourceAsStream(templateName);
-		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml().trim());
+		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml(new BootstrapTheme()).trim());
 		System.err.println("Date: " + formBuilder.getDateValue(result));
 		return result.isOk();
 	}

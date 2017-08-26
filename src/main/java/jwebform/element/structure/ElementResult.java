@@ -3,6 +3,7 @@ package jwebform.element.structure;
 import java.util.ArrayList;
 import java.util.List;
 
+import jwebform.element.renderer.bootstrap.BootstrapTheme;
 import jwebform.validation.ValidationResult;
 
 // that wat is coming out of a "run" method of an element
@@ -83,6 +84,15 @@ public class ElementResult {
 
 	public Element getSource() {
 		return source;
+	}
+
+	public String getHtml(ProducerInfos pi) {
+		HTMLProducer producer = htmlProducer;
+		if (pi.getSource() instanceof Themable) {
+			Themable element = (Themable) pi.getSource();
+			producer = pi.getTheme().getProducer(element);
+		}
+		return producer.getHTML(pi);
 	}
 
 	

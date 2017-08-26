@@ -4,6 +4,7 @@ import java.util.List;
 
 import jwebform.validation.ValidationResult;
 
+// Infos, that the HTMLProducer needs to render the HTML. This will be provided by the form-run
 public class ProducerInfos {
 	private final String formId;
 	private final int tabIndex;
@@ -12,9 +13,10 @@ public class ProducerInfos {
 	private final String name;
 	private final String value;
 	private final Element source;
+	private final Theme theme;
 	
 	public ProducerInfos(String formId, int tabIndex, ValidationResult vr, 
-	    List<ElementResult> childs, Element source, String name, String value) {
+	    List<ElementResult> childs, Element source, String name, String value, Theme theme) {
 		this.formId = formId;
 		this.tabIndex = tabIndex;
 		this.vr = vr;
@@ -22,6 +24,7 @@ public class ProducerInfos {
 		this.source = source;
 		this.name = name;
 		this.value = value;
+		this.theme = theme;
 	}
 
 	public String getFormId() {
@@ -51,5 +54,9 @@ public class ProducerInfos {
 
 public Element getSource() {
 	return source;
+}
+
+public Theme getTheme() {
+	return theme;
 }
 }

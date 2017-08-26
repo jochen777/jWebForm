@@ -2,6 +2,7 @@ package jwebform;
 
 import java.util.Map;
 
+import jwebform.element.renderer.bootstrap.BootstrapTheme;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
@@ -18,22 +19,17 @@ public class View {
 		this.elementResults = elementResults;
 	}
 
-	public String getHtml() {
+	public String getHtml(BootstrapTheme theme) {
 		StartEndRenderer startEndRenderer = new StartEndRenderer(form);	// RFE: Remove new
 		StringBuilder html = new StringBuilder();
 		html.append(startEndRenderer.getStart());
 		int tabIndex = 1;
 		for (Map.Entry<Element, ElementResult> entry : elementResults.entrySet()) {
 			ElementResult elementResult = entry.getValue();
-			String renderedHtml;
-			HTMLProducer htmlProducer = elementResult.getHtmlProducer(); 
-//			if (theme.getHtmlProducer().containsKey(elementResult.getRenderKey())) {
-//				htmlProducer = theme.getHtmlProducer().get(elementResult.getRenderKey()); 
-//			}
 			ProducerInfos pi = new ProducerInfos(form.getId(), tabIndex, 
-			    elementResult.getValidationResult(), elementResult.getChilds(), 
-			    elementResult.getSource(), elementResult.getName(), elementResult.getValue());
-		    renderedHtml = htmlProducer.getHTML(pi);
+				    elementResult.getValidationResult(), elementResult.getChilds(), 
+				    elementResult.getSource(), elementResult.getName(), elementResult.getValue(), theme);
+			String renderedHtml = elementResult.getHtml(pi); 
 			html.append(renderedHtml);
 			tabIndex += elementResult.getTabIndexIncrement();
 		}

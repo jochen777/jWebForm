@@ -32,9 +32,9 @@ public class Form {
 		this(id, Arrays.asList(elements), formValidators);
 	}
 
-	public FormResult run(Env env, Theme theme) {
+	public FormResult run(Env env) {
 		// validate form
-		Map<Element, ElementResult> elementResults = processElements(env, theme);
+		Map<Element, ElementResult> elementResults = processElements(env);
 		Map<Element, ValidationResult> overridenValidationResults = runFormValidations(elementResults);
 		Map<Element, ElementResult> correctedElementResults = correctElementResults(elementResults,
 				overridenValidationResults);
@@ -43,10 +43,10 @@ public class Form {
 		return new FormResult(this, correctedElementResults, formIsValid);
 	}
 
-	private Map<Element, ElementResult> processElements(Env env, Theme theme) {
+	private Map<Element, ElementResult> processElements(Env env) {
 		// check each element
 		Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
-		PrepareInfos renderInfos = new PrepareInfos(id, env, theme);
+		PrepareInfos renderInfos = new PrepareInfos(id, env);
 		for (Element element : elements) {
 			ElementResult result = element.prepare(renderInfos);
 			elementResults.put(element, result);

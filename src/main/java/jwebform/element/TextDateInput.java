@@ -85,7 +85,7 @@ public class TextDateInput implements Themable {
       validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
     }
 
-    ElementResult result = new ElementResult(name, renderInfos.getTheme().getProducer(this), validationResult,
+    ElementResult result = new ElementResult(name, getDefault(), validationResult,
         value.format(DateTimeFormatter.ISO_DATE), 3,KEY,
         childs, this);
     return result;
@@ -132,18 +132,16 @@ public HTMLProducer getDefault() {
 	      ElementResult monthResult = pi.getChilds().get(1);
 	      ElementResult yearResult = pi.getChilds().get(2);
 	      String html = decoration.getLabel() + "<br/>" + errorMessage
-	          + dayResult.getHtmlProducer()
-	              .getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex(),
-	                  dayResult.getValidationResult(), null, dayResult.getSource(), dayResult.getName(), dayResult.getValue()))
+	          + dayResult.getHtml(new ProducerInfos(pi.getFormId(), pi.getTabIndex(),
+	                  dayResult.getValidationResult(), null, dayResult.getSource(), dayResult.getName(), dayResult.getValue(), pi.getTheme()))
 
-	          + monthResult.getHtmlProducer()
-	              .getHTML(new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1,
+	          + monthResult.getHtml(new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1,
 	                  monthResult.getValidationResult(), null, 
 	                  monthResult.getSource(),
-	                  monthResult.getName(), monthResult.getValue()))
-	          + yearResult.getHtmlProducer().getHTML(new ProducerInfos(pi.getFormId(),
+	                  monthResult.getName(), monthResult.getValue(), pi.getTheme()))
+	          + yearResult.getHtml(new ProducerInfos(pi.getFormId(),
 	              pi.getTabIndex() + 2, yearResult.getValidationResult(), null, yearResult.getSource(),
-	              yearResult.getName(), yearResult.getValue()))
+	              yearResult.getName(), yearResult.getValue(), pi.getTheme()))
 	          + "<br>" + decoration.getHelptext()+"<-- internal renderer -->";
 	      return html;
 	};
