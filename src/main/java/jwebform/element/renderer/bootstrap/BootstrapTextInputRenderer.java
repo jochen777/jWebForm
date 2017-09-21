@@ -15,27 +15,29 @@ public class BootstrapTextInputRenderer implements HTMLProducer{
 	
 	@Override
 	public String getHTML(ProducerInfos pi) {
-	  OneFieldDecoration decoration = ((TextInput)pi.getSource()).decoration;
+	  OneFieldDecoration decoration = ((TextInput)pi.getElementResult().getSource()).decoration;
 		String formId = pi.getFormId() + "-";
 		String errorMessage = "";
+		ValidationResult vr = pi.getElementResult().getValidationResult();
+		String name = pi.getElementResult().getName();
 	      Tag wrapper = new Tag("div", "class", "form-group");
-	      if (pi.getVr() != ValidationResult.undefined()
-	          && pi.getVr().isValid) {
+	      if (vr != ValidationResult.undefined()
+	          && vr.isValid) {
 	        wrapper.getTagAttributes().addToAttribute("class", " has-success");
 	      }
-	      if (pi.getVr() != ValidationResult.undefined()
-	          && !pi.getVr().isValid) {
+	      if (vr != ValidationResult.undefined()
+	          && !vr.isValid) {
 	        wrapper.getTagAttributes().addToAttribute("class", " has-error");
-	        errorMessage = "Problem: " + pi.getVr().getMessage() + "<br>";
+	        errorMessage = "Problem: " + vr.getMessage() + "<br>";
 	      }
-	      TagAttributes labelTagAttr = new TagAttributes("for", formId + pi.getName());
+	      TagAttributes labelTagAttr = new TagAttributes("for", formId + name);
 	      Tag labelTag = new Tag("label", labelTagAttr, decoration.getLabel() + ":");
 
 	      LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
 	      attrs.put("tabindex", Integer.toString(pi.getTabIndex()));
 	      attrs.put("type", "text");
-	      attrs.put("name", formId + pi.getName());
-	      attrs.put("value", pi.getValue());
+	      attrs.put("name", formId + name);
+	      attrs.put("value", pi.getElementResult().getValue());
 
 	      if (!StringUtils.isEmpty(decoration.getPlaceholder())) {
 	        attrs.put("placeholder", decoration.getPlaceholder());
@@ -44,11 +46,11 @@ public class BootstrapTextInputRenderer implements HTMLProducer{
 	      String helpHTML = "";
 	      if (!StringUtils.isEmpty(decoration.getHelptext())) {
 	        TagAttributes helpAttributes = new TagAttributes();
-	        helpAttributes.addToAttribute("id", "helpBlock-" + pi.getName());
+	        helpAttributes.addToAttribute("id", "helpBlock-" + name);
 	        helpAttributes.addToAttribute("class", "help-block");
 	        Tag help = new Tag("span", helpAttributes, decoration.getHelptext());
 	        helpHTML = help.getComplete();
-	        attrs.put("aria-describedby", "helpBlock-" + pi.getName());
+	        attrs.put("aria-describedby", "helpBlock-" + name);
 	      }
 
 	      TagAttributes inputTagAttr = new TagAttributes(attrs);

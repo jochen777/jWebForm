@@ -8,7 +8,7 @@ public class BootstrapSubmitButtonRenderer implements HTMLProducer{
 
 	@Override
 	public String getHTML(ProducerInfos pi) {
-	    String label = ((SubmitButton)pi.getSource()).label;
+	    String label = ((SubmitButton)pi.getElementResult().getSource()).label;
 		return "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"submit\" value=\"" + label + "\">";
 	}
 

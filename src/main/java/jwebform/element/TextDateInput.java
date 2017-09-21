@@ -125,23 +125,20 @@ public String getKey() {
 public HTMLProducer getDefault() {
 	return pi -> {
 		String errorMessage = "";
-	      if (pi.getVr() != ValidationResult.undefined() && !pi.getVr().isValid) {
-	        errorMessage = "Problem: " + pi.getVr().getMessage() + "<br>";
+	      if (pi.getElementResult().getValidationResult() != ValidationResult.undefined() && !pi.getElementResult().getValidationResult().isValid) {
+	        errorMessage = "Problem: " + pi.getElementResult().getValidationResult().getMessage() + "<br>";
 	      }
-	      ElementResult dayResult = pi.getChilds().get(0);
-	      ElementResult monthResult = pi.getChilds().get(1);
-	      ElementResult yearResult = pi.getChilds().get(2);
+	      ElementResult dayResult = pi.getElementResult().getChilds().get(0);
+	      ElementResult monthResult = pi.getElementResult().getChilds().get(1);
+	      ElementResult yearResult = pi.getElementResult().getChilds().get(2);
 	      String html = decoration.getLabel() + "<br/>" + errorMessage
 	          + dayResult.getHtml(new ProducerInfos(pi.getFormId(), pi.getTabIndex(),
-	                  dayResult.getValidationResult(), null, dayResult.getSource(), dayResult.getName(), dayResult.getValue(), pi.getTheme()))
+	                  pi.getTheme(), dayResult))
 
 	          + monthResult.getHtml(new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1,
-	                  monthResult.getValidationResult(), null, 
-	                  monthResult.getSource(),
-	                  monthResult.getName(), monthResult.getValue(), pi.getTheme()))
+	                  pi.getTheme(), monthResult))
 	          + yearResult.getHtml(new ProducerInfos(pi.getFormId(),
-	              pi.getTabIndex() + 2, yearResult.getValidationResult(), null, yearResult.getSource(),
-	              yearResult.getName(), yearResult.getValue(), pi.getTheme()))
+	              pi.getTabIndex() + 2, pi.getTheme(), yearResult))
 	          + "<br>" + decoration.getHelptext()+"<-- internal renderer -->";
 	      return html;
 	};

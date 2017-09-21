@@ -13,20 +13,23 @@ public class FastBootstrapTextInputRenderer implements HTMLProducer {
 
 	@Override
 	public String getHTML(ProducerInfos pi) {
-		OneFieldDecoration decoration = ((TextInput) pi.getSource()).decoration;
+		OneFieldDecoration decoration = ((TextInput) pi.getElementResult().getSource()).decoration;
 		String formId = pi.getFormId() + "-";
 		String errorMessage = "";
+		ValidationResult vr = pi.getElementResult().getValidationResult();
+		
 		
 		String errorClass = "";
-		if (pi.getVr() != ValidationResult.undefined() && pi.getVr().isValid) {
+		if (vr != ValidationResult.undefined() && vr.isValid) {
 			errorClass = " has-success";
 		}
-		if (pi.getVr() != ValidationResult.undefined() && !pi.getVr().isValid) {
+		if (vr != ValidationResult.undefined() && !vr.isValid) {
 			errorClass = " has-error";
-			errorMessage = "Problem: " + pi.getVr().getMessage() + "<br>";
+			errorMessage = "Problem: " + vr.getMessage() + "<br>";
 		}
 		
-		String labelStr = "<label for=\""+formId+""+pi.getName()+"\">"+decoration.getLabel()+":</label>";
+		String name = pi.getElementResult().getName();
+		String labelStr = "<label for=\""+formId+name+"\">"+decoration.getLabel()+":</label>";
 
 		// <input tabindex="5" type="text" name="fid-textInput2" value="Peter&quot;Paul" placeholder="Placeholder" aria-describedby="helpBlock-textInput2">
 		String placeholder = "";
@@ -37,17 +40,17 @@ public class FastBootstrapTextInputRenderer implements HTMLProducer {
 		String helpHTML;
 		String aria;
 		if (!StringUtils.isEmpty(decoration.getHelptext())) {
-			helpHTML = "<span id=\"helpBlock-"+pi.getName()+"\" class=\"help-block\">"+decoration.getHelptext()+"</span>";
-			aria = " aria-describedby=\"helpBlock-"+pi.getName()+"\"";
+			helpHTML = "<span id=\"helpBlock-"+name+"\" class=\"help-block\">"+decoration.getHelptext()+"</span>";
+			aria = " aria-describedby=\"helpBlock-"+name+"\"";
 		} else {
 			helpHTML = "";
 			aria = "";
 		}
-		String val = pi.getValue();
+		String val = pi.getElementResult().getValue();
 		if (val.length() > 0) {
 			val = "=\"" + Escape.html(val) + "\"";
 		}
-		String inputHtml = "<input tabindex=\""+ pi.getTabIndex()+"\" type=\"text\" name=\""+formId+pi.getName()+"\" value"+val+placeholder+aria+">";
+		String inputHtml = "<input tabindex=\""+ pi.getTabIndex()+"\" type=\"text\" name=\""+formId+name+"\" value"+val+placeholder+aria+">";
 
 		StringBuffer buf = new StringBuffer("<div class=\"form-group");
 		return buf.append(errorClass).append("\">").append(errorMessage).append(labelStr).append(inputHtml).append(helpHTML).append("</div>\n").toString();

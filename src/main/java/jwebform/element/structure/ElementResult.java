@@ -88,8 +88,8 @@ public class ElementResult {
 
 	public String getHtml(ProducerInfos pi) {
 		HTMLProducer producer = htmlProducer;
-		if (pi.getSource() instanceof Themable) {
-			Themable element = (Themable) pi.getSource();
+		if (pi.getElementResult().getSource() instanceof Themable) {
+			Themable element = (Themable) pi.getElementResult().getSource();
 			producer = pi.getTheme().getProducer(element);
 		}
 		return producer.getHTML(pi);

@@ -68,12 +68,12 @@ public class TextInput implements Themable {
 	@Override
 	public HTMLProducer getDefault() {
 		return producerInfos -> {
-			String errorMessage = "Problem: " + producerInfos.getVr().getMessage() + "<br>";
+			String errorMessage = "Problem: " + producerInfos.getElementResult().getValidationResult().getMessage() + "<br>";
 			LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
 			attrs.put("tabindex", Integer.toString(producerInfos.getTabIndex()));
 			attrs.put("type", "text");
 			attrs.put("name", producerInfos.getFormId() + "-" + name);
-			attrs.put("value", producerInfos.getValue());
+			attrs.put("value", producerInfos.getElementResult().getValue());
 			TagAttributes inputTagAttr = new TagAttributes(attrs);
 			Tag inputTag = new Tag("input", inputTagAttr);
 			String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml();

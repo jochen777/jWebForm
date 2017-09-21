@@ -27,8 +27,7 @@ public class View {
 		for (Map.Entry<Element, ElementResult> entry : elementResults.entrySet()) {
 			ElementResult elementResult = entry.getValue();
 			ProducerInfos pi = new ProducerInfos(form.getId(), tabIndex, 
-				    elementResult.getValidationResult(), elementResult.getChilds(), 
-				    elementResult.getSource(), elementResult.getName(), elementResult.getValue(), theme);
+				    theme, elementResult);
 			String renderedHtml = elementResult.getHtml(pi); 
 			html.append(renderedHtml);
 			tabIndex += elementResult.getTabIndexIncrement();

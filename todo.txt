@@ -58,5 +58,7 @@
 * translation
 * wie bekommt man die values raus?
 
+* Evtl. sind diese Behaviours interessant? https://ci.apache.org/projects/wicket/guide/6.x/guide/advanced.html
+
 
  

@@ -94,7 +94,7 @@ public class XSRFProtection implements Element {
       String rendererdHtml = tags.toString();
 
       String problemDescription = "";
-      if (!producerInfos.getVr().isValid) {
+      if (!producerInfos.getElementResult().getValidationResult().isValid) {
         problemDescription = "XSRF Problem!<br>"; // RFE: MAke this
                                                   // nicer/configurable!
       }
