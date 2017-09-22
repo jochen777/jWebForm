@@ -64,12 +64,8 @@ public class TextDateInput implements Themable {
   @Override
   public ElementResult prepare(PrepareInfos renderInfos) {
     ElementResult dayResult = day.prepare(renderInfos);
-    PrepareInfos monthRenderInfos =
-        renderInfos.cloneWithNewTabIndexIncrease(dayResult.getTabIndexIncrement());
-    ElementResult monthResult = month.prepare(monthRenderInfos);
-    PrepareInfos yearRenderInfos =
-        monthRenderInfos.cloneWithNewTabIndexIncrease(monthResult.getTabIndexIncrement());
-    ElementResult yearResult = year.prepare(yearRenderInfos);
+    ElementResult monthResult = month.prepare(renderInfos);
+    ElementResult yearResult = year.prepare(renderInfos);
 
     List<ElementResult> childs = new ArrayList<>();
     childs.add(dayResult);

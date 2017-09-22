@@ -13,10 +13,6 @@ public class PrepareInfos {
 		this.env = env;
 	}
 	
-	public PrepareInfos cloneWithNewTabIndexIncrease(int tabIndexIncrease) {
-		return new PrepareInfos(formId, env);
-	}
-
 	public String getFormId() {
 		return formId;
 	}
