@@ -54,15 +54,11 @@ public class TagAttributes {
 	}
 
 	public void add(TagAttributes formAttributes) {
-		if (formAttributes != null) {
 			formAttributes.attributes.forEach((key, value) -> this.addToAttribute(key, value));
-		}
 	}
 
 	public void add(LinkedHashMap<String, String> attribs) {
-		if (attribs != null) {
 			attribs.forEach((key, value) -> this.addToAttribute(key, value));
-		}
 	}
 
 	public String renderHtml() {

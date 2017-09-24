@@ -9,11 +9,13 @@ package jwebform.validation;
 public class ValidationResult {
 
 	public final boolean isValid;
+	private static Object[] noErrorVals = new Object[0];
+	private static String emptyTranslatedMsg = "";
+	private static String emptyMsg = "";
 	
 	// caching:
-	private static ValidationResult okResult =  new ValidationResult(true, "", null, null);
-	private static ValidationResult undefinedResult =  new ValidationResult(false, "", null, null);
-	
+	private static ValidationResult okResult =  new ValidationResult(true, "", noErrorVals, emptyTranslatedMsg);
+	private static ValidationResult undefinedResult =  new ValidationResult(false, "", noErrorVals, emptyTranslatedMsg);
 	
 	public boolean isValid() {
 		return isValid;
@@ -40,19 +42,19 @@ public class ValidationResult {
 
 	// factory methods
 	public static ValidationResult of_(boolean isValid, String message, Object... errorVals) {
-		return new ValidationResult(isValid, message, errorVals, null);
+		return new ValidationResult(isValid, message, errorVals, emptyTranslatedMsg);
 	}
 
 	public static ValidationResult fail(String message, Object... errorVals) {
-		return new ValidationResult(false, message, errorVals, null);
+		return new ValidationResult(false, message, errorVals, emptyTranslatedMsg);
 	}
 
 	public static ValidationResult failWithTranslated(String message, Object... errorVals) {
-		return new ValidationResult(false, null, errorVals, message);
+		return new ValidationResult(false, emptyMsg, errorVals, message);
 	}
 
 	public static ValidationResult failWithTranslated(String message) {
-		return new ValidationResult(false, null, new Object[0], message);
+		return new ValidationResult(false, emptyMsg, noErrorVals, message);
 	}
 	
 	public static ValidationResult ok() {

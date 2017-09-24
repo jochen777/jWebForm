@@ -43,9 +43,7 @@ public class XSRFProtection implements Element {
   public ElementResult prepare(PrepareInfos renderInfos) {
     Env env = renderInfos.getEnv();
 
-    if (env.getSessionGet() == null || env.getSessionSet() == null) {
-      throw new SessionMissingException();
-    }
+    env.ensureSessionAvail();
 
     // ############ validation
 
@@ -54,8 +52,9 @@ public class XSRFProtection implements Element {
 
     ValidationResult tempValidationResult;
 
-    if (xsrfVal != null && !xsrfVal.equals(renderInfos.getEnv().getSessionGet().getAttribute(name))
-        && !staticTokenName) {
+    if (renderInfos.getEnv().getRequest().isSubmitted(TOKENVAL) 
+    		&& !xsrfVal.equals(renderInfos.getEnv().getSessionGet().getAttribute(name))
+    		&& !staticTokenName) {
       tempValidationResult = ValidationResult.fail("formchecker.xsrf_problem");
     } else {
     	tempValidationResult = ValidationResult.ok();
@@ -104,18 +103,7 @@ public class XSRFProtection implements Element {
 
   }
 
-  public class SessionMissingException extends RuntimeException {
-    private static final long serialVersionUID = 1L;
-
-    public SessionMissingException() {
-      super(
-          "Session data missing in Env. \nPlease provide sessionGet() and sessionSet() in Env!\n\n...This is needed for XSRF-Protection."
-              + "\n\nExample: \nnew Env(requestParamName -> request.getParameter(requestParamName),	// Request"
-              + "\nsessionParamName -> request.getSession().getAttribute(sessionParamName), // SessionGet"
-              + "\n(sessionParamName, value) -> request.getSession().setAttribute(sessionParamName, value) // SessionSet"
-              + "\n);");
-    }
-  }
+ 
 
   
 

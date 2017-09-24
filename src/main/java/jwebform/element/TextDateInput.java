@@ -56,11 +56,6 @@ public class TextDateInput implements Themable {
   }
 
 
-
-  public LocalDate getDateValue() {
-    return null;
-  }
-
   @Override
   public ElementResult prepare(PrepareInfos renderInfos) {
     ElementResult dayResult = day.prepare(renderInfos);

@@ -6,7 +6,7 @@ public class OneFieldDecoration {
 	private final String label;
 	private final String helptext;
 	private final String placeholder;
-	private static final String EMPTY = "";
+	public static final String EMPTY = "";
 
 	public OneFieldDecoration(String label) {
 		this(label, EMPTY, EMPTY);

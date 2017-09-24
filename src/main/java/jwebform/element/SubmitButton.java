@@ -18,8 +18,7 @@ public class SubmitButton implements Themable {
 
   @Override
   public ElementResult prepare(PrepareInfos renderInfos) {
-    HTMLProducer producer = getDefault();
-    return new ElementResult("submit", producer, ValidationResult.ok(), ElementResult.EMPTY_STRING, 1, 
+    return new ElementResult("submit", getDefault(), ValidationResult.ok(), ElementResult.EMPTY_STRING, 1, 
         this.getKey(), ElementResult.NOCHILDS, this);
   }
 

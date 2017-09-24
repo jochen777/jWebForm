@@ -13,14 +13,14 @@ import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
 public class TextInput implements Themable {
-	
+
 	public final static String KEY = "jwebform.element.TextInput";
 
-	final private String name; 
+	final private String name;
 
 	final private String initialValue;
 
-	final private Validator validator; 
+	final private Validator validator;
 
 	final public OneFieldDecoration decoration;
 
@@ -39,19 +39,22 @@ public class TextInput implements Themable {
 		return new ElementResult(name, getDefault(), vr, value, 1, KEY, ElementResult.NOCHILDS, this);
 	}
 
-   
 	private String fetchValue(Request request, String initialValue, String formId) {
-		if (request.getParameter(formId + name) != null) {
+		if (formSubmitted(request, formId)) {
 			return request.getParameter(formId + name);
 		}
 		return initialValue;
 	}
 
 	private ValidationResult validate(Request request, String value, String formId) {
-		if (request.getParameter(formId + name) != null) {
+		if (formSubmitted(request, formId)) {
 			return validator.validate(value);
 		}
 		return ValidationResult.undefined();
+	}
+
+	private boolean formSubmitted(Request request, String formId) {
+		return request.isSubmitted(formId + name);
 	}
 
 	@Override
@@ -64,11 +67,12 @@ public class TextInput implements Themable {
 		return KEY;
 	}
 
-	 // very simple version!
+	// very simple version!
 	@Override
 	public HTMLProducer getDefault() {
 		return producerInfos -> {
-			String errorMessage = "Problem: " + producerInfos.getElementResult().getValidationResult().getMessage() + "<br>";
+			String errorMessage = "Problem: " + producerInfos.getElementResult().getValidationResult().getMessage()
+					+ "<br>";
 			LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
 			attrs.put("tabindex", Integer.toString(producerInfos.getTabIndex()));
 			attrs.put("type", "text");

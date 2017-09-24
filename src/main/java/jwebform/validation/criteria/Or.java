@@ -20,7 +20,7 @@ public final class Or implements Criterion {
 
 	@Override
 	public ValidationResult validate(String value) {
-		ValidationResult failedResult = null;
+		ValidationResult failedResult = ValidationResult.ok();
 		for (Criterion criterion : criteria) {
 			ValidationResult vr = criterion.validate(value);
 			if (vr.isValid) {

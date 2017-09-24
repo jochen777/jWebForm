@@ -19,7 +19,7 @@ public final class Number implements Criterion {
 	
 	@Override
 	public ValidationResult validate(String value) {
-		if (value != null && value.length() > 0) {
+		if (value.length() > 0) {
 			if (pattern.matcher(value).matches()) {
 				return ValidationResult.ok();
 			}

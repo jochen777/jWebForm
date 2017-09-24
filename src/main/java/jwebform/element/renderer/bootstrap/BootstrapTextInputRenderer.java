@@ -39,12 +39,12 @@ public class BootstrapTextInputRenderer implements HTMLProducer{
 	      attrs.put("name", formId + name);
 	      attrs.put("value", pi.getElementResult().getValue());
 
-	      if (!StringUtils.isEmpty(decoration.getPlaceholder())) {
+	      if (decoration.getPlaceholder() != OneFieldDecoration.EMPTY) {
 	        attrs.put("placeholder", decoration.getPlaceholder());
 	      }
 
 	      String helpHTML = "";
-	      if (!StringUtils.isEmpty(decoration.getHelptext())) {
+	      if (decoration.getHelptext() != OneFieldDecoration.EMPTY) {
 	        TagAttributes helpAttributes = new TagAttributes();
 	        helpAttributes.addToAttribute("id", "helpBlock-" + name);
 	        helpAttributes.addToAttribute("class", "help-block");

@@ -33,13 +33,13 @@ public class FastBootstrapTextInputRenderer implements HTMLProducer {
 
 		// <input tabindex="5" type="text" name="fid-textInput2" value="Peter&quot;Paul" placeholder="Placeholder" aria-describedby="helpBlock-textInput2">
 		String placeholder = "";
-		if (!StringUtils.isEmpty(decoration.getPlaceholder())) {
+		if (decoration.getPlaceholder() != OneFieldDecoration.EMPTY) {
 			placeholder = " placeholder=\""+decoration.getPlaceholder()+"\"";
 		}
 
 		String helpHTML;
 		String aria;
-		if (!StringUtils.isEmpty(decoration.getHelptext())) {
+		if (decoration.getHelptext() != OneFieldDecoration.EMPTY) {
 			helpHTML = "<span id=\"helpBlock-"+name+"\" class=\"help-block\">"+decoration.getHelptext()+"</span>";
 			aria = " aria-describedby=\"helpBlock-"+name+"\"";
 		} else {
