@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
@@ -36,6 +37,8 @@ public class TextDateInput implements Themable {
   final private TextInput day;
   final private TextInput month;
   final private TextInput year;
+  
+  private LocalDate dateValue;
 
   public TextDateInput(String name, OneFieldDecoration decoration, LocalDate initialValue,
       Validator validator) {
@@ -67,20 +70,22 @@ public class TextDateInput implements Themable {
     childs.add(monthResult);
     childs.add(yearResult);
 
-    LocalDate value = initialValue;
+    this.dateValue = initialValue;
     ValidationResult validationResult = ValidationResult.ok();
     try {
-      value = this.setupValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
+    	this.dateValue = this.setupValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
           yearResult.getValue());
     } catch (DateTimeException | NumberFormatException e) {
       validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
     }
 
     ElementResult result = new ElementResult(name, getDefault(), validationResult,
-        value.format(DateTimeFormatter.ISO_DATE), 3,KEY,
+    		this.dateValue.format(DateTimeFormatter.ISO_DATE), 3,KEY,
         childs, this);
     return result;
   }
+
+  
 
   
 
@@ -133,6 +138,11 @@ public HTMLProducer getDefault() {
 	          + "<br>" + decoration.getHelptext()+"<-- internal renderer -->";
 	      return html;
 	};
+}
+
+
+public LocalDate getDateValue() {
+	return dateValue;
 }
 
 }

@@ -27,22 +27,37 @@
  * could Element be immutable or the others too? (OK)
  * introduce HTMLProducer and avoid two loops over elements (OK)
  
- * never use null
+ * never use null (OK)
  * introduce performance-tests (OK)
  * avoid Tabindex interface (OK)
- #############################
- * introduce custom validator, that set the xsrf protection to okay for testing!
- * fix form-result finally
- * Builder for ElementResult and theme just in Form (not in PrepareInfos)
- 
- * start with renderers
+ * Builder for ElementResult and theme just in Form (not in PrepareInfos) (OK)
  * run should not return html but a "HTMLRenderer" that renders the html in case we want it (OK)
+  * - different themes: via: Each element has a hash of renderers. Hash has always "default", but can have more (bootstrap, mobile...) (OK)
+ *   - you can add a set of renderers to a form to style differently (OK)
+ #############################
+ * Provide clean values (LocalDate, boolean, integer...)
+ -> Idee1: Return extended ElementResults with an extra field for the correct data
+ -> Idee2: Versuche das End-API zu formulieren, vielleicht folgt dann das korrekt ergebnis
+ -> element - nicht mehr immutable (** das ist wahrscheinlich am besten!)
+ -> Ergebnis-Holder
+ -> object in addition to value in ElementResult with cast
+* 
+ 
+ 
+ * fix form-result finally ( hat viel zu viele Elemente! -> Idee: jedes Element hat unveränderliche Werte (z.B. tabindexincr.) diese Gruppieren und als objekt zurückliefern)
+ * More Form-Elements (Select, checkbox, radio, fileupload, html, hidden, textArea, Number, Passwort, Label)
+ * - maxLen (via request??)
+ 
+ 
+ * start with renderers (translation!)
  * implement a template, that renders the form
  
- * - maxLen (via request??)
- * - different themes: via: Each element has a hash of renderers. Hash has always "default", but can have more (bootstrap, mobile...) (OK)
- *   - you can add a set of renderers to a form to style differently (OK)
  * custom filters for request (max-len...)
+ * bean-validation
+ * fromBean, toBean
+ * explorable api (form.addText, form.addTextArea
+ * Spring integration
+ 
  
 ## Nüsse:
 
