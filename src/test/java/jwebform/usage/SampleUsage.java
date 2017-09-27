@@ -98,8 +98,10 @@ public class SampleUsage {
 			
 		}
 		
-		public String getDateValue(FormResult formResult) {
-			return formResult.getElementResults().get(date).getValue();
+		public LocalDate getDateValue(FormResult formResult) {
+			// possible as well:
+			// String dateAsString = formResult.getElementResults().get(date).getValue();
+			return date.getDateValue();	
 		}
 
 		public Form buildForm() {
