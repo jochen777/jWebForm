@@ -19,7 +19,7 @@ public class BootstrapTextInputRenderer implements HTMLProducer{
 		String formId = pi.getFormId() + "-";
 		String errorMessage = "";
 		ValidationResult vr = pi.getElementResult().getValidationResult();
-		String name = pi.getElementResult().getName();
+		String name = pi.getElementResult().getStaticElementInfo().getName();
 	      Tag wrapper = new Tag("div", "class", "form-group");
 	      if (vr != ValidationResult.undefined()
 	          && vr.isValid) {

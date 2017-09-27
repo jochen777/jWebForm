@@ -9,50 +9,57 @@ import jwebform.validation.ValidationResult;
 public class ElementResult {
 
 	// RFE: group this to reduce number of fields.
-	private final ValidationResult validationResult; // or just boolean "valid"?
-	private final String value; // Better Object??
-	private final String name; // Element name
-	private final HTMLProducer htmlProducer;
-	private final int tabIndexIncrement;
-	private final String renderKey;
-	private final Element source;
-	private final List<ElementResult> childs;
+	private final ValidationResult validationResult; // not static
+	private final String value; // not static
+	
+	private final StaticElementInfo staticElementInfo;
+	private final Element source; // static
+	private final List<ElementResult> childs; // static
 
 	public static final String EMPTY_STRING = "";
 	public static final List<ElementResult> NOCHILDS = new ArrayList<>();
 	
-	public static final Element NO_SOURCE = t -> new ElementResult("empty", i -> "");  
+	public static final Element NO_SOURCE = t -> new ElementResult(null, null, null, null, null);  	// TODO: Clean this
 
 	// RFE: Builder, der checkt, ob Themable element übergeben wird. wenn ja,
 	// muss kein producer angegeben werden. ansonsten ist nur name mandatory
 
-	public ElementResult(String name, HTMLProducer htmlProducer) {
-		this(name, htmlProducer, ValidationResult.ok(), EMPTY_STRING, 0, EMPTY_STRING, new ArrayList<>(), NO_SOURCE);
-	}
-
-	public ElementResult(String name, HTMLProducer htmlProducer, Element source) {
-		this(name, htmlProducer, ValidationResult.ok(), EMPTY_STRING, 0, EMPTY_STRING, NOCHILDS, source);
-	}
-
-	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value,
-			int tabIndexIncrement, String renderKey) {
-		this(name, htmlProducer, vr, value, tabIndexIncrement, renderKey, new ArrayList<>(), NO_SOURCE);
-	}
-
-	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr, String value,
-			int tabIndexIncrement, String renderKey, List<ElementResult> childs, Element source) {
-		this.name = name;
-		this.htmlProducer = htmlProducer;
+	// complete
+	public ElementResult(ValidationResult vr, String value,
+			StaticElementInfo staticElementInfo,  List<ElementResult> childs, Element source) {
 		this.validationResult = vr;
 		this.value = value;
-		this.tabIndexIncrement = tabIndexIncrement;
 		this.source = source;
-		this.renderKey = renderKey;
 		this.childs = childs;
+		this.staticElementInfo = staticElementInfo;
 	}
 
+	// very simple
+	public ElementResult(String name, HTMLProducer htmlProducer) {
+		this(name, htmlProducer, ValidationResult.ok());
+	}
+
+	// simple with validation
+	public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr) {
+		this(vr, EMPTY_STRING,  new StaticElementInfo(name, htmlProducer, 0, EMPTY_STRING), NOCHILDS, NO_SOURCE);
+	}
+
+	
+	// simple with themable
+	public ElementResult(String name, HTMLProducer htmlProducer, String renderkey, Element source) {
+		this(ValidationResult.ok(), EMPTY_STRING,  new StaticElementInfo(name, htmlProducer, 1, renderkey), NOCHILDS, source);
+	}
+
+	// completeWithout Childs
+	public ElementResult(ValidationResult vr, String value,
+			StaticElementInfo staticElementInfo, Element source) {
+		this(vr, value, staticElementInfo, NOCHILDS, source);
+	}
+
+	
+	
 	public ElementResult cloneWithNewValidationResult(ValidationResult newValidationResult) {
-		return new ElementResult(name, htmlProducer, newValidationResult, value, tabIndexIncrement, renderKey, childs,
+		return new ElementResult(newValidationResult, value, staticElementInfo, childs,
 				source);
 	}
 
@@ -64,21 +71,6 @@ public class ElementResult {
 		return value;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public HTMLProducer getHtmlProducer() {
-		return htmlProducer;
-	}
-
-	public int getTabIndexIncrement() {
-		return tabIndexIncrement;
-	}
-
-	public String getRenderKey() {
-		return renderKey;
-	}
 
 	public List<ElementResult> getChilds() {
 		return childs;
@@ -89,12 +81,16 @@ public class ElementResult {
 	}
 
 	public String getHtml(ProducerInfos pi) {
-		HTMLProducer producer = htmlProducer;
+		HTMLProducer producer = staticElementInfo.getHtmlProducer();
 		if (pi.getElementResult().getSource() instanceof Themable) {
 			Themable element = (Themable) pi.getElementResult().getSource();
 			producer = pi.getTheme().getProducer(element);
 		}
 		return producer.getHTML(pi);
+	}
+
+	public StaticElementInfo getStaticElementInfo() {
+		return staticElementInfo;
 	}
 
 }

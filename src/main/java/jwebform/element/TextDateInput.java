@@ -6,11 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
 import jwebform.element.structure.ProducerInfos;
+import jwebform.element.structure.StaticElementInfo;
 import jwebform.element.structure.Themable;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -79,9 +79,10 @@ public class TextDateInput implements Themable {
       validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
     }
 
-    ElementResult result = new ElementResult(name, getDefault(), validationResult,
-    		this.dateValue.format(DateTimeFormatter.ISO_DATE), 3,KEY,
+    ElementResult result = new ElementResult(validationResult, this.dateValue.format(DateTimeFormatter.ISO_DATE),
+    		new StaticElementInfo(name, getDefault(), 3,KEY), 
         childs, this);
+    
     return result;
   }
 

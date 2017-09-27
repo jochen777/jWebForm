@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
+import jwebform.element.structure.StaticElementInfo;
 import jwebform.element.structure.Themable;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
@@ -36,7 +37,9 @@ public class TextInput implements Themable {
 		String formId = renderInfos.getFormId() + "-";
 		String value = this.fetchValue(renderInfos.getEnv().getRequest(), initialValue, formId);
 		ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value, formId);
-		return new ElementResult(name, getDefault(), vr, value, 1, KEY, ElementResult.NOCHILDS, this);
+		
+		return new ElementResult(vr, value, new StaticElementInfo(name, getDefault(), 1, KEY), this);
+
 	}
 
 	private String fetchValue(Request request, String initialValue, String formId) {

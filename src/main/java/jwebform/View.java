@@ -30,7 +30,7 @@ public class View {
 				    theme, elementResult);
 			String renderedHtml = elementResult.getHtml(pi); 
 			html.append(renderedHtml);
-			tabIndex += elementResult.getTabIndexIncrement();
+			tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
 		}
 		
 		html.append(startEndRenderer.getEnd());

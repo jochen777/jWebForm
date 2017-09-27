@@ -28,7 +28,7 @@ public class FastBootstrapTextInputRenderer implements HTMLProducer {
 			errorMessage = "Problem: " + vr.getMessage() + "<br>";
 		}
 		
-		String name = pi.getElementResult().getName();
+		String name = pi.getElementResult().getStaticElementInfo().getName();
 		String labelStr = "<label for=\""+formId+name+"\">"+decoration.getLabel()+":</label>";
 
 		// <input tabindex="5" type="text" name="fid-textInput2" value="Peter&quot;Paul" placeholder="Placeholder" aria-describedby="helpBlock-textInput2">

@@ -34,17 +34,21 @@
  * run should not return html but a "HTMLRenderer" that renders the html in case we want it (OK)
   * - different themes: via: Each element has a hash of renderers. Hash has always "default", but can have more (bootstrap, mobile...) (OK)
  *   - you can add a set of renderers to a form to style differently (OK)
- #############################
- * Provide clean values (LocalDate, boolean, integer...)
+ * Provide clean values (LocalDate, boolean, integer...) (OK)
  -> Idee1: Return extended ElementResults with an extra field for the correct data
  -> Idee2: Versuche das End-API zu formulieren, vielleicht folgt dann das korrekt ergebnis
  -> element - nicht mehr immutable (** das ist wahrscheinlich am besten!)
  -> Ergebnis-Holder
  -> object in addition to value in ElementResult with cast
 * 
+ #############################
  
  
  * fix form-result finally ( hat viel zu viele Elemente! -> Idee: jedes Element hat unveränderliche Werte (z.B. tabindexincr.) diese Gruppieren und als objekt zurückliefern)
+ * evtl. staticElmentInfo mit Vererbungshierachie? 
+ 
+ 
+ * decide if we need raw object in ElementResult. so instead of "String value" -> Object value;
  * More Form-Elements (Select, checkbox, radio, fileupload, html, hidden, textArea, Number, Passwort, Label)
  * - maxLen (via request??)
  

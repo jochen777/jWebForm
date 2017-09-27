@@ -67,44 +67,33 @@ public class XSRFProtection implements Element {
 
     // is firstrun - then generate a complete new token
 
-    ElementResult result = new ElementResult("xsrf_protection", new XsrfRenderer(), tempValidationResult, "",0, "");
+    ElementResult result = new ElementResult("xsrf_protection", getRenderer(), tempValidationResult);
 
     return result; // no representation
   }
+  
+  public HTMLProducer getRenderer() {
+	  return producerInfos -> {
+		  StringBuilder tags = new StringBuilder();
 
-  public class XsrfRenderer implements HTMLProducer {
+	      String name = "token-" + (staticTokenName ? "" : Math.random());
+	      String xsrfVal = (staticTokenName ? "static" : getRandomValue());
 
+	      tags.append("<input type=\"hidden\" name=\"" + TOKENNAME + "\" value=\""
+	          + Escape.htmlText(name) + "\">");
+	      tags.append("<input type=\"hidden\" name=\"" + TOKENVAL + "\" value=\""
+	          + Escape.htmlText(xsrfVal) + "\">\n");
 
-    public XsrfRenderer() {
-    }
+	      String rendererdHtml = tags.toString();
 
-    @Override
-    public String getHTML(ProducerInfos producerInfos){
-      StringBuilder tags = new StringBuilder();
-
-      String name = "token-" + (staticTokenName ? "" : Math.random());
-      String xsrfVal = (staticTokenName ? "static" : getRandomValue());
-
-      tags.append("<input type=\"hidden\" name=\"" + TOKENNAME + "\" value=\""
-          + Escape.htmlText(name) + "\">");
-      tags.append("<input type=\"hidden\" name=\"" + TOKENVAL + "\" value=\""
-          + Escape.htmlText(xsrfVal) + "\">\n");
-
-      String rendererdHtml = tags.toString();
-
-      String problemDescription = "";
-      if (!producerInfos.getElementResult().getValidationResult().isValid) {
-        problemDescription = "XSRF Problem!<br>"; // RFE: MAke this
-                                                  // nicer/configurable!
-      }
-      return problemDescription + rendererdHtml;
-
-    }
-
+	      String problemDescription = "";
+	      if (!producerInfos.getElementResult().getValidationResult().isValid) {
+	        problemDescription = "XSRF Problem!<br>"; // RFE: MAke this
+	                                                  // nicer/configurable!
+	      }
+	      return problemDescription + rendererdHtml;
+	  };
   }
 
- 
-
-  
 
 }
