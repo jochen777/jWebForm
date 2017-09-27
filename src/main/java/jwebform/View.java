@@ -24,9 +24,10 @@ public class View {
 		StringBuilder html = new StringBuilder();
 		html.append(startEndRenderer.getStart());
 		int tabIndex = 1;
+		ProducerInfos pi;
 		for (Map.Entry<Element, ElementResult> entry : elementResults.entrySet()) {
 			ElementResult elementResult = entry.getValue();
-			ProducerInfos pi = new ProducerInfos(form.getId(), tabIndex, 
+			pi = new ProducerInfos(form.getId(), tabIndex, 
 				    theme, elementResult);
 			String renderedHtml = elementResult.getHtml(pi); 
 			html.append(renderedHtml);

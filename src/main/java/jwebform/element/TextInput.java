@@ -2,18 +2,18 @@ package jwebform.element;
 
 import java.util.LinkedHashMap;
 
+import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
 import jwebform.element.structure.StaticElementInfo;
-import jwebform.element.structure.Themable;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
-public class TextInput implements Themable {
+public class TextInput implements Element {
 
 	public final static String KEY = "jwebform.element.TextInput";
 
@@ -65,13 +65,8 @@ public class TextInput implements Themable {
 		return String.format("TextInput. name=%s", name);
 	}
 
-	@Override
-	public String getKey() {
-		return KEY;
-	}
 
 	// very simple version!
-	@Override
 	public HTMLProducer getDefault() {
 		return producerInfos -> {
 			String errorMessage = "Problem: " + producerInfos.getElementResult().getValidationResult().getMessage()

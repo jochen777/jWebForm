@@ -6,12 +6,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.PrepareInfos;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticElementInfo;
-import jwebform.element.structure.Themable;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
@@ -23,7 +23,7 @@ import jwebform.view.StringUtils;
  * @author jochen
  *
  */
-public class TextDateInput implements Themable {
+public class TextDateInput implements Element {
 	
 	public final static String KEY = "jwebform.element.TextDateInput";
 
@@ -110,15 +110,6 @@ public class TextDateInput implements Themable {
   }
 
 
-
-@Override
-public String getKey() {
-	return KEY;
-}
-
-
-
-@Override
 public HTMLProducer getDefault() {
 	return pi -> {
 		String errorMessage = "";

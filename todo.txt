@@ -41,10 +41,10 @@
  -> Ergebnis-Holder
  -> object in addition to value in ElementResult with cast
 * 
+ * fix form-result finally ( hat viel zu viele Elemente! -> Idee: jedes Element hat unveränderliche Werte (z.B. tabindexincr.) diese Gruppieren und als objekt zurückliefern) (OK)
  #############################
+ * Do we need Themeable Interface at all? Reicht es nicht, den Render-Key zurückzugeben? Und wenn beim Rendern ein Key gefunden wird, wird der HTMLRenderer im Theme verwendet.
  
- 
- * fix form-result finally ( hat viel zu viele Elemente! -> Idee: jedes Element hat unveränderliche Werte (z.B. tabindexincr.) diese Gruppieren und als objekt zurückliefern)
  * evtl. staticElmentInfo mit Vererbungshierachie? 
  
  
