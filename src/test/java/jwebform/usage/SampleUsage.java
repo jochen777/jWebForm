@@ -73,7 +73,7 @@ public class SampleUsage {
 		InputStream in = this.getClass().getClassLoader()
 				.getResourceAsStream(templateName);
 		assertEquals(convertStreamToString(in).trim(), result.getView().getHtml(new BootstrapTheme()).trim());
-		System.err.println("Date: " + formBuilder.getDateValue(result));
+//		System.err.println("Date: " + formBuilder.getDateValue(result));
 		return result.isOk();
 	}
 
