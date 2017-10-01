@@ -55,7 +55,7 @@
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
  * form-id schon im request einbauen. dann brauchen die form-elemente das nicht mehr als eingabeparameter
- * 
+ * ausprobieren: Wie ist das Rendern im Template?
 
  
  * start with renderers (translation!)
