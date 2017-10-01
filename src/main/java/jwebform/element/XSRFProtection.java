@@ -42,7 +42,6 @@ public class XSRFProtection implements Element {
   @Override
   public ElementResult prepare(PrepareInfos renderInfos) {
     Env env = renderInfos.getEnv();
-
     env.ensureSessionAvail();
 
     // ############ validation
@@ -52,15 +51,24 @@ public class XSRFProtection implements Element {
 
     ValidationResult tempValidationResult;
 
-    if (renderInfos.getEnv().getRequest().isSubmitted(TOKENVAL) 
-    		&& !xsrfVal.equals(renderInfos.getEnv().getSessionGet().getAttribute(name))
-    		&& !staticTokenName) {
+    boolean isSubmitted = renderInfos.getEnv().getRequest().isSubmitted(TOKENVAL);
+    System.err.println("In sesion: " );
+    boolean submittedValueEqualsSessionVal = isSubmitted ? xsrfVal.equals(renderInfos.getEnv().getSessionGet().getAttribute(name)) : false;
+    
+    if ( isSubmitted  
+    		&& !submittedValueEqualsSessionVal
+    		//&& !staticTokenName
+    		) {
       tempValidationResult = ValidationResult.fail("formchecker.xsrf_problem");
     } else {
     	tempValidationResult = ValidationResult.ok();
     }
 
 
+    name = "token-" + Math.random();
+    xsrfVal = getRandomValue();
+    env.getSessionSet().setAttribute(name, xsrfVal);
+    
     // ###############
 
     // TODO: What happens, if session runs out and user want's a new code?
