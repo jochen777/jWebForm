@@ -8,7 +8,6 @@ import java.util.Map;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.PrepareInfos;
-import jwebform.element.structure.Theme;
 import jwebform.env.Env;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
