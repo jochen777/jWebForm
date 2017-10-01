@@ -24,6 +24,10 @@ public class Env {
 		return request;
 	}
 
+	public Env cloneWithFormIdPrefix(String formId) {
+		return new Env(p -> request.getParameter(p), sessionGet, sessionSet); 
+	}
+	
 	public SessionGet getSessionGet() {
 		return sessionGet;
 	}
