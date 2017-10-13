@@ -10,6 +10,7 @@ import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Request;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
+import jwebform.view.StringUtils;
 import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
@@ -35,29 +36,30 @@ public class TextInput implements Element {
 	@Override
 	public ElementResult prepare(PrepareInfos renderInfos) {
 		String formId = renderInfos.getFormId() + "-";
-		String value = this.fetchValue(renderInfos.getEnv().getRequest(), initialValue, formId);
-		ValidationResult vr = this.validate(renderInfos.getEnv().getRequest(), value, formId);
+		String requestVal = renderInfos.getEnv().getRequest().getParameter(formId + name);
+		String value = this.fetchValue(requestVal, initialValue, formId);
+		ValidationResult vr = this.validate(requestVal, value, formId);
 		
 		return new ElementResult(vr, value, new StaticElementInfo(name, getDefault(), 1, KEY), this);
 
 	}
 
-	private String fetchValue(Request request, String initialValue, String formId) {
-		if (formSubmitted(request, formId)) {
-			return request.getParameter(formId + name);
+	private String fetchValue(String requestVal, String initialValue, String formId) {
+		if (formSubmitted(requestVal)) {
+			return requestVal;
 		}
 		return initialValue;
 	}
 
-	private ValidationResult validate(Request request, String value, String formId) {
-		if (formSubmitted(request, formId)) {
+	private ValidationResult validate(String requestVal, String value, String formId) {
+		if (formSubmitted(requestVal)) {
 			return validator.validate(value);
 		}
 		return ValidationResult.undefined();
 	}
 
-	private boolean formSubmitted(Request request, String formId) {
-		return request.isSubmitted(formId + name);
+	private boolean formSubmitted(String requestVal) {
+		return requestVal != null;
 	}
 
 	@Override
