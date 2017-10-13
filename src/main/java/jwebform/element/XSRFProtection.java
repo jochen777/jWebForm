@@ -52,7 +52,6 @@ public class XSRFProtection implements Element {
     ValidationResult tempValidationResult;
 
     boolean isSubmitted = renderInfos.getEnv().getRequest().isSubmitted(TOKENVAL);
-    System.err.println("In sesion: " );
     boolean submittedValueEqualsSessionVal = isSubmitted ? xsrfVal.equals(renderInfos.getEnv().getSessionGet().getAttribute(name)) : false;
     
     if ( isSubmitted  
@@ -65,8 +64,8 @@ public class XSRFProtection implements Element {
     }
 
 
-    name = "token-" + Math.random();
-    xsrfVal = getRandomValue();
+    name = "token-" + (staticTokenName ? "" : Math.random());
+    xsrfVal =  (staticTokenName ? "static" : getRandomValue());
     env.getSessionSet().setAttribute(name, xsrfVal);
     
     // ###############
@@ -75,17 +74,14 @@ public class XSRFProtection implements Element {
 
     // is firstrun - then generate a complete new token
 
-    ElementResult result = new ElementResult("xsrf_protection", getRenderer(), tempValidationResult);
+    ElementResult result = new ElementResult("xsrf_protection", getRenderer(name, xsrfVal), tempValidationResult);
 
     return result; // no representation
   }
   
-  public HTMLProducer getRenderer() {
+  public HTMLProducer getRenderer(String name, String xsrfVal) {
 	  return producerInfos -> {
 		  StringBuilder tags = new StringBuilder();
-
-	      String name = "token-" + (staticTokenName ? "" : Math.random());
-	      String xsrfVal = (staticTokenName ? "static" : getRandomValue());
 
 	      tags.append("<input type=\"hidden\" name=\"" + TOKENNAME + "\" value=\""
 	          + Escape.htmlText(name) + "\">");
