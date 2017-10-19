@@ -11,19 +11,19 @@ import jwebform.env.Env;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
 
-public class TextInput implements Element {
+public class CheckBoxInput implements Element {
 
-  public final static String KEY = "jwebform.element.TextInput";
+  public final static String KEY = "jwebform.element.CheckboxInput";
 
   final private String name;
 
-  final private String initialValue;
+  final private boolean initialValue;
 
   final private Validator validator;
 
   final public OneFieldDecoration decoration;
 
-  public TextInput(String name, OneFieldDecoration decoration, String initialValue,
+  public CheckBoxInput(String name, OneFieldDecoration decoration, boolean initialValue,
       Validator validator) {
     this.name = name;
     this.validator = validator;
@@ -34,16 +34,17 @@ public class TextInput implements Element {
   @Override
   public ElementResult prepare(Env env) {
     OneValueElementProcessor oneValueElement = new OneValueElementProcessor();
-    return oneValueElement.calculateElementResult(env, name, initialValue, validator,
+    return oneValueElement.calculateElementResult(env, name, "" + initialValue, validator,
         new StaticElementInfo(name, getDefault(), 1, KEY), this, t -> true);
   }
+
 
   // very simple version!
   public HTMLProducer getDefault() {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
       String errorMessage = renderer.generateErrorMessage(producerInfos);
-      Tag inputTag = renderer.generateInputTag(producerInfos, "text", "input");
+      Tag inputTag = renderer.generateInputTag(producerInfos, "checkbox", "input");
       String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml();
 
       return html;
@@ -52,7 +53,7 @@ public class TextInput implements Element {
 
   @Override
   public String toString() {
-    return String.format("TextInput. name=%s", name);
+    return String.format("CheckBoxInput. name=%s", name);
   }
 
 }

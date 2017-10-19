@@ -43,18 +43,19 @@
 * 
  * fix form-result finally ( hat viel zu viele Elemente! -> Idee: jedes Element hat unveränderliche Werte (z.B. tabindexincr.) diese Gruppieren und als objekt zurückliefern) (OK)
  * Do we need Themeable Interface at all? Reicht es nicht, den Render-Key zurückzugeben? Und wenn beim Rendern ein Key gefunden wird, wird der HTMLRenderer im Theme verwendet. (OK)
+ * decide if we need raw object in ElementResult. so instead of "String value" -> Object value; -> NO
  #############################
  
  
  
  
- * decide if we need raw object in ElementResult. so instead of "String value" -> Object value;
  * More Form-Elements (Select, checkbox, radio, fileupload, html, hidden, textArea, Number, Passwort, Label)
  * - maxLen (via request??)
+ * form-id schon im request einbauen. dann brauchen die form-elemente das nicht mehr als eingabeparameter
+ 
  
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
- * form-id schon im request einbauen. dann brauchen die form-elemente das nicht mehr als eingabeparameter
  * ausprobieren: Wie ist das Rendern im Template?
 
  

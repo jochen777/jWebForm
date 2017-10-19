@@ -2,13 +2,13 @@ package jwebform.element;
 
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.PrepareInfos;
+import jwebform.env.Env;
 
-public class SimpleElement implements Element{
+public class SimpleElement implements Element {
 
-	@Override
-	public ElementResult prepare(PrepareInfos renderInfos) {
-		return new ElementResult("simple", producerInfos -> "simple\n");
-	}
+  @Override
+  public ElementResult prepare(Env env) {
+    return new ElementResult("simple", producerInfos -> "simple\n");
+  }
 
 }

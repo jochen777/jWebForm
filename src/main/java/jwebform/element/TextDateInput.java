@@ -9,9 +9,10 @@ import java.util.List;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.PrepareInfos;
+import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticElementInfo;
+import jwebform.env.Env;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
@@ -24,8 +25,8 @@ import jwebform.view.StringUtils;
  *
  */
 public class TextDateInput implements Element {
-	
-	public final static String KEY = "jwebform.element.TextDateInput";
+
+  public final static String KEY = "jwebform.element.TextDateInput";
 
   final private String name;
 
@@ -37,7 +38,7 @@ public class TextDateInput implements Element {
   final private TextInput day;
   final private TextInput month;
   final private TextInput year;
-  
+
   private LocalDate dateValue;
 
   public TextDateInput(String name, OneFieldDecoration decoration, LocalDate initialValue,
@@ -60,10 +61,10 @@ public class TextDateInput implements Element {
 
 
   @Override
-  public ElementResult prepare(PrepareInfos renderInfos) {
-    ElementResult dayResult = day.prepare(renderInfos);
-    ElementResult monthResult = month.prepare(renderInfos);
-    ElementResult yearResult = year.prepare(renderInfos);
+  public ElementResult prepare(Env env) {
+    ElementResult dayResult = day.prepare(env);
+    ElementResult monthResult = month.prepare(env);
+    ElementResult yearResult = year.prepare(env);
 
     List<ElementResult> childs = new ArrayList<>();
     childs.add(dayResult);
@@ -73,25 +74,26 @@ public class TextDateInput implements Element {
     this.dateValue = initialValue;
     ValidationResult validationResult = ValidationResult.ok();
     try {
-    	this.dateValue = this.setupValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
-          yearResult.getValue());
+      this.dateValue = this.setupValue(this.initialValue, dayResult.getValue(),
+          monthResult.getValue(), yearResult.getValue());
     } catch (DateTimeException | NumberFormatException e) {
       validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
     }
 
-    ElementResult result = new ElementResult(validationResult, this.dateValue.format(DateTimeFormatter.ISO_DATE),
-    		new StaticElementInfo(name, getDefault(), 3,KEY), 
-        childs, this);
-    
+    ElementResult result =
+        new ElementResult(validationResult, this.dateValue.format(DateTimeFormatter.ISO_DATE),
+            new StaticElementInfo(name, getDefault(), 3, KEY), childs, this);
+
     return result;
   }
 
-  
 
-  
 
   // May throw execption!!
-  private LocalDate setupValue(LocalDate initialValue, String dayStr, String monthStr,
+  private LocalDate setupValue(
+      LocalDate initialValue,
+      String dayStr,
+      String monthStr,
       String yearStr) {
     if (StringUtils.isEmpty(dayStr) && StringUtils.isEmpty(monthStr)
         && StringUtils.isEmpty(yearStr)) {
@@ -110,31 +112,31 @@ public class TextDateInput implements Element {
   }
 
 
-public HTMLProducer getDefault() {
-	return pi -> {
-		String errorMessage = "";
-	      if (pi.getElementResult().getValidationResult() != ValidationResult.undefined() && !pi.getElementResult().getValidationResult().isValid) {
-	        errorMessage = "Problem: " + pi.getElementResult().getValidationResult().getMessage() + "<br>";
-	      }
-	      ElementResult dayResult = pi.getElementResult().getChilds().get(0);
-	      ElementResult monthResult = pi.getElementResult().getChilds().get(1);
-	      ElementResult yearResult = pi.getElementResult().getChilds().get(2);
-	      String html = decoration.getLabel() + "<br/>" + errorMessage
-	          + dayResult.getHtml(new ProducerInfos(pi.getFormId(), pi.getTabIndex(),
-	                  pi.getTheme(), dayResult))
+  public HTMLProducer getDefault() {
+    return pi -> {
+      String errorMessage = "";
+      if (pi.getElementResult().getValidationResult() != ValidationResult.undefined()
+          && !pi.getElementResult().getValidationResult().isValid) {
+        errorMessage =
+            "Problem: " + pi.getElementResult().getValidationResult().getMessage() + "<br>";
+      }
+      ElementResult dayResult = pi.getElementResult().getChilds().get(0);
+      ElementResult monthResult = pi.getElementResult().getChilds().get(1);
+      ElementResult yearResult = pi.getElementResult().getChilds().get(2);
+      String html = decoration.getLabel() + "<br/>" + errorMessage
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult).getHtml()
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1, pi.getTheme(), monthResult)
+              .getHtml()
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult)
+              .getHtml()
+          + "<br>" + decoration.getHelptext() + "<-- internal renderer -->";
+      return html;
+    };
+  }
 
-	          + monthResult.getHtml(new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1,
-	                  pi.getTheme(), monthResult))
-	          + yearResult.getHtml(new ProducerInfos(pi.getFormId(),
-	              pi.getTabIndex() + 2, pi.getTheme(), yearResult))
-	          + "<br>" + decoration.getHelptext()+"<-- internal renderer -->";
-	      return html;
-	};
-}
 
-
-public LocalDate getDateValue() {
-	return dateValue;
-}
+  public LocalDate getDateValue() {
+    return dateValue;
+  }
 
 }

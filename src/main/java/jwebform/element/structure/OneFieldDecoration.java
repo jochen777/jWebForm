@@ -1,4 +1,4 @@
-package jwebform.element;
+package jwebform.element.structure;
 
 // Decorative data for typical inputfield
 public class OneFieldDecoration {
