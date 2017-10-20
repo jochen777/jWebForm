@@ -1,6 +1,10 @@
 package jwebform.view;
 
+
 public class StartEndRenderer {
+	
+  public final static String SUBMIT_KEY = "WF_SUBMITTED";
+  public final static String SUBMIT_VALUE_PREFIX = "WF-";
 
   private final String formId;
   private final String method;
@@ -21,7 +25,10 @@ public class StartEndRenderer {
       attribs.addToAttribute("novalidate", "");
     }
     Tag startTag = new Tag("form", attribs);
-    return startTag.getStartHtml() + "\n";
+//    String submittedTag = "<input type=\"hidden\" name=\"" + SUBMIT_KEY + "\" value=\""
+//			+ SUBMIT_VALUE_PREFIX + formId + "\">\n";
+    String submittedTag = "";
+    return startTag.getStartHtml() + "\n" + submittedTag + "\n";
   }
 
   public String getEnd() {

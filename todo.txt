@@ -67,6 +67,7 @@
  * fromBean, toBean
  * explorable api (form.addText, form.addTextArea
  * Spring integration
+ * Warning, if non element is required. (This will not make sense!)
  
  
 ## Nüsse:

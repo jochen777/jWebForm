@@ -1,5 +1,7 @@
 package jwebform.element;
 
+import java.util.HashMap;
+
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
@@ -29,7 +31,7 @@ public class CheckBoxInput implements Element {
     this.validator = validator;
     this.initialValue = initialValue;
     this.decoration = decoration;
-  }
+  } 
 
   @Override
   public ElementResult prepare(Env env) {
@@ -44,6 +46,7 @@ public class CheckBoxInput implements Element {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
       String errorMessage = renderer.generateErrorMessage(producerInfos);
+      System.err.println(producerInfos.getElementResult().getValue());
       Tag inputTag = renderer.generateInputTag(producerInfos, "checkbox", "input");
       String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml();
 

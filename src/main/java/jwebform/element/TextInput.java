@@ -14,13 +14,9 @@ import jwebform.view.Tag;
 public class TextInput implements Element {
 
   public final static String KEY = "jwebform.element.TextInput";
-
   final private String name;
-
   final private String initialValue;
-
   final private Validator validator;
-
   final public OneFieldDecoration decoration;
 
   public TextInput(String name, OneFieldDecoration decoration, String initialValue,
@@ -45,7 +41,6 @@ public class TextInput implements Element {
       String errorMessage = renderer.generateErrorMessage(producerInfos);
       Tag inputTag = renderer.generateInputTag(producerInfos, "text", "input");
       String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml();
-
       return html;
     };
   }

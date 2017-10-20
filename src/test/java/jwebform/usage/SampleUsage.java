@@ -3,6 +3,7 @@ package jwebform.usage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,9 +34,12 @@ public class SampleUsage {
 
   // TODO: Test if complete form is valid!!
   String formId = "fid";
+  
+  SimpleTemplate template = new SimpleTemplate();
 
   @Test
-  public void testnormalUsageFirstRun() {
+  public void testnormalUsageFirstRun()  {
+	  
     Env env = new Env(it -> null, // this simulates the first run (all values null)
         t -> t, (k, v) -> {
         });
@@ -85,8 +89,8 @@ public class SampleUsage {
     MyFormBuilder formBuilder = new MyFormBuilder();
     Form f = formBuilder.buildForm();
     FormResult result = f.run(env);
-    InputStream in = this.getClass().getClassLoader().getResourceAsStream(templateName);
-    assertEquals(convertStreamToString(in).trim(),
+    String filecontent = this.template.loadAndProcessTempalte(templateName);
+    assertEquals(filecontent.trim(),
         result.getView().getHtml(new BootstrapTheme()).trim());
     // System.err.println("Date: " + formBuilder.getDateValue(result));
     return result.isOk();
@@ -136,6 +140,9 @@ public class SampleUsage {
         }
         return overridenValidationResults;
       });
+      
+      // test here field-apis
+      
       Form f = new Form(formId, formValidators, protection, new SimpleElement(),
           new SimpleElement(), textInput, date, textInput2, gender, new SubmitButton("Submit"));
 
