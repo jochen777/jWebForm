@@ -57,7 +57,7 @@
  hidden, (OK)
  textArea, (OK)
  Number, (OK)
- Passwort, 
+ Passwort, (OK)
  radio, 
  fileupload, 
  )
