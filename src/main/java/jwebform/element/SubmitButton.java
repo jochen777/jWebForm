@@ -3,7 +3,7 @@ package jwebform.element;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.env.Env;
+import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class SubmitButton implements Element {
 
@@ -16,7 +16,7 @@ public class SubmitButton implements Element {
   }
 
   @Override
-  public ElementResult prepare(Env env) {
+  public ElementResult prepare(EnvWithSubmitInfo env) {
     return new ElementResult("submit", getDefault(), SubmitButton.KEY, this);
   }
 

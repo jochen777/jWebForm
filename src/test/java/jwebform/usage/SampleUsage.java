@@ -50,7 +50,13 @@ public class SampleUsage {
 
   @Test
   public void testnormalUsageSubmitSuccess() {
-    Env env = new Env(it -> "1", // this simulates the input of the names
+    Env env = new Env(it -> {
+		if (it.equals("WF_SUBMITTED")) {
+			return "WF-fid";
+		} 
+		return "1";
+    	
+    }, // this simulates the input of the names
         t -> t, (k, v) -> {
         });
     boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_submitted.html");
@@ -59,7 +65,13 @@ public class SampleUsage {
 
   @Test
   public void testnormalUsageSubmitError() {
-    Env env = new Env(it -> "", // this simulates empty inputs
+    Env env = new Env(it -> {
+    		if (it.equals("WF_SUBMITTED")) {
+    			return "WF-fid";
+    		} 
+    		return "";
+    	
+    }, // this simulates empty inputs
         t -> t, (k, v) -> {
         });
     boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_error.html");
@@ -71,7 +83,10 @@ public class SampleUsage {
   @Test
   public void testnormalUsageSubmitVarious() {
     Env env = new Env(it -> {
-      if ((formId + "-textInput").equals(it)) {
+    	if (it.equals("WF_SUBMITTED")) {
+			return "WF-fid";
+    	} 
+      if (("textInput").equals(it)) {
         return "1";
       } else
         return "";
@@ -96,11 +111,6 @@ public class SampleUsage {
     return result.isOk();
   }
 
-
-  static String convertStreamToString(java.io.InputStream is) {
-    java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-    return s.hasNext() ? s.next() : "";
-  }
 
   public class MyFormBuilder {
 

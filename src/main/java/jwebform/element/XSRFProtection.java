@@ -9,6 +9,7 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.env.Env;
+import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 
 // Form-Elmement, that provides XSRF protection
@@ -38,7 +39,8 @@ public class XSRFProtection implements Element {
   }
 
   @Override
-  public ElementResult prepare(Env env) {
+  public ElementResult prepare(EnvWithSubmitInfo envWith) {
+	Env env = envWith.getEnv();
     env.ensureSessionAvail();
 
     // ############ validation

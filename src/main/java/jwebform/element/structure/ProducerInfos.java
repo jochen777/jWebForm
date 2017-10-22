@@ -41,6 +41,6 @@ public class ProducerInfos {
   }
 
   public String getNameOfInput() {
-    return formId + "-" + elementResult.getStaticElementInfo().getName();
+    return elementResult.getStaticElementInfo().getName();
   }
 }

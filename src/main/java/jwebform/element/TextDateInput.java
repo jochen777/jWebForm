@@ -12,7 +12,7 @@ import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticElementInfo;
-import jwebform.env.Env;
+import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
@@ -61,7 +61,7 @@ public class TextDateInput implements Element {
 
 
   @Override
-  public ElementResult prepare(Env env) {
+  public ElementResult prepare(EnvWithSubmitInfo env) {
     ElementResult dayResult = day.prepare(env);
     ElementResult monthResult = month.prepare(env);
     ElementResult yearResult = year.prepare(env);

@@ -8,6 +8,7 @@ import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StandardElementRenderer;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env;
+import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
 
@@ -28,7 +29,7 @@ public class TextInput implements Element {
   }
 
   @Override
-  public ElementResult prepare(Env env) {
+  public ElementResult prepare(EnvWithSubmitInfo env) {
     OneValueElementProcessor oneValueElement = new OneValueElementProcessor();
     return oneValueElement.calculateElementResult(env, name, initialValue, validator,
         new StaticElementInfo(name, getDefault(), 1, KEY), this, t -> true);

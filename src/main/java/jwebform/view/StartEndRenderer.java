@@ -25,9 +25,8 @@ public class StartEndRenderer {
       attribs.addToAttribute("novalidate", "");
     }
     Tag startTag = new Tag("form", attribs);
-//    String submittedTag = "<input type=\"hidden\" name=\"" + SUBMIT_KEY + "\" value=\""
-//			+ SUBMIT_VALUE_PREFIX + formId + "\">\n";
-    String submittedTag = "";
+    String submittedTag = "<input type=\"hidden\" name=\"" + SUBMIT_KEY + "\" value=\""
+			+ SUBMIT_VALUE_PREFIX + formId + "\">\n";
     return startTag.getStartHtml() + "\n" + submittedTag + "\n";
   }
 
