@@ -52,9 +52,9 @@
  * More Form-Elements (
  Select (OK)
  , checkbox, (OK)
- Label
- html, 
- hidden, 
+ Label (OK)
+ html, (OK)
+ hidden, (OK)
  textArea, 
  Number, 
  Passwort, 
@@ -63,10 +63,12 @@
  )
  * vernünftige code-formating regeln
  * add new elements to test
+ * decide if XXXElement or XXXInput or XXX and rename consistent
  * - maxLen (via request??)
  * form-id schon im request einbauen. dann brauchen die form-elemente das nicht mehr als eingabeparameter
  * select with groups
  * Behaviours (decorations to input-tag, decorations to label, decorations to help, decorations to error, decorations to all around)
+ * check, ob security-violations drin sind
  
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
