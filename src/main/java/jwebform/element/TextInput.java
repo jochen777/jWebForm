@@ -14,7 +14,7 @@ import jwebform.view.Tag;
 public class TextInput implements Element {
 
   public final static String KEY = "jwebform.element.TextInput";
-  final private String name;
+  final protected String name;
   final private String initialValue;
   final private Validator validator;
   final public OneFieldDecoration decoration;
