@@ -72,7 +72,7 @@ public class SampleUsage {
   public void testnormalUsageSubmitVarious() {
     Env env = new Env(it -> {
       if ((formId + "-textInput").equals(it)) {
-        return "JJJ";
+        return "1";
       } else
         return "";
 
