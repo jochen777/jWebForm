@@ -35,7 +35,7 @@ public class TextInput implements Element {
   }
 
   // very simple version!
-  public HTMLProducer getDefault() {
+  protected HTMLProducer getDefault() {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
       String errorMessage = renderer.generateErrorMessage(producerInfos);
