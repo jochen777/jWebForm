@@ -55,8 +55,8 @@
  Label (OK)
  html, (OK)
  hidden, (OK)
- textArea, 
- Number, 
+ textArea, (OK)
+ Number, (OK)
  Passwort, 
  radio, 
  fileupload, 
