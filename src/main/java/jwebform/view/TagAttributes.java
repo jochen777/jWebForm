@@ -10,6 +10,11 @@ import com.coverity.security.Escape;
 // RFE: make it immutable
 public class TagAttributes {
 	private final LinkedHashMap<String, String> attributes;
+	
+	
+	public static TagAttributes empty() {
+		return new TagAttributes();
+	}
 
 	public TagAttributes(Map<String, String> attribs) {
 		attributes = new LinkedHashMap<>(attribs);
@@ -45,6 +50,11 @@ public class TagAttributes {
 		}
 	}
 
+	public void addEmptyAttribute(String key) {
+			attributes.put(key, "");
+	}
+
+	
 	public Set<String> keySet() {
 		return attributes.keySet();
 	}
@@ -88,6 +98,10 @@ public class TagAttributes {
 		return attrStr.toString();
 	}
 
+	@Override
+	public String toString() {
+		return renderHtml();
+	}
 
 
 }

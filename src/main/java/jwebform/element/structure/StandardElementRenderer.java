@@ -18,17 +18,17 @@ public class StandardElementRenderer {
   }
 
   public Tag generateInputTag(ProducerInfos producerInfos, String type, String tagName) {
-	  return generateInputTag(producerInfos, type, tagName, EMPTY_MAP);
+	  return generateInputTag(producerInfos, type, tagName, TagAttributes.empty());
   }
   
-  public Tag generateInputTag(ProducerInfos producerInfos, String type, String tagName, Map<String, String> additional) {
+  public Tag generateInputTag(ProducerInfos producerInfos, String type, String tagName, TagAttributes additional) {
     LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
     attrs.put("tabindex", Integer.toString(producerInfos.getTabIndex()));
     attrs.put("type", type);
     attrs.put("name", producerInfos.getNameOfInput());
     attrs.put("value", producerInfos.getElementResult().getValue());
-    attrs.putAll(additional);
     TagAttributes inputTagAttr = new TagAttributes(attrs);
+    inputTagAttr.add(additional);
     Tag inputTag = new Tag(tagName, inputTagAttr);
     return inputTag;
   }
