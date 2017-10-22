@@ -79,7 +79,7 @@ public class SampleUsage {
     }, // this simulates empty inputs
         t -> t, (k, v) -> {
         });
-    boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleFormVarious.html");
+    boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_various.html");
     assertTrue("The form should be false, because some fields are required or reqire a number",
         !result);
   }
@@ -143,7 +143,7 @@ public class SampleUsage {
       
       // test here field-apis
       
-      Form f = new Form(formId, formValidators, protection, new SimpleElement(),
+      Form f = new Form(formId, formValidators, protection, 
           new SimpleElement(), textInput, date, textInput2, gender, new SubmitButton("Submit"));
 
       return f;
