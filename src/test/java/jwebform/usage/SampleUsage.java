@@ -76,7 +76,7 @@ public class SampleUsage {
       } else
         return "";
 
-    }, // this simulates empty inputs
+    }, 
         t -> t, (k, v) -> {
         });
     boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_various.html");
