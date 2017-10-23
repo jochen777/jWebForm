@@ -12,7 +12,7 @@ import jwebform.validation.Validator;
 import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
-public class CheckBoxInput implements Element {
+public class CheckBoxType implements Element {
 
   public final static String KEY = "jwebform.element.CheckboxInput";
 
@@ -26,7 +26,7 @@ public class CheckBoxInput implements Element {
 
   public boolean checked;
 
-  public CheckBoxInput(String name, OneFieldDecoration decoration, boolean initialValue,
+  public CheckBoxType(String name, OneFieldDecoration decoration, boolean initialValue,
       Validator validator) {
     this.name = name;
     this.validator = validator;

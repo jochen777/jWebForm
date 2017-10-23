@@ -14,7 +14,7 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
 
-public class RadioInput implements Element {
+public class RadioType implements Element {
 
   public final static String KEY = "jwebform.element.RadioInput";
 
@@ -26,7 +26,7 @@ public class RadioInput implements Element {
 
 
   // RFE: Add groups too!
-  public RadioInput(String name, OneFieldDecoration decoration, String initialValue,
+  public RadioType(String name, OneFieldDecoration decoration, String initialValue,
       Validator validator, String keys[], String values[]) {
     this.name = name;
     this.validator = validator;

@@ -12,11 +12,11 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
 
-public class TextAreaInput extends TextInput implements Element {
+public class TextAreaType extends TextType implements Element {
 
   public final static String KEY = "jwebform.element.TextAreaInput";
 
-  public TextAreaInput(String name, OneFieldDecoration decoration, String initialValue,
+  public TextAreaType(String name, OneFieldDecoration decoration, String initialValue,
       Validator validator) {
     super(name, decoration, initialValue, validator);
   }

@@ -10,25 +10,28 @@ import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
-import jwebform.view.TagAttributes;
 
-public class NumberInput extends TextInput implements Element {
+public class TextType implements Element {
 
-  public final static String KEY = "jwebform.element.NumberInput";
+  public final static String KEY = "jwebform.element.TextInput";
+  final protected String name;
+  final private String initialValue;
+  final private Validator validator;
+  final public OneFieldDecoration decoration;
 
-  int number;
-
-  public NumberInput(String name, OneFieldDecoration decoration, int initialValue,
+  public TextType(String name, OneFieldDecoration decoration, String initialValue,
       Validator validator) {
-    super(name, decoration, Integer.toString(initialValue), validator);
-    number = initialValue;
+    this.name = name;
+    this.validator = validator;
+    this.initialValue = initialValue;
+    this.decoration = decoration;
   }
 
   @Override
   public ElementResult prepare(EnvWithSubmitInfo env) {
-    ElementResult result = super.prepare(env);
-    number = Integer.parseInt(result.getValue());
-    return result;
+    OneValueElementProcessor oneValueElement = new OneValueElementProcessor();
+    return oneValueElement.calculateElementResult(env, name, initialValue, validator,
+        new StaticElementInfo(name, getDefault(), 1, KEY), this, t -> true);
   }
 
   // very simple version!
@@ -36,20 +39,15 @@ public class NumberInput extends TextInput implements Element {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
       String errorMessage = renderer.generateErrorMessage(producerInfos);
-      Tag inputTag = renderer.generateInputTag(producerInfos, "number", "input");
+      Tag inputTag = renderer.generateInputTag(producerInfos, "text", "input");
       String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml();
       return html;
     };
   }
 
-
   @Override
   public String toString() {
-    return String.format("NumberInput. name=%s", name);
-  }
-
-  public int getNumber() {
-    return number;
+    return String.format("TextInput. name=%s", name);
   }
 
 }

@@ -10,12 +10,12 @@ import java.util.Map;
 import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormResult;
-import jwebform.element.SelectInput;
-import jwebform.element.SimpleElement;
-import jwebform.element.SubmitButton;
-import jwebform.element.TextDateInput;
-import jwebform.element.TextInput;
-import jwebform.element.XSRFProtection;
+import jwebform.element.SelectType;
+import jwebform.element.SimpleType;
+import jwebform.element.SubmitType;
+import jwebform.element.TextDateType;
+import jwebform.element.TextType;
+import jwebform.element.XSRFProtectionType;
 import jwebform.element.renderer.bootstrap.BootstrapTheme;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.OneFieldDecoration;
@@ -107,19 +107,19 @@ public class SampleUsage {
 
   public class MyFormBuilder {
 
-    XSRFProtection protection = new XSRFProtection(true); // no random values, so we can expect
+    XSRFProtectionType protection = new XSRFProtectionType(true); // no random values, so we can expect
                                                           // constant html
 
-    TextInput textInput = new TextInput("textInput", new OneFieldDecoration("TextInputLabel"),
+    TextType textInput = new TextType("textInput", new OneFieldDecoration("TextInputLabel"),
         "Peter\"Paul", new Validator(Criteria.required()));
 
-    TextDateInput date = new TextDateInput("dateInput",
+    TextDateType date = new TextDateType("dateInput",
         new OneFieldDecoration("Please insert date", "datehelptext", ""), LocalDate.of(2017, 7, 4),
         new Validator());
-    TextInput textInput2 = new TextInput("textInput2",
+    TextType textInput2 = new TextType("textInput2",
         new OneFieldDecoration("TextInputLabel2", "Help-Text", "Placeholder"), "Peter\"Paul",
         new Validator(Criteria.required()));
-    SelectInput gender = new SelectInput("gender", new OneFieldDecoration("Gender", "help", ""), "",
+    SelectType gender = new SelectType("gender", new OneFieldDecoration("Gender", "help", ""), "",
         new Validator(), new String[] {"m", "f"}, new String[] {"Male", "Female"});
 
 
@@ -146,8 +146,8 @@ public class SampleUsage {
 
       // test here field-apis
 
-      Form f = new Form(formId, formValidators, protection, new SimpleElement(), textInput, date,
-          textInput2, gender, new SubmitButton("Submit"));
+      Form f = new Form(formId, formValidators, protection, new SimpleType(), textInput, date,
+          textInput2, gender, new SubmitType("Submit"));
 
       return f;
 

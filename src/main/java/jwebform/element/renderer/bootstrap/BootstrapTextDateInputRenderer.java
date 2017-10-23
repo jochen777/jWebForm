@@ -1,6 +1,6 @@
 package jwebform.element.renderer.bootstrap;
 
-import jwebform.element.TextDateInput;
+import jwebform.element.TextDateType;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
@@ -11,7 +11,7 @@ public class BootstrapTextDateInputRenderer implements HTMLProducer {
 
   @Override
   public String getHTML(ProducerInfos pi) {
-    OneFieldDecoration decoration = ((TextDateInput) pi.getElementResult().getSource()).decoration;
+    OneFieldDecoration decoration = ((TextDateType) pi.getElementResult().getSource()).decoration;
     String errorMessage = "";
 
     ValidationResult vr = pi.getElementResult().getValidationResult();

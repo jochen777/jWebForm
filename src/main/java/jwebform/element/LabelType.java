@@ -4,13 +4,13 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
-public class LabelElement implements Element {
+public class LabelType implements Element {
 
   public static String KEY = "jwebform.element.LabelInput";
 
   public final String label;
 
-  public LabelElement(String label) {
+  public LabelType(String label) {
     this.label = label;
   }
 

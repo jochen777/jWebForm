@@ -4,13 +4,13 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
-public class HtmlElement implements Element {
+public class HtmlType implements Element {
 
   public static String KEY = "jwebform.element.HTMLElement";
 
   public final String html;
 
-  public HtmlElement(String html) {
+  public HtmlType(String html) {
     this.html = html;
   }
 

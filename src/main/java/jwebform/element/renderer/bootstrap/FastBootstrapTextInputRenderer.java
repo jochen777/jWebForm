@@ -1,7 +1,7 @@
 package jwebform.element.renderer.bootstrap;
 
 import com.coverity.security.Escape;
-import jwebform.element.TextInput;
+import jwebform.element.TextType;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
@@ -11,7 +11,7 @@ public class FastBootstrapTextInputRenderer implements HTMLProducer {
 
   @Override
   public String getHTML(ProducerInfos pi) {
-    OneFieldDecoration decoration = ((TextInput) pi.getElementResult().getSource()).decoration;
+    OneFieldDecoration decoration = ((TextType) pi.getElementResult().getSource()).decoration;
     String errorMessage = "";
     ValidationResult vr = pi.getElementResult().getValidationResult();
 

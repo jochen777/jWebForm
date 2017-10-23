@@ -7,12 +7,12 @@ import jwebform.element.structure.StandardElementRenderer;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
 
-public class PasswordInput extends TextInput implements Element {
+public class PasswordType extends TextType implements Element {
 
   public final static String KEY = "jwebform.element.PasswordInput";
 
 
-  public PasswordInput(String name, OneFieldDecoration decoration, /*
+  public PasswordType(String name, OneFieldDecoration decoration, /*
                                                                     * you don't want an initial
                                                                     * value!
                                                                     */

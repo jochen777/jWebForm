@@ -7,12 +7,12 @@ import jwebform.element.structure.StandardElementRenderer;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
 
-public class UploadInput extends TextInput implements Element {
+public class UploadType extends TextType implements Element {
 
   public final static String KEY = "jwebform.element.UploadInput";
 
 
-  public UploadInput(String name, OneFieldDecoration decoration, /*
+  public UploadType(String name, OneFieldDecoration decoration, /*
                                                                   * you don't want an initial value!
                                                                   */
       Validator validator) {

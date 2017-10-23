@@ -5,19 +5,19 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
-public class SubmitButton implements Element {
+public class SubmitType implements Element {
 
   public static String KEY = "jwebform.element.SubmitButton";
 
   public final String label;
 
-  public SubmitButton(String label) {
+  public SubmitType(String label) {
     this.label = label;
   }
 
   @Override
   public ElementResult prepare(EnvWithSubmitInfo env) {
-    return new ElementResult("submit", getDefault(), SubmitButton.KEY, this);
+    return new ElementResult("submit", getDefault(), SubmitType.KEY, this);
   }
 
   public HTMLProducer getDefault() {

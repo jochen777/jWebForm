@@ -4,7 +4,7 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
-public class SimpleElement implements Element {
+public class SimpleType implements Element {
 
   @Override
   public ElementResult prepare(EnvWithSubmitInfo env) {

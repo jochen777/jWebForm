@@ -23,7 +23,7 @@ import jwebform.view.StringUtils;
  * @author jochen
  *
  */
-public class TextDateInput implements Element {
+public class TextDateType implements Element {
 
   public final static String KEY = "jwebform.element.TextDateInput";
 
@@ -34,13 +34,13 @@ public class TextDateInput implements Element {
   final private LocalDate initialValue;
   final public OneFieldDecoration decoration;
 
-  final private TextInput day;
-  final private TextInput month;
-  final private TextInput year;
+  final private TextType day;
+  final private TextType month;
+  final private TextType year;
 
   private LocalDate dateValue;
 
-  public TextDateInput(String name, OneFieldDecoration decoration, LocalDate initialValue,
+  public TextDateType(String name, OneFieldDecoration decoration, LocalDate initialValue,
       Validator validator) {
     this.name = name;
     this.validator = validator;
@@ -49,11 +49,11 @@ public class TextDateInput implements Element {
 
     Validator numberValidator = new Validator(Criteria.number());
 
-    this.day = new TextInput(name + "_day", new OneFieldDecoration("Day"),
+    this.day = new TextType(name + "_day", new OneFieldDecoration("Day"),
         String.valueOf(initialValue.getDayOfMonth()), numberValidator);
-    this.month = new TextInput(name + "_month", new OneFieldDecoration("Month"),
+    this.month = new TextType(name + "_month", new OneFieldDecoration("Month"),
         String.valueOf(initialValue.getMonthValue()), numberValidator);
-    this.year = new TextInput(name + "_year", new OneFieldDecoration("Year"),
+    this.year = new TextType(name + "_year", new OneFieldDecoration("Year"),
         String.valueOf(initialValue.getYear()), numberValidator);
 
   }

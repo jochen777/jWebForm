@@ -61,17 +61,18 @@
  radio, (OK)
  fileupload, (OK) 
  )
- * vernünftige code-formating regeln
- * decide if XXXElement or XXXInput or XXX and rename consistent
+ * vernünftige code-formating regeln (OK)
+ * decide if XXXElement or XXXInput or XXX and rename consistent (.net: Ohne, php: xxType, formchecker: Input)
+ * test new elements in example-project
  * add new elements to test
-  * - maxLen (via request??)
- * select with groups
+   select with groups
  * Behaviours (decorations to input-tag, decorations to label, decorations to help, decorations to error, decorations to all around)
  * check, ob security-violations drin sind
  * introduce more protected
  * date-select with dropdowns
  * change method if fileupload is used
- 
+ * - maxLen (via request??)
+ *
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
  * ausprobieren: Wie ist das Rendern im Template?

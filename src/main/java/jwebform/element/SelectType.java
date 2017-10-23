@@ -13,7 +13,7 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
 
-public class SelectInput implements Element {
+public class SelectType implements Element {
 
   public final static String KEY = "jwebform.element.SelectInput";
 
@@ -25,7 +25,7 @@ public class SelectInput implements Element {
 
 
   // RFE: Add groups too!
-  public SelectInput(String name, OneFieldDecoration decoration, String initialValue,
+  public SelectType(String name, OneFieldDecoration decoration, String initialValue,
       Validator validator, String keys[], String values[]) {
     this.name = name;
     this.validator = validator;

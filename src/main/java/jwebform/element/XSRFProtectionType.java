@@ -11,7 +11,7 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 
 // Form-Elmement, that provides XSRF protection
-public class XSRFProtection implements Element {
+public class XSRFProtectionType implements Element {
 
   private final String TOKENNAME = "tokenname";
   private final String TOKENVAL = "tokenVal";
@@ -20,12 +20,12 @@ public class XSRFProtection implements Element {
 
   private final boolean staticTokenName;
 
-  public XSRFProtection() {
+  public XSRFProtectionType() {
     this(false);
   }
 
   // do not use staticTokenname = true in runtim. Use it only for testing
-  public XSRFProtection(boolean staticTokenName) {
+  public XSRFProtectionType(boolean staticTokenName) {
     this.staticTokenName = staticTokenName;
 
   }
