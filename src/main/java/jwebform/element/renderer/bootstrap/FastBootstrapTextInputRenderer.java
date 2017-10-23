@@ -1,7 +1,6 @@
 package jwebform.element.renderer.bootstrap;
 
 import com.coverity.security.Escape;
-
 import jwebform.element.TextInput;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;

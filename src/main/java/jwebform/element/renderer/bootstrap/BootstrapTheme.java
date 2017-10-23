@@ -2,7 +2,6 @@ package jwebform.element.renderer.bootstrap;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import jwebform.element.SubmitButton;
 import jwebform.element.TextDateInput;
 import jwebform.element.TextInput;

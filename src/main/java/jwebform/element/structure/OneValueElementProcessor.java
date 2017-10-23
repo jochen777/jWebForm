@@ -1,7 +1,6 @@
 package jwebform.element.structure;
 
 import java.util.function.Predicate;
-
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;

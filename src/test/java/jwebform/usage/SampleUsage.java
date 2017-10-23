@@ -2,15 +2,12 @@ package jwebform.usage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.junit.Test;
-
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.element.SelectInput;

@@ -2,7 +2,6 @@ package jwebform.element.structure;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import jwebform.validation.ValidationResult;
 
 // that wat is coming out of a "run" method of an element

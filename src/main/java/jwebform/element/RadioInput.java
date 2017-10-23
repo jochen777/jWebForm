@@ -3,7 +3,6 @@ package jwebform.element;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;

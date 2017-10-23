@@ -1,7 +1,6 @@
 package jwebform.element.renderer.bootstrap;
 
 import java.util.LinkedHashMap;
-
 import jwebform.element.TextInput;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;

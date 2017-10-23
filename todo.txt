@@ -58,8 +58,8 @@
  textArea, (OK)
  Number, (OK)
  Passwort, (OK)
- radio, 
- fileupload, 
+ radio, (OK)
+ fileupload, (OK) 
  )
  * vernünftige code-formating regeln
  * decide if XXXElement or XXXInput or XXX and rename consistent
@@ -70,6 +70,7 @@
  * check, ob security-violations drin sind
  * introduce more protected
  * date-select with dropdowns
+ * change method if fileupload is used
  
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 

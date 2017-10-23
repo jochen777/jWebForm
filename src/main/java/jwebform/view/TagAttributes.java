@@ -3,7 +3,6 @@ package jwebform.view;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-
 import com.coverity.security.Escape;
 
 // class that holds html tag-attributes

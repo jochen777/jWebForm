@@ -1,7 +1,6 @@
 package jwebform.element;
 
 import com.coverity.security.Escape;
-
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;

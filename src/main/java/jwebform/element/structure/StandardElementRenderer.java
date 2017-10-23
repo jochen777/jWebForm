@@ -3,7 +3,6 @@ package jwebform.element.structure;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
