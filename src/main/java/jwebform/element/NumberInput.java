@@ -15,20 +15,20 @@ import jwebform.view.TagAttributes;
 public class NumberInput extends TextInput implements Element {
 
   public final static String KEY = "jwebform.element.NumberInput";
-  
+
   int number;
 
   public NumberInput(String name, OneFieldDecoration decoration, int initialValue,
       Validator validator) {
-	  super(name, decoration, Integer.toString(initialValue), validator);
-	  number = initialValue; 
+    super(name, decoration, Integer.toString(initialValue), validator);
+    number = initialValue;
   }
-  
+
   @Override
   public ElementResult prepare(EnvWithSubmitInfo env) {
-	  ElementResult result = super.prepare(env);
-	  number = Integer.parseInt(result.getValue());
-	  return result;
+    ElementResult result = super.prepare(env);
+    number = Integer.parseInt(result.getValue());
+    return result;
   }
 
   // very simple version!
@@ -42,14 +42,14 @@ public class NumberInput extends TextInput implements Element {
     };
   }
 
-  
+
   @Override
   public String toString() {
     return String.format("NumberInput. name=%s", name);
   }
 
-public int getNumber() {
-	return number;
-}
+  public int getNumber() {
+    return number;
+  }
 
 }

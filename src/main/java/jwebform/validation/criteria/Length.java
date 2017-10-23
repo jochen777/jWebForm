@@ -9,23 +9,23 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class Length implements Criterion {
-	private int min;
-	private int max;
+  private int min;
+  private int max;
 
-	Length(int min, int max) {
-		this.min = min;
-		this.max = max;
-	}
+  Length(int min, int max) {
+    this.min = min;
+    this.max = max;
+  }
 
-	@Override
-	public ValidationResult validate(String value) {
-		boolean isValid = value.length() <= max && value.length() >= min;
-		if (!isValid) {
-			return ValidationResult.fail("jformchecker.length", Integer.valueOf(min),
-					Integer.valueOf(max));
-		}
-		return ValidationResult.ok();
+  @Override
+  public ValidationResult validate(String value) {
+    boolean isValid = value.length() <= max && value.length() >= min;
+    if (!isValid) {
+      return ValidationResult.fail("jformchecker.length", Integer.valueOf(min),
+          Integer.valueOf(max));
+    }
+    return ValidationResult.ok();
 
-	}
+  }
 
 }

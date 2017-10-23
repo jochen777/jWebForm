@@ -9,19 +9,19 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class ExactLength implements Criterion {
-	private int length;
+  private int length;
 
-	ExactLength(int length) {
-		this.length = length;
-	}
+  ExactLength(int length) {
+    this.length = length;
+  }
 
-	@Override
-	public ValidationResult validate(String value) {
-		boolean isValid = value.length() == length;
-		if (!isValid) {
-			return ValidationResult.fail("jformchecker.exact_lenght", Integer.valueOf(length));
-		}
-		return ValidationResult.ok();
-	}
+  @Override
+  public ValidationResult validate(String value) {
+    boolean isValid = value.length() == length;
+    if (!isValid) {
+      return ValidationResult.fail("jformchecker.exact_lenght", Integer.valueOf(length));
+    }
+    return ValidationResult.ok();
+  }
 
 }

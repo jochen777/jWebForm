@@ -8,15 +8,10 @@ import jwebform.validation.Validator;
 
 public class OneValueElementProcessor {
 
-  public ElementResult calculateElementResult(
-      EnvWithSubmitInfo env,
-      String name,
-      String initialValue,
-      Validator validator,
-      StaticElementInfo staticElementInfo,
-      Element source,
+  public ElementResult calculateElementResult(EnvWithSubmitInfo env, String name,
+      String initialValue, Validator validator, StaticElementInfo staticElementInfo, Element source,
       Predicate<String> validateInput) {
-	  
+
     String requestVal = env.getEnv().getRequest().getParameter(name);
     String value = "";
     String input = fetchValue(env, requestVal, initialValue);;
@@ -28,7 +23,8 @@ public class OneValueElementProcessor {
   }
 
 
-  private ValidationResult validate(EnvWithSubmitInfo env, Validator validator, String requestVal, String value) {
+  private ValidationResult validate(EnvWithSubmitInfo env, Validator validator, String requestVal,
+      String value) {
     if (env.isSubmitted()) {
       return validator.validate(value);
     }

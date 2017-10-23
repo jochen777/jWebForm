@@ -32,8 +32,7 @@ public class Form {
 
   public FormResult run(Env env) {
     // validate form
-    Map<Element, ElementResult> elementResults = processElements(
-    		env.getEnvWithSumitInfo(id));
+    Map<Element, ElementResult> elementResults = processElements(env.getEnvWithSumitInfo(id));
     Map<Element, ValidationResult> overridenValidationResults = runFormValidations(elementResults);
     Map<Element, ElementResult> correctedElementResults =
         correctElementResults(elementResults, overridenValidationResults);

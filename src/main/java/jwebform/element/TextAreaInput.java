@@ -19,10 +19,10 @@ public class TextAreaInput extends TextInput implements Element {
 
   public TextAreaInput(String name, OneFieldDecoration decoration, String initialValue,
       Validator validator) {
-	  super (name, decoration, initialValue, validator);
+    super(name, decoration, initialValue, validator);
   }
 
-  
+
   // very simple version!
   @Override
   public HTMLProducer getDefault() {
@@ -30,7 +30,8 @@ public class TextAreaInput extends TextInput implements Element {
       StandardElementRenderer renderer = new StandardElementRenderer();
       String errorMessage = renderer.generateErrorMessage(producerInfos);
       Tag inputTag = renderer.generateInputTag(producerInfos, "text", "textarea");
-      String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml() + Escape.html(producerInfos.getElementResult().getValue()) + inputTag.getEndHtml();
+      String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml()
+          + Escape.html(producerInfos.getElementResult().getValue()) + inputTag.getEndHtml();
       return html;
     };
   }

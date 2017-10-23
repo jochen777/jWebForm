@@ -10,13 +10,15 @@ import jwebform.view.Tag;
 public class UploadInput extends TextInput implements Element {
 
   public final static String KEY = "jwebform.element.UploadInput";
-  
 
-  public UploadInput(String name, OneFieldDecoration decoration, /* you don't want an initial value! */
+
+  public UploadInput(String name, OneFieldDecoration decoration, /*
+                                                                  * you don't want an initial value!
+                                                                  */
       Validator validator) {
-	  super(name, decoration, "", validator);
+    super(name, decoration, "", validator);
   }
-  
+
   @Override
   protected HTMLProducer getDefault() {
     return producerInfos -> {
@@ -27,7 +29,7 @@ public class UploadInput extends TextInput implements Element {
       return html;
     };
   }
-  
+
   @Override
   public String toString() {
     return String.format("UploadInput. name=%s", name);

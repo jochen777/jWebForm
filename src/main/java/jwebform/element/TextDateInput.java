@@ -90,10 +90,7 @@ public class TextDateInput implements Element {
 
 
   // May throw execption!!
-  private LocalDate setupValue(
-      LocalDate initialValue,
-      String dayStr,
-      String monthStr,
+  private LocalDate setupValue(LocalDate initialValue, String dayStr, String monthStr,
       String yearStr) {
     if (StringUtils.isEmpty(dayStr) && StringUtils.isEmpty(monthStr)
         && StringUtils.isEmpty(yearStr)) {

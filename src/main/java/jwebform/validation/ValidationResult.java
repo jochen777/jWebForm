@@ -8,71 +8,74 @@ package jwebform.validation;
  */
 public class ValidationResult {
 
-	public final boolean isValid;
-	private static Object[] noErrorVals = new Object[0];
-	private static String emptyTranslatedMsg = "";
-	private static String emptyMsg = "";
-	
-	// caching:
-	private static ValidationResult okResult =  new ValidationResult(true, "", noErrorVals, emptyTranslatedMsg);
-	private static ValidationResult undefinedResult =  new ValidationResult(false, "", noErrorVals, emptyTranslatedMsg);
-	
-	public boolean isValid() {
-		return isValid;
-	}
+  public final boolean isValid;
+  private static Object[] noErrorVals = new Object[0];
+  private static String emptyTranslatedMsg = "";
+  private static String emptyMsg = "";
 
-	public String getMessage() {
-		return message;
-	}
+  // caching:
+  private static ValidationResult okResult =
+      new ValidationResult(true, "", noErrorVals, emptyTranslatedMsg);
+  private static ValidationResult undefinedResult =
+      new ValidationResult(false, "", noErrorVals, emptyTranslatedMsg);
 
-	public Object[] getErrorVals() {
-		return errorVals;
-	}
+  public boolean isValid() {
+    return isValid;
+  }
 
-	String message;
-	String translatedMessage;
-	Object[] errorVals;
+  public String getMessage() {
+    return message;
+  }
 
-	public ValidationResult(boolean isValid, String message, Object[] errorVals, String translatedMessage) {
-		this.isValid = isValid;
-		this.message = message;
-		this.errorVals = errorVals;
-		this.translatedMessage = translatedMessage;
-	}
+  public Object[] getErrorVals() {
+    return errorVals;
+  }
 
-	// factory methods
-	public static ValidationResult of_(boolean isValid, String message, Object... errorVals) {
-		return new ValidationResult(isValid, message, errorVals, emptyTranslatedMsg);
-	}
+  String message;
+  String translatedMessage;
+  Object[] errorVals;
 
-	public static ValidationResult fail(String message, Object... errorVals) {
-		return new ValidationResult(false, message, errorVals, emptyTranslatedMsg);
-	}
+  public ValidationResult(boolean isValid, String message, Object[] errorVals,
+      String translatedMessage) {
+    this.isValid = isValid;
+    this.message = message;
+    this.errorVals = errorVals;
+    this.translatedMessage = translatedMessage;
+  }
 
-	public static ValidationResult failWithTranslated(String message, Object... errorVals) {
-		return new ValidationResult(false, emptyMsg, errorVals, message);
-	}
+  // factory methods
+  public static ValidationResult of_(boolean isValid, String message, Object... errorVals) {
+    return new ValidationResult(isValid, message, errorVals, emptyTranslatedMsg);
+  }
 
-	public static ValidationResult failWithTranslated(String message) {
-		return new ValidationResult(false, emptyMsg, noErrorVals, message);
-	}
-	
-	public static ValidationResult ok() {
-		return okResult;
-	}
+  public static ValidationResult fail(String message, Object... errorVals) {
+    return new ValidationResult(false, message, errorVals, emptyTranslatedMsg);
+  }
 
-	public static ValidationResult undefined() {
-		return undefinedResult;
-	}
+  public static ValidationResult failWithTranslated(String message, Object... errorVals) {
+    return new ValidationResult(false, emptyMsg, errorVals, message);
+  }
 
-	
-	public String getTranslatedMessage() {
-		return translatedMessage;
-	}
-	
-	@Override
-	public String toString() {
-		return "ValidationResulut:" + this.isValid + "(" + this.message + ")";
-	}
+  public static ValidationResult failWithTranslated(String message) {
+    return new ValidationResult(false, emptyMsg, noErrorVals, message);
+  }
+
+  public static ValidationResult ok() {
+    return okResult;
+  }
+
+  public static ValidationResult undefined() {
+    return undefinedResult;
+  }
+
+
+  public String getTranslatedMessage() {
+    return translatedMessage;
+  }
+
+  @Override
+  public String toString() {
+    return "ValidationResulut:" + this.isValid + "(" + this.message + ")";
+  }
 
 }

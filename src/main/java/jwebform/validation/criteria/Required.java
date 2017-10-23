@@ -10,15 +10,14 @@ import jwebform.validation.ValidationResult;
  */
 public final class Required implements Criterion {
 
-	Required() {
-	}
+  Required() {}
 
-	@Override
-	public ValidationResult validate(String value) {
-		if ("".equals(value.trim())) {
-			return ValidationResult.fail("jformchecker.required");
-		}
-		return ValidationResult.ok();
-	}
+  @Override
+  public ValidationResult validate(String value) {
+    if ("".equals(value.trim())) {
+      return ValidationResult.fail("jformchecker.required");
+    }
+    return ValidationResult.ok();
+  }
 
 }

@@ -2,7 +2,7 @@ package jwebform.view;
 
 
 public class StartEndRenderer {
-	
+
   public final static String SUBMIT_KEY = "WF_SUBMITTED";
   public final static String SUBMIT_VALUE_PREFIX = "WF-";
 
@@ -26,7 +26,7 @@ public class StartEndRenderer {
     }
     Tag startTag = new Tag("form", attribs);
     String submittedTag = "<input type=\"hidden\" name=\"" + SUBMIT_KEY + "\" value=\""
-			+ SUBMIT_VALUE_PREFIX + formId + "\">\n";
+        + SUBMIT_VALUE_PREFIX + formId + "\">\n";
     return startTag.getStartHtml() + "\n" + submittedTag + "\n";
   }
 

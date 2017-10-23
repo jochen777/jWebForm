@@ -9,24 +9,24 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class StartsWith implements Criterion {
-	private String[] prefixes;
+  private String[] prefixes;
 
-	StartsWith(String... prefixes) {
-		this.prefixes = prefixes;
-	}
+  StartsWith(String... prefixes) {
+    this.prefixes = prefixes;
+  }
 
-	@Override
-	public ValidationResult validate(String value) {
-		boolean isValid = false;
-		for (String prefix : prefixes) {
-			if (value.startsWith(prefix))
-				isValid = true;
-		}
+  @Override
+  public ValidationResult validate(String value) {
+    boolean isValid = false;
+    for (String prefix : prefixes) {
+      if (value.startsWith(prefix))
+        isValid = true;
+    }
 
-		if (!isValid) {
-			return ValidationResult.fail("jformchecker.starts_with", (Object[]) prefixes);
-		}
-		return ValidationResult.ok();
-	}
+    if (!isValid) {
+      return ValidationResult.fail("jformchecker.starts_with", (Object[]) prefixes);
+    }
+    return ValidationResult.ok();
+  }
 
 }

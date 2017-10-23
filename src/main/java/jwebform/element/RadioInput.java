@@ -98,25 +98,24 @@ public class RadioInput implements Element {
   private String buildEntries(String value, List<RadioInputEntry> entries2) {
     StringBuilder inputTag = new StringBuilder();
     entries2.forEach(entry -> {
-      inputTag
-          .append(getInputTag(entry.key, value));
+      inputTag.append(getInputTag(entry.key, value));
     });
     return inputTag.toString();
   }
-  
-  public String getInputTag(String curValue, String value) {
-		return "<input id=\"form-radio-" + name + "-" + curValue + "\" " 
-				+ " type=\"radio\" name=\"" + name + "\"  value=\"" + curValue + "\" "
-				+ getCheckedStatus(curValue, value) + "" + " " + " >\n";
-	}
 
-	private String getCheckedStatus(String _name, String value) {
-		if (value != null && value.equals(_name)) {
-			return "checked";
-		} else {
-			return "";
-		}
-	}
+  public String getInputTag(String curValue, String value) {
+    return "<input id=\"form-radio-" + name + "-" + curValue + "\" " + " type=\"radio\" name=\""
+        + name + "\"  value=\"" + curValue + "\" " + getCheckedStatus(curValue, value) + "" + " "
+        + " >\n";
+  }
+
+  private String getCheckedStatus(String _name, String value) {
+    if (value != null && value.equals(_name)) {
+      return "checked";
+    } else {
+      return "";
+    }
+  }
 
   // class that represents an entry in the selectInput
   public class RadioInputEntry {

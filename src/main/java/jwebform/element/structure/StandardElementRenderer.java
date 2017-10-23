@@ -8,9 +8,9 @@ import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
 public class StandardElementRenderer {
-	
-  public static 	Map<String, String> EMPTY_MAP = new HashMap<String, String>();
-	
+
+  public static Map<String, String> EMPTY_MAP = new HashMap<String, String>();
+
   public String generateErrorMessage(ProducerInfos producerInfos) {
     String errorMessage =
         "Problem: " + producerInfos.getElementResult().getValidationResult().getMessage() + "<br>";
@@ -18,10 +18,11 @@ public class StandardElementRenderer {
   }
 
   public Tag generateInputTag(ProducerInfos producerInfos, String type, String tagName) {
-	  return generateInputTag(producerInfos, type, tagName, TagAttributes.empty());
+    return generateInputTag(producerInfos, type, tagName, TagAttributes.empty());
   }
-  
-  public Tag generateInputTag(ProducerInfos producerInfos, String type, String tagName, TagAttributes additional) {
+
+  public Tag generateInputTag(ProducerInfos producerInfos, String type, String tagName,
+      TagAttributes additional) {
     LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
     attrs.put("tabindex", Integer.toString(producerInfos.getTabIndex()));
     attrs.put("type", type);

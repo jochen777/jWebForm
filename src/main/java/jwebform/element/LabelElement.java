@@ -6,23 +6,23 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class LabelElement implements Element {
 
-	public static String KEY = "jwebform.element.LabelInput"; 
-	
-	public final String label;
-	
+  public static String KEY = "jwebform.element.LabelInput";
+
+  public final String label;
+
   public LabelElement(String label) {
-	  this.label = label;
+    this.label = label;
   }
-  
-	
+
+
   @Override
   public ElementResult prepare(EnvWithSubmitInfo env) {
     return new ElementResult("_label", t -> "<label>" + label + "</label>", KEY, this);
   }
 
 
-public String getLabel() {
-	return label;
-}
+  public String getLabel() {
+    return label;
+  }
 
 }

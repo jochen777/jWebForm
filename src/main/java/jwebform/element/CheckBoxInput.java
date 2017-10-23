@@ -23,7 +23,7 @@ public class CheckBoxInput implements Element {
   final private Validator validator;
 
   final public OneFieldDecoration decoration;
-  
+
   public boolean checked;
 
   public CheckBoxInput(String name, OneFieldDecoration decoration, boolean initialValue,
@@ -32,30 +32,30 @@ public class CheckBoxInput implements Element {
     this.validator = validator;
     this.initialValue = initialValue;
     this.decoration = decoration;
-  } 
+  }
 
   @Override
   public ElementResult prepare(EnvWithSubmitInfo env) {
-	  // somewhat ugly, but checkboxes ARE ugly
-	  String requestVal = env.getEnv().getRequest().getParameter(name);
-	  System.err.println("Req-val: " + requestVal);
-	  String value= "true";
-	  if (!env.isSubmitted()) {
-		  value = "" + initialValue;
-		  checked = initialValue;
-	  } else {
-		  checked = true;
-		  if (requestVal == null) {
-			  value = "";
-			  checked = false;
-		  }
-	  }
-	  ValidationResult vr = ValidationResult.undefined();
-	  if (env.isSubmitted()) {
-	      vr = validator.validate(value);
-	    }
-	  System.err.println("Value: " + value + ":: bool: "+ checked);
-	  return new ElementResult(vr, value, new StaticElementInfo(name, getDefault(), 1, KEY), this);
+    // somewhat ugly, but checkboxes ARE ugly
+    String requestVal = env.getEnv().getRequest().getParameter(name);
+    System.err.println("Req-val: " + requestVal);
+    String value = "true";
+    if (!env.isSubmitted()) {
+      value = "" + initialValue;
+      checked = initialValue;
+    } else {
+      checked = true;
+      if (requestVal == null) {
+        value = "";
+        checked = false;
+      }
+    }
+    ValidationResult vr = ValidationResult.undefined();
+    if (env.isSubmitted()) {
+      vr = validator.validate(value);
+    }
+    System.err.println("Value: " + value + ":: bool: " + checked);
+    return new ElementResult(vr, value, new StaticElementInfo(name, getDefault(), 1, KEY), this);
   }
 
 
@@ -66,7 +66,7 @@ public class CheckBoxInput implements Element {
       String errorMessage = renderer.generateErrorMessage(producerInfos);
       TagAttributes tagAttributes = TagAttributes.empty();
       if (checked) {
-    	  	tagAttributes.addEmptyAttribute("checked");
+        tagAttributes.addEmptyAttribute("checked");
       }
       Tag inputTag = renderer.generateInputTag(producerInfos, "checkbox", "input", tagAttributes);
       String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml();
@@ -80,8 +80,8 @@ public class CheckBoxInput implements Element {
     return String.format("CheckBoxInput. name=%s", name);
   }
 
-public boolean isBooleanValue() {
-	return checked;
-}
+  public boolean isBooleanValue() {
+    return checked;
+  }
 
 }

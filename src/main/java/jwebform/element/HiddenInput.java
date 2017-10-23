@@ -25,7 +25,8 @@ public class HiddenInput implements Element {
   }
 
   public HTMLProducer getDefault() {
-    return producerInfos -> "<input type=\"hidden\" name=\"" + name + "\" value=\"" + Escape.html(value) +"\">\n";
+    return producerInfos -> "<input type=\"hidden\" name=\"" + name + "\" value=\""
+        + Escape.html(value) + "\">\n";
   }
 
 }

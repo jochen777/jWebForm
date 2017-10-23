@@ -9,15 +9,16 @@ package jwebform.view;
  *
  */
 public class StringUtils {
-	
-	public static final String EMPTY_STR = "";
-	
-    public static boolean isEmpty(final CharSequence cs) {
-        return cs == null || cs.length() == 0;
-    }
-    public static String defaultString(final String str) {
-        return str == null ? EMPTY_STR : str;
-    }
 
-    
+  public static final String EMPTY_STR = "";
+
+  public static boolean isEmpty(final CharSequence cs) {
+    return cs == null || cs.length() == 0;
+  }
+
+  public static String defaultString(final String str) {
+    return str == null ? EMPTY_STR : str;
+  }
+
+
 }

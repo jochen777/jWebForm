@@ -6,14 +6,14 @@ package jwebform.validation.criteria;
  * Based on work of armandino (at) gmail.com
  */
 public final class ZipCode extends Regex {
-	private static final String REGEX = "^\\d{5}(-\\d{4})?$";
+  private static final String REGEX = "^\\d{5}(-\\d{4})?$";
 
-	ZipCode() {
-		super(REGEX);
-	}
+  ZipCode() {
+    super(REGEX);
+  }
 
-	protected String generateErrorMessage() {
-		return "jformchecker.zip";
-	}
+  protected String generateErrorMessage() {
+    return "jformchecker.zip";
+  }
 
 }

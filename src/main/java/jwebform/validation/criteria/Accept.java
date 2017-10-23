@@ -9,27 +9,27 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public class Accept implements Criterion {
-	private String[] acceptableValues;
+  private String[] acceptableValues;
 
-	Accept(String... values) {
-		this.acceptableValues = values;
-	}
+  Accept(String... values) {
+    this.acceptableValues = values;
+  }
 
-	protected boolean areEqual(String v1, String v2) {
-		return v1.equals(v2);
-	}
+  protected boolean areEqual(String v1, String v2) {
+    return v1.equals(v2);
+  }
 
-	@Override
-	public ValidationResult validate(String value) {
-		boolean isValid = false;
-		for (String v : acceptableValues) {
-			if (areEqual(v, value))
-				isValid = true;
-		}
-		if (!isValid) {
-			return ValidationResult.fail("jformchecker.allowed_values", (Object[]) acceptableValues);
-		}
-		return ValidationResult.ok();
-	}
+  @Override
+  public ValidationResult validate(String value) {
+    boolean isValid = false;
+    for (String v : acceptableValues) {
+      if (areEqual(v, value))
+        isValid = true;
+    }
+    if (!isValid) {
+      return ValidationResult.fail("jformchecker.allowed_values", (Object[]) acceptableValues);
+    }
+    return ValidationResult.ok();
+  }
 
 }

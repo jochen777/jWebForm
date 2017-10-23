@@ -12,19 +12,18 @@ import jwebform.validation.ValidationResult;
  */
 public final class Number implements Criterion {
 
-	Number() {
-	}
+  Number() {}
 
-	static Pattern pattern = Pattern.compile("[0-9]+");
-	
-	@Override
-	public ValidationResult validate(String value) {
-		if (value.length() > 0) {
-			if (pattern.matcher(value).matches()) {
-				return ValidationResult.ok();
-			}
-		}
-		return ValidationResult.fail("jformchecker.not_a_number");
-	}
+  static Pattern pattern = Pattern.compile("[0-9]+");
+
+  @Override
+  public ValidationResult validate(String value) {
+    if (value.length() > 0) {
+      if (pattern.matcher(value).matches()) {
+        return ValidationResult.ok();
+      }
+    }
+    return ValidationResult.fail("jformchecker.not_a_number");
+  }
 
 }

@@ -32,12 +32,12 @@ public class SampleUsage {
 
   // TODO: Test if complete form is valid!!
   String formId = "fid";
-  
+
   SimpleTemplate template = new SimpleTemplate();
 
   @Test
-  public void testnormalUsageFirstRun()  {
-	  
+  public void testnormalUsageFirstRun() {
+
     Env env = new Env(it -> null, // this simulates the first run (all values null)
         t -> t, (k, v) -> {
         });
@@ -49,11 +49,11 @@ public class SampleUsage {
   @Test
   public void testnormalUsageSubmitSuccess() {
     Env env = new Env(it -> {
-		if (it.equals("WF_SUBMITTED")) {
-			return "WF-fid";
-		} 
-		return "1";
-    	
+      if (it.equals("WF_SUBMITTED")) {
+        return "WF-fid";
+      }
+      return "1";
+
     }, // this simulates the input of the names
         t -> t, (k, v) -> {
         });
@@ -64,11 +64,11 @@ public class SampleUsage {
   @Test
   public void testnormalUsageSubmitError() {
     Env env = new Env(it -> {
-    		if (it.equals("WF_SUBMITTED")) {
-    			return "WF-fid";
-    		} 
-    		return "";
-    	
+      if (it.equals("WF_SUBMITTED")) {
+        return "WF-fid";
+      }
+      return "";
+
     }, // this simulates empty inputs
         t -> t, (k, v) -> {
         });
@@ -81,17 +81,16 @@ public class SampleUsage {
   @Test
   public void testnormalUsageSubmitVarious() {
     Env env = new Env(it -> {
-    	if (it.equals("WF_SUBMITTED")) {
-			return "WF-fid";
-    	} 
+      if (it.equals("WF_SUBMITTED")) {
+        return "WF-fid";
+      }
       if (("textInput").equals(it)) {
         return "1";
       } else
         return "";
 
-    }, 
-        t -> t, (k, v) -> {
-        });
+    }, t -> t, (k, v) -> {
+    });
     boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_various.html");
     assertTrue("The form should be false, because some fields are required or reqire a number",
         !result);
@@ -103,8 +102,7 @@ public class SampleUsage {
     Form f = formBuilder.buildForm();
     FormResult result = f.run(env);
     String filecontent = this.template.loadAndProcessTempalte(templateName);
-    assertEquals(filecontent.trim(),
-        result.getView().getHtml(new BootstrapTheme()).trim());
+    assertEquals(filecontent.trim(), result.getView().getHtml(new BootstrapTheme()).trim());
     // System.err.println("Date: " + formBuilder.getDateValue(result));
     return result.isOk();
   }
@@ -148,11 +146,11 @@ public class SampleUsage {
         }
         return overridenValidationResults;
       });
-      
+
       // test here field-apis
-      
-      Form f = new Form(formId, formValidators, protection, 
-          new SimpleElement(), textInput, date, textInput2, gender, new SubmitButton("Submit"));
+
+      Form f = new Form(formId, formValidators, protection, new SimpleElement(), textInput, date,
+          textInput2, gender, new SubmitButton("Submit"));
 
       return f;
 

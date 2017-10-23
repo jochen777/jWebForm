@@ -40,7 +40,7 @@ public class XSRFProtection implements Element {
 
   @Override
   public ElementResult prepare(EnvWithSubmitInfo envWith) {
-	Env env = envWith.getEnv();
+    Env env = envWith.getEnv();
     env.ensureSessionAvail();
 
     // ############ validation

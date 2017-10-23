@@ -52,37 +52,38 @@ public class Env {
               + "\n);");
     }
   }
-  
+
   public EnvWithSubmitInfo getEnvWithSumitInfo(String formId) {
-	  return new EnvWithSubmitInfo(formId, this);
+    return new EnvWithSubmitInfo(formId, this);
   }
-  
+
   public class EnvWithSubmitInfo {
-	private final Env env;
-	private final boolean submitted;
-
-		
-	public EnvWithSubmitInfo(String formId, Env env) {
-		this.env = env;
-		if ((StartEndRenderer.SUBMIT_VALUE_PREFIX + formId).equals(env.getRequest().getParameter(StartEndRenderer.SUBMIT_KEY))) {
-			this.submitted = true;
-		}else {
-			this.submitted = false;
-		}
-	}
+    private final Env env;
+    private final boolean submitted;
 
 
-	public Env getEnv() {
-		return env;
-	}
+    public EnvWithSubmitInfo(String formId, Env env) {
+      this.env = env;
+      if ((StartEndRenderer.SUBMIT_VALUE_PREFIX + formId)
+          .equals(env.getRequest().getParameter(StartEndRenderer.SUBMIT_KEY))) {
+        this.submitted = true;
+      } else {
+        this.submitted = false;
+      }
+    }
 
 
-	public boolean isSubmitted() {
-		return submitted;
-	}
-	
-	
-	  
+    public Env getEnv() {
+      return env;
+    }
+
+
+    public boolean isSubmitted() {
+      return submitted;
+    }
+
+
+
   }
 
 }

@@ -9,23 +9,23 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class MaxLength implements Criterion {
-	private int maxLength;
+  private int maxLength;
 
-	MaxLength(int maxLength) {
-		this.maxLength = maxLength;
-	}
+  MaxLength(int maxLength) {
+    this.maxLength = maxLength;
+  }
 
-	public int getMaxLength() {
-		return maxLength;
-	}
+  public int getMaxLength() {
+    return maxLength;
+  }
 
-	@Override
-	public ValidationResult validate(String value) {
-		boolean isValid = value.length() <= maxLength;
-		if (!isValid) {
-			return ValidationResult.fail("jformchecker.max_len", maxLength);
-		}
-		return ValidationResult.ok();
-	}
+  @Override
+  public ValidationResult validate(String value) {
+    boolean isValid = value.length() <= maxLength;
+    if (!isValid) {
+      return ValidationResult.fail("jformchecker.max_len", maxLength);
+    }
+    return ValidationResult.ok();
+  }
 
 }
