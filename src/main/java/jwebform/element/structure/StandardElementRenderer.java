@@ -3,6 +3,7 @@ package jwebform.element.structure;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import jwebform.validation.ValidationResult;
 import jwebform.view.Tag;
 import jwebform.view.TagAttributes;
 
@@ -11,8 +12,9 @@ public class StandardElementRenderer {
   public static Map<String, String> EMPTY_MAP = new HashMap<String, String>();
 
   public String generateErrorMessage(ProducerInfos producerInfos) {
-    if (producerInfos.getElementResult().getValidationResult().isValid()) {
-      //return "";
+    if (producerInfos.getElementResult().getValidationResult().isValid() || 
+        producerInfos.getElementResult().getValidationResult() == ValidationResult.undefined()) {
+      return "";
     }
     String errorMessage =
         "Problem: " + producerInfos.getElementResult().getValidationResult().getMessage() + "<br>";
