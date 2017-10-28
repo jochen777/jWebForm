@@ -11,6 +11,7 @@ import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.element.CheckBoxType;
+import jwebform.element.HtmlType;
 import jwebform.element.LabelType;
 import jwebform.element.SelectType;
 import jwebform.element.SimpleType;
@@ -125,9 +126,9 @@ public class SampleUsage {
         new Validator(), new String[] {"m", "f"}, new String[] {"Male", "Female"});
     CheckBoxType chk = new CheckBoxType("chk", new OneFieldDecoration("chk-label", "chk_help"), true, new Validator(Criteria.required()));
     LabelType lbl = new LabelType("lbl");
+    HtmlType html = new HtmlType("<strong>HTML</strong>");
     
 /*
-    Label (OK)
     html, (OK)
     hidden, (OK)
     textArea, (OK)
@@ -164,7 +165,8 @@ public class SampleUsage {
           textInput2, gender, 
           new SubmitType("Submit"),
           chk,
-          lbl
+          lbl,
+          html
           );
 
       return f;
