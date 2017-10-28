@@ -35,7 +35,7 @@ public class SelectType implements Element {
   }
 
   @Override
-  public ElementResult prepare(EnvWithSubmitInfo env) {
+  public ElementResult apply(EnvWithSubmitInfo env) {
     OneValueElementProcessor oneValueElement = new OneValueElementProcessor();
     return oneValueElement.calculateElementResult(env, name, initialValue, validator,
         new StaticElementInfo(name, getDefault(), 1, KEY), this, t -> ensureValueIsAllowed(t));

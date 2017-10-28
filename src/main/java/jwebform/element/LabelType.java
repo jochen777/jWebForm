@@ -16,7 +16,7 @@ public class LabelType implements Element {
 
 
   @Override
-  public ElementResult prepare(EnvWithSubmitInfo env) {
+  public ElementResult apply(EnvWithSubmitInfo env) {
     return new ElementResult("_label", t -> "<label>" + label + "</label>", KEY, this);
   }
 

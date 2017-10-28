@@ -7,7 +7,7 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 public class SimpleType implements Element {
 
   @Override
-  public ElementResult prepare(EnvWithSubmitInfo env) {
+  public ElementResult apply(EnvWithSubmitInfo env) {
     return new ElementResult("simple", producerInfos -> "simple\n");
   }
 

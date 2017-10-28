@@ -35,7 +35,7 @@ public class CheckBoxType implements Element {
   }
 
   @Override
-  public ElementResult prepare(EnvWithSubmitInfo env) {
+  public ElementResult apply(EnvWithSubmitInfo env) {
     // somewhat ugly, but checkboxes ARE ugly
     String requestVal = env.getEnv().getRequest().getParameter(name);
     System.err.println("Req-val: " + requestVal);

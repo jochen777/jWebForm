@@ -60,10 +60,10 @@ public class TextDateType implements Element {
 
 
   @Override
-  public ElementResult prepare(EnvWithSubmitInfo env) {
-    ElementResult dayResult = day.prepare(env);
-    ElementResult monthResult = month.prepare(env);
-    ElementResult yearResult = year.prepare(env);
+  public ElementResult apply(EnvWithSubmitInfo env) {
+    ElementResult dayResult = day.apply(env);
+    ElementResult monthResult = month.apply(env);
+    ElementResult yearResult = year.apply(env);
 
     List<ElementResult> childs = new ArrayList<>();
     childs.add(dayResult);

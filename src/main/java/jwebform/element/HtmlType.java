@@ -16,7 +16,7 @@ public class HtmlType implements Element {
 
 
   @Override
-  public ElementResult prepare(EnvWithSubmitInfo env) {
+  public ElementResult apply(EnvWithSubmitInfo env) {
     return new ElementResult("_html", t -> html, KEY, this);
   }
 

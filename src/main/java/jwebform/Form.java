@@ -44,7 +44,7 @@ public class Form {
     // check each element
     Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
     for (Element element : elements) {
-      ElementResult result = element.prepare(envWithSubmitInfo);
+      ElementResult result = element.apply(envWithSubmitInfo);
       elementResults.put(element, result);
     }
     return elementResults;

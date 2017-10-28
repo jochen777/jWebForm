@@ -19,7 +19,7 @@ public class HiddenType implements Element {
   }
 
   @Override
-  public ElementResult prepare(EnvWithSubmitInfo env) {
+  public ElementResult apply(EnvWithSubmitInfo env) {
     return new ElementResult(name, getDefault(), HiddenType.KEY, this);
   }
 

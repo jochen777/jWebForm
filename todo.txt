@@ -62,7 +62,10 @@
  fileupload, (OK) 
  )
  * vernünftige code-formating regeln (OK)
- * decide if XXXElement or XXXInput or XXX and rename consistent (.net: Ohne, php: xxType, formchecker: Input)
+ * decide if XXXElement or XXXInput or XXX and rename consistent (.net: Ohne, php: xxType, formchecker: Input) (OK)
+ * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value
+ * Idee: Replace Element with Function<t,i> from java.util.function
+ * get rid of extends in form-elements by introducing general oneElementStyle helper Class
  * test new elements in example-project
  * add new elements to test
    select with groups
@@ -72,6 +75,7 @@
  * date-select with dropdowns
  * change method if fileupload is used
  * - maxLen (via request??)
+ 
  *
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 

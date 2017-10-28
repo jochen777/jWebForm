@@ -25,8 +25,8 @@ public class NumberType extends TextType implements Element {
   }
 
   @Override
-  public ElementResult prepare(EnvWithSubmitInfo env) {
-    ElementResult result = super.prepare(env);
+  public ElementResult apply(EnvWithSubmitInfo env) {
+    ElementResult result = super.apply(env);
     number = Integer.parseInt(result.getValue());
     return result;
   }

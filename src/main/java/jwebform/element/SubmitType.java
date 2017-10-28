@@ -16,7 +16,7 @@ public class SubmitType implements Element {
   }
 
   @Override
-  public ElementResult prepare(EnvWithSubmitInfo env) {
+  public ElementResult apply(EnvWithSubmitInfo env) {
     return new ElementResult("submit", getDefault(), SubmitType.KEY, this);
   }
 
