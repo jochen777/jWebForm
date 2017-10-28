@@ -64,7 +64,7 @@
  * vernünftige code-formating regeln (OK)
  * decide if XXXElement or XXXInput or XXX and rename consistent (.net: Ohne, php: xxType, formchecker: Input) (OK)
  * Idee: Replace Element with Function<t,i> from java.util.function (OK)
- * test new elements in example-project
+ * test new elements
  * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value
  * get rid of extends in form-elements by introducing general oneElementStyle helper Class
  * add new elements to test

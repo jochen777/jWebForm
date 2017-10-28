@@ -10,6 +10,7 @@ import java.util.Map;
 import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormResult;
+import jwebform.element.CheckBoxType;
 import jwebform.element.SelectType;
 import jwebform.element.SimpleType;
 import jwebform.element.SubmitType;
@@ -114,15 +115,27 @@ public class SampleUsage {
         "Peter\"Paul", new Validator(Criteria.required()));
 
     TextDateType date = new TextDateType("dateInput",
-        new OneFieldDecoration("Please insert date", "datehelptext", ""), LocalDate.of(2017, 7, 4),
+        new OneFieldDecoration("Please insert date", "datehelptext"), LocalDate.of(2017, 7, 4),
         new Validator());
     TextType textInput2 = new TextType("textInput2",
         new OneFieldDecoration("TextInputLabel2", "Help-Text", "Placeholder"), "Peter\"Paul",
         new Validator(Criteria.required()));
-    SelectType gender = new SelectType("gender", new OneFieldDecoration("Gender", "help", ""), "",
+    SelectType gender = new SelectType("gender", new OneFieldDecoration("Gender", "help"), "",
         new Validator(), new String[] {"m", "f"}, new String[] {"Male", "Female"});
-
-
+    CheckBoxType chk = new CheckBoxType("chk", new OneFieldDecoration("chk-label", "chk_help"), true, new Validator(Criteria.required()));
+    
+/*
+    , checkbox, (OK)
+    Label (OK)
+    html, (OK)
+    hidden, (OK)
+    textArea, (OK)
+    Number, (OK)
+    Passwort, (OK)
+    radio, (OK)
+    fileupload, (OK) 
+  */  
+    
     public MyFormBuilder() {
 
     }
@@ -147,7 +160,10 @@ public class SampleUsage {
       // test here field-apis
 
       Form f = new Form(formId, formValidators, protection, new SimpleType(), textInput, date,
-          textInput2, gender, new SubmitType("Submit"));
+          textInput2, gender, 
+          new SubmitType("Submit"),
+          chk
+          );
 
       return f;
 

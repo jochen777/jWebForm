@@ -19,6 +19,10 @@ public class OneFieldDecoration {
     this.placeholder = placeholder;
   }
 
+  public OneFieldDecoration(String label, String helptext) {
+    this(label, helptext, "");
+  }
+
   public String getLabel() {
     return label;
   }

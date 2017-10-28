@@ -11,6 +11,9 @@ public class StandardElementRenderer {
   public static Map<String, String> EMPTY_MAP = new HashMap<String, String>();
 
   public String generateErrorMessage(ProducerInfos producerInfos) {
+    if (producerInfos.getElementResult().getValidationResult().isValid()) {
+      //return "";
+    }
     String errorMessage =
         "Problem: " + producerInfos.getElementResult().getValidationResult().getMessage() + "<br>";
     return errorMessage;
