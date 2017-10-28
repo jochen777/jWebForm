@@ -74,6 +74,7 @@
  * introduce more protected
  * date-select with dropdowns
  * change method if fileupload is used
+ * alle elemente mit vernünftigem Bootstrap-Theme ausgeben
  * - maxLen (via request??)
  
  *
