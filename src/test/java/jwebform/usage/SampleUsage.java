@@ -17,6 +17,7 @@ import jwebform.element.LabelType;
 import jwebform.element.SelectType;
 import jwebform.element.SimpleType;
 import jwebform.element.SubmitType;
+import jwebform.element.TextAreaType;
 import jwebform.element.TextDateType;
 import jwebform.element.TextType;
 import jwebform.element.XSRFProtectionType;
@@ -129,9 +130,11 @@ public class SampleUsage {
     LabelType lbl = new LabelType("lbl");
     HtmlType html = new HtmlType("<strong>HTML</strong>");
     HiddenType hddn = new HiddenType("hddn", "hddn-value");
+    TextAreaType area = new TextAreaType("area",
+        new OneFieldDecoration("Area", "Area-Help", "Area-Placeholder"), "Area-Prebuild",
+        new Validator(Criteria.required()));
     
 /*
-    hidden, (OK)
     textArea, (OK)
     Number, (OK)
     Passwort, (OK)
@@ -168,7 +171,8 @@ public class SampleUsage {
           chk,
           lbl,
           html,
-          hddn
+          hddn,
+          area
           );
 
       return f;

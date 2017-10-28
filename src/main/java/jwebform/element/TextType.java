@@ -15,8 +15,8 @@ public class TextType implements Element {
 
   public final static String KEY = "jwebform.element.TextInput";
   final protected String name;
-  final private String initialValue;
-  final private Validator validator;
+  final protected String initialValue;
+  final protected Validator validator;
   final public OneFieldDecoration decoration;
 
   public TextType(String name, OneFieldDecoration decoration, String initialValue,
