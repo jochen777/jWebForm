@@ -11,6 +11,7 @@ import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.element.CheckBoxType;
+import jwebform.element.HiddenType;
 import jwebform.element.HtmlType;
 import jwebform.element.LabelType;
 import jwebform.element.SelectType;
@@ -127,9 +128,9 @@ public class SampleUsage {
     CheckBoxType chk = new CheckBoxType("chk", new OneFieldDecoration("chk-label", "chk_help"), true, new Validator(Criteria.required()));
     LabelType lbl = new LabelType("lbl");
     HtmlType html = new HtmlType("<strong>HTML</strong>");
+    HiddenType hddn = new HiddenType("hddn", "hddn-value");
     
 /*
-    html, (OK)
     hidden, (OK)
     textArea, (OK)
     Number, (OK)
@@ -166,7 +167,8 @@ public class SampleUsage {
           new SubmitType("Submit"),
           chk,
           lbl,
-          html
+          html,
+          hddn
           );
 
       return f;
