@@ -14,6 +14,7 @@ import jwebform.element.CheckBoxType;
 import jwebform.element.HiddenType;
 import jwebform.element.HtmlType;
 import jwebform.element.LabelType;
+import jwebform.element.NumberType;
 import jwebform.element.SelectType;
 import jwebform.element.SimpleType;
 import jwebform.element.SubmitType;
@@ -134,8 +135,9 @@ public class SampleUsage {
         new OneFieldDecoration("Area", "Area-Help", "Area-Placeholder"), "Area-Prebuild",
         new Validator(Criteria.required()));
     
+    NumberType nmbr = new NumberType("nbr", new OneFieldDecoration("chk-label", "chk_help"), 5, new Validator(Criteria.required()));
+    
 /*
-    textArea, (OK)
     Number, (OK)
     Passwort, (OK)
     radio, (OK)
@@ -172,7 +174,8 @@ public class SampleUsage {
           lbl,
           html,
           hddn,
-          area
+          area,
+          nmbr
           );
 
       return f;
