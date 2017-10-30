@@ -22,6 +22,7 @@ import jwebform.element.SubmitType;
 import jwebform.element.TextAreaType;
 import jwebform.element.TextDateType;
 import jwebform.element.TextType;
+import jwebform.element.UploadType;
 import jwebform.element.XSRFProtectionType;
 import jwebform.element.renderer.bootstrap.BootstrapTheme;
 import jwebform.element.structure.Element;
@@ -138,9 +139,9 @@ public class SampleUsage {
     
     NumberType nmbr = new NumberType("nbr", new OneFieldDecoration("chk-label", "chk_help"), 5, new Validator(Criteria.required()));
     PasswordType pssword = new PasswordType("pssword", new OneFieldDecoration("Password"), new Validator());
+    UploadType upld = new UploadType("upld", new OneFieldDecoration("Upload"), new Validator());
     
 /*
-    Passwort, (OK)
     radio, (OK)
     fileupload, (OK) 
   */  
@@ -177,7 +178,8 @@ public class SampleUsage {
           hddn,
           area,
           nmbr,
-          pssword
+          pssword,
+          upld
           );
 
       return f;
