@@ -20,7 +20,7 @@ public class OneFieldDecoration {
   }
 
   public OneFieldDecoration(String label, String helptext) {
-    this(label, helptext, "");
+    this(label, helptext, EMPTY);
   }
 
   public String getLabel() {

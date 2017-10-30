@@ -76,6 +76,7 @@
  * change method if fileupload is used
  * alle elemente mit vernünftigem Bootstrap-Theme ausgeben
  * - maxLen (via request??)
+ * evtl. einen EmailType einführen? Wie ist die Browserkompatibiltät?
  
  *
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?

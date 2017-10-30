@@ -15,6 +15,7 @@ import jwebform.element.HiddenType;
 import jwebform.element.HtmlType;
 import jwebform.element.LabelType;
 import jwebform.element.NumberType;
+import jwebform.element.PasswordType;
 import jwebform.element.SelectType;
 import jwebform.element.SimpleType;
 import jwebform.element.SubmitType;
@@ -136,9 +137,9 @@ public class SampleUsage {
         new Validator(Criteria.required()));
     
     NumberType nmbr = new NumberType("nbr", new OneFieldDecoration("chk-label", "chk_help"), 5, new Validator(Criteria.required()));
+    PasswordType pssword = new PasswordType("pssword", new OneFieldDecoration("Password"), new Validator());
     
 /*
-    Number, (OK)
     Passwort, (OK)
     radio, (OK)
     fileupload, (OK) 
@@ -175,7 +176,8 @@ public class SampleUsage {
           html,
           hddn,
           area,
-          nmbr
+          nmbr,
+          pssword
           );
 
       return f;
