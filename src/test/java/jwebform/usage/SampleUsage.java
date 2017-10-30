@@ -16,6 +16,7 @@ import jwebform.element.HtmlType;
 import jwebform.element.LabelType;
 import jwebform.element.NumberType;
 import jwebform.element.PasswordType;
+import jwebform.element.RadioType;
 import jwebform.element.SelectType;
 import jwebform.element.SimpleType;
 import jwebform.element.SubmitType;
@@ -140,10 +141,10 @@ public class SampleUsage {
     NumberType nmbr = new NumberType("nbr", new OneFieldDecoration("chk-label", "chk_help"), 5, new Validator(Criteria.required()));
     PasswordType pssword = new PasswordType("pssword", new OneFieldDecoration("Password"), new Validator());
     UploadType upld = new UploadType("upld", new OneFieldDecoration("Upload"), new Validator());
+    RadioType radio = new RadioType("radio", new OneFieldDecoration("Radio"), "1",  new Validator(), new String[] {"1", "2"}, new String[] {"yes", "no"});
     
 /*
     radio, (OK)
-    fileupload, (OK) 
   */  
     
     public MyFormBuilder() {
@@ -179,7 +180,8 @@ public class SampleUsage {
           area,
           nmbr,
           pssword,
-          upld
+          upld,
+          radio
           );
 
       return f;
