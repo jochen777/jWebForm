@@ -29,7 +29,8 @@ public class NumberType extends TextType implements Element {
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
     OneValueElementProcessor oneValueElement = new OneValueElementProcessor();
-    ElementResult result =  oneValueElement.calculateElementResult(env, name, Integer.toString(number), validator,
+    String val = Integer.toString(number);
+    ElementResult result =  oneValueElement.calculateElementResult(env, name, val , validator,
         new StaticElementInfo(name, getDefault(), 1, KEY), this, t -> true);
     try {
       number = Integer.parseInt(result.getValue());
@@ -45,7 +46,7 @@ public class NumberType extends TextType implements Element {
       StandardElementRenderer renderer = new StandardElementRenderer();
       String errorMessage = renderer.generateErrorMessage(producerInfos);
       // TODO: Get rid of type="number"
-      Tag inputTag = renderer.generateInputTag(producerInfos, "number", "number");
+      Tag inputTag = renderer.generateInputTag(producerInfos, "number", "input");
       String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml();
       return html;
     };
