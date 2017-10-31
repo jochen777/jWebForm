@@ -44,11 +44,6 @@
  * fix form-result finally ( hat viel zu viele Elemente! -> Idee: jedes Element hat unveränderliche Werte (z.B. tabindexincr.) diese Gruppieren und als objekt zurückliefern) (OK)
  * Do we need Themeable Interface at all? Reicht es nicht, den Render-Key zurückzugeben? Und wenn beim Rendern ein Key gefunden wird, wird der HTMLRenderer im Theme verwendet. (OK)
  * decide if we need raw object in ElementResult. so instead of "String value" -> Object value; -> NO
- #############################
- 
- 
- 
- 
  * More Form-Elements (
  Select (OK)
  , checkbox, (OK)
@@ -65,7 +60,13 @@
  * decide if XXXElement or XXXInput or XXX and rename consistent (.net: Ohne, php: xxType, formchecker: Input) (OK)
  * Idee: Replace Element with Function<t,i> from java.util.function (OK)
  * test new elements
- * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value
+ #############################
+ 
+ 
+ 
+ 
+ 
+ * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor>
  * get rid of extends in form-elements by introducing general oneElementStyle helper Class
  * add new elements to test
    select with groups
@@ -77,6 +78,7 @@
  * alle elemente mit vernünftigem Bootstrap-Theme ausgeben
  * - maxLen (via request??)
  * evtl. einen EmailType einführen? Wie ist die Browserkompatibiltät?
+ * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert
  
  *
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
