@@ -2,6 +2,8 @@ package jwebform.element.renderer.bootstrap;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import jwebform.element.SelectType;
 import jwebform.element.SubmitType;
 import jwebform.element.TextDateType;
 import jwebform.element.TextType;
@@ -16,6 +18,14 @@ public class BootstrapTheme implements Theme {
     htmlProducer.put(TextType.KEY, new FastBootstrapTextInputRenderer());
     htmlProducer.put(TextDateType.KEY, new BootstrapTextDateInputRenderer());
     htmlProducer.put(SubmitType.KEY, new BootstrapSubmitButtonRenderer());
+    htmlProducer.put(SelectType.KEY, new BootstrapSelectRenderer());
+
+
+    /*
+     * Select (OK) , checkbox, (OK) Label (OK) html, (OK) hidden, (OK) textArea, (OK) Number, (OK)
+     * Passwort, (OK) radio, (OK) fileupload, (OK)
+     * 
+     */
   }
 
   public Map<String, HTMLProducer> getHtmlProducer() {

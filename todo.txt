@@ -65,6 +65,7 @@
  
  
  
+ * alle elemente mit vernünftigem Bootstrap-Theme ausgeben
  
  * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor> 
  * get rid of extends in form-elements by introducing general oneElementStyle helper Class
@@ -75,7 +76,6 @@
  * introduce more protected
  * date-select with dropdowns
  * change method if fileupload is used
- * alle elemente mit vernünftigem Bootstrap-Theme ausgeben
  * - maxLen (via request??)
  * evtl. einen EmailType einführen? Wie ist die Browserkompatibiltät?
  * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert

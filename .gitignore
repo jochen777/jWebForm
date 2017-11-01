@@ -16,3 +16,4 @@ log/
 target/
 
 /sonar-project.properties
+/.gitconfig
