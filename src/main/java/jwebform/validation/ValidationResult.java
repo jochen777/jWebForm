@@ -73,6 +73,14 @@ public class ValidationResult {
     return translatedMessage;
   }
 
+  public boolean isSuccess() {
+    return this != ValidationResult.undefined() && this.isValid;
+  }
+
+  public boolean isError() {
+    return this != ValidationResult.undefined() && !this.isValid;
+  }
+
   @Override
   public String toString() {
     return "ValidationResulut:" + this.isValid + "(" + this.message + ")";

@@ -2,6 +2,7 @@ package jwebform.element;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
@@ -20,8 +21,8 @@ public class SelectType implements Element {
   final private String name;
   final private String initialValue;
   final private Validator validator;
-  final private List<SelectInputEntry> entries;
-  final private OneFieldDecoration decoration;
+  final public List<SelectInputEntry> entries;
+  final public OneFieldDecoration decoration;
 
 
   // RFE: Add groups too!
