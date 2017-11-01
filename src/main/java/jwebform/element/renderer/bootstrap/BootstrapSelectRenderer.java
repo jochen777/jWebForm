@@ -7,26 +7,35 @@ import jwebform.element.SelectType.SelectInputEntry;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
-import jwebform.element.structure.StandardElementRenderer;
-import jwebform.view.Tag;
 
 public class BootstrapSelectRenderer implements HTMLProducer {
 
   @Override
-  public String getHTML(ProducerInfos producerInfos) {
-    OneFieldDecoration decoration =
-        ((SelectType) producerInfos.getElementResult().getSource()).decoration;
-    List<SelectInputEntry> entries =
-        ((SelectType) producerInfos.getElementResult().getSource()).entries;
+  public String getHTML(ProducerInfos pi) {
+    OneFieldDecoration decoration = ((SelectType) pi.getElementResult().getSource()).decoration;
+    List<SelectInputEntry> entries = ((SelectType) pi.getElementResult().getSource()).entries;
 
-    StandardElementRenderer renderer = new StandardElementRenderer();
-    String errorMessage = renderer.generateErrorMessage(producerInfos);
-    Tag inputTag = renderer.generateInputTag(producerInfos, "select", "select");
-    String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml()
-        + buildEntries(producerInfos.getElementResult().getValue(), entries)
-        + inputTag.getEndHtml();
+    BootstrapRenderer renderer = new BootstrapRenderer(pi, decoration);
 
-    return html;
+    String errorClass = renderer.calculateErrorClass();
+
+    String errorMessage = renderer.renderErrorMessage();
+
+    String labelStr = renderer.generateLabel();
+
+    String helpHTML = renderer.renderHelpText();
+
+    String aria = renderer.renderAriaDescribedBy();
+
+
+    String inputHtml =
+        "<select tabindex=\"" + pi.getTabIndex() + "\"  name=\"" + pi.getNameOfInput() + "\"" + aria
+            + ">" + buildEntries(pi.getElementResult().getValue(), entries) + "</select>";;
+
+    StringBuffer buf = new StringBuffer("<div class=\"form-group");
+    return buf.append(errorClass).append("\">").append(errorMessage).append(labelStr)
+        .append(inputHtml).append(helpHTML).append("</div>\n").toString();
+
   }
 
   private String buildEntries(String value, List<SelectInputEntry> entries2) {

@@ -2,12 +2,15 @@ package jwebform.usage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.junit.Test;
+
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.element.CheckBoxType;
@@ -116,37 +119,42 @@ public class SampleUsage {
 
   public class MyFormBuilder {
 
-    XSRFProtectionType protection = new XSRFProtectionType(true); // no random values, so we can expect
-                                                          // constant html
+    XSRFProtectionType protection = new XSRFProtectionType(true); // no random values, so we can
+                                                                  // expect
+    // constant html
 
     TextType textInput = new TextType("textInput", new OneFieldDecoration("TextInputLabel"),
         "Peter\"Paul", new Validator(Criteria.required()));
 
-    TextDateType date = new TextDateType("dateInput",
-        new OneFieldDecoration("Please insert date", "datehelptext"), LocalDate.of(2017, 7, 4),
-        new Validator());
+    TextDateType date =
+        new TextDateType("dateInput", new OneFieldDecoration("Please insert date", "datehelptext"),
+            LocalDate.of(2017, 7, 4), new Validator());
     TextType textInput2 = new TextType("textInput2",
         new OneFieldDecoration("TextInputLabel2", "Help-Text", "Placeholder"), "Peter\"Paul",
         new Validator(Criteria.required()));
-    SelectType gender = new SelectType("gender", new OneFieldDecoration("Gender", "help"), "",
+    SelectType gender = new SelectType("gender", new OneFieldDecoration("Gender"), "",
         new Validator(), new String[] {"m", "f"}, new String[] {"Male", "Female"});
-    CheckBoxType chk = new CheckBoxType("chk", new OneFieldDecoration("chk-label", "chk_help"), true, new Validator(Criteria.required()));
+    CheckBoxType chk = new CheckBoxType("chk", new OneFieldDecoration("chk-label", "chk_help"),
+        true, new Validator(Criteria.required()));
     LabelType lbl = new LabelType("lbl");
     HtmlType html = new HtmlType("<strong>HTML</strong>");
     HiddenType hddn = new HiddenType("hddn", "hddn-value");
-    TextAreaType area = new TextAreaType("area",
-        new OneFieldDecoration("Area", "Area-Help", "Area-Placeholder"), "Area-Prebuild",
+    TextAreaType area =
+        new TextAreaType("area", new OneFieldDecoration("Area", "Area-Help", "Area-Placeholder"),
+            "Area-Prebuild", new Validator(Criteria.required()));
+
+    NumberType nmbr = new NumberType("nbr", new OneFieldDecoration("chk-label", "chk_help"), 5,
         new Validator(Criteria.required()));
-    
-    NumberType nmbr = new NumberType("nbr", new OneFieldDecoration("chk-label", "chk_help"), 5, new Validator(Criteria.required()));
-    PasswordType pssword = new PasswordType("pssword", new OneFieldDecoration("Password"), new Validator());
+    PasswordType pssword =
+        new PasswordType("pssword", new OneFieldDecoration("Password"), new Validator());
     UploadType upld = new UploadType("upld", new OneFieldDecoration("Upload"), new Validator());
-    RadioType radio = new RadioType("radio", new OneFieldDecoration("Radio"), "1",  new Validator(), new String[] {"1", "2"}, new String[] {"yes", "no"});
-    
-/*
-    radio, (OK)
-  */  
-    
+    RadioType radio = new RadioType("radio", new OneFieldDecoration("Radio"), "1", new Validator(),
+        new String[] {"1", "2"}, new String[] {"yes", "no"});
+
+    /*
+     * radio, (OK)
+     */
+
     public MyFormBuilder() {
 
     }
@@ -171,18 +179,8 @@ public class SampleUsage {
       // test here field-apis
 
       Form f = new Form(formId, formValidators, protection, new SimpleType(), textInput, date,
-          textInput2, gender, 
-          new SubmitType("Submit"),
-          chk,
-          lbl,
-          html,
-          hddn,
-          area,
-          nmbr,
-          pssword,
-          upld,
-          radio
-          );
+          textInput2, gender, new SubmitType("Submit"), chk, lbl, html, hddn, area, nmbr, pssword,
+          upld, radio);
 
       return f;
 
