@@ -66,7 +66,7 @@
  
  
  
- * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor>
+ * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor> 
  * get rid of extends in form-elements by introducing general oneElementStyle helper Class
  * add new elements to test
    select with groups
