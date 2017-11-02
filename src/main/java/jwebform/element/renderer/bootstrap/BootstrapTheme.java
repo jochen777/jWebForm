@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jwebform.element.CheckBoxType;
+import jwebform.element.LabelType;
 import jwebform.element.SelectType;
 import jwebform.element.SubmitType;
 import jwebform.element.TextDateType;
@@ -21,10 +22,9 @@ public class BootstrapTheme implements Theme {
     htmlProducer.put(SubmitType.KEY, new BootstrapSubmitButtonRenderer());
     htmlProducer.put(SelectType.KEY, new BootstrapSelectRenderer());
     htmlProducer.put(CheckBoxType.KEY, new BootstrapCheckboxRenderer());
-
+    htmlProducer.put(LabelType.KEY, new BootstrapLabelRenderer());
     /*
-     * checkbox, (OK) Label (OK) textArea, (OK) Number, (OK) Passwort, (OK) radio, (OK) fileupload,
-     * (OK)
+     * textArea, (OK) Number, (OK) Passwort, (OK) radio, (OK) fileupload, (OK)
      * 
      */
   }
