@@ -6,6 +6,7 @@ import java.util.Map;
 import jwebform.element.CheckBoxType;
 import jwebform.element.LabelType;
 import jwebform.element.NumberType;
+import jwebform.element.PasswordType;
 import jwebform.element.SelectType;
 import jwebform.element.SubmitType;
 import jwebform.element.TextAreaType;
@@ -27,8 +28,9 @@ public class BootstrapTheme implements Theme {
     htmlProducer.put(LabelType.KEY, new BootstrapLabelRenderer());
     htmlProducer.put(TextAreaType.KEY, new BootstrapTextAreaRenderer());
     htmlProducer.put(NumberType.KEY, new BootstrapNumberRenderer());
+    htmlProducer.put(PasswordType.KEY, new BootstrapPasswordRenderer());
     /*
-     * Number, (OK) Passwort, (OK) radio, (OK) fileupload, (OK)
+     * Passwort, (OK) radio, (OK) fileupload, (OK)
      * 
      */
   }
