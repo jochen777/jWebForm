@@ -38,7 +38,6 @@ public class CheckBoxType implements Element {
   public ElementResult apply(EnvWithSubmitInfo env) {
     // somewhat ugly, but checkboxes ARE ugly
     String requestVal = env.getEnv().getRequest().getParameter(name);
-    System.err.println("Req-val: " + requestVal);
     String value = "true";
     if (!env.isSubmitted()) {
       value = "" + initialValue;
@@ -54,7 +53,6 @@ public class CheckBoxType implements Element {
     if (env.isSubmitted()) {
       vr = validator.validate(value);
     }
-    System.err.println("Value: " + value + ":: bool: " + checked);
     return new ElementResult(vr, value, new StaticElementInfo(name, getDefault(), 1, KEY), this);
   }
 

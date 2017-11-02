@@ -3,6 +3,7 @@ package jwebform.element.renderer.bootstrap;
 import java.util.HashMap;
 import java.util.Map;
 
+import jwebform.element.CheckBoxType;
 import jwebform.element.SelectType;
 import jwebform.element.SubmitType;
 import jwebform.element.TextDateType;
@@ -19,11 +20,11 @@ public class BootstrapTheme implements Theme {
     htmlProducer.put(TextDateType.KEY, new BootstrapTextDateInputRenderer());
     htmlProducer.put(SubmitType.KEY, new BootstrapSubmitButtonRenderer());
     htmlProducer.put(SelectType.KEY, new BootstrapSelectRenderer());
-
+    htmlProducer.put(CheckBoxType.KEY, new BootstrapCheckboxRenderer());
 
     /*
-     * Select (OK) , checkbox, (OK) Label (OK) html, (OK) hidden, (OK) textArea, (OK) Number, (OK)
-     * Passwort, (OK) radio, (OK) fileupload, (OK)
+     * checkbox, (OK) Label (OK) textArea, (OK) Number, (OK) Passwort, (OK) radio, (OK) fileupload,
+     * (OK)
      * 
      */
   }
