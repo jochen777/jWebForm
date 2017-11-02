@@ -5,8 +5,10 @@ import java.util.Map;
 
 import jwebform.element.CheckBoxType;
 import jwebform.element.LabelType;
+import jwebform.element.NumberType;
 import jwebform.element.SelectType;
 import jwebform.element.SubmitType;
+import jwebform.element.TextAreaType;
 import jwebform.element.TextDateType;
 import jwebform.element.TextType;
 import jwebform.element.structure.HTMLProducer;
@@ -23,8 +25,10 @@ public class BootstrapTheme implements Theme {
     htmlProducer.put(SelectType.KEY, new BootstrapSelectRenderer());
     htmlProducer.put(CheckBoxType.KEY, new BootstrapCheckboxRenderer());
     htmlProducer.put(LabelType.KEY, new BootstrapLabelRenderer());
+    htmlProducer.put(TextAreaType.KEY, new BootstrapTextAreaRenderer());
+    htmlProducer.put(NumberType.KEY, new BootstrapNumberRenderer());
     /*
-     * textArea, (OK) Number, (OK) Passwort, (OK) radio, (OK) fileupload, (OK)
+     * Number, (OK) Passwort, (OK) radio, (OK) fileupload, (OK)
      * 
      */
   }

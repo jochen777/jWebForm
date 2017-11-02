@@ -1,6 +1,5 @@
 package jwebform.element;
 
-import java.util.List;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
@@ -9,10 +8,8 @@ import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StandardElementRenderer;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
-import jwebform.view.TagAttributes;
 
 public class NumberType extends TextType implements Element {
 
@@ -30,12 +27,13 @@ public class NumberType extends TextType implements Element {
   public ElementResult apply(EnvWithSubmitInfo env) {
     OneValueElementProcessor oneValueElement = new OneValueElementProcessor();
     String val = Integer.toString(number);
-    ElementResult result =  oneValueElement.calculateElementResult(env, name, val , validator,
+    ElementResult result = oneValueElement.calculateElementResult(env, name, val, validator,
         new StaticElementInfo(name, getDefault(), 1, KEY), this, t -> true);
     try {
       number = Integer.parseInt(result.getValue());
     } catch (NumberFormatException e) {
-      number = 0;   // RFE: maybe a second var to indivate, that number is not settable. (or Integer and NULL?)
+      number = 0; // RFE: maybe a second var to indivate, that number is not settable. (or Integer
+                  // and NULL?)
     }
     return result;
   }

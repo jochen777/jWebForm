@@ -80,7 +80,9 @@
  * evtl. einen EmailType einführen? Wie ist die Browserkompatibiltät?
  * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert
  * Warning, wenn zweimal der gleiche Name eines Elements einem Form hinzugegügt wird. Exception!!
- *
+ * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE
+ 
+ 
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
  * ausprobieren: Wie ist das Rendern im Template?
