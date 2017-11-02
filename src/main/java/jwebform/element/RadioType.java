@@ -2,7 +2,7 @@ package jwebform.element;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
@@ -21,8 +21,8 @@ public class RadioType implements Element {
   final private String name;
   final private String initialValue;
   final private Validator validator;
-  final private List<RadioInputEntry> entries;
-  final private OneFieldDecoration decoration;
+  final public List<RadioInputEntry> entries;
+  final public OneFieldDecoration decoration;
 
 
   // RFE: Add groups too!
@@ -84,6 +84,7 @@ public class RadioType implements Element {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
       String errorMessage = renderer.generateErrorMessage(producerInfos);
+      // TODO: This is simply wrong!
       Tag inputTag = renderer.generateInputTag(producerInfos, "input", "radio");
       String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml()
           + buildEntries(producerInfos.getElementResult().getValue(), entries)
