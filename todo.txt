@@ -61,18 +61,21 @@
  * decide if XXXElement or XXXInput or XXX and rename consistent (.net: Ohne, php: xxType, formchecker: Input) (OK)
  * Idee: Replace Element with Function<t,i> from java.util.function (OK)
  * test new elements
+ * alle elemente mit vernünftigem Bootstrap-Theme ausgeben (OK)
  #############################
  
  
  
  
- * alle elemente mit vernünftigem Bootstrap-Theme ausgeben
+ 
+ * Warning, wenn zweimal der gleiche Name eines Elements einem Form hinzugegügt wird. Exception!!
  * Führe valueData als Objekt im Result ein. (und elemeniere die Zugriffe auf das Element)
- * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor> 
  * get rid of extends in form-elements by introducing general oneElementStyle helper Class
- * add new elements to test
-   select with groups
+* better abstraction in ThemeRenderer 
  * Behaviours (decorations to input-tag, decorations to label, decorations to help, decorations to error, decorations to all around)
+ * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor> 
+ 
+   select with groups
  * check, ob security-violations drin sind
  * introduce more protected
  * date-select with dropdowns
@@ -80,13 +83,11 @@
  * - maxLen (via request??)
  * evtl. einen EmailType einführen? Wie ist die Browserkompatibiltät?
  * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert
- * Warning, wenn zweimal der gleiche Name eines Elements einem Form hinzugegügt wird. Exception!!
  * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE
  * KomplexPassword Validator
  
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
- * ausprobieren: Wie ist das Rendern im Template?
 
  
  * start with renderers (translation!)
