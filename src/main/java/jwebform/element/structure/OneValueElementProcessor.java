@@ -13,7 +13,7 @@ public class OneValueElementProcessor {
 
     String requestVal = env.getEnv().getRequest().getParameter(name);
     String value = "";
-    String input = fetchValue(env, requestVal, initialValue);;
+    String input = fetchValue(env, requestVal, initialValue);
     if (validateInput.test(input)) {
       value = input;
     }
@@ -22,7 +22,7 @@ public class OneValueElementProcessor {
   }
 
 
-  private ValidationResult validate(EnvWithSubmitInfo env, Validator validator, String requestVal,
+  public ValidationResult validate(EnvWithSubmitInfo env, Validator validator, String requestVal,
       String value) {
     if (env.isSubmitted()) {
       return validator.validate(value);

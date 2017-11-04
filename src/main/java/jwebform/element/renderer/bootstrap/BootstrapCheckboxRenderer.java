@@ -10,7 +10,7 @@ public class BootstrapCheckboxRenderer implements HTMLProducer {
   @Override
   public String getHTML(ProducerInfos pi) {
     OneFieldDecoration decoration = ((CheckBoxType) pi.getElementResult().getSource()).decoration;
-    boolean checked = ((CheckBoxType) pi.getElementResult().getSource()).checked;
+    boolean checked = (Boolean)pi.getElementResult().getValueObject();
     System.err.println("Checked: " + checked);
 
     BootstrapRenderer renderer = new BootstrapRenderer(pi, decoration);

@@ -1,9 +1,13 @@
 package jwebform;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
@@ -18,6 +22,9 @@ public class Form {
   private final String id;
   private final List<FormValidator> formValidators;
 
+  public Form(String id, List<Element> elements) {
+    this(id, elements, new ArrayList<>());
+  }
 
   public Form(String id, List<Element> elements, List<FormValidator> formValidators) {
     this.elements = elements;
@@ -25,19 +32,41 @@ public class Form {
     this.formValidators = formValidators;
   }
 
+  public Form(String id, Element... elements) {
+    this(id, new ArrayList<>(), elements);
+  }
+
+  
   public Form(String id, List<FormValidator> formValidators, Element... elements) {
     this(id, Arrays.asList(elements), formValidators);
   }
 
   public FormResult run(Env env) {
+    return run(env, false);
+  }
+  
+  public FormResult run(Env env, boolean debug) {
     // validate form
     Map<Element, ElementResult> elementResults = processElements(env.getEnvWithSumitInfo(id));
+    if (debug) {
+      checkDoubleElements(elementResults);
+    }
     Map<Element, ValidationResult> overridenValidationResults = runFormValidations(elementResults);
     Map<Element, ElementResult> correctedElementResults =
         correctElementResults(elementResults, overridenValidationResults);
     boolean formIsValid = checkAllValidationResults(correctedElementResults);
 
     return new FormResult(this.getId(), correctedElementResults, formIsValid);
+  }
+
+  private void checkDoubleElements(Map<Element, ElementResult> results) {
+    Set<String> availElements = new HashSet<>();
+    results.forEach((k,v) -> {
+      if (!availElements.add(v.getStaticElementInfo().getName())) {
+        // TODO: Choose own Exception here!
+        throw new RuntimeException("Double key!:"+ v.getStaticElementInfo().getName());
+      }
+    });
   }
 
   private Map<Element, ElementResult> processElements(EnvWithSubmitInfo envWithSubmitInfo) {

@@ -10,6 +10,7 @@ public class ElementResult {
   // RFE: group this to reduce number of fields.
   private final ValidationResult validationResult; // not static
   private final String value; // not static
+  private final Object valueObject;
 
   private final StaticElementInfo staticElementInfo;
   private final Element source; // static
@@ -27,14 +28,21 @@ public class ElementResult {
 
   // complete
   public ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
-      List<ElementResult> childs, Element source) {
+      List<ElementResult> childs, Element source, Object valueObject) {
     this.validationResult = vr;
     this.value = value;
     this.source = source;
     this.childs = childs;
     this.staticElementInfo = staticElementInfo;
+    this.valueObject = valueObject;
   }
 
+  public ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
+      List<ElementResult> childs, Element source) {
+    // init sourceObject with string per defautl.
+    this(vr, value, staticElementInfo, childs, source, source);
+  }
+  
   // very simple
   public ElementResult(String name, HTMLProducer htmlProducer) {
     this(name, htmlProducer, ValidationResult.ok());
@@ -80,6 +88,10 @@ public class ElementResult {
 
   public StaticElementInfo getStaticElementInfo() {
     return staticElementInfo;
+  }
+
+  public Object getValueObject() {
+    return valueObject;
   }
 
 }

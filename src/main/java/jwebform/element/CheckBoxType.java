@@ -24,7 +24,6 @@ public class CheckBoxType implements Element {
 
   final public OneFieldDecoration decoration;
 
-  public boolean checked;
 
   public CheckBoxType(String name, OneFieldDecoration decoration, boolean initialValue,
       Validator validator) {
@@ -39,6 +38,7 @@ public class CheckBoxType implements Element {
     // somewhat ugly, but checkboxes ARE ugly
     String requestVal = env.getEnv().getRequest().getParameter(name);
     String value = "true";
+    boolean checked;
     if (!env.isSubmitted()) {
       value = "" + initialValue;
       checked = initialValue;
@@ -53,12 +53,12 @@ public class CheckBoxType implements Element {
     if (env.isSubmitted()) {
       vr = validator.validate(value);
     }
-    return new ElementResult(vr, value, new StaticElementInfo(name, getDefault(), 1, KEY), this);
+    return new ElementResult(vr,  value, new StaticElementInfo(name, getDefault(checked), 1, KEY), ElementResult.NOCHILDS, this, Boolean.valueOf(checked));
   }
 
 
   // very simple version!
-  public HTMLProducer getDefault() {
+  public HTMLProducer getDefault(boolean checked) {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
       String errorMessage = renderer.generateErrorMessage(producerInfos);
@@ -76,10 +76,6 @@ public class CheckBoxType implements Element {
   @Override
   public String toString() {
     return String.format("CheckBoxInput. name=%s", name);
-  }
-
-  public boolean isBooleanValue() {
-    return checked;
   }
 
 }

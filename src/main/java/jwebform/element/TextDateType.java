@@ -38,8 +38,6 @@ public class TextDateType implements Element {
   final private TextType month;
   final private TextType year;
 
-  private LocalDate dateValue;
-
   public TextDateType(String name, OneFieldDecoration decoration, LocalDate initialValue,
       Validator validator) {
     this.name = name;
@@ -70,18 +68,18 @@ public class TextDateType implements Element {
     childs.add(monthResult);
     childs.add(yearResult);
 
-    this.dateValue = initialValue;
+    LocalDate dateValue = initialValue;
     ValidationResult validationResult = ValidationResult.ok();
     try {
-      this.dateValue = this.setupValue(this.initialValue, dayResult.getValue(),
+      dateValue = this.setupValue(this.initialValue, dayResult.getValue(),
           monthResult.getValue(), yearResult.getValue());
     } catch (DateTimeException | NumberFormatException e) {
       validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
     }
 
     ElementResult result =
-        new ElementResult(validationResult, this.dateValue.format(DateTimeFormatter.ISO_DATE),
-            new StaticElementInfo(name, getDefault(), 3, KEY), childs, this);
+        new ElementResult(validationResult, dateValue.format(DateTimeFormatter.ISO_DATE),
+            new StaticElementInfo(name, getDefault(), 3, KEY), childs, this, dateValue);
 
     return result;
   }
@@ -129,10 +127,6 @@ public class TextDateType implements Element {
       return html;
     };
   }
-
-
-  public LocalDate getDateValue() {
-    return dateValue;
-  }
+ 
 
 }

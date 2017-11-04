@@ -8,6 +8,7 @@ import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StandardElementRenderer;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
+import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
 
@@ -15,26 +16,32 @@ public class NumberType extends TextType implements Element {
 
   public final static String KEY = "jwebform.element.NumberInput";
 
-  int number;
+  private final int initialNumber;
 
   public NumberType(String name, OneFieldDecoration decoration, int initialValue,
       Validator validator) {
     super(name, decoration, Integer.toString(initialValue), validator);
-    number = initialValue;
+    initialNumber = initialValue;
   }
 
   @Override
+  // TODO: Test this!
   public ElementResult apply(EnvWithSubmitInfo env) {
     OneValueElementProcessor oneValueElement = new OneValueElementProcessor();
-    String val = Integer.toString(number);
-    ElementResult result = oneValueElement.calculateElementResult(env, name, val, validator,
-        new StaticElementInfo(name, getDefault(), 1, KEY), this, t -> true);
+    String requestVal = env.getEnv().getRequest().getParameter(name);
+    String val = env.isSubmitted()?requestVal:Integer.toString(initialNumber);
+    int parsedNumber =0;
+    String parsedNumberVal = "";
     try {
-      number = Integer.parseInt(result.getValue());
+      parsedNumber = Integer.parseInt(val);
+      parsedNumberVal = Integer.toString(parsedNumber);
     } catch (NumberFormatException e) {
-      number = 0; // RFE: maybe a second var to indivate, that number is not settable. (or Integer
-                  // and NULL?)
+      parsedNumber = 0; 
+      parsedNumberVal = "";
     }
+    ValidationResult vr = oneValueElement.validate(env, validator, requestVal, val);
+    ElementResult result = new ElementResult(vr, parsedNumberVal, new StaticElementInfo(name, getDefault(), 1, KEY), 
+        ElementResult.NOCHILDS, this, parsedNumber);
     return result;
   }
 
@@ -56,8 +63,5 @@ public class NumberType extends TextType implements Element {
     return String.format("NumberInput. name=%s", name);
   }
 
-  public int getNumber() {
-    return number;
-  }
 
 }
