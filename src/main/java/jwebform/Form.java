@@ -12,6 +12,7 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 import jwebform.env.Env.EnvWithSubmitInfo;
+import jwebform.validation.DoubleTakenNameException;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 
@@ -64,7 +65,7 @@ public class Form {
     results.forEach((k,v) -> {
       if (!availElements.add(v.getStaticElementInfo().getName())) {
         // TODO: Choose own Exception here!
-        throw new RuntimeException("Double key!:"+ v.getStaticElementInfo().getName());
+        throw new DoubleTakenNameException(v.getStaticElementInfo().getName());
       }
     });
   }
