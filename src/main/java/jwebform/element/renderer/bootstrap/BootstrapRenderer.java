@@ -70,7 +70,7 @@ public class BootstrapRenderer {
 
   public String renderValue() {
     String val = pi.getElementResult().getValue();
-    if (val.length() > 0) {
+    if (val != null && val.length() > 0) {
       val = "=\"" + Escape.html(val) + "\"";
     }
     return val;

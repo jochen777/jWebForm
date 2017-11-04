@@ -71,7 +71,7 @@
  
  
  
- * neue Exeption for double element
+ * neue Exeption for double element (OK)
  * number testen
  * leere Namen korrekt abfangen, elemente können leere Namen haben.
  
