@@ -8,7 +8,7 @@ public class SimpleType implements Element {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return new ElementResult("simple", producerInfos -> "simple\n");
+    return new ElementResult(producerInfos -> "simple\n");
   }
 
 }

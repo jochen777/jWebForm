@@ -17,6 +17,7 @@ public class ElementResult {
   private final List<ElementResult> childs; // static
 
   public static final String EMPTY_STRING = "";
+  public static final String NO_NAME = "";
   public static final List<ElementResult> NOCHILDS = new ArrayList<>();
 
   public static final Element NO_SOURCE = t -> new ElementResult(null, null, null, null, null); // TODO:
@@ -48,6 +49,11 @@ public class ElementResult {
     this(name, htmlProducer, ValidationResult.ok());
   }
 
+  // simplest
+  public ElementResult(HTMLProducer htmlProducer) {
+    this(NO_NAME, htmlProducer, ValidationResult.ok());
+  }
+
   // simple with validation
   public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr) {
     this(vr, EMPTY_STRING, new StaticElementInfo(name, htmlProducer, 0, EMPTY_STRING), NOCHILDS,
@@ -59,7 +65,14 @@ public class ElementResult {
     this(ValidationResult.ok(), EMPTY_STRING,
         new StaticElementInfo(name, htmlProducer, 1, renderkey), NOCHILDS, source);
   }
+  
+  //simple with themable without name
+  public ElementResult(HTMLProducer htmlProducer, String renderkey, Element source) {
+    this(ValidationResult.ok(), EMPTY_STRING,
+        new StaticElementInfo(NO_NAME, htmlProducer, 1, renderkey), NOCHILDS, source);
+  }
 
+  
   // completeWithout Childs
   public ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
       Element source) {

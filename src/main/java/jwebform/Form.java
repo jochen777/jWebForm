@@ -63,8 +63,9 @@ public class Form {
   private void checkDoubleElements(Map<Element, ElementResult> results) {
     Set<String> availElements = new HashSet<>();
     results.forEach((k,v) -> {
-      if (!availElements.add(v.getStaticElementInfo().getName())) {
-        // TODO: Choose own Exception here!
+      // empty names are skipped
+      if (v.getStaticElementInfo().getName() != ElementResult.NO_NAME 
+          && !availElements.add(v.getStaticElementInfo().getName())) {
         throw new DoubleTakenNameException(v.getStaticElementInfo().getName());
       }
     });

@@ -6,8 +6,6 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class HtmlType implements Element {
 
-  public static String KEY = "jwebform.element.HTMLElement";
-
   public final String html;
 
   public HtmlType(String html) {
@@ -17,12 +15,7 @@ public class HtmlType implements Element {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return new ElementResult("_html", t -> html, KEY, this);
-  }
-
-
-  public String getHtml() {
-    return html;
+    return new ElementResult(t -> html);
   }
 
 }
