@@ -66,6 +66,7 @@
  * Führe valueData als Objekt im Result ein. (und elemeniere die Zugriffe auf das Element) (OK)
  * neue Exeption for double element (OK)
  * number testen (OK)
+ * leere Namen korrekt abfangen, elemente können leere Namen haben. (OK)
  #############################
  
  
@@ -73,7 +74,7 @@
  
  
  
- * leere Namen korrekt abfangen, elemente können leere Namen haben.
+ 
  
  * get rid of extends in form-elements by introducing general oneElementStyle helper Class
 * better abstraction in ThemeRenderer 
@@ -95,6 +96,7 @@
  
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
+ * align 1:1 output with formchecker
 
  
  * start with renderers (translation!)
