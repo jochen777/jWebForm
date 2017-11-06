@@ -97,6 +97,7 @@
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
  * align 1:1 output with formchecker
+ * google captcha in core with lamdas for json serialisierung/desserialsierung
 
  
  * start with renderers (translation!)

@@ -25,8 +25,6 @@ public class BootstrapRadioRenderer implements HTMLProducer {
 
     String helpHTML = renderer.renderHelpText();
 
-    String aria = renderer.renderAriaDescribedBy();
-
     StringBuffer inputHtml = new StringBuffer();
     entries.forEach(radioEntriy -> inputHtml
         .append(getInputTag(radioEntriy, pi.getNameOfInput(), pi.getElementResult().getValue())));

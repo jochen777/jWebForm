@@ -26,7 +26,6 @@ public class BootstrapTextAreaRenderer implements HTMLProducer {
     String aria = renderer.renderAriaDescribedBy();
 
 
-    String val = renderer.renderValue();
     String inputHtml = "<textarea tabindex=\"" + pi.getTabIndex() + "\" type=\"text\" name=\""
         + pi.getNameOfInput() + "\"" + placeholder + aria + ">"
         + Escape.html(pi.getElementResult().getValue()) + "</textarea>";

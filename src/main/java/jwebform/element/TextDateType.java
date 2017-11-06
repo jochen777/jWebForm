@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
@@ -70,16 +71,18 @@ public class TextDateType implements Element {
 
     LocalDate dateValue = initialValue;
     ValidationResult validationResult = ValidationResult.ok();
+    String dateValStr = "";
     try {
-      dateValue = this.setupValue(this.initialValue, dayResult.getValue(),
-          monthResult.getValue(), yearResult.getValue());
+      dateValue = this.setupValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
+          yearResult.getValue());
+      dateValStr = dateValue.format(DateTimeFormatter.ISO_DATE);
+      validationResult = validator.validate(dateValStr);
     } catch (DateTimeException | NumberFormatException e) {
       validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
     }
 
-    ElementResult result =
-        new ElementResult(validationResult, dateValue.format(DateTimeFormatter.ISO_DATE),
-            new StaticElementInfo(name, getDefault(), 3, KEY), childs, this, dateValue);
+    ElementResult result = new ElementResult(validationResult, dateValStr,
+        new StaticElementInfo(name, getDefault(), 3, KEY), childs, this, dateValue);
 
     return result;
   }
@@ -87,7 +90,10 @@ public class TextDateType implements Element {
 
 
   // May throw execption!!
-  private LocalDate setupValue(LocalDate initialValue, String dayStr, String monthStr,
+  private LocalDate setupValue(
+      LocalDate initialValue,
+      String dayStr,
+      String monthStr,
       String yearStr) {
     if (StringUtils.isEmpty(dayStr) && StringUtils.isEmpty(monthStr)
         && StringUtils.isEmpty(yearStr)) {
@@ -127,6 +133,6 @@ public class TextDateType implements Element {
       return html;
     };
   }
- 
+
 
 }

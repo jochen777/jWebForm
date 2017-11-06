@@ -2,6 +2,7 @@ package jwebform.element.structure;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import jwebform.validation.ValidationResult;
 
 // that wat is coming out of a "run" method of an element
@@ -43,7 +44,7 @@ public class ElementResult {
     // init sourceObject with string per defautl.
     this(vr, value, staticElementInfo, childs, source, source);
   }
-  
+
   // very simple
   public ElementResult(String name, HTMLProducer htmlProducer) {
     this(name, htmlProducer, ValidationResult.ok());
@@ -65,14 +66,14 @@ public class ElementResult {
     this(ValidationResult.ok(), EMPTY_STRING,
         new StaticElementInfo(name, htmlProducer, 1, renderkey), NOCHILDS, source);
   }
-  
-  //simple with themable without name
+
+  // simple with themable without name
   public ElementResult(HTMLProducer htmlProducer, String renderkey, Element source) {
     this(ValidationResult.ok(), EMPTY_STRING,
         new StaticElementInfo(NO_NAME, htmlProducer, 1, renderkey), NOCHILDS, source);
   }
 
-  
+
   // completeWithout Childs
   public ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
       Element source) {

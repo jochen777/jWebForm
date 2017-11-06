@@ -2,12 +2,12 @@ package jwebform;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
@@ -37,7 +37,7 @@ public class Form {
     this(id, new ArrayList<>(), elements);
   }
 
-  
+
   public Form(String id, List<FormValidator> formValidators, Element... elements) {
     this(id, Arrays.asList(elements), formValidators);
   }
@@ -45,7 +45,7 @@ public class Form {
   public FormResult run(Env env) {
     return run(env, false);
   }
-  
+
   public FormResult run(Env env, boolean debug) {
     // validate form
     Map<Element, ElementResult> elementResults = processElements(env.getEnvWithSumitInfo(id));
@@ -62,9 +62,9 @@ public class Form {
 
   private void checkDoubleElements(Map<Element, ElementResult> results) {
     Set<String> availElements = new HashSet<>();
-    results.forEach((k,v) -> {
+    results.forEach((k, v) -> {
       // empty names are skipped
-      if (v.getStaticElementInfo().getName() != ElementResult.NO_NAME 
+      if (v.getStaticElementInfo().getName() != ElementResult.NO_NAME
           && !availElements.add(v.getStaticElementInfo().getName())) {
         throw new DoubleTakenNameException(v.getStaticElementInfo().getName());
       }
