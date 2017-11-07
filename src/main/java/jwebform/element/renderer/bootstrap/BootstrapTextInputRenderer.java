@@ -1,6 +1,7 @@
 package jwebform.element.renderer.bootstrap;
 
 import java.util.LinkedHashMap;
+
 import jwebform.element.TextType;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
@@ -13,7 +14,8 @@ public class BootstrapTextInputRenderer implements HTMLProducer {
 
   @Override
   public String getHTML(ProducerInfos pi) {
-    OneFieldDecoration decoration = ((TextType) pi.getElementResult().getSource()).decoration;
+    OneFieldDecoration decoration =
+        ((TextType) pi.getElementResult().getSource()).oneValueElement.decoration;
     String errorMessage = "";
     ValidationResult vr = pi.getElementResult().getValidationResult();
     Tag wrapper = new Tag("div", "class", "form-group");

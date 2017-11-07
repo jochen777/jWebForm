@@ -1,6 +1,6 @@
 package jwebform.element.renderer.bootstrap;
 
-import jwebform.element.TextType;
+import jwebform.element.NumberType;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.ProducerInfos;
 
@@ -8,8 +8,8 @@ public class BootstrapNumberRenderer implements HTMLProducer {
 
   @Override
   public String getHTML(ProducerInfos pi) {
-    BootstrapRenderer renderer =
-        new BootstrapRenderer(pi, ((TextType) pi.getElementResult().getSource()).decoration);
+    BootstrapRenderer renderer = new BootstrapRenderer(pi,
+        ((NumberType) pi.getElementResult().getSource()).oneValueElement.decoration);
 
     String errorClass = renderer.calculateErrorClass();
 

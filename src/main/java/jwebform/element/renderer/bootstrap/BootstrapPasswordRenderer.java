@@ -8,8 +8,8 @@ public class BootstrapPasswordRenderer implements HTMLProducer {
 
   @Override
   public String getHTML(ProducerInfos pi) {
-    BootstrapRenderer renderer =
-        new BootstrapRenderer(pi, ((PasswordType) pi.getElementResult().getSource()).decoration);
+    BootstrapRenderer renderer = new BootstrapRenderer(pi,
+        ((PasswordType) pi.getElementResult().getSource()).oneValueElement.decoration);
 
     String errorClass = renderer.calculateErrorClass();
 

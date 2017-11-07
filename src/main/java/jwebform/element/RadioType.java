@@ -9,7 +9,6 @@ import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StandardElementRenderer;
-import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
@@ -18,28 +17,22 @@ public class RadioType implements Element {
 
   public final static String KEY = "jwebform.element.RadioInput";
 
-  final private String name;
-  final private String initialValue;
-  final private Validator validator;
   final public List<RadioInputEntry> entries;
-  final public OneFieldDecoration decoration;
+
+  public final OneValueElementProcessor oneValueElement;
 
 
   // RFE: Add groups too!
   public RadioType(String name, OneFieldDecoration decoration, String initialValue,
       Validator validator, String keys[], String values[]) {
-    this.name = name;
-    this.validator = validator;
-    this.initialValue = initialValue;
-    this.decoration = decoration;
+    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue, validator);
     entries = generateEntriesFromKeyValues(keys, values);
   }
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    OneValueElementProcessor oneValueElement = new OneValueElementProcessor();
-    return oneValueElement.calculateElementResult(env, name, initialValue, validator,
-        new StaticElementInfo(name, getDefault(), 1, KEY), this, t -> ensureValueIsAllowed(t));
+    return oneValueElement.calculateElementResult(env, KEY, getDefault(), this,
+        t -> ensureValueIsAllowed(t));
   }
 
   /**
@@ -75,7 +68,7 @@ public class RadioType implements Element {
 
   @Override
   public String toString() {
-    return String.format("RadioInput. name=%s", name);
+    return String.format("RadioInput. name=%s", oneValueElement.name);
   }
 
 
@@ -86,7 +79,7 @@ public class RadioType implements Element {
       String errorMessage = renderer.generateErrorMessage(producerInfos);
       // TODO: This is simply wrong!
       Tag inputTag = renderer.generateInputTag(producerInfos, "input", "radio");
-      String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml()
+      String html = oneValueElement.decoration.getLabel() + errorMessage + inputTag.getStartHtml()
           + buildEntries(producerInfos.getElementResult().getValue(), entries)
           + inputTag.getEndHtml();
 
@@ -104,9 +97,9 @@ public class RadioType implements Element {
   }
 
   public String getInputTag(String curValue, String value) {
-    return "<input id=\"form-radio-" + name + "-" + curValue + "\" " + " type=\"radio\" name=\""
-        + name + "\"  value=\"" + curValue + "\" " + getCheckedStatus(curValue, value) + "" + " "
-        + " >\n";
+    return "<input id=\"form-radio-" + oneValueElement.name + "-" + curValue + "\" "
+        + " type=\"radio\" name=\"" + oneValueElement.name + "\"  value=\"" + curValue + "\" "
+        + getCheckedStatus(curValue, value) + "" + " " + " >\n";
   }
 
   private String getCheckedStatus(String _name, String value) {

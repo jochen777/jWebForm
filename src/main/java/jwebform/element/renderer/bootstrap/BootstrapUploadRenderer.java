@@ -8,8 +8,8 @@ public class BootstrapUploadRenderer implements HTMLProducer {
 
   @Override
   public String getHTML(ProducerInfos pi) {
-    BootstrapRenderer renderer =
-        new BootstrapRenderer(pi, ((UploadType) pi.getElementResult().getSource()).decoration);
+    BootstrapRenderer renderer = new BootstrapRenderer(pi,
+        ((UploadType) pi.getElementResult().getSource()).oneValueElement.decoration);
 
     String errorClass = renderer.calculateErrorClass();
 

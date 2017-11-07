@@ -9,7 +9,6 @@ import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StandardElementRenderer;
-import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
 import jwebform.view.Tag;
@@ -18,28 +17,22 @@ public class SelectType implements Element {
 
   public final static String KEY = "jwebform.element.SelectInput";
 
-  final private String name;
-  final private String initialValue;
-  final private Validator validator;
   final public List<SelectInputEntry> entries;
-  final public OneFieldDecoration decoration;
+
+  public final OneValueElementProcessor oneValueElement;
 
 
   // RFE: Add groups too!
   public SelectType(String name, OneFieldDecoration decoration, String initialValue,
       Validator validator, String keys[], String values[]) {
-    this.name = name;
-    this.validator = validator;
-    this.initialValue = initialValue;
-    this.decoration = decoration;
+    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue, validator);
     entries = generateEntriesFromKeyValues(keys, values);
   }
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    OneValueElementProcessor oneValueElement = new OneValueElementProcessor();
-    return oneValueElement.calculateElementResult(env, name, initialValue, validator,
-        new StaticElementInfo(name, getDefault(), 1, KEY), this, t -> ensureValueIsAllowed(t));
+    return oneValueElement.calculateElementResult(env, KEY, getDefault(), this,
+        t -> ensureValueIsAllowed(t));
   }
 
   /**
@@ -75,7 +68,7 @@ public class SelectType implements Element {
 
   @Override
   public String toString() {
-    return String.format("SelectInput. name=%s", name);
+    return String.format("SelectInput. name=%s", oneValueElement.name);
   }
 
 
@@ -85,7 +78,7 @@ public class SelectType implements Element {
       StandardElementRenderer renderer = new StandardElementRenderer();
       String errorMessage = renderer.generateErrorMessage(producerInfos);
       Tag inputTag = renderer.generateInputTag(producerInfos, "select", "select");
-      String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml()
+      String html = oneValueElement.decoration.getLabel() + errorMessage + inputTag.getStartHtml()
           + buildEntries(producerInfos.getElementResult().getValue(), entries)
           + inputTag.getEndHtml();
 

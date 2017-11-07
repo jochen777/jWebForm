@@ -10,8 +10,8 @@ public class BootstrapTextAreaRenderer implements HTMLProducer {
 
   @Override
   public String getHTML(ProducerInfos pi) {
-    BootstrapRenderer renderer =
-        new BootstrapRenderer(pi, ((TextAreaType) pi.getElementResult().getSource()).decoration);
+    BootstrapRenderer renderer = new BootstrapRenderer(pi,
+        ((TextAreaType) pi.getElementResult().getSource()).oneValueElement.decoration);
 
     String errorClass = renderer.calculateErrorClass();
 

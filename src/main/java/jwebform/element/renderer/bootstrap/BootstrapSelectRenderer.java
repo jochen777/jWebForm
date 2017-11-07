@@ -12,7 +12,8 @@ public class BootstrapSelectRenderer implements HTMLProducer {
 
   @Override
   public String getHTML(ProducerInfos pi) {
-    OneFieldDecoration decoration = ((SelectType) pi.getElementResult().getSource()).decoration;
+    OneFieldDecoration decoration =
+        ((SelectType) pi.getElementResult().getSource()).oneValueElement.decoration;
     List<SelectInputEntry> entries = ((SelectType) pi.getElementResult().getSource()).entries;
 
     BootstrapRenderer renderer = new BootstrapRenderer(pi, decoration);

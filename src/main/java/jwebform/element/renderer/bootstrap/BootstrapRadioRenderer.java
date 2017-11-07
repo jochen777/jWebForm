@@ -12,7 +12,8 @@ public class BootstrapRadioRenderer implements HTMLProducer {
 
   @Override
   public String getHTML(ProducerInfos pi) {
-    OneFieldDecoration decoration = ((RadioType) pi.getElementResult().getSource()).decoration;
+    OneFieldDecoration decoration =
+        ((RadioType) pi.getElementResult().getSource()).oneValueElement.decoration;
     List<RadioInputEntry> entries = ((RadioType) pi.getElementResult().getSource()).entries;
 
     BootstrapRenderer renderer = new BootstrapRenderer(pi, decoration);
