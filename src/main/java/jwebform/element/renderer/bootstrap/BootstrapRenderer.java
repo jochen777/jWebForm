@@ -1,5 +1,7 @@
 package jwebform.element.renderer.bootstrap;
 
+import java.util.function.Supplier;
+
 import com.coverity.security.Escape;
 
 import jwebform.element.structure.OneFieldDecoration;
@@ -16,6 +18,31 @@ public class BootstrapRenderer {
     this.pi = pi;
     this.decoration = decoration;
   }
+
+  public String renderInput(String type) {
+    String errorClass = calculateErrorClass();
+
+    String errorMessage = renderErrorMessage();
+
+    String labelStr = generateLabel();
+
+    String placeholder = generatePlaceholder();
+
+    String helpHTML = renderHelpText();
+
+    String aria = renderAriaDescribedBy();
+
+
+    String val = renderValue();
+    String inputHtml = "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"" + type + "\" name=\""
+        + pi.getNameOfInput() + "\" value" + val + placeholder + aria + ">";
+
+    StringBuffer buf = new StringBuffer("<div class=\"form-group");
+    return buf.append(errorClass).append("\">").append(errorMessage).append(labelStr)
+        .append(inputHtml).append(helpHTML).append("</div>\n").toString();
+  }
+
+
 
   public String calculateErrorClass() {
     ValidationResult vr = pi.getElementResult().getValidationResult();
@@ -83,6 +110,45 @@ public class BootstrapRenderer {
       errorMessage = "Problem: " + vr.getMessage() + "<br>";
     }
     return errorMessage;
+  }
+
+  public String renderInputComplex(String tagname, Supplier<String> supplier) {
+    String errorClass = calculateErrorClass();
+
+    String errorMessage = renderErrorMessage();
+
+    String labelStr = generateLabel();
+
+    String placeholder = generatePlaceholder();
+
+    String helpHTML = renderHelpText();
+
+    String aria = renderAriaDescribedBy();
+
+    String inputHtml =
+        "<" + tagname + " tabindex=\"" + pi.getTabIndex() + "\" name=\"" + pi.getNameOfInput()
+            + "\"" + placeholder + aria + ">" + supplier.get() + "</" + tagname + ">";
+
+    StringBuffer buf = new StringBuffer("<div class=\"form-group");
+    return buf.append(errorClass).append("\">").append(errorMessage).append(labelStr)
+        .append(inputHtml).append(helpHTML).append("</div>\n").toString();
+
+
+  }
+
+  public String renderInputFree(String free) {
+    String errorClass = calculateErrorClass();
+
+    String errorMessage = renderErrorMessage();
+
+    String labelStr = generateLabel();
+
+    String helpHTML = renderHelpText();
+
+    StringBuffer buf = new StringBuffer("<div class=\"form-group");
+    return buf.append(errorClass).append("\">").append(errorMessage).append(labelStr).append(free)
+        .append(helpHTML).append("</div>\n").toString();
+
   }
 
 }

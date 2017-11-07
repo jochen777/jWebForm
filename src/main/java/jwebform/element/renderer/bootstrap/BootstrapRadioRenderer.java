@@ -18,21 +18,14 @@ public class BootstrapRadioRenderer implements HTMLProducer {
 
     BootstrapRenderer renderer = new BootstrapRenderer(pi, decoration);
 
-    String errorClass = renderer.calculateErrorClass();
+    return renderer.renderInputFree(renderInputs(pi, entries));
+  }
 
-    String errorMessage = renderer.renderErrorMessage();
-
-    String labelStr = renderer.generateLabel();
-
-    String helpHTML = renderer.renderHelpText();
-
+  private String renderInputs(ProducerInfos pi, List<RadioInputEntry> entries) {
     StringBuffer inputHtml = new StringBuffer();
     entries.forEach(radioEntriy -> inputHtml
         .append(getInputTag(radioEntriy, pi.getNameOfInput(), pi.getElementResult().getValue())));
-
-    StringBuffer buf = new StringBuffer("<div class=\"form-group");
-    return buf.append(errorClass).append("\">").append(errorMessage).append(labelStr)
-        .append(inputHtml).append(helpHTML).append("</div>\n").toString();
+    return inputHtml.toString();
   }
 
   private String getInputTag(RadioInputEntry entry, String name, String value) {

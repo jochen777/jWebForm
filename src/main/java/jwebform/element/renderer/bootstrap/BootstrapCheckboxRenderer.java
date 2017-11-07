@@ -10,18 +10,9 @@ public class BootstrapCheckboxRenderer implements HTMLProducer {
   @Override
   public String getHTML(ProducerInfos pi) {
     OneFieldDecoration decoration = ((CheckBoxType) pi.getElementResult().getSource()).decoration;
-    boolean checked = (Boolean)pi.getElementResult().getValueObject();
-    System.err.println("Checked: " + checked);
+    boolean checked = (Boolean) pi.getElementResult().getValueObject();
 
     BootstrapRenderer renderer = new BootstrapRenderer(pi, decoration);
-
-    String errorClass = renderer.calculateErrorClass();
-
-    String errorMessage = renderer.renderErrorMessage();
-
-    String labelStr = renderer.generateLabel();
-
-    String helpHTML = renderer.renderHelpText();
 
     String aria = renderer.renderAriaDescribedBy();
 
@@ -29,9 +20,8 @@ public class BootstrapCheckboxRenderer implements HTMLProducer {
     String inputHtml = "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"checkbox\" name=\""
         + pi.getNameOfInput() + "\" value" + val + (checked ? " checked" : "") + aria + ">";
 
-    StringBuffer buf = new StringBuffer("<div class=\"form-group");
-    return buf.append(errorClass).append("\">").append(errorMessage).append(labelStr)
-        .append(inputHtml).append(helpHTML).append("</div>\n").toString();
+
+    return renderer.renderInputFree(inputHtml);
   }
 
 }

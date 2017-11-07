@@ -17,26 +17,8 @@ public class BootstrapSelectRenderer implements HTMLProducer {
     List<SelectInputEntry> entries = ((SelectType) pi.getElementResult().getSource()).entries;
 
     BootstrapRenderer renderer = new BootstrapRenderer(pi, decoration);
-
-    String errorClass = renderer.calculateErrorClass();
-
-    String errorMessage = renderer.renderErrorMessage();
-
-    String labelStr = renderer.generateLabel();
-
-    String helpHTML = renderer.renderHelpText();
-
-    String aria = renderer.renderAriaDescribedBy();
-
-
-    String inputHtml =
-        "<select tabindex=\"" + pi.getTabIndex() + "\"  name=\"" + pi.getNameOfInput() + "\"" + aria
-            + ">" + buildEntries(pi.getElementResult().getValue(), entries) + "</select>";;
-
-    StringBuffer buf = new StringBuffer("<div class=\"form-group");
-    return buf.append(errorClass).append("\">").append(errorMessage).append(labelStr)
-        .append(inputHtml).append(helpHTML).append("</div>\n").toString();
-
+    return renderer.renderInputComplex("select",
+        () -> buildEntries(pi.getElementResult().getValue(), entries));
   }
 
   private String buildEntries(String value, List<SelectInputEntry> entries2) {
