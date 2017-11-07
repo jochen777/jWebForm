@@ -8,7 +8,6 @@ import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StandardElementRenderer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
-import jwebform.view.Tag;
 
 
 // TODO: No value here!, change method!
@@ -30,10 +29,7 @@ public class UploadType implements Element {
   protected HTMLProducer getDefault() {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
-      String errorMessage = renderer.generateErrorMessage(producerInfos);
-      Tag inputTag = renderer.generateInputTag(producerInfos, "file", "input");
-      String html = oneValueElement.decoration.getLabel() + errorMessage + inputTag.getStartHtml();
-      return html;
+      return renderer.generateHtml(producerInfos, oneValueElement.decoration, "file", "input");
     };
   }
 

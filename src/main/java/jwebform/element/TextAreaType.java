@@ -1,7 +1,5 @@
 package jwebform.element;
 
-import java.util.LinkedHashMap;
-
 import com.coverity.security.Escape;
 
 import jwebform.element.structure.Element;
@@ -12,8 +10,6 @@ import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StandardElementRenderer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
-import jwebform.view.Tag;
-import jwebform.view.TagAttributes;
 
 public class TextAreaType implements Element {
 
@@ -35,16 +31,8 @@ public class TextAreaType implements Element {
   public HTMLProducer getDefault() {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
-      String errorMessage = renderer.generateErrorMessage(producerInfos);
-      LinkedHashMap<String, String> attrs = new LinkedHashMap<>();
-      attrs.put("tabindex", Integer.toString(producerInfos.getTabIndex()));
-      attrs.put("name", producerInfos.getNameOfInput());
-      TagAttributes inputTagAttr = new TagAttributes(attrs);
-      Tag inputTag = new Tag("textarea", inputTagAttr);
-
-      String html = oneValueElement.decoration.getLabel() + errorMessage + inputTag.getStartHtml()
-          + Escape.html(producerInfos.getElementResult().getValue()) + inputTag.getEndHtml();
-      return html;
+      return renderer.generateHtmlWithSomethingBetween(producerInfos, oneValueElement.decoration,
+          "select", "select", () -> Escape.html(producerInfos.getElementResult().getValue()));
     };
   }
 

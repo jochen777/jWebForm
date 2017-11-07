@@ -11,7 +11,6 @@ import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StandardElementRenderer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
-import jwebform.view.Tag;
 
 public class SelectType implements Element {
 
@@ -76,13 +75,10 @@ public class SelectType implements Element {
   public HTMLProducer getDefault() {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
-      String errorMessage = renderer.generateErrorMessage(producerInfos);
-      Tag inputTag = renderer.generateInputTag(producerInfos, "select", "select");
-      String html = oneValueElement.decoration.getLabel() + errorMessage + inputTag.getStartHtml()
-          + buildEntries(producerInfos.getElementResult().getValue(), entries)
-          + inputTag.getEndHtml();
+      return renderer.generateHtmlWithSomethingBetween(producerInfos, oneValueElement.decoration,
+          "select", "select",
+          () -> buildEntries(producerInfos.getElementResult().getValue(), entries));
 
-      return html;
     };
   }
 

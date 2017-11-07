@@ -11,7 +11,6 @@ import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StandardElementRenderer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
-import jwebform.view.Tag;
 
 public class RadioType implements Element {
 
@@ -76,16 +75,12 @@ public class RadioType implements Element {
   public HTMLProducer getDefault() {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
-      String errorMessage = renderer.generateErrorMessage(producerInfos);
-      // TODO: This is simply wrong!
-      Tag inputTag = renderer.generateInputTag(producerInfos, "input", "radio");
-      String html = oneValueElement.decoration.getLabel() + errorMessage + inputTag.getStartHtml()
-          + buildEntries(producerInfos.getElementResult().getValue(), entries)
-          + inputTag.getEndHtml();
-
-      return html;
+      return renderer.generateHtmlWithSomethingBetween(producerInfos, oneValueElement.decoration,
+          "radio", "input",
+          () -> buildEntries(producerInfos.getElementResult().getValue(), entries));
     };
   }
+
 
 
   private String buildEntries(String value, List<RadioInputEntry> entries2) {

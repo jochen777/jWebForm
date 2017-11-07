@@ -15,6 +15,7 @@ public class HtmlType implements Element {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
+    // Beware - no escaping!!
     return new ElementResult(t -> html);
   }
 

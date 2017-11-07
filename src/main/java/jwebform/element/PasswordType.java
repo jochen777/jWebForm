@@ -8,7 +8,6 @@ import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StandardElementRenderer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
-import jwebform.view.Tag;
 
 public class PasswordType implements Element {
 
@@ -29,12 +28,10 @@ public class PasswordType implements Element {
   protected HTMLProducer getDefault() {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
-      String errorMessage = renderer.generateErrorMessage(producerInfos);
-      Tag inputTag = renderer.generateInputTag(producerInfos, "password", "input");
-      String html = oneValueElement.decoration.getLabel() + errorMessage + inputTag.getStartHtml();
-      return html;
+      return renderer.generateHtml(producerInfos, oneValueElement.decoration, "password", "input");
     };
   }
+
 
   @Override
   public String toString() {

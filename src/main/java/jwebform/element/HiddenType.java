@@ -1,9 +1,9 @@
 package jwebform.element;
 
 import com.coverity.security.Escape;
+
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.HTMLProducer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class HiddenType implements Element {
@@ -20,12 +20,8 @@ public class HiddenType implements Element {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return new ElementResult(name, getDefault(), HiddenType.KEY, this);
-  }
-
-  public HTMLProducer getDefault() {
-    return producerInfos -> "<input type=\"hidden\" name=\"" + name + "\" value=\""
-        + Escape.html(value) + "\">\n";
+    return new ElementResult(name, (pi) -> "<input type=\"hidden\" name=\"" + name + "\" value=\""
+        + Escape.html(value) + "\">\n", HiddenType.KEY, this);
   }
 
 }

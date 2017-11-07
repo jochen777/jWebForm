@@ -10,7 +10,6 @@ import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
-import jwebform.view.Tag;
 
 public class NumberType implements Element {
 
@@ -52,11 +51,7 @@ public class NumberType implements Element {
   protected HTMLProducer getDefault() {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
-      String errorMessage = renderer.generateErrorMessage(producerInfos);
-      // TODO: Get rid of type="number"
-      Tag inputTag = renderer.generateInputTag(producerInfos, "number", "input");
-      String html = oneValueElement.decoration.getLabel() + errorMessage + inputTag.getStartHtml();
-      return html;
+      return renderer.generateHtml(producerInfos, oneValueElement.decoration, "number", "input");
     };
   }
 

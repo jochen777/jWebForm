@@ -8,7 +8,6 @@ import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StandardElementRenderer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
-import jwebform.view.Tag;
 
 public final class TextType implements Element {
 
@@ -29,10 +28,7 @@ public final class TextType implements Element {
   protected HTMLProducer getDefault() {
     return producerInfos -> {
       StandardElementRenderer renderer = new StandardElementRenderer();
-      String errorMessage = renderer.generateErrorMessage(producerInfos);
-      Tag inputTag = renderer.generateInputTag(producerInfos, "text", "input");
-      String html = oneValueElement.decoration.getLabel() + errorMessage + inputTag.getStartHtml();
-      return html;
+      return renderer.generateHtml(producerInfos, oneValueElement.decoration, "text", "input");
     };
   }
 
