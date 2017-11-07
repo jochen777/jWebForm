@@ -14,8 +14,7 @@ public class BootstrapTextAreaRenderer implements HTMLProducer {
         ((TextAreaType) pi.getElementResult().getSource()).oneValueElement.decoration);
 
 
-    return renderer.renderInputComplex("textarea",
-        () -> Escape.html(pi.getElementResult().getValue()));
+    return renderer.renderInputComplex("textarea", Escape.html(pi.getElementResult().getValue()));
   }
 
 }

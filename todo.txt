@@ -94,6 +94,7 @@
  * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert
  * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE
  * KomplexPassword Validator
+ * Automatische (*) bei Required feldern.
  
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
