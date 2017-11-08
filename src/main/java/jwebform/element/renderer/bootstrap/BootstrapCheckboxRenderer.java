@@ -12,7 +12,7 @@ public class BootstrapCheckboxRenderer implements HTMLProducer {
     OneFieldDecoration decoration = ((CheckBoxType) pi.getElementResult().getSource()).decoration;
     boolean checked = (Boolean) pi.getElementResult().getValueObject();
 
-    BootstrapRenderer renderer = new BootstrapRenderer();
+    ElementRenderer renderer = pi.getTheme().getRenderer();
 
     String aria = renderer.renderAriaDescribedBy(pi, decoration);
 

@@ -10,11 +10,9 @@ public class BootstrapTextAreaRenderer implements HTMLProducer {
 
   @Override
   public String getHTML(ProducerInfos pi) {
-    ElementRenderer renderer = new BootstrapRenderer();
-
-
-    return renderer.renderInputComplex("textarea", Escape.html(pi.getElementResult().getValue()),
-        pi, ((TextAreaType) pi.getElementResult().getSource()).oneValueElement.decoration);
+    return pi.getTheme().getRenderer().renderInputComplex("textarea",
+        Escape.html(pi.getElementResult().getValue()), pi,
+        ((TextAreaType) pi.getElementResult().getSource()).oneValueElement.decoration);
   }
 
 }

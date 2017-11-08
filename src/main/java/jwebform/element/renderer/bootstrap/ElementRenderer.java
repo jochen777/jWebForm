@@ -16,4 +16,8 @@ public interface ElementRenderer {
 
   String renderInputFree(String free, ProducerInfos pi, OneFieldDecoration decoration);
 
+  String renderAriaDescribedBy(ProducerInfos pi, OneFieldDecoration decoration);
+
+  String renderValue(ProducerInfos pi);
+
 }

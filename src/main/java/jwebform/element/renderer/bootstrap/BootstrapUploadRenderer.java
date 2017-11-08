@@ -8,9 +8,7 @@ public class BootstrapUploadRenderer implements HTMLProducer {
 
   @Override
   public String getHTML(ProducerInfos pi) {
-    ElementRenderer renderer = new BootstrapRenderer();
-
-    return renderer.renderInput("file", pi,
+    return pi.getTheme().getRenderer().renderInput("file", pi,
         ((UploadType) pi.getElementResult().getSource()).oneValueElement.decoration);
 
   }

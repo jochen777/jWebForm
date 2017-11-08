@@ -10,8 +10,11 @@ import jwebform.validation.ValidationResult;
 public class BootstrapRenderer implements ElementRenderer {
 
 
-  /* (non-Javadoc)
-   * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInput(java.lang.String, jwebform.element.structure.ProducerInfos, jwebform.element.structure.OneFieldDecoration)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInput(java.lang.String,
+   * jwebform.element.structure.ProducerInfos, jwebform.element.structure.OneFieldDecoration)
    */
   @Override
   public String renderInput(String type, ProducerInfos pi, OneFieldDecoration decoration) {
@@ -24,8 +27,12 @@ public class BootstrapRenderer implements ElementRenderer {
         decoration);
   }
 
-  /* (non-Javadoc)
-   * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInputComplex(java.lang.String, java.lang.String, jwebform.element.structure.ProducerInfos, jwebform.element.structure.OneFieldDecoration)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInputComplex(java.lang.String,
+   * java.lang.String, jwebform.element.structure.ProducerInfos,
+   * jwebform.element.structure.OneFieldDecoration)
    */
   @Override
   public String renderInputComplex(
@@ -43,8 +50,11 @@ public class BootstrapRenderer implements ElementRenderer {
 
   }
 
-  /* (non-Javadoc)
-   * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInputFree(java.lang.String, jwebform.element.structure.ProducerInfos, jwebform.element.structure.OneFieldDecoration)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInputFree(java.lang.String,
+   * jwebform.element.structure.ProducerInfos, jwebform.element.structure.OneFieldDecoration)
    */
   @Override
   public String renderInputFree(String free, ProducerInfos pi, OneFieldDecoration decoration) {
@@ -104,7 +114,8 @@ public class BootstrapRenderer implements ElementRenderer {
     return helpHTML;
   }
 
-  protected String renderAriaDescribedBy(ProducerInfos pi, OneFieldDecoration decoration) {
+  @Override
+  public String renderAriaDescribedBy(ProducerInfos pi, OneFieldDecoration decoration) {
     String aria;
     if (this.isHelpDesired(decoration)) {
       aria = " aria-describedby=\"helpBlock-" + pi.getNameOfInput() + "\"";
@@ -114,7 +125,8 @@ public class BootstrapRenderer implements ElementRenderer {
     return aria;
   }
 
-  protected String renderValue(ProducerInfos pi) {
+  @Override
+  public String renderValue(ProducerInfos pi) {
     String val = pi.getElementResult().getValue();
     if (val != null && val.length() > 0) {
       val = "=\"" + Escape.html(val) + "\"";

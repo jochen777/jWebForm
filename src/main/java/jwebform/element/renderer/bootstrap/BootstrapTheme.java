@@ -19,6 +19,7 @@ import jwebform.element.structure.Theme;
 
 public class BootstrapTheme implements Theme {
   public Map<String, HTMLProducer> htmlProducer;
+  private final BootstrapRenderer renderer = new BootstrapRenderer();
 
   public BootstrapTheme() {
     htmlProducer = new HashMap<>();
@@ -42,5 +43,10 @@ public class BootstrapTheme implements Theme {
 
   public Map<String, HTMLProducer> getHtmlProducer() {
     return htmlProducer;
+  }
+
+  @Override
+  public ElementRenderer getRenderer() {
+    return renderer;
   }
 }
