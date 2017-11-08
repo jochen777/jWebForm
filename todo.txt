@@ -69,6 +69,9 @@
  * leere Namen korrekt abfangen, elemente können leere Namen haben. (OK)
 * elements can have an empty name, if they don't have a representation! (OK) 
 * get rid of extends in form-elements by introducing general oneElementStyle helper Class (OK)
+* better abstraction in ThemeRenderer (OK)
+* nur noch ein renderer für default. -> Theme bekommt den StandardRenderer als Hilfe. (OK)
+* ElementRenderer noch einfacher machen und Bootstrap davon ableiten. -> Nein. Bootstrap IST default. OK
  #############################
  
  
@@ -78,9 +81,7 @@
  
  
  
-* better abstraction in ThemeRenderer (OK)
-* nur noch ein renderer für default. -> Theme bekommt den StandardRenderer als Hilfe.
-* ElementRenderer noch einfacher machen und Bootstrap davon ableiten.
+
 * drop konzept of Theme.KEY entirely? 
  * Behaviours (decorations to input-tag, decorations to label, decorations to help, decorations to error, decorations to all around)
  * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor> 
@@ -102,7 +103,7 @@
  * evtl. staticElmentInfo mit Vererbungshierachie? 
  * align 1:1 output with formchecker
  * google captcha in core with lamdas for json serialisierung/desserialsierung
-
+ * mehr themes einführen (twocolumn, material)
  
  * start with renderers (translation!)
  * implement a template, that renders the form
