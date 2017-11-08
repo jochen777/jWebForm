@@ -113,12 +113,13 @@ public class TextDateType implements Element {
 
 
   public HTMLProducer getDefault() {
-    return pi -> {
+    return (pi) -> {
       String errorMessage = "";
-      if (pi.getElementResult().getValidationResult() != ValidationResult.undefined()
-          && !pi.getElementResult().getValidationResult().isValid) {
-        errorMessage =
-            "Problem: " + pi.getElementResult().getValidationResult().getMessage() + "<br>";
+
+      ValidationResult vr = pi.getElementResult().getValidationResult();
+
+      if (vr != ValidationResult.undefined() && !vr.isValid) {
+        errorMessage = "Problem: " + vr.getMessage() + "<br>";
       }
       ElementResult dayResult = pi.getElementResult().getChilds().get(0);
       ElementResult monthResult = pi.getElementResult().getChilds().get(1);
@@ -129,7 +130,7 @@ public class TextDateType implements Element {
               .getHtml()
           + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult)
               .getHtml()
-          + "<br>" + decoration.getHelptext() + "<-- internal renderer -->";
+          + "<br>" + decoration.getHelptext();
       return html;
     };
   }

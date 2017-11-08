@@ -22,7 +22,7 @@ public class SubmitType implements Element {
 
   public HTMLProducer getDefault() {
     return producerInfos -> "<input tabindex=\"" + producerInfos.getTabIndex()
-        + "\" type=\"submit\" value=\"" + label + "\"><!-- own renderer -->";
+        + "\" type=\"submit\" value=\"" + label + "\">\n";
   }
 
 }

@@ -8,7 +8,6 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
-import jwebform.element.structure.StandardElementRenderer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
 
@@ -73,13 +72,8 @@ public class SelectType implements Element {
 
   // very simple version!
   public HTMLProducer getDefault() {
-    return producerInfos -> {
-      StandardElementRenderer renderer = new StandardElementRenderer();
-      return renderer.generateHtmlWithSomethingBetween(producerInfos, oneValueElement.decoration,
-          "select", "select",
-          () -> buildEntries(producerInfos.getElementResult().getValue(), entries));
-
-    };
+    return (pi) -> pi.getTheme().getRenderer().renderInputComplex("select",
+        buildEntries(pi.getElementResult().getValue(), entries), pi, oneValueElement.decoration);
   }
 
 

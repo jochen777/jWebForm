@@ -8,7 +8,7 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
-import jwebform.element.structure.StandardElementRenderer;
+import jwebform.element.structure.ProducerInfos;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
 
@@ -73,28 +73,24 @@ public class RadioType implements Element {
 
   // very simple version!
   public HTMLProducer getDefault() {
-    return producerInfos -> {
-      StandardElementRenderer renderer = new StandardElementRenderer();
-      return renderer.generateHtmlWithSomethingBetween(producerInfos, oneValueElement.decoration,
-          "radio", "input",
-          () -> buildEntries(producerInfos.getElementResult().getValue(), entries));
-    };
+    return (pi) -> pi.getTheme().getRenderer().renderInputFree(renderInputs(pi, entries), pi,
+        oneValueElement.decoration);
   }
 
 
 
-  private String buildEntries(String value, List<RadioInputEntry> entries2) {
-    StringBuilder inputTag = new StringBuilder();
-    entries2.forEach(entry -> {
-      inputTag.append(getInputTag(entry.key, value));
-    });
-    return inputTag.toString();
+  private String renderInputs(ProducerInfos pi, List<RadioInputEntry> entries) {
+    StringBuffer inputHtml = new StringBuffer();
+    entries.forEach(radioEntriy -> inputHtml
+        .append(getInputTag(radioEntriy, pi.getNameOfInput(), pi.getElementResult().getValue())));
+    return inputHtml.toString();
   }
 
-  public String getInputTag(String curValue, String value) {
-    return "<input id=\"form-radio-" + oneValueElement.name + "-" + curValue + "\" "
-        + " type=\"radio\" name=\"" + oneValueElement.name + "\"  value=\"" + curValue + "\" "
-        + getCheckedStatus(curValue, value) + "" + " " + " >\n";
+  private String getInputTag(RadioInputEntry entry, String name, String value) {
+    return "<input id=\"form-radio-" + name + "-" + entry.getKey() + "\" "
+        + " type=\"radio\" name=\"" + name + "\"  value=\"" + entry.getKey() + "\" "
+        + getCheckedStatus(entry.getKey(), value) + "" + " " + " ><label for=\"form-radio-" + name
+        + "\">" + entry.getValue() + "</label>\n";
   }
 
   private String getCheckedStatus(String _name, String value) {

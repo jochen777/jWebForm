@@ -1,8 +1,4 @@
-package jwebform.element.renderer.bootstrap;
-
-import jwebform.element.structure.OneFieldDecoration;
-import jwebform.element.structure.ProducerInfos;
-
+package jwebform.element.structure;
 
 public interface ElementRenderer {
 

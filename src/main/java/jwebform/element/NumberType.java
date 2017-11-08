@@ -5,7 +5,6 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
-import jwebform.element.structure.StandardElementRenderer;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
@@ -49,10 +48,8 @@ public class NumberType implements Element {
 
   // very simple version!
   protected HTMLProducer getDefault() {
-    return producerInfos -> {
-      StandardElementRenderer renderer = new StandardElementRenderer();
-      return renderer.generateHtml(producerInfos, oneValueElement.decoration, "number", "input");
-    };
+    return (pi) -> pi.getTheme().getRenderer().renderInput("number", pi,
+        oneValueElement.decoration);
   }
 
 

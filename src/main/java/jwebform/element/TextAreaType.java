@@ -7,7 +7,6 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
-import jwebform.element.structure.StandardElementRenderer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
 
@@ -27,13 +26,9 @@ public class TextAreaType implements Element {
     return oneValueElement.calculateElementResult(env, KEY, getDefault(), this, (t) -> true);
   }
 
-  // very simple version!
   public HTMLProducer getDefault() {
-    return producerInfos -> {
-      StandardElementRenderer renderer = new StandardElementRenderer();
-      return renderer.generateHtmlWithSomethingBetween(producerInfos, oneValueElement.decoration,
-          "select", "select", () -> Escape.html(producerInfos.getElementResult().getValue()));
-    };
+    return (pi) -> pi.getTheme().getRenderer().renderInputComplex("textarea",
+        Escape.html(pi.getElementResult().getValue()), pi, oneValueElement.decoration);
   }
 
   @Override

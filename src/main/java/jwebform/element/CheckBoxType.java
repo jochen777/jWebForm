@@ -1,16 +1,14 @@
 package jwebform.element;
 
 import jwebform.element.structure.Element;
+import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
-import jwebform.element.structure.StandardElementRenderer;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
-import jwebform.view.Tag;
-import jwebform.view.TagAttributes;
 
 public class CheckBoxType implements Element {
 
@@ -53,23 +51,19 @@ public class CheckBoxType implements Element {
     if (env.isSubmitted()) {
       vr = validator.validate(value);
     }
-    return new ElementResult(vr,  value, new StaticElementInfo(name, getDefault(checked), 1, KEY), ElementResult.NOCHILDS, this, Boolean.valueOf(checked));
+    return new ElementResult(vr, value, new StaticElementInfo(name, getDefault(checked), 1, KEY),
+        ElementResult.NOCHILDS, this, Boolean.valueOf(checked));
   }
 
 
-  // very simple version!
   public HTMLProducer getDefault(boolean checked) {
-    return producerInfos -> {
-      StandardElementRenderer renderer = new StandardElementRenderer();
-      String errorMessage = renderer.generateErrorMessage(producerInfos);
-      TagAttributes tagAttributes = TagAttributes.empty();
-      if (checked) {
-        tagAttributes.addEmptyAttribute("checked");
-      }
-      Tag inputTag = renderer.generateInputTag(producerInfos, "checkbox", "input", tagAttributes);
-      String html = decoration.getLabel() + errorMessage + inputTag.getStartHtml();
-
-      return html;
+    return (pi) -> {
+      ElementRenderer renderer = pi.getTheme().getRenderer();
+      String aria = renderer.renderAriaDescribedBy(pi, decoration);
+      String val = renderer.renderValue(pi);
+      String inputHtml = "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"checkbox\" name=\""
+          + pi.getNameOfInput() + "\" value" + val + (checked ? " checked" : "") + aria + ">";
+      return renderer.renderInputFree(inputHtml, pi, decoration);
     };
   }
 

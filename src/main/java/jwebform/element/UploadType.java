@@ -5,7 +5,6 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
-import jwebform.element.structure.StandardElementRenderer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
 
@@ -27,10 +26,7 @@ public class UploadType implements Element {
 
 
   protected HTMLProducer getDefault() {
-    return producerInfos -> {
-      StandardElementRenderer renderer = new StandardElementRenderer();
-      return renderer.generateHtml(producerInfos, oneValueElement.decoration, "file", "input");
-    };
+    return (pi) -> pi.getTheme().getRenderer().renderInput("file", pi, oneValueElement.decoration);
   }
 
   @Override

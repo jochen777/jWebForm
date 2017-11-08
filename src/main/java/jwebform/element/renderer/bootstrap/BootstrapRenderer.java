@@ -2,6 +2,7 @@ package jwebform.element.renderer.bootstrap;
 
 import com.coverity.security.Escape;
 
+import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;

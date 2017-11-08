@@ -5,7 +5,6 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
-import jwebform.element.structure.StandardElementRenderer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.Validator;
 
@@ -26,10 +25,7 @@ public final class TextType implements Element {
 
   // very simple version!
   protected HTMLProducer getDefault() {
-    return producerInfos -> {
-      StandardElementRenderer renderer = new StandardElementRenderer();
-      return renderer.generateHtml(producerInfos, oneValueElement.decoration, "text", "input");
-    };
+    return (pi) -> pi.getTheme().getRenderer().renderInput("text", pi, oneValueElement.decoration);
   }
 
   @Override
