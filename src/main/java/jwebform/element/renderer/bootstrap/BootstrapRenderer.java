@@ -7,43 +7,54 @@ import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
 
 // Renderer for bootstrap for common elements
-public class BootstrapRenderer {
+public class BootstrapRenderer implements ElementRenderer {
 
-  private final ProducerInfos pi;
-  private final OneFieldDecoration decoration;
 
-  public BootstrapRenderer(ProducerInfos pi, OneFieldDecoration decoration) {
-    this.pi = pi;
-    this.decoration = decoration;
-  }
-
-  public String renderInput(String type) {
-    String placeholder = generatePlaceholder();
-    String aria = renderAriaDescribedBy();
-    String val = renderValue();
+  /* (non-Javadoc)
+   * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInput(java.lang.String, jwebform.element.structure.ProducerInfos, jwebform.element.structure.OneFieldDecoration)
+   */
+  @Override
+  public String renderInput(String type, ProducerInfos pi, OneFieldDecoration decoration) {
+    String placeholder = generatePlaceholder(decoration);
+    String aria = renderAriaDescribedBy(pi, decoration);
+    String val = renderValue(pi);
 
     return renderInputFree("<input tabindex=\"" + pi.getTabIndex() + "\" type=\"" + type
-        + "\" name=\"" + pi.getNameOfInput() + "\" value" + val + placeholder + aria + ">");
+        + "\" name=\"" + pi.getNameOfInput() + "\" value" + val + placeholder + aria + ">", pi,
+        decoration);
   }
 
-  public String renderInputComplex(String tagname, String inBetweenHtml) {
-    String placeholder = generatePlaceholder();
+  /* (non-Javadoc)
+   * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInputComplex(java.lang.String, java.lang.String, jwebform.element.structure.ProducerInfos, jwebform.element.structure.OneFieldDecoration)
+   */
+  @Override
+  public String renderInputComplex(
+      String tagname,
+      String inBetweenHtml,
+      ProducerInfos pi,
+      OneFieldDecoration decoration) {
+    String placeholder = generatePlaceholder(decoration);
 
-    String aria = renderAriaDescribedBy();
+    String aria = renderAriaDescribedBy(pi, decoration);
     return renderInputFree(
         "<" + tagname + " tabindex=\"" + pi.getTabIndex() + "\" name=\"" + pi.getNameOfInput()
-            + "\"" + placeholder + aria + ">" + inBetweenHtml + "</" + tagname + ">");
+            + "\"" + placeholder + aria + ">" + inBetweenHtml + "</" + tagname + ">",
+        pi, decoration);
 
   }
 
-  public String renderInputFree(String free) {
-    String errorClass = calculateErrorClass();
+  /* (non-Javadoc)
+   * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInputFree(java.lang.String, jwebform.element.structure.ProducerInfos, jwebform.element.structure.OneFieldDecoration)
+   */
+  @Override
+  public String renderInputFree(String free, ProducerInfos pi, OneFieldDecoration decoration) {
+    String errorClass = calculateErrorClass(pi);
 
-    String errorMessage = renderErrorMessage();
+    String errorMessage = renderErrorMessage(pi);
 
-    String labelStr = generateLabel();
+    String labelStr = generateLabel(pi, decoration);
 
-    String helpHTML = renderHelpText();
+    String helpHTML = renderHelpText(pi, decoration);
 
     StringBuffer buf = new StringBuffer("<div class=\"form-group");
     return buf.append(errorClass).append("\">").append(errorMessage).append(labelStr).append(free)
@@ -52,7 +63,7 @@ public class BootstrapRenderer {
   }
 
 
-  protected String calculateErrorClass() {
+  protected String calculateErrorClass(ProducerInfos pi) {
     ValidationResult vr = pi.getElementResult().getValidationResult();
     String errorClass = "";
     if (vr.isSuccess()) {
@@ -63,13 +74,13 @@ public class BootstrapRenderer {
     return errorClass;
   }
 
-  protected String generateLabel() {
+  protected String generateLabel(ProducerInfos pi, OneFieldDecoration decoration) {
     String labelStr =
         "<label for=\"" + pi.getNameOfInput() + "\">" + decoration.getLabel() + ":</label>";
     return labelStr;
   }
 
-  protected String generatePlaceholder() {
+  protected String generatePlaceholder(OneFieldDecoration decoration) {
     String placeholder = "";
     if (decoration.getPlaceholder() != OneFieldDecoration.EMPTY) {
       placeholder = " placeholder=\"" + decoration.getPlaceholder() + "\"";
@@ -78,13 +89,13 @@ public class BootstrapRenderer {
   }
 
 
-  protected boolean isHelpDesired() {
+  protected boolean isHelpDesired(OneFieldDecoration decoration) {
     return decoration.getHelptext() != OneFieldDecoration.EMPTY;
   }
 
-  protected String renderHelpText() {
+  protected String renderHelpText(ProducerInfos pi, OneFieldDecoration decoration) {
     String helpHTML;
-    if (isHelpDesired()) {
+    if (isHelpDesired(decoration)) {
       helpHTML = "<span id=\"helpBlock-" + pi.getNameOfInput() + "\" class=\"help-block\">"
           + decoration.getHelptext() + "</span>";
     } else {
@@ -93,9 +104,9 @@ public class BootstrapRenderer {
     return helpHTML;
   }
 
-  protected String renderAriaDescribedBy() {
+  protected String renderAriaDescribedBy(ProducerInfos pi, OneFieldDecoration decoration) {
     String aria;
-    if (this.isHelpDesired()) {
+    if (this.isHelpDesired(decoration)) {
       aria = " aria-describedby=\"helpBlock-" + pi.getNameOfInput() + "\"";
     } else {
       aria = "";
@@ -103,7 +114,7 @@ public class BootstrapRenderer {
     return aria;
   }
 
-  protected String renderValue() {
+  protected String renderValue(ProducerInfos pi) {
     String val = pi.getElementResult().getValue();
     if (val != null && val.length() > 0) {
       val = "=\"" + Escape.html(val) + "\"";
@@ -111,7 +122,7 @@ public class BootstrapRenderer {
     return val;
   }
 
-  protected String renderErrorMessage() {
+  protected String renderErrorMessage(ProducerInfos pi) {
     ValidationResult vr = pi.getElementResult().getValidationResult();
     String errorMessage = "";
     if (vr.isError()) {

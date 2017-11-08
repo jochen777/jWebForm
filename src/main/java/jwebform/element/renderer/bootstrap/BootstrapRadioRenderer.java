@@ -16,9 +16,9 @@ public class BootstrapRadioRenderer implements HTMLProducer {
         ((RadioType) pi.getElementResult().getSource()).oneValueElement.decoration;
     List<RadioInputEntry> entries = ((RadioType) pi.getElementResult().getSource()).entries;
 
-    BootstrapRenderer renderer = new BootstrapRenderer(pi, decoration);
+    ElementRenderer renderer = new BootstrapRenderer();
 
-    return renderer.renderInputFree(renderInputs(pi, entries));
+    return renderer.renderInputFree(renderInputs(pi, entries), pi, decoration);
   }
 
   private String renderInputs(ProducerInfos pi, List<RadioInputEntry> entries) {

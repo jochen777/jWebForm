@@ -12,16 +12,16 @@ public class BootstrapCheckboxRenderer implements HTMLProducer {
     OneFieldDecoration decoration = ((CheckBoxType) pi.getElementResult().getSource()).decoration;
     boolean checked = (Boolean) pi.getElementResult().getValueObject();
 
-    BootstrapRenderer renderer = new BootstrapRenderer(pi, decoration);
+    BootstrapRenderer renderer = new BootstrapRenderer();
 
-    String aria = renderer.renderAriaDescribedBy();
+    String aria = renderer.renderAriaDescribedBy(pi, decoration);
 
-    String val = renderer.renderValue();
+    String val = renderer.renderValue(pi);
     String inputHtml = "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"checkbox\" name=\""
         + pi.getNameOfInput() + "\" value" + val + (checked ? " checked" : "") + aria + ">";
 
 
-    return renderer.renderInputFree(inputHtml);
+    return renderer.renderInputFree(inputHtml, pi, decoration);
   }
 
 }

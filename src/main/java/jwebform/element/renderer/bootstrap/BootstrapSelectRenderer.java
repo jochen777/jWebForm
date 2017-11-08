@@ -16,9 +16,9 @@ public class BootstrapSelectRenderer implements HTMLProducer {
         ((SelectType) pi.getElementResult().getSource()).oneValueElement.decoration;
     List<SelectInputEntry> entries = ((SelectType) pi.getElementResult().getSource()).entries;
 
-    BootstrapRenderer renderer = new BootstrapRenderer(pi, decoration);
+    ElementRenderer renderer = new BootstrapRenderer();
     return renderer.renderInputComplex("select",
-        buildEntries(pi.getElementResult().getValue(), entries));
+        buildEntries(pi.getElementResult().getValue(), entries), pi, decoration);
   }
 
   private String buildEntries(String value, List<SelectInputEntry> entries2) {

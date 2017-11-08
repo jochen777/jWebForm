@@ -8,10 +8,10 @@ public class BootstrapNumberRenderer implements HTMLProducer {
 
   @Override
   public String getHTML(ProducerInfos pi) {
-    BootstrapRenderer renderer = new BootstrapRenderer(pi,
-        ((NumberType) pi.getElementResult().getSource()).oneValueElement.decoration);
+    ElementRenderer renderer = new BootstrapRenderer();
 
-    return renderer.renderInput("number");
+    return renderer.renderInput("number", pi,
+        ((NumberType) pi.getElementResult().getSource()).oneValueElement.decoration);
   }
 
 }

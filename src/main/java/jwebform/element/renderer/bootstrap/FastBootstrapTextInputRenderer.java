@@ -9,10 +9,10 @@ public class FastBootstrapTextInputRenderer implements HTMLProducer {
   @Override
   public String getHTML(ProducerInfos pi) {
 
-    BootstrapRenderer renderer = new BootstrapRenderer(pi,
-        ((TextType) pi.getElementResult().getSource()).oneValueElement.decoration);
+    ElementRenderer renderer = new BootstrapRenderer();
 
-    return renderer.renderInput("text");
+    return renderer.renderInput("text", pi,
+        ((TextType) pi.getElementResult().getSource()).oneValueElement.decoration);
   }
 
 }
