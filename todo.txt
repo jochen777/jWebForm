@@ -82,12 +82,11 @@
  
  
 
-* drop konzept of Theme.KEY entirely? 
  * Behaviours (decorations to input-tag, decorations to label, decorations to help, decorations to error, decorations to all around)
  * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor> 
+ * In form and in Formresult: do we need Map<Element, ElementResult>? Or can we live with a List<ElementResult>?
  
    select with groups
- * In form and in Formresult: do we need Map<Element, ElementResult>? Or can we live with a List<ElementResult>?
  * check, ob security-violations drin sind
  * introduce more protected
  * date-select with dropdowns
@@ -104,6 +103,7 @@
  * align 1:1 output with formchecker
  * google captcha in core with lamdas for json serialisierung/desserialsierung
  * mehr themes einführen (twocolumn, material)
+* drop konzept of Theme.KEY entirely? 
  
  * start with renderers (translation!)
  * implement a template, that renders the form

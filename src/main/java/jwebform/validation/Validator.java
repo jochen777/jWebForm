@@ -21,9 +21,7 @@ public class Validator {
 
   public ValidationResult validate(String value) { // RFE: Better just
                                                    // object??
-    ValidationResult vr = ValidationResult.ok();
-    vr = allCriteriaSatisfied(value);
-    return vr;
+    return allCriteriaSatisfied(value);
   }
 
   // RFE: Maybe return here an array? So we can have more than one
