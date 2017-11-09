@@ -30,7 +30,6 @@ public class TextDateType implements Element {
 
   final private String name;
 
-  final private Validator validator;
 
   final private LocalDate initialValue;
   final public OneFieldDecoration decoration;
@@ -39,21 +38,18 @@ public class TextDateType implements Element {
   final private TextType month;
   final private TextType year;
 
-  public TextDateType(String name, OneFieldDecoration decoration, LocalDate initialValue,
-      Validator validator) {
+  public TextDateType(String name, OneFieldDecoration decoration, LocalDate initialValue) {
     this.name = name;
-    this.validator = validator;
     this.initialValue = initialValue;
     this.decoration = decoration;
 
-    Validator numberValidator = new Validator(Criteria.number());
 
     this.day = new TextType(name + "_day", new OneFieldDecoration("Day"),
-        String.valueOf(initialValue.getDayOfMonth()), numberValidator);
+        String.valueOf(initialValue.getDayOfMonth())); // TODO: , numberValidator
     this.month = new TextType(name + "_month", new OneFieldDecoration("Month"),
-        String.valueOf(initialValue.getMonthValue()), numberValidator);
+        String.valueOf(initialValue.getMonthValue()));
     this.year = new TextType(name + "_year", new OneFieldDecoration("Year"),
-        String.valueOf(initialValue.getYear()), numberValidator);
+        String.valueOf(initialValue.getYear()));
 
   }
 
@@ -63,6 +59,16 @@ public class TextDateType implements Element {
     ElementResult dayResult = day.apply(env);
     ElementResult monthResult = month.apply(env);
     ElementResult yearResult = year.apply(env);
+
+    if (env.isSubmitted()) {
+      Validator numberValidator = new Validator(Criteria.number());
+      dayResult =
+          dayResult.cloneWithNewValidationResult(numberValidator.validate(dayResult.getValue()));
+      monthResult = monthResult
+          .cloneWithNewValidationResult(numberValidator.validate(monthResult.getValue()));
+      yearResult =
+          yearResult.cloneWithNewValidationResult(numberValidator.validate(yearResult.getValue()));
+    }
 
     List<ElementResult> childs = new ArrayList<>();
     childs.add(dayResult);
@@ -76,13 +82,13 @@ public class TextDateType implements Element {
       dateValue = this.setupValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
           yearResult.getValue());
       dateValStr = dateValue.format(DateTimeFormatter.ISO_DATE);
-      validationResult = validator.validate(dateValStr);
+      // TODO: validationResult = validator.validate(dateValStr);
     } catch (DateTimeException | NumberFormatException e) {
       validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
     }
 
-    ElementResult result = new ElementResult(validationResult, dateValStr,
-        new StaticElementInfo(name, getDefault(), 3, KEY), childs, this, dateValue);
+    ElementResult result = new ElementResult(ValidationResult.undefined() /** TODO */
+        , dateValStr, new StaticElementInfo(name, getDefault(), 3, KEY), childs, this, dateValue);
 
     return result;
   }

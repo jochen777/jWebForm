@@ -95,6 +95,16 @@ public class Form {
     Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
     for (ElementContainer element : elements) {
       ElementResult result = element.element.apply(envWithSubmitInfo);
+      if (envWithSubmitInfo.isSubmitted()) {
+        if (element.validator != null) {
+          result = result.ofValidationResult(element.validator.validate(result.getValue()));
+        } else {
+          result = result.ofValidationResult(ValidationResult.ok());
+        }
+      } else {
+        // do nothing
+      }
+
       elementResults.put(element.element, result);
     }
     return elementResults;

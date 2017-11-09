@@ -84,6 +84,13 @@ public class ElementResult {
     return new ElementResult(newValidationResult, value, staticElementInfo, childs, source);
   }
 
+  ///// end constructors
+
+  public ElementResult ofValidationResult(ValidationResult vr) {
+    return new ElementResult(vr, value, staticElementInfo, childs, source, valueObject);
+  }
+
+
   public ValidationResult getValidationResult() {
     return validationResult;
   }
@@ -106,6 +113,11 @@ public class ElementResult {
 
   public Object getValueObject() {
     return valueObject;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("ElementResult: %s: %s", this.source, this.value);
   }
 
 }

@@ -6,7 +6,6 @@ import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.validation.Validator;
 
 public class PasswordType implements Element {
 
@@ -14,8 +13,8 @@ public class PasswordType implements Element {
   public final OneValueElementProcessor oneValueElement;
 
 
-  public PasswordType(String name, OneFieldDecoration decoration, Validator validator) {
-    this.oneValueElement = new OneValueElementProcessor(name, decoration, "", validator);
+  public PasswordType(String name, OneFieldDecoration decoration) {
+    this.oneValueElement = new OneValueElementProcessor(name, decoration, "");
 
   }
 

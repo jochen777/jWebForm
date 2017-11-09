@@ -11,14 +11,11 @@ public class OneValueElementProcessor {
 
   final public String name;
   final public String initialValue;
-  final public Validator validator;
   final public OneFieldDecoration decoration;
 
 
-  public OneValueElementProcessor(String name, OneFieldDecoration decoration, String initialValue,
-      Validator validator) {
+  public OneValueElementProcessor(String name, OneFieldDecoration decoration, String initialValue) {
     this.name = name;
-    this.validator = validator;
     this.initialValue = initialValue;
     this.decoration = decoration;
   }
@@ -36,8 +33,9 @@ public class OneValueElementProcessor {
     if (validateInput.test(input)) {
       value = input;
     }
-    ValidationResult vr = validate(env, validator, requestVal, value);
-    return new ElementResult(vr, value, new StaticElementInfo(name, htmlProducer, 1, key), source);
+    // ValidationResult vr = validate(env, validator, requestVal, value);
+    return new ElementResult(ValidationResult.undefined(), value,
+        new StaticElementInfo(name, htmlProducer, 1, key), source);
   }
 
 

@@ -8,7 +8,6 @@ import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
-import jwebform.validation.Validator;
 
 public class CheckBoxType implements Element {
 
@@ -18,15 +17,12 @@ public class CheckBoxType implements Element {
 
   final private boolean initialValue;
 
-  final private Validator validator;
 
   final public OneFieldDecoration decoration;
 
 
-  public CheckBoxType(String name, OneFieldDecoration decoration, boolean initialValue,
-      Validator validator) {
+  public CheckBoxType(String name, OneFieldDecoration decoration, boolean initialValue) {
     this.name = name;
-    this.validator = validator;
     this.initialValue = initialValue;
     this.decoration = decoration;
   }
@@ -48,11 +44,13 @@ public class CheckBoxType implements Element {
       }
     }
     ValidationResult vr = ValidationResult.undefined();
-    if (env.isSubmitted()) {
-      vr = validator.validate(value);
-    }
-    return new ElementResult(vr, value, new StaticElementInfo(name, getDefault(checked), 1, KEY),
-        ElementResult.NOCHILDS, this, Boolean.valueOf(checked));
+    // TODO
+    // if (env.isSubmitted()) {
+    // vr = validator.validate(value);
+    // }
+    return new ElementResult(ValidationResult.undefined(), value,
+        new StaticElementInfo(name, getDefault(checked), 1, KEY), ElementResult.NOCHILDS, this,
+        Boolean.valueOf(checked));
   }
 
 

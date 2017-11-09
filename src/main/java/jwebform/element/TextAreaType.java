@@ -8,7 +8,6 @@ import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.validation.Validator;
 
 public class TextAreaType implements Element {
 
@@ -16,9 +15,8 @@ public class TextAreaType implements Element {
 
   public final OneValueElementProcessor oneValueElement;
 
-  public TextAreaType(String name, OneFieldDecoration decoration, String initialValue,
-      Validator validator) {
-    oneValueElement = new OneValueElementProcessor(name, decoration, initialValue, validator);
+  public TextAreaType(String name, OneFieldDecoration decoration, String initialValue) {
+    oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
   }
 
   @Override

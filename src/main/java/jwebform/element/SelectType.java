@@ -9,7 +9,6 @@ import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.validation.Validator;
 
 public class SelectType implements Element {
 
@@ -21,9 +20,9 @@ public class SelectType implements Element {
 
 
   // RFE: Add groups too!
-  public SelectType(String name, OneFieldDecoration decoration, String initialValue,
-      Validator validator, String keys[], String values[]) {
-    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue, validator);
+  public SelectType(String name, OneFieldDecoration decoration, String initialValue, String keys[],
+      String values[]) {
+    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
     entries = generateEntriesFromKeyValues(keys, values);
   }
 

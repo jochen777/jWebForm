@@ -14,8 +14,17 @@ public class ElementContainer {
     this.behaviour = behaviour;
   }
 
+  public ElementContainer(Element element, Validator validator) {
+    this(element, validator, null);
+  }
+
   public ElementContainer(Element element) {
     this(element, null, null); // RFE: Do we need nulls, can we work with statics?!?
+  }
+
+  @Override
+  public String toString() {
+    return String.format("ElementContainer: %s - %s - %s", element, validator, behaviour);
   }
 
 }

@@ -6,16 +6,14 @@ import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.validation.Validator;
 
 public final class TextType implements Element {
 
   public final static String KEY = "jwebform.element.TextInput";
   final public OneValueElementProcessor oneValueElement;
 
-  public TextType(String name, OneFieldDecoration decoration, String initialValue,
-      Validator validator) {
-    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue, validator);
+  public TextType(String name, OneFieldDecoration decoration, String initialValue) {
+    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
   }
 
   @Override

@@ -10,7 +10,6 @@ import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.validation.Validator;
 
 public class RadioType implements Element {
 
@@ -22,9 +21,9 @@ public class RadioType implements Element {
 
 
   // RFE: Add groups too!
-  public RadioType(String name, OneFieldDecoration decoration, String initialValue,
-      Validator validator, String keys[], String values[]) {
-    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue, validator);
+  public RadioType(String name, OneFieldDecoration decoration, String initialValue, String keys[],
+      String values[]) {
+    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
     entries = generateEntriesFromKeyValues(keys, values);
   }
 

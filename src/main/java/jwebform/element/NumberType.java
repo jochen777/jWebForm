@@ -8,7 +8,6 @@ import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
-import jwebform.validation.Validator;
 
 public class NumberType implements Element {
 
@@ -18,10 +17,9 @@ public class NumberType implements Element {
 
   public final OneValueElementProcessor oneValueElement;
 
-  public NumberType(String name, OneFieldDecoration decoration, int initialValue,
-      Validator validator) {
+  public NumberType(String name, OneFieldDecoration decoration, int initialValue) {
     this.oneValueElement =
-        new OneValueElementProcessor(name, decoration, Integer.toString(initialValue), validator);
+        new OneValueElementProcessor(name, decoration, Integer.toString(initialValue));
     initialNumber = initialValue;
   }
 
@@ -39,8 +37,9 @@ public class NumberType implements Element {
       parsedNumber = 0;
       parsedNumberVal = "";
     }
-    ValidationResult vr = oneValueElement.validate(env, oneValueElement.validator, requestVal, val);
-    ElementResult result = new ElementResult(vr, parsedNumberVal,
+    // ValidationResult vr = oneValueElement.validate(env, oneValueElement.validator, requestVal,
+    // val);
+    ElementResult result = new ElementResult(ValidationResult.undefined(), parsedNumberVal,
         new StaticElementInfo(oneValueElement.name, getDefault(), 1, KEY), ElementResult.NOCHILDS,
         this, parsedNumber);
     return result;
