@@ -21,15 +21,15 @@ public class ElementResult {
   public static final String NO_NAME = "";
   public static final List<ElementResult> NOCHILDS = new ArrayList<>();
 
-  public static final Element NO_SOURCE = t -> new ElementResult(null, null, null, null, null); // TODO:
-                                                                                                // Clean
-                                                                                                // this
+  public static final Element NO_SOURCE = t -> new ElementResult(null, null); // TODO:
+                                                                              // Clean
+                                                                              // this
 
   // RFE: Builder, der checkt, ob Themable element übergeben wird. wenn ja,
   // muss kein producer angegeben werden. ansonsten ist nur name mandatory
 
   // complete
-  public ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
+  private ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
       List<ElementResult> childs, Element source, Object valueObject) {
     this.validationResult = vr;
     this.value = value;
@@ -38,6 +38,18 @@ public class ElementResult {
     this.staticElementInfo = staticElementInfo;
     this.valueObject = valueObject;
   }
+
+  // complete
+  public ElementResult(String value, StaticElementInfo staticElementInfo,
+      List<ElementResult> childs, Element source, Object valueObject) {
+    this.validationResult = ValidationResult.undefined();
+    this.value = value;
+    this.source = source;
+    this.childs = childs;
+    this.staticElementInfo = staticElementInfo;
+    this.valueObject = valueObject;
+  }
+
 
   public ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
       List<ElementResult> childs, Element source) {
@@ -75,13 +87,13 @@ public class ElementResult {
 
 
   // completeWithout Childs
-  public ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
-      Element source) {
-    this(vr, value, staticElementInfo, NOCHILDS, source);
+  public ElementResult(String value, StaticElementInfo staticElementInfo, Element source) {
+    this(ValidationResult.undefined(), value, staticElementInfo, NOCHILDS, source);
   }
 
   public ElementResult cloneWithNewValidationResult(ValidationResult newValidationResult) {
-    return new ElementResult(newValidationResult, value, staticElementInfo, childs, source);
+    return new ElementResult(newValidationResult, value, staticElementInfo, childs, source,
+        valueObject);
   }
 
   ///// end constructors

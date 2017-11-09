@@ -76,20 +76,25 @@ public class TextDateType implements Element {
     childs.add(yearResult);
 
     LocalDate dateValue = initialValue;
-    ValidationResult validationResult = ValidationResult.ok();
+    ValidationResult validationResult = ValidationResult.undefined();
     String dateValStr = "";
-    try {
-      dateValue = this.setupValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
-          yearResult.getValue());
-      dateValStr = dateValue.format(DateTimeFormatter.ISO_DATE);
-      // TODO: validationResult = validator.validate(dateValStr);
-    } catch (DateTimeException | NumberFormatException e) {
-      validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
+    if (env.isSubmitted()) {
+      try {
+        dateValue = this.setupValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
+            yearResult.getValue());
+        dateValStr = dateValue.format(DateTimeFormatter.ISO_DATE);
+        // TODO: validationResult = validator.validate(dateValStr);
+      } catch (DateTimeException | NumberFormatException e) {
+        validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
+      }
     }
 
-    ElementResult result = new ElementResult(ValidationResult.undefined() /** TODO */
-        , dateValStr, new StaticElementInfo(name, getDefault(), 3, KEY), childs, this, dateValue);
+    ElementResult result = new ElementResult(dateValStr,
+        new StaticElementInfo(name, getDefault(), 3, KEY), childs, this, dateValue);
 
+    if (validationResult != ValidationResult.undefined()) {
+      return result.cloneWithNewValidationResult(validationResult);
+    }
     return result;
   }
 

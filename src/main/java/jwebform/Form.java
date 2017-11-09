@@ -96,10 +96,16 @@ public class Form {
     for (ElementContainer element : elements) {
       ElementResult result = element.element.apply(envWithSubmitInfo);
       if (envWithSubmitInfo.isSubmitted()) {
-        if (element.validator != null) {
-          result = result.ofValidationResult(element.validator.validate(result.getValue()));
+        if (result.getValidationResult() != ValidationResult.undefined()) {
+          // element has set the validation itself. This might happen in complex elements. And will
+          // override the following validation
+          // --- do nothing
         } else {
-          result = result.ofValidationResult(ValidationResult.ok());
+          if (element.validator != null) {
+            result = result.ofValidationResult(element.validator.validate(result.getValue()));
+          } else {
+            result = result.ofValidationResult(ValidationResult.ok());
+          }
         }
       } else {
         // do nothing

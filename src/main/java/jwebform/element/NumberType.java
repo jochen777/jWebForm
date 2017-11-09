@@ -7,7 +7,6 @@ import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.validation.ValidationResult;
 
 public class NumberType implements Element {
 
@@ -35,11 +34,12 @@ public class NumberType implements Element {
       parsedNumberVal = Integer.toString(parsedNumber);
     } catch (NumberFormatException e) {
       parsedNumber = 0;
+      // maybe better set a validaion problem here!
       parsedNumberVal = "";
     }
     // ValidationResult vr = oneValueElement.validate(env, oneValueElement.validator, requestVal,
     // val);
-    ElementResult result = new ElementResult(ValidationResult.undefined(), parsedNumberVal,
+    ElementResult result = new ElementResult(parsedNumberVal,
         new StaticElementInfo(oneValueElement.name, getDefault(), 1, KEY), ElementResult.NOCHILDS,
         this, parsedNumber);
     return result;

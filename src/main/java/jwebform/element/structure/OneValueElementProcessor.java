@@ -34,8 +34,7 @@ public class OneValueElementProcessor {
       value = input;
     }
     // ValidationResult vr = validate(env, validator, requestVal, value);
-    return new ElementResult(ValidationResult.undefined(), value,
-        new StaticElementInfo(name, htmlProducer, 1, key), source);
+    return new ElementResult(value, new StaticElementInfo(name, htmlProducer, 1, key), source);
   }
 
 

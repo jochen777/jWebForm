@@ -8,3 +8,7 @@ Api-Feedback: Gute Beispiele, gutes Buch?
 * Wie kann ich die vielen instanceof verhindern?
 * Logging ohne dependency?
 * soll sich das Element selbst zeichnen können - oder soll das lieber ein "Renderer" übernehmen?
+
+* soll sich das element selbt validieren, oder soll das dem "framework" überlassen werden?
+-> Also z.B. new Textfield("name", "Beschreibung", Criteria.required())
+     vs new ElementContainer(new Textfield("name", "Beschreibung"), Criteria.required());
