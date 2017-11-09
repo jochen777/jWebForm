@@ -29,9 +29,10 @@ import jwebform.element.TextType;
 import jwebform.element.UploadType;
 import jwebform.element.XSRFProtectionType;
 import jwebform.element.renderer.bootstrap.BootstrapTheme;
-import jwebform.element.structure.Element;
+import jwebform.element.structure.Behaviour;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Wrapper;
 import jwebform.env.Env;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -123,10 +124,17 @@ public class SampleUsage {
     XSRFProtectionType protection = new XSRFProtectionType(true); // no random values, so we can
                                                                   // expect
     // constant html
+    Behaviour testBe = new Behaviour() {
 
-    ElementContainer textInput =
-        new TextType("textInput", new OneFieldDecoration("TextInputLabel"), "Peter\"Paul")
-            .of(new Validator(Criteria.required()));
+      @Override
+      public Wrapper getAllAround() {
+        return new Wrapper("BEFORE", "AFTER\n");
+      }
+    };
+
+    ElementContainer textInput = new ElementContainer(
+        new TextType("textInput", new OneFieldDecoration("TextInputLabel"), "Peter\"Paul"),
+        new Validator(Criteria.required()), testBe);
 
     TextDateType date = new TextDateType("dateInput",
         new OneFieldDecoration("Please insert date", "datehelptext"), LocalDate.of(2017, 7, 4));
@@ -169,10 +177,10 @@ public class SampleUsage {
     public Form buildForm() {
       List<FormValidator> formValidators = new ArrayList<>();
       formValidators.add(it -> {
-        final Map<Element, ValidationResult> overridenValidationResults = new HashMap<>();
-        String valueOfTextInput = it.get(textInput.element).getValue();
+        final Map<ElementContainer, ValidationResult> overridenValidationResults = new HashMap<>();
+        String valueOfTextInput = it.get(textInput).getValue();
         if (valueOfTextInput.length() > 3) {
-          overridenValidationResults.put(textInput.element, ValidationResult.fail("not_ok"));
+          overridenValidationResults.put(textInput, ValidationResult.fail("not_ok"));
         }
         return overridenValidationResults;
       });

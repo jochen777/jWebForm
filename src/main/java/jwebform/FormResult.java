@@ -1,16 +1,17 @@
 package jwebform;
 
 import java.util.Map;
-import jwebform.element.structure.Element;
+
+import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 
 public class FormResult {
 
   private final String formId;
-  private final Map<Element, ElementResult> elementResults;
+  private final Map<ElementContainer, ElementResult> elementResults;
   private final boolean formIsValid;
 
-  public FormResult(String formId, Map<Element, ElementResult> elementResults,
+  public FormResult(String formId, Map<ElementContainer, ElementResult> elementResults,
       boolean formIsValid) {
     this.formId = formId;
     this.formIsValid = formIsValid;
@@ -25,7 +26,7 @@ public class FormResult {
     return new View(formId, elementResults);
   }
 
-  public Map<Element, ElementResult> getElementResults() {
+  public Map<ElementContainer, ElementResult> getElementResults() {
     return elementResults;
   }
 

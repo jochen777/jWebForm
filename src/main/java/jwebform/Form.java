@@ -67,19 +67,21 @@ public class Form {
 
   public FormResult run(Env env, boolean debug) {
     // validate form
-    Map<Element, ElementResult> elementResults = processElements(env.getEnvWithSumitInfo(id));
+    Map<ElementContainer, ElementResult> elementResults =
+        processElements(env.getEnvWithSumitInfo(id));
     if (debug) {
       checkDoubleElements(elementResults);
     }
-    Map<Element, ValidationResult> overridenValidationResults = runFormValidations(elementResults);
-    Map<Element, ElementResult> correctedElementResults =
+    Map<ElementContainer, ValidationResult> overridenValidationResults =
+        runFormValidations(elementResults);
+    Map<ElementContainer, ElementResult> correctedElementResults =
         correctElementResults(elementResults, overridenValidationResults);
     boolean formIsValid = checkAllValidationResults(correctedElementResults);
 
     return new FormResult(this.getId(), correctedElementResults, formIsValid);
   }
 
-  private void checkDoubleElements(Map<Element, ElementResult> results) {
+  private void checkDoubleElements(Map<ElementContainer, ElementResult> results) {
     Set<String> availElements = new HashSet<>();
     results.forEach((k, v) -> {
       // empty names are skipped
@@ -90,9 +92,10 @@ public class Form {
     });
   }
 
-  private Map<Element, ElementResult> processElements(EnvWithSubmitInfo envWithSubmitInfo) {
+  private Map<ElementContainer, ElementResult> processElements(
+      EnvWithSubmitInfo envWithSubmitInfo) {
     // check each element
-    Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
+    Map<ElementContainer, ElementResult> elementResults = new LinkedHashMap<>();
     for (ElementContainer element : elements) {
       ElementResult result = element.element.apply(envWithSubmitInfo);
       if (envWithSubmitInfo.isSubmitted()) {
@@ -111,24 +114,24 @@ public class Form {
         // do nothing
       }
 
-      elementResults.put(element.element, result);
+      elementResults.put(element, result);
     }
     return elementResults;
   }
 
-  private Map<Element, ValidationResult> runFormValidations(
-      Map<Element, ElementResult> elementResults) {
+  private Map<ElementContainer, ValidationResult> runFormValidations(
+      Map<ElementContainer, ElementResult> elementResults) {
     // run the form-validators
-    Map<Element, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
+    Map<ElementContainer, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
     for (FormValidator formValidator : formValidators) {
       overridenValidationResults.putAll(formValidator.validate(elementResults));
     }
     return overridenValidationResults;
   }
 
-  private Map<Element, ElementResult> correctElementResults(
-      Map<Element, ElementResult> elementResults,
-      Map<Element, ValidationResult> overridenValidationResults) {
+  private Map<ElementContainer, ElementResult> correctElementResults(
+      Map<ElementContainer, ElementResult> elementResults,
+      Map<ElementContainer, ValidationResult> overridenValidationResults) {
     overridenValidationResults.forEach((element, overridenValidationResult) -> {
       ElementResult re = elementResults.get(element);
       elementResults.put(element, re.cloneWithNewValidationResult(overridenValidationResult));
@@ -136,9 +139,10 @@ public class Form {
     return elementResults;
   }
 
-  private boolean checkAllValidationResults(Map<Element, ElementResult> correctedElementResults) {
+  private boolean checkAllValidationResults(
+      Map<ElementContainer, ElementResult> correctedElementResults) {
     boolean formIsValid = true;
-    for (Map.Entry<Element, ElementResult> entry : correctedElementResults.entrySet()) {
+    for (Map.Entry<ElementContainer, ElementResult> entry : correctedElementResults.entrySet()) {
       if (entry.getValue().getValidationResult() != ValidationResult.ok()) {
         formIsValid = false;
         break;
