@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import jwebform.element.structure.Element;
+import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 import jwebform.env.Env.EnvWithSubmitInfo;
@@ -19,27 +20,45 @@ import jwebform.validation.ValidationResult;
 // Represents a form
 public class Form {
 
-  private final List<Element> elements;
+  // RFE: maybe keep List<Element> for performance reasons, if we don't have any
+  // behaviours/validation
+  private final List<ElementContainer> elements;
   private final String id;
   private final List<FormValidator> formValidators;
 
-  public Form(String id, List<Element> elements) {
+  public Form(String id, List<ElementContainer> elements) {
     this(id, elements, new ArrayList<>());
   }
 
-  public Form(String id, List<Element> elements, List<FormValidator> formValidators) {
+  public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators) {
     this.elements = elements;
     this.id = id;
     this.formValidators = formValidators;
   }
 
-  public Form(String id, Element... elements) {
+  public Form(String id, ElementContainer... elements) {
     this(id, new ArrayList<>(), elements);
   }
 
+  public Form(String id, Element... elements) {
+    this(id, packElementsInContainer(elements), new ArrayList<>());
+  }
+
+
+  public Form(String id, List<FormValidator> formValidators, ElementContainer... elements) {
+    this(id, Arrays.asList(elements), formValidators);
+  }
 
   public Form(String id, List<FormValidator> formValidators, Element... elements) {
-    this(id, Arrays.asList(elements), formValidators);
+    this(id, packElementsInContainer(elements), formValidators);
+  }
+
+  private static List<ElementContainer> packElementsInContainer(Element... elements) {
+    List<ElementContainer> ec = new ArrayList<>();
+    for (int i = 0; i < elements.length; i++) {
+      ec.add(new ElementContainer(elements[i]));
+    }
+    return ec;
   }
 
   public FormResult run(Env env) {
@@ -74,9 +93,9 @@ public class Form {
   private Map<Element, ElementResult> processElements(EnvWithSubmitInfo envWithSubmitInfo) {
     // check each element
     Map<Element, ElementResult> elementResults = new LinkedHashMap<>();
-    for (Element element : elements) {
-      ElementResult result = element.apply(envWithSubmitInfo);
-      elementResults.put(element, result);
+    for (ElementContainer element : elements) {
+      ElementResult result = element.element.apply(envWithSubmitInfo);
+      elementResults.put(element.element, result);
     }
     return elementResults;
   }
@@ -112,7 +131,7 @@ public class Form {
     return formIsValid;
   }
 
-  List<Element> getElements() {
+  List<ElementContainer> getElements() {
     return elements;
   }
 
