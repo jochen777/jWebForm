@@ -5,16 +5,23 @@ public class ProducerInfos {
   private final String formId;
   private final int tabIndex;
   private final Theme theme;
+  private final Behaviour behaviour;
 
   private final ElementResult elementResult;
 
-  public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult) {
+  public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult, Behaviour behaviour) {
     this.formId = formId;
     this.tabIndex = tabIndex;
     this.theme = theme;
     this.elementResult = elementResult;
+    this.behaviour = behaviour;
   }
 
+  public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult) {
+    this(formId, tabIndex, theme, elementResult, null);    // RFE: Fix null
+  }
+
+  
   public String getHtml() {
     HTMLProducer producer = elementResult.getStaticElementInfo().getHtmlProducer();
     if (theme.getHtmlProducer().containsKey(elementResult.getStaticElementInfo().getRenderKey())) {
@@ -42,5 +49,9 @@ public class ProducerInfos {
 
   public String getNameOfInput() {
     return elementResult.getStaticElementInfo().getName();
+  }
+
+  public Behaviour getBehaviour() {
+    return behaviour;
   }
 }

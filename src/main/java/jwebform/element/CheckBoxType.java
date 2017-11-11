@@ -42,10 +42,6 @@ public class CheckBoxType implements Element {
         checked = false;
       }
     }
-    // TODO
-    // if (env.isSubmitted()) {
-    // vr = validator.validate(value);
-    // }
     return new ElementResult(value, new StaticElementInfo(name, getDefault(checked), 1, KEY),
         ElementResult.NOCHILDS, this, Boolean.valueOf(checked));
   }

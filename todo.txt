@@ -72,6 +72,8 @@
 * better abstraction in ThemeRenderer (OK)
 * nur noch ein renderer für default. -> Theme bekommt den StandardRenderer als Hilfe. (OK)
 * ElementRenderer noch einfacher machen und Bootstrap davon ableiten. -> Nein. Bootstrap IST default. OK
+-> perhaps we should add an elementContainer to the form. The container holds the element, the behaviour and the validation (OK)
+ * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor> (OK) 
  #############################
  
  
@@ -79,13 +81,16 @@
  
  
  
--> perhaps we should add an elementContainer to the form. The container holds the element, the behaviour and the validation
- * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor> 
  
 
  * Behaviours (decorations to input-tag, decorations to label, decorations to help, decorations to error, decorations to all around)
  -> Behaviour could solve: "*" on required fields, painting red errors, max-len. 
  -> behaviour should be field individual, type-individual or glogal. (Welche Reihenfolge wird angewendet??)
+ * Behaviour muss auf alle Daten und allen input zugreifen können und beim rendering eingreifen können
+ 
+ 
+ 
+ 
  * In form and in Formresult: do we need Map<Element, ElementResult>? Or can we live with a List<ElementResult>?
  
    select with groups

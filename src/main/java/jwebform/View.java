@@ -43,11 +43,11 @@ public class View {
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ElementContainer container = entry.getKey();
-      pi = new ProducerInfos(formId, tabIndex, theme, elementResult);
+      pi = new ProducerInfos(formId, tabIndex, theme, elementResult, container.behaviour);
       String renderedHtml = pi.getHtml();
-      if (container.behaviour != null) {
-        renderedHtml = container.behaviour.getAllAround().wrap(renderedHtml);
-      }
+//      if (container.behaviour != null) {
+//        renderedHtml = container.behaviour.getAllAround().wrap(renderedHtml);
+//      }
       html.append(renderedHtml);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }

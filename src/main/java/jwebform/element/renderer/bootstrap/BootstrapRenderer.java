@@ -5,6 +5,7 @@ import com.coverity.security.Escape;
 import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
+import jwebform.element.structure.Wrapper;
 import jwebform.validation.ValidationResult;
 
 // Renderer for bootstrap for common elements
@@ -68,8 +69,14 @@ public class BootstrapRenderer implements ElementRenderer {
     String helpHTML = renderHelpText(pi, decoration);
 
     StringBuffer buf = new StringBuffer("<div class=\"form-group");
-    return buf.append(errorClass).append("\">").append(errorMessage).append(labelStr).append(free)
+    
+    String input = buf.append(errorClass).append("\">").append(errorMessage).append(labelStr).append(free)
         .append(helpHTML).append("</div>\n").toString();
+    
+    if (pi.getBehaviour() != null) {
+      return pi.getBehaviour().getAllAround().wrap(input);
+    }
+    return input;
 
   }
 
