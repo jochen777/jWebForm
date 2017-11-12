@@ -98,7 +98,7 @@
  * Behaviour muss auf alle Daten und allen input zugreifen können und beim rendering eingreifen können
  * Behaviour braucht auch die Validations
  
- 
+ * bahaviour should be interface
  
  * In form and in Formresult: do we need Map<Element, ElementResult>? Or can we live with a List<ElementResult>?
  

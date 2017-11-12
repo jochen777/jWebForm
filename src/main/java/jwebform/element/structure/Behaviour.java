@@ -4,7 +4,9 @@ package jwebform.element.structure;
 // TODO: Change this to interface!
 public abstract class Behaviour {
 
-  public abstract Wrapper getAllAround();
+  public Wrapper getAllAround() {
+    return Wrapper.empty();
+  }
 
   public Wrapper wrapLabel(ProducerInfos pi) {
     return Wrapper.empty();

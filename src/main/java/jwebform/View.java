@@ -23,7 +23,7 @@ public class View {
   }
 
   public String getHtml() {
-    return this.getHtml(new BootstrapTheme(), "POST", true);
+    return this.getHtml(BootstrapTheme.instance(), "POST", true);
   }
 
   public String getHtml(Theme theme) {
@@ -67,7 +67,7 @@ public class View {
   public Map<String, RenderElement> getElements() {
     Map<String, RenderElement> elements = new LinkedHashMap<>();
     int tabIndex = 1;
-    BootstrapTheme theme = new BootstrapTheme(); // RFE: Maybe better empty theme here!
+    BootstrapTheme theme = BootstrapTheme.instance(); // RFE: Maybe better empty theme here!
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ProducerInfos pi = new ProducerInfos(formId, tabIndex, theme, elementResult);

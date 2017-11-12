@@ -114,9 +114,9 @@ public class SampleUsage {
     Form f = formBuilder.buildForm();
     FormResult result = f.run(env);
     String filecontent = this.template.loadAndProcessTempalte(templateName);
-    assertEquals(filecontent.trim(), result.getView().getHtml(new BootstrapTheme()).trim());
+    assertEquals(filecontent.trim(), result.getView().getHtml(BootstrapTheme.instance()).trim());
     // System.err.println("Date: " + formBuilder.getDateValue(result));
-    return result.isOk();
+    return result.isOk(); 
   }
 
 
