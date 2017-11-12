@@ -132,15 +132,15 @@ public class SampleUsage {
         return new Wrapper("BEFORE", "AFTER\n");
       }
       
-      @Override
-      public Wrapper wrapLabel(ProducerInfos pi) {
-        if (pi.getElementContainer().validator.containsCriterion(Criteria.required())) {
-          return Wrapper.of("", " *");
-        } else {
-          return Wrapper.empty();
-        }
-      }
-      
+//      @Override
+//      public Wrapper wrapLabel(ProducerInfos pi) {
+//        if (pi.getElementContainer().validator.containsCriterion(Criteria.required())) {
+//          return Wrapper.of("", " *");
+//        } else {
+//          return Wrapper.empty();
+//        }
+//      }
+//      
       
     };
 

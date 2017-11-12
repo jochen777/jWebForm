@@ -28,7 +28,9 @@ public class BootstrapTheme implements Theme {
     globalBehaviours.add(new Behaviour() {
       @Override
       public Wrapper wrapLabel(ProducerInfos pi) {
-        if (pi.getElementContainer().validator.containsCriterion(Criteria.required())) {
+        if (pi.getElementContainer() != null && 
+            pi.getElementContainer().validator != null && 
+            pi.getElementContainer().validator.containsCriterion(Criteria.required())) {
           return Wrapper.of("", " *");
         } else {
           return Wrapper.empty();

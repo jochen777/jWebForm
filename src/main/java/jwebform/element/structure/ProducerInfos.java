@@ -1,5 +1,7 @@
 package jwebform.element.structure;
 
+import java.util.List;
+
 // Infos, that the HTMLProducer needs to render the HTML. This will be provided by the form-run
 public class ProducerInfos {
   private final String formId;
@@ -17,8 +19,17 @@ public class ProducerInfos {
     this.elementContainer = elementContainer;
   }
 
+  @Deprecated
   public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult) {
     this(formId, tabIndex, theme, elementResult, null);    // RFE: Fix null
+  }
+  
+  public List<Behaviour> getBehaviours() {
+    List<Behaviour> allBehaviours = theme.getGlobalBehaviours();
+    if (elementContainer != null && elementContainer.behaviour != null) {
+      allBehaviours.add(elementContainer.behaviour);
+    }
+    return allBehaviours;
   }
 
   

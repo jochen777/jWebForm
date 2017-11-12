@@ -1,7 +1,7 @@
 package jwebform.element.renderer.bootstrap;
 
 import com.coverity.security.Escape;
-
+import jwebform.element.structure.Behaviour;
 import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
@@ -94,9 +94,9 @@ public class BootstrapRenderer implements ElementRenderer {
 
   protected String generateLabel(ProducerInfos pi, OneFieldDecoration decoration) {
     String label = decoration.getLabel() + ":";
-    if (pi.getElementContainer() != null && pi.getElementContainer().behaviour != null) {
-      label = pi.getElementContainer().behaviour.wrapLabel(pi).wrap(label);
-    } 
+    for (Behaviour be: pi.getBehaviours()) {
+      label = be.wrapLabel(pi).wrap(label);
+    }
     return
         "<label for=\"" + pi.getNameOfInput() + "\">" + label + "</label>";
 
