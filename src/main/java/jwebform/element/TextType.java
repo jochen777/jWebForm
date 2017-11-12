@@ -18,7 +18,7 @@ public final class TextType implements Element {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResult(env, KEY, getDefault(), (t) -> true);
+    return oneValueElement.calculateElementResult(env, KEY, getDefault());
   }
 
   // very simple version!

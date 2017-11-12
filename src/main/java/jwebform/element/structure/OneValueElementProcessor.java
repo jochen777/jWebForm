@@ -20,7 +20,7 @@ public class OneValueElementProcessor {
     this.decoration = decoration;
   }
 
-  public ElementResult calculateElementResult(
+  public ElementResult calculateElementResultWithInputCheck(
       EnvWithSubmitInfo env,
       String key,
       HTMLProducer htmlProducer,
@@ -29,14 +29,23 @@ public class OneValueElementProcessor {
     String requestVal = env.getEnv().getRequest().getParameter(name);
     String value = "";
     String input = fetchValue(env, requestVal, initialValue);
-    if (validateInput.test(input)) {
+    if (validateInput == null || validateInput.test(input)) {
       value = input;
     }
     // ValidationResult vr = validate(env, validator, requestVal, value);
     return new ElementResult(value, new StaticElementInfo(name, htmlProducer, 1, key));
   }
 
+  public ElementResult calculateElementResult(
+      EnvWithSubmitInfo env,
+      String key,
+      HTMLProducer htmlProducer
+      ) {
+    return calculateElementResultWithInputCheck(env, key, htmlProducer, null);
+  }
 
+  
+  
   public ValidationResult validate(
       EnvWithSubmitInfo env,
       Validator validator,
