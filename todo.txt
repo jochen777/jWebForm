@@ -76,6 +76,10 @@
  * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor> (OK) 
 * ProducerInput soll Source und Validation und Behaviour bekommen. Also eigentlich ElementContainer (OK)
 * ElementResult braucht noch source? (OK)
+* Behaviour, dass "*" an das Label macht (OK)
+* Automatische (*) bei Required feldern. (OK)
+* globale Behaviours (OK)
+ * Behaviour braucht auch die Validations (OK)
  #############################
  
  
@@ -83,9 +87,7 @@
  
  
  
-* Behaviour, dass "*" an das Label macht
-* Automatische (*) bei Required feldern.
-* globale Behaviours
+ * bahaviour should be interface
  * Behaviour sollte immer in Listenform ankommen. Form kann auch Behaviour haben.
 
 * Wrap should work with StringBuilder
@@ -96,9 +98,10 @@
  -> Behaviour could solve: "*" on required fields, painting red errors, max-len. 
  -> behaviour should be field individual, type-individual or glogal. (Welche Reihenfolge wird angewendet??)
  * Behaviour muss auf alle Daten und allen input zugreifen können und beim rendering eingreifen können
- * Behaviour braucht auch die Validations
+ * change method if fileupload is used
+ * - maxLen (via request??)
+ * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE
  
- * bahaviour should be interface
  
  * In form and in Formresult: do we need Map<Element, ElementResult>? Or can we live with a List<ElementResult>?
  
@@ -106,15 +109,13 @@
  * check, ob security-violations drin sind
  * introduce more protected
  * date-select with dropdowns
- * change method if fileupload is used
- * - maxLen (via request??)
- * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE
  * align 1:1 output with formchecker
  * mehr themes einführen (twocolumn, material)
  * start with renderers (translation!)
  * explorable api (form.addText, form.addTextArea
- * Warning, if non element is required. (This will not make sense!)
+ * Warning, if no element is required. (This will not make sense!)
  * all criterias to singletons
+ * translations
  
 ######################## V 0.1
  
