@@ -93,10 +93,15 @@ public class BootstrapRenderer implements ElementRenderer {
   }
 
   protected String generateLabel(ProducerInfos pi, OneFieldDecoration decoration) {
-    String labelStr =
-        "<label for=\"" + pi.getNameOfInput() + "\">" + decoration.getLabel() + ":</label>";
-    return labelStr;
+    String label = decoration.getLabel() + ":";
+    if (pi.getElementContainer() != null && pi.getElementContainer().behaviour != null) {
+      label = pi.getElementContainer().behaviour.wrapLabel(pi).wrap(label);
+    } 
+    return
+        "<label for=\"" + pi.getNameOfInput() + "\">" + label + "</label>";
+
   }
+  
 
   protected String generatePlaceholder(OneFieldDecoration decoration) {
     String placeholder = "";

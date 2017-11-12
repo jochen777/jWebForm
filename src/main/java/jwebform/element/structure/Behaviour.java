@@ -6,4 +6,7 @@ public abstract class Behaviour {
 
   public abstract Wrapper getAllAround();
 
+  public Wrapper wrapLabel(ProducerInfos pi) {
+    return Wrapper.empty();
+  }
 }

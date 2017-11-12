@@ -4,6 +4,7 @@ package jwebform.element.structure;
 public class Wrapper {
 	public final String start;
 	public final String end;
+	public final static Wrapper emptyWrapper = Wrapper.of(null, null);
 
 	public static Wrapper of(String start, String end) {
 		return new Wrapper(start, end);
@@ -23,11 +24,16 @@ public class Wrapper {
 	}
 	
 	public String wrap(String content) {
-		return new StringBuffer(start).append(content).append(end).toString();
+	  if (this == emptyWrapper) {
+	    return content;
+	  }
+	  else {
+	    return new StringBuffer(start).append(content).append(end).toString();
+	  }
 	}
 
 	public static Wrapper empty() {
-		return Wrapper.of("", "");
+		return emptyWrapper; 
 	}
 	
 	public static Wrapper ofTag(String tagName) {

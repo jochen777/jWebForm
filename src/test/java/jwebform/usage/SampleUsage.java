@@ -32,6 +32,7 @@ import jwebform.element.renderer.bootstrap.BootstrapTheme;
 import jwebform.element.structure.Behaviour;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.Wrapper;
 import jwebform.env.Env;
 import jwebform.validation.FormValidator;
@@ -130,6 +131,17 @@ public class SampleUsage {
       public Wrapper getAllAround() {
         return new Wrapper("BEFORE", "AFTER\n");
       }
+      
+      @Override
+      public Wrapper wrapLabel(ProducerInfos pi) {
+        if (pi.getElementContainer().validator.containsCriterion(Criteria.required())) {
+          return Wrapper.of("", " *");
+        } else {
+          return Wrapper.empty();
+        }
+      }
+      
+      
     };
 
     ElementContainer textInput = new ElementContainer(

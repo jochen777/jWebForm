@@ -19,6 +19,15 @@ public class Validator {
     }
   }
 
+  public boolean containsCriterion(Criterion criterionToSearch) {
+    for (Criterion criterion : criteria) {
+      if (criterionToSearch == criterion){
+        return true;
+      }
+    }
+    return false;
+  }
+  
   public ValidationResult validate(String value) { // RFE: Better just
                                                    // object??
     return allCriteriaSatisfied(value);

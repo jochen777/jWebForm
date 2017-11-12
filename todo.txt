@@ -74,6 +74,8 @@
 * ElementRenderer noch einfacher machen und Bootstrap davon ableiten. -> Nein. Bootstrap IST default. OK
 -> perhaps we should add an elementContainer to the form. The container holds the element, the behaviour and the validation (OK)
  * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor> (OK) 
+* ProducerInput soll Source und Validation und Behaviour bekommen. Also eigentlich ElementContainer (OK)
+* ElementResult braucht noch source? (OK)
  #############################
  
  
@@ -81,10 +83,13 @@
  
  
  
-* ProducerInput soll Source und Validation und Behaviour bekommen. Also eigentlich ElementContainer (OK)
-* ElementResult braucht noch source? (OK)
 * Behaviour, dass "*" an das Label macht
+* Automatische (*) bei Required feldern.
+* globale Behaviours
+ * Behaviour sollte immer in Listenform ankommen. Form kann auch Behaviour haben.
 
+* Wrap should work with StringBuilder
+ 
 * Idee: es gibt behavier, dass ProducerContent ändert (filter/chain). Und es gibt behaviours, die beim Rendern einsteigen.
 
  * Behaviours (decorations to input-tag, decorations to label, decorations to help, decorations to error, decorations to all around)
@@ -92,7 +97,6 @@
  -> behaviour should be field individual, type-individual or glogal. (Welche Reihenfolge wird angewendet??)
  * Behaviour muss auf alle Daten und allen input zugreifen können und beim rendering eingreifen können
  * Behaviour braucht auch die Validations
- * Behaviour sollte immer in Listenform ankommen. Form kann auch Behaviour haben.
  
  
  
@@ -104,28 +108,32 @@
  * date-select with dropdowns
  * change method if fileupload is used
  * - maxLen (via request??)
+ * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE
+ * align 1:1 output with formchecker
+ * mehr themes einführen (twocolumn, material)
+ * start with renderers (translation!)
+ * explorable api (form.addText, form.addTextArea
+ * Warning, if non element is required. (This will not make sense!)
+ * all criterias to singletons
+ 
+######################## V 0.1
+ 
  * evtl. einen EmailType einführen? Wie ist die Browserkompatibiltät?
  * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert
- * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE
  * KomplexPassword Validator
- * Automatische (*) bei Required feldern.
  
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
- * align 1:1 output with formchecker
- * google captcha in core with lamdas for json serialisierung/desserialsierung
- * mehr themes einführen (twocolumn, material)
-* drop konzept of Theme.KEY entirely? 
  
- * start with renderers (translation!)
+ * google captcha in core with lamdas for json serialisierung/desserialsierung
+ * drop konzept of Theme.KEY entirely? 
+ 
  * implement a template, that renders the form
  
  * custom filters for request (max-len...)
  * bean-validation
  * fromBean, toBean
- * explorable api (form.addText, form.addTextArea
  * Spring integration
- * Warning, if non element is required. (This will not make sense!)
  
  
 ## Nüsse:

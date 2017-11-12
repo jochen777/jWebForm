@@ -10,8 +10,9 @@ import jwebform.validation.ValidationResult;
  */
 public final class Required implements Criterion {
 
-  Required() {}
-
+  public static Required INSTANCE = new Required();
+  private Required() {}
+  
   @Override
   public ValidationResult validate(String value) {
     if ("".equals(value.trim())) {
