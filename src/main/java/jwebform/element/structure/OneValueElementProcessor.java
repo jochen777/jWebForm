@@ -24,7 +24,6 @@ public class OneValueElementProcessor {
       EnvWithSubmitInfo env,
       String key,
       HTMLProducer htmlProducer,
-      Element source,
       Predicate<String> validateInput) {
 
     String requestVal = env.getEnv().getRequest().getParameter(name);
@@ -34,7 +33,7 @@ public class OneValueElementProcessor {
       value = input;
     }
     // ValidationResult vr = validate(env, validator, requestVal, value);
-    return new ElementResult(value, new StaticElementInfo(name, htmlProducer, 1, key), source);
+    return new ElementResult(value, new StaticElementInfo(name, htmlProducer, 1, key));
   }
 
 

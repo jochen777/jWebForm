@@ -28,7 +28,7 @@ public class SelectType implements Element {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResult(env, KEY, getDefault(), this,
+    return oneValueElement.calculateElementResult(env, KEY, getDefault(), 
         t -> ensureValueIsAllowed(t));
   }
 

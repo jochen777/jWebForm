@@ -20,10 +20,6 @@ public class ElementResult {
   public static final String NO_NAME = "";
   public static final List<ElementResult> NOCHILDS = new ArrayList<>();
 
-  public static final Element NO_SOURCE = t -> new ElementResult(null, null); // TODO:
-                                                                              // Clean
-                                                                              // this
-
   // RFE: Builder, der checkt, ob Themable element übergeben wird. wenn ja,
   // muss kein producer angegeben werden. ansonsten ist nur name mandatory
 
@@ -66,8 +62,7 @@ public class ElementResult {
 
   // simple with validation
   public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr) {
-    this(vr, EMPTY_STRING, new StaticElementInfo(name, htmlProducer, 0, EMPTY_STRING), NOCHILDS,
-        NO_SOURCE);
+    this(vr, EMPTY_STRING, new StaticElementInfo(name, htmlProducer, 0, EMPTY_STRING), NOCHILDS);
   }
 
   // simple with themable
@@ -77,15 +72,15 @@ public class ElementResult {
   }
 
   // simple with themable without name
-  public ElementResult(HTMLProducer htmlProducer, String renderkey, Element source) {
+  public ElementResult(HTMLProducer htmlProducer, String renderkey) {
     this(ValidationResult.ok(), EMPTY_STRING,
-        new StaticElementInfo(NO_NAME, htmlProducer, 1, renderkey), NOCHILDS, source);
+        new StaticElementInfo(NO_NAME, htmlProducer, 1, renderkey), NOCHILDS);
   }
 
 
   // completeWithout Childs
-  public ElementResult(String value, StaticElementInfo staticElementInfo, Element source) {
-    this(ValidationResult.undefined(), value, staticElementInfo, NOCHILDS, source);
+  public ElementResult(String value, StaticElementInfo staticElementInfo) {
+    this(ValidationResult.undefined(), value, staticElementInfo, NOCHILDS);
   }
 
   public ElementResult cloneWithNewValidationResult(ValidationResult newValidationResult) {
