@@ -73,8 +73,8 @@ public class BootstrapRenderer implements ElementRenderer {
     String input = buf.append(errorClass).append("\">").append(errorMessage).append(labelStr).append(free)
         .append(helpHTML).append("</div>\n").toString();
     
-    if (pi.getBehaviour() != null) {
-      return pi.getBehaviour().getAllAround().wrap(input);
+    if (pi.getElementContainer() != null && pi.getElementContainer().behaviour != null) {
+      return pi.getElementContainer().behaviour.getAllAround().wrap(input);
     }
     return input;
 

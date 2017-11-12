@@ -21,7 +21,7 @@ public class HiddenType implements Element {
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
     return new ElementResult(name, (pi) -> "<input type=\"hidden\" name=\"" + name + "\" value=\""
-        + Escape.html(value) + "\">\n", HiddenType.KEY, this);
+        + Escape.html(value) + "\">\n", HiddenType.KEY);
   }
 
 }

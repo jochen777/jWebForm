@@ -41,7 +41,7 @@ public class NumberType implements Element {
     // val);
     ElementResult result = new ElementResult(parsedNumberVal,
         new StaticElementInfo(oneValueElement.name, getDefault(), 1, KEY), ElementResult.NOCHILDS,
-        this, parsedNumber);
+         parsedNumber);
     return result;
   }
 

@@ -90,7 +90,7 @@ public class TextDateType implements Element {
     }
 
     ElementResult result = new ElementResult(dateValStr,
-        new StaticElementInfo(name, getDefault(), 3, KEY), childs, this, dateValue);
+        new StaticElementInfo(name, getDefault(), 3, KEY), childs, dateValue);
 
     if (validationResult != ValidationResult.undefined()) {
       return result.cloneWithNewValidationResult(validationResult);

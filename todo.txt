@@ -81,13 +81,18 @@
  
  
  
- 
+* ProducerInput soll Source und Validation und Behaviour bekommen. Also eigentlich ElementContainer (OK)
+* ElementResult braucht noch source? (OK)
+* Behaviour, dass "*" an das Label macht
+
+* Idee: es gibt behavier, dass ProducerContent ändert (filter/chain). Und es gibt behaviours, die beim Rendern einsteigen.
 
  * Behaviours (decorations to input-tag, decorations to label, decorations to help, decorations to error, decorations to all around)
  -> Behaviour could solve: "*" on required fields, painting red errors, max-len. 
  -> behaviour should be field individual, type-individual or glogal. (Welche Reihenfolge wird angewendet??)
  * Behaviour muss auf alle Daten und allen input zugreifen können und beim rendering eingreifen können
- 
+ * Behaviour braucht auch die Validations
+ * Behaviour sollte immer in Listenform ankommen. Form kann auch Behaviour haben.
  
  
  

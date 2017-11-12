@@ -14,7 +14,6 @@ public class ElementResult {
   private final Object valueObject;
 
   private final StaticElementInfo staticElementInfo;
-  private final Element source; // static
   private final List<ElementResult> childs; // static
 
   public static final String EMPTY_STRING = "";
@@ -30,10 +29,9 @@ public class ElementResult {
 
   // complete
   private ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
-      List<ElementResult> childs, Element source, Object valueObject) {
+      List<ElementResult> childs, Object valueObject) {
     this.validationResult = vr;
     this.value = value;
-    this.source = source;
     this.childs = childs;
     this.staticElementInfo = staticElementInfo;
     this.valueObject = valueObject;
@@ -41,10 +39,9 @@ public class ElementResult {
 
   // complete
   public ElementResult(String value, StaticElementInfo staticElementInfo,
-      List<ElementResult> childs, Element source, Object valueObject) {
+      List<ElementResult> childs, Object valueObject) {
     this.validationResult = ValidationResult.undefined();
     this.value = value;
-    this.source = source;
     this.childs = childs;
     this.staticElementInfo = staticElementInfo;
     this.valueObject = valueObject;
@@ -52,9 +49,9 @@ public class ElementResult {
 
 
   public ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
-      List<ElementResult> childs, Element source) {
+      List<ElementResult> childs) {
     // init sourceObject with string per defautl.
-    this(vr, value, staticElementInfo, childs, source, source);
+    this(vr, value, staticElementInfo, childs, value);
   }
 
   // very simple
@@ -74,9 +71,9 @@ public class ElementResult {
   }
 
   // simple with themable
-  public ElementResult(String name, HTMLProducer htmlProducer, String renderkey, Element source) {
+  public ElementResult(String name, HTMLProducer htmlProducer, String renderkey) {
     this(ValidationResult.ok(), EMPTY_STRING,
-        new StaticElementInfo(name, htmlProducer, 1, renderkey), NOCHILDS, source);
+        new StaticElementInfo(name, htmlProducer, 1, renderkey), NOCHILDS);
   }
 
   // simple with themable without name
@@ -92,14 +89,14 @@ public class ElementResult {
   }
 
   public ElementResult cloneWithNewValidationResult(ValidationResult newValidationResult) {
-    return new ElementResult(newValidationResult, value, staticElementInfo, childs, source,
+    return new ElementResult(newValidationResult, value, staticElementInfo, childs,
         valueObject);
   }
 
   ///// end constructors
 
   public ElementResult ofValidationResult(ValidationResult vr) {
-    return new ElementResult(vr, value, staticElementInfo, childs, source, valueObject);
+    return new ElementResult(vr, value, staticElementInfo, childs, valueObject);
   }
 
 
@@ -115,9 +112,7 @@ public class ElementResult {
     return childs;
   }
 
-  public Element getSource() {
-    return source;
-  }
+  
 
   public StaticElementInfo getStaticElementInfo() {
     return staticElementInfo;
@@ -129,7 +124,7 @@ public class ElementResult {
 
   @Override
   public String toString() {
-    return String.format("ElementResult: %s: %s", this.source, this.value);
+    return String.format("ElementResult: %s", this.value);
   }
 
 }

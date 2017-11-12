@@ -43,7 +43,7 @@ public class CheckBoxType implements Element {
       }
     }
     return new ElementResult(value, new StaticElementInfo(name, getDefault(checked), 1, KEY),
-        ElementResult.NOCHILDS, this, Boolean.valueOf(checked));
+        ElementResult.NOCHILDS, Boolean.valueOf(checked));
   }
 
 

@@ -5,16 +5,16 @@ public class ProducerInfos {
   private final String formId;
   private final int tabIndex;
   private final Theme theme;
-  private final Behaviour behaviour;
+  private final ElementContainer elementContainer;
 
   private final ElementResult elementResult;
 
-  public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult, Behaviour behaviour) {
+  public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult, ElementContainer elementContainer) {
     this.formId = formId;
     this.tabIndex = tabIndex;
     this.theme = theme;
     this.elementResult = elementResult;
-    this.behaviour = behaviour;
+    this.elementContainer = elementContainer;
   }
 
   public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult) {
@@ -51,7 +51,9 @@ public class ProducerInfos {
     return elementResult.getStaticElementInfo().getName();
   }
 
-  public Behaviour getBehaviour() {
-    return behaviour;
+  public ElementContainer getElementContainer() {
+    return elementContainer;
   }
+
+  
 }
