@@ -81,45 +81,36 @@
 * globale Behaviours (OK)
  * Behaviour braucht auch die Validations (OK)
  * bahaviour should be interface (OK)
+ * Behaviour sollte immer in Listenform ankommen. (OK)
+* - maxLen (via request??) (OK)
  #############################
  
  
- 
- 
- 
- 
- 
- * Behaviour sollte immer in Listenform ankommen. Form kann auch Behaviour haben.
 
-* Wrap should work with StringBuilder
  
-* Idee: es gibt behavier, dass ProducerContent ändert (filter/chain). Und es gibt behaviours, die beim Rendern einsteigen.
-
- * Behaviours (decorations to input-tag, decorations to label, decorations to help, decorations to error, decorations to all around)
- -> Behaviour could solve: "*" on required fields, painting red errors, max-len. 
- -> behaviour should be field individual, type-individual or glogal. (Welche Reihenfolge wird angewendet??)
- * Behaviour muss auf alle Daten und allen input zugreifen können und beim rendering eingreifen können
- * change method if fileupload is used
- * - maxLen (via request??)
+ * change method if fileupload is used (Element kann Flag-Interface implementieren. Wenn das gesetzt ist, wird die Methode geändert)
  * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE
  
  
  * In form and in Formresult: do we need Map<Element, ElementResult>? Or can we live with a List<ElementResult>?
- 
-   select with groups
+ * translations
+ * trim?
+ * Behaviours, die standard-Criterias zu attributen im Input umrechnen: MAxlen, required
  * check, ob security-violations drin sind
+ * Warning, if no element is required. (This will not make sense!)
+ 
+ 
+ * select with groups
  * introduce more protected
  * date-select with dropdowns
  * align 1:1 output with formchecker
  * mehr themes einführen (twocolumn, material)
- * start with renderers (translation!)
  * explorable api (form.addText, form.addTextArea
- * Warning, if no element is required. (This will not make sense!)
  * all criterias to singletons
- * translations
  
 ######################## V 0.1
  
+* Speed-Optimierung: Wrap should work with StringBuilder
  * evtl. einen EmailType einführen? Wie ist die Browserkompatibiltät?
  * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert
  * KomplexPassword Validator

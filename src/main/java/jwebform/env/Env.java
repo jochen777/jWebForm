@@ -57,6 +57,23 @@ public class Env {
     return new EnvWithSubmitInfo(formId, this);
   }
 
+  // will deliver an Env, that cuts the input after some chars. Useful for security-reasons
+  public Env cloneWithMaxLenInput(int maxLen) {
+    Env maxLenEnv = new Env((i) -> cutString(this.request.getParameter(i), maxLen), this.sessionGet,
+        this.sessionSet);
+    return maxLenEnv;
+  }
+
+  private String cutString(String s, int len) {
+    if (s == null) {
+      return null;
+    }
+    if (s.length() < len) {
+      return s;
+    }
+    return s.substring(0, len);
+  }
+
   public class EnvWithSubmitInfo {
     private final Env env;
     private final boolean submitted;
