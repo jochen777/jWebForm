@@ -7,6 +7,6 @@ public interface Theme {
   Map<String, HTMLProducer> getHtmlProducer();
 
   ElementRenderer getRenderer();
-  
-  List<AbstractBehaviour> getGlobalBehaviours();
+
+  List<Behaviour> getGlobalBehaviours();
 }

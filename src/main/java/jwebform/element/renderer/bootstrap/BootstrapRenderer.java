@@ -6,7 +6,6 @@ import jwebform.element.structure.Behaviour;
 import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
-import jwebform.element.structure.Wrapper;
 import jwebform.validation.ValidationResult;
 
 // Renderer for bootstrap for common elements
@@ -70,12 +69,12 @@ public class BootstrapRenderer implements ElementRenderer {
     String helpHTML = renderHelpText(pi, decoration);
 
     StringBuffer buf = new StringBuffer("<div class=\"form-group");
-    
-    String input = buf.append(errorClass).append("\">").append(errorMessage).append(labelStr).append(free)
-        .append(helpHTML).append("</div>\n").toString();
-    
-    if (pi.getElementContainer() != null && pi.getElementContainer().behaviour != null) {
-      return pi.getElementContainer().behaviour.getAllAround().wrap(input);
+
+    String input = buf.append(errorClass).append("\">").append(errorMessage).append(labelStr)
+        .append(free).append(helpHTML).append("</div>\n").toString();
+
+    for (Behaviour be : pi.getBehaviours()) {
+      input = be.getAllAround().wrap(input);
     }
     return input;
 
@@ -95,14 +94,13 @@ public class BootstrapRenderer implements ElementRenderer {
 
   protected String generateLabel(ProducerInfos pi, OneFieldDecoration decoration) {
     String label = decoration.getLabel() + ":";
-    for (Behaviour be: pi.getBehaviours()) {
+    for (Behaviour be : pi.getBehaviours()) {
       label = be.wrapLabel(pi).wrap(label);
     }
-    return
-        "<label for=\"" + pi.getNameOfInput() + "\">" + label + "</label>";
+    return "<label for=\"" + pi.getNameOfInput() + "\">" + label + "</label>";
 
   }
-  
+
 
   protected String generatePlaceholder(OneFieldDecoration decoration) {
     String placeholder = "";

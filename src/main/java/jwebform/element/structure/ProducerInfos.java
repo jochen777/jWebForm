@@ -1,5 +1,6 @@
 package jwebform.element.structure;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Infos, that the HTMLProducer needs to render the HTML. This will be provided by the form-run
@@ -11,7 +12,8 @@ public class ProducerInfos {
 
   private final ElementResult elementResult;
 
-  public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult, ElementContainer elementContainer) {
+  public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult,
+      ElementContainer elementContainer) {
     this.formId = formId;
     this.tabIndex = tabIndex;
     this.theme = theme;
@@ -21,18 +23,20 @@ public class ProducerInfos {
 
   @Deprecated
   public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult) {
-    this(formId, tabIndex, theme, elementResult, null);    // RFE: Fix null
+    this(formId, tabIndex, theme, elementResult, null); // RFE: Fix null
   }
-  
-  public List<AbstractBehaviour> getBehaviours() {
-    List<AbstractBehaviour> allBehaviours = theme.getGlobalBehaviours();
+
+  public List<Behaviour> getBehaviours() {
+    // RFE: This may be faster with an immutable list impl.
+    List<Behaviour> allBehaviours = new ArrayList<>();
+    allBehaviours.addAll(theme.getGlobalBehaviours());
     if (elementContainer != null && elementContainer.behaviour != null) {
-      allBehaviours.add(elementContainer.behaviour);
+      allBehaviours.addAll(elementContainer.behaviour);
     }
     return allBehaviours;
   }
 
-  
+
   public String getHtml() {
     HTMLProducer producer = elementResult.getStaticElementInfo().getHtmlProducer();
     if (theme.getHtmlProducer().containsKey(elementResult.getStaticElementInfo().getRenderKey())) {
@@ -66,5 +70,5 @@ public class ProducerInfos {
     return elementContainer;
   }
 
-  
+
 }
