@@ -8,6 +8,7 @@ import java.util.Map;
 import jwebform.element.renderer.bootstrap.BootstrapTheme;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.ForceFileuploadMethod;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.Theme;
 import jwebform.view.StartEndRenderer;
@@ -26,16 +27,18 @@ public class View {
     return this.getHtml(BootstrapTheme.instance(), "POST", true);
   }
 
+
   public String getHtml(Theme theme) {
     return this.getHtml(theme, "POST", true);
   }
 
-
   // fulll version
   public String getHtml(Theme theme, String method, boolean html5Validation) {
-    StartEndRenderer startEndRenderer = new StartEndRenderer(formId, method, html5Validation); // RFE:
-                                                                                               // Remove
-                                                                                               // new
+
+    StartEndRenderer startEndRenderer =
+        new StartEndRenderer(formId, method, html5Validation, determineUploadTypeAutomatically()); // RFE:
+    // Remove
+    // new
     StringBuilder html = new StringBuilder();
     html.append(startEndRenderer.getStart());
     int tabIndex = 1;
@@ -45,9 +48,9 @@ public class View {
       ElementContainer container = entry.getKey();
       pi = new ProducerInfos(formId, tabIndex, theme, elementResult, container);
       String renderedHtml = pi.getHtml();
-//      if (container.behaviour != null) {
-//        renderedHtml = container.behaviour.getAllAround().wrap(renderedHtml);
-//      }
+      // if (container.behaviour != null) {
+      // renderedHtml = container.behaviour.getAllAround().wrap(renderedHtml);
+      // }
       html.append(renderedHtml);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
@@ -56,7 +59,19 @@ public class View {
     return html.toString();
   }
 
+  private boolean determineUploadTypeAutomatically() {
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
+      if (entry.getKey().element instanceof ForceFileuploadMethod) {
+        return true;
+      } ;
+    }
+    return false;
+  }
+
+
   ////////// For rendering within templates
+
+
 
   public List<String> getElementNames() {
     List<String> names = new ArrayList<>();

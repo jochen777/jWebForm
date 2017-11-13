@@ -83,12 +83,13 @@
  * bahaviour should be interface (OK)
  * Behaviour sollte immer in Listenform ankommen. (OK)
 * - maxLen (via request??) (OK)
+* change method if fileupload is used (Element kann Flag-Interface implementieren. Wenn das gesetzt ist, wird die Methode geändert) (OK)
  #############################
  
  
 
  
- * change method if fileupload is used (Element kann Flag-Interface implementieren. Wenn das gesetzt ist, wird die Methode geändert)
+ 
  * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE
  
  
@@ -107,6 +108,7 @@
  * mehr themes einführen (twocolumn, material)
  * explorable api (form.addText, form.addTextArea
  * all criterias to singletons
+ * move classes to right packages
  
 ######################## V 0.1
  

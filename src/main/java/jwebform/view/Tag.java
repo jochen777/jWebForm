@@ -41,6 +41,10 @@ public class Tag {
     return String.format("<%s %s>", name, tagAttributes.renderHtml());
   }
 
+  public String getStartHtml(String between) {
+    return String.format("<%s %s %s>", name, tagAttributes.renderHtml(), between);
+  }
+
   public String getEndHtml() {
     return String.format("</%s>", name);
   }
