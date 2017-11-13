@@ -80,6 +80,7 @@
 * Automatische (*) bei Required feldern. (OK)
 * globale Behaviours (OK)
  * Behaviour braucht auch die Validations (OK)
+ * bahaviour should be interface (OK)
  #############################
  
  
@@ -87,7 +88,7 @@
  
  
  
- * bahaviour should be interface
+ 
  * Behaviour sollte immer in Listenform ankommen. Form kann auch Behaviour haben.
 
 * Wrap should work with StringBuilder

@@ -24,8 +24,8 @@ public class ProducerInfos {
     this(formId, tabIndex, theme, elementResult, null);    // RFE: Fix null
   }
   
-  public List<Behaviour> getBehaviours() {
-    List<Behaviour> allBehaviours = theme.getGlobalBehaviours();
+  public List<AbstractBehaviour> getBehaviours() {
+    List<AbstractBehaviour> allBehaviours = theme.getGlobalBehaviours();
     if (elementContainer != null && elementContainer.behaviour != null) {
       allBehaviours.add(elementContainer.behaviour);
     }

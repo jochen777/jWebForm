@@ -29,7 +29,7 @@ import jwebform.element.TextType;
 import jwebform.element.UploadType;
 import jwebform.element.XSRFProtectionType;
 import jwebform.element.renderer.bootstrap.BootstrapTheme;
-import jwebform.element.structure.Behaviour;
+import jwebform.element.structure.AbstractBehaviour;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
@@ -125,7 +125,7 @@ public class SampleUsage {
     XSRFProtectionType protection = new XSRFProtectionType(true); // no random values, so we can
                                                                   // expect
     // constant html
-    Behaviour testBe = new Behaviour() {
+    AbstractBehaviour testBe = new AbstractBehaviour() {
 
       @Override
       public Wrapper getAllAround() {

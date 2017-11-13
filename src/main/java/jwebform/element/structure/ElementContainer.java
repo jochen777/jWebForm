@@ -6,9 +6,9 @@ import jwebform.validation.Validator;
 public class ElementContainer {
   public final Element element;
   public final Validator validator;
-  public final Behaviour behaviour;
+  public final AbstractBehaviour behaviour;
 
-  public ElementContainer(Element element, Validator validator, Behaviour behaviour) {
+  public ElementContainer(Element element, Validator validator, AbstractBehaviour behaviour) {
     this.element = element;
     this.validator = validator;
     this.behaviour = behaviour;

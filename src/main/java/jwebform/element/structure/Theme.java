@@ -8,5 +8,5 @@ public interface Theme {
 
   ElementRenderer getRenderer();
   
-  List<Behaviour> getGlobalBehaviours();
+  List<AbstractBehaviour> getGlobalBehaviours();
 }
