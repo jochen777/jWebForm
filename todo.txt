@@ -84,18 +84,20 @@
  * Behaviour sollte immer in Listenform ankommen. (OK)
 * - maxLen (via request??) (OK)
 * change method if fileupload is used (Element kann Flag-Interface implementieren. Wenn das gesetzt ist, wird die Methode geändert) (OK)
+ * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE (OK)
+ * In form and in Formresult: do we need Map<Element, ElementResult>? Or can we live with a List<ElementResult>? (NO, leave it like it is)
+ * trim? (OK)
  #############################
  
  
 
  
  
- * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE
  
  
- * In form and in Formresult: do we need Map<Element, ElementResult>? Or can we live with a List<ElementResult>?
+ 
+ 
  * translations
- * trim?
  * Behaviours, die standard-Criterias zu attributen im Input umrechnen: MAxlen, required
  * check, ob security-violations drin sind
  * Warning, if no element is required. (This will not make sense!)

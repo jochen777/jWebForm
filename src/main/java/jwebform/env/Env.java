@@ -70,6 +70,15 @@ public class Env {
     return maxLenEnv;
   }
 
+  // RFE: Maybe better to cut just the trailing spaces
+  public Env cloneWithTrim() {
+    // make sure, that you choose before the cloneWithNullCheck
+    Env trimmingEnv =
+        new Env((i) -> this.request.getParameter(i).trim(), this.sessionGet, this.sessionSet);
+    return trimmingEnv;
+  }
+
+
   private String nullSave(String input) {
     if (input == null) {
       return "";

@@ -32,6 +32,9 @@ The form-handling support in current java MVC frameworks is very basic. jWebForm
 * avoiding a lot of boilerplate code
 * translateable error-messages.
 * minimal dependencies!
+* automatically set correct transfer mode if fileupload elment is used
+* warn, if identical names are choosen
+
 
 jWebForm is for java what Symfony-Forms is for PHP or Rose::HTML for Perl.
 
