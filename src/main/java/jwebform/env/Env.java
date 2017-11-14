@@ -64,6 +64,20 @@ public class Env {
     return maxLenEnv;
   }
 
+  public Env cloneWithNullCheck() {
+    Env maxLenEnv =
+        new Env((i) -> nullSave(this.request.getParameter(i)), this.sessionGet, this.sessionSet);
+    return maxLenEnv;
+  }
+
+  private String nullSave(String input) {
+    if (input == null) {
+      return "";
+    } else {
+      return input;
+    }
+  }
+
   private String cutString(String s, int len) {
     if (s == null) {
       return null;

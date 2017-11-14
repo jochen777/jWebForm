@@ -99,7 +99,7 @@
  * Behaviours, die standard-Criterias zu attributen im Input umrechnen: MAxlen, required
  * check, ob security-violations drin sind
  * Warning, if no element is required. (This will not make sense!)
- 
+ --- end of heavy stuff
  
  * select with groups
  * introduce more protected
