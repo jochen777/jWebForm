@@ -7,10 +7,16 @@ import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
+import jwebform.view.MessageSource;
 
 // Renderer for bootstrap for common elements
 public class BootstrapRenderer implements ElementRenderer {
 
+  private final MessageSource messageSource;
+
+  public BootstrapRenderer(MessageSource messageSource) {
+    this.messageSource = messageSource;
+  }
 
   /*
    * (non-Javadoc)
@@ -97,7 +103,8 @@ public class BootstrapRenderer implements ElementRenderer {
     for (Behaviour be : pi.getBehaviours()) {
       label = be.wrapLabel(pi).wrap(label);
     }
-    return "<label for=\"" + pi.getNameOfInput() + "\">" + label + "</label>";
+    return "<label for=\"" + pi.getNameOfInput() + "\">" + messageSource.getMessage(label)
+        + "</label>";
 
   }
 
@@ -105,7 +112,8 @@ public class BootstrapRenderer implements ElementRenderer {
   protected String generatePlaceholder(OneFieldDecoration decoration) {
     String placeholder = "";
     if (decoration.getPlaceholder() != OneFieldDecoration.EMPTY) {
-      placeholder = " placeholder=\"" + decoration.getPlaceholder() + "\"";
+      placeholder =
+          " placeholder=\"" + messageSource.getMessage(decoration.getPlaceholder()) + "\"";
     }
     return placeholder;
   }
@@ -119,7 +127,7 @@ public class BootstrapRenderer implements ElementRenderer {
     String helpHTML;
     if (isHelpDesired(decoration)) {
       helpHTML = "<span id=\"helpBlock-" + pi.getNameOfInput() + "\" class=\"help-block\">"
-          + decoration.getHelptext() + "</span>";
+          + messageSource.getMessage(decoration.getHelptext()) + "</span>";
     } else {
       helpHTML = "";
     }
@@ -150,7 +158,7 @@ public class BootstrapRenderer implements ElementRenderer {
     ValidationResult vr = pi.getElementResult().getValidationResult();
     String errorMessage = "";
     if (vr.isError()) {
-      errorMessage = "Problem: " + vr.getMessage() + "<br>";
+      errorMessage = "Problem: " + messageSource.getMessage(vr.getMessage()) + "<br>";
     }
     return errorMessage;
   }

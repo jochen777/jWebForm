@@ -10,8 +10,8 @@ import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.ForceFileuploadMethod;
 import jwebform.element.structure.ProducerInfos;
-import jwebform.element.structure.Theme;
 import jwebform.view.StartEndRenderer;
+import jwebform.view.Theme;
 
 public class View {
 
@@ -24,7 +24,7 @@ public class View {
   }
 
   public String getHtml() {
-    return this.getHtml(BootstrapTheme.instance(), "POST", true);
+    return this.getHtml(BootstrapTheme.instance((msg) -> msg), "POST", true);
   }
 
 
@@ -82,7 +82,8 @@ public class View {
   public Map<String, RenderElement> getElements() {
     Map<String, RenderElement> elements = new LinkedHashMap<>();
     int tabIndex = 1;
-    BootstrapTheme theme = BootstrapTheme.instance(); // RFE: Maybe better empty theme here!
+    BootstrapTheme theme = BootstrapTheme.instance(msg -> msg); // RFE: Maybe better empty theme
+                                                                // here!
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ProducerInfos pi = new ProducerInfos(formId, tabIndex, theme, elementResult);

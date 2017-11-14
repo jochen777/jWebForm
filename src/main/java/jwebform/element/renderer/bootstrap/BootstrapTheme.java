@@ -10,22 +10,27 @@ import jwebform.element.structure.Behaviour;
 import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.ProducerInfos;
-import jwebform.element.structure.Theme;
 import jwebform.element.structure.Wrapper;
 import jwebform.validation.criteria.Criteria;
+import jwebform.view.MessageSource;
+import jwebform.view.Theme;
 
 public class BootstrapTheme implements Theme {
   public Map<String, HTMLProducer> htmlProducer;
-  private final BootstrapRenderer renderer = new BootstrapRenderer();
+  private final BootstrapRenderer renderer;
   private final List<Behaviour> globalBehaviours = new ArrayList<>(); // mutual :/
 
-  private final static BootstrapTheme instance = new BootstrapTheme();
+  private static BootstrapTheme instance;
 
-  public static BootstrapTheme instance() {
+  public static BootstrapTheme instance(MessageSource messageSource) {
+    if (instance == null) {
+      instance = new BootstrapTheme(messageSource);
+    }
     return instance;
   }
 
-  private BootstrapTheme() {
+  private BootstrapTheme(MessageSource messageSource) {
+    this.renderer = new BootstrapRenderer(messageSource);
     htmlProducer = new HashMap<>();
     globalBehaviours.add(new AbstractBehaviour() {
       @Override

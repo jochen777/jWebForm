@@ -32,7 +32,6 @@ import jwebform.element.renderer.bootstrap.BootstrapTheme;
 import jwebform.element.structure.AbstractBehaviour;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.OneFieldDecoration;
-import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.Wrapper;
 import jwebform.env.Env;
 import jwebform.validation.FormValidator;
@@ -114,9 +113,10 @@ public class SampleUsage {
     Form f = formBuilder.buildForm();
     FormResult result = f.run(env);
     String filecontent = this.template.loadAndProcessTempalte(templateName);
-    assertEquals(filecontent.trim(), result.getView().getHtml(BootstrapTheme.instance()).trim());
+    assertEquals(filecontent.trim(),
+        result.getView().getHtml(BootstrapTheme.instance(msg -> msg)).trim());
     // System.err.println("Date: " + formBuilder.getDateValue(result));
-    return result.isOk(); 
+    return result.isOk();
   }
 
 
@@ -131,17 +131,17 @@ public class SampleUsage {
       public Wrapper getAllAround() {
         return new Wrapper("BEFORE", "AFTER\n");
       }
-      
-//      @Override
-//      public Wrapper wrapLabel(ProducerInfos pi) {
-//        if (pi.getElementContainer().validator.containsCriterion(Criteria.required())) {
-//          return Wrapper.of("", " *");
-//        } else {
-//          return Wrapper.empty();
-//        }
-//      }
-//      
-      
+
+      // @Override
+      // public Wrapper wrapLabel(ProducerInfos pi) {
+      // if (pi.getElementContainer().validator.containsCriterion(Criteria.required())) {
+      // return Wrapper.of("", " *");
+      // } else {
+      // return Wrapper.empty();
+      // }
+      // }
+      //
+
     };
 
     ElementContainer textInput = new ElementContainer(
