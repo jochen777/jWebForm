@@ -3,6 +3,8 @@ package jwebform.validation;
 import java.util.ArrayList;
 import java.util.List;
 
+import jwebform.validation.criteria.MaxLength;
+
 /**
  * Validator, that checks a form-element
  * 
@@ -19,7 +21,7 @@ public class Validator {
     }
   }
 
-  public boolean containsCriterion(Criterion criterionToSearch) {
+  public boolean containsExactCriterion(Criterion criterionToSearch) {
     for (Criterion criterion : criteria) {
       if (criterionToSearch == criterion) {
         return true;
@@ -27,6 +29,16 @@ public class Validator {
     }
     return false;
   }
+
+  public MaxLength getMaxLen() {
+    for (Criterion criterion : criteria) {
+      if (criterion instanceof MaxLength) { // this
+        return (MaxLength) criterion;
+      }
+    }
+    return null;
+  }
+
 
   public ValidationResult validate(String value) { // RFE: Better just
                                                    // object??

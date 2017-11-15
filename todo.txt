@@ -99,7 +99,7 @@
  
  
  
- *  MAxlen, required muessen sich in inputfields wiederfinden
+ *  MAxlen, required muessen sich in inputfields wiederfinden (OK)
  * check, ob security-violations drin sind
  * Warning, if no element is required. (This will not make sense!)
  --- end of heavy stuff

@@ -8,6 +8,7 @@ import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
+import jwebform.validation.criteria.MaxLength;
 import jwebform.validation.criteria.Required;
 import jwebform.view.MessageSource;
 
@@ -30,11 +31,20 @@ public class BootstrapRenderer implements ElementRenderer {
 
     return renderInputFree("<input tabindex=\"" + pi.getTabIndex() + "\" type=\"" + type
         + "\" name=\"" + pi.getNameOfInput() + "\" value" + val + placeholder + aria
-        + renderRequired(pi.getElementContainer().validator) + ">", pi, decoration);
+        + renderRequired(pi.getElementContainer().validator)
+        + renderMaxLen(pi.getElementContainer().validator) + ">", pi, decoration);
+  }
+
+  private String renderMaxLen(Validator validator) {
+    MaxLength maxLen = validator.getMaxLen();
+    if (maxLen != null) {
+      return " maxlength=\"" + maxLen.getMaxLength() + "\"";
+    }
+    return "";
   }
 
   protected String renderRequired(Validator validator) {
-    if (validator.containsCriterion(Required.getInstance())) {
+    if (validator.containsExactCriterion(Required.getInstance())) {
       return " required";
     }
     return "";
@@ -51,8 +61,9 @@ public class BootstrapRenderer implements ElementRenderer {
     String aria = renderAriaDescribedBy(pi, decoration);
     return renderInputFree(
         "<" + tagname + " tabindex=\"" + pi.getTabIndex() + "\" name=\"" + pi.getNameOfInput()
-            + "\"" + placeholder + aria + renderRequired(pi.getElementContainer().validator) + ">"
-            + inBetweenHtml + "</" + tagname + ">",
+            + "\"" + placeholder + aria + renderRequired(pi.getElementContainer().validator)
+            + renderMaxLen(pi.getElementContainer().validator) + ">" + inBetweenHtml + "</"
+            + tagname + ">",
         pi, decoration);
 
   }
@@ -99,7 +110,7 @@ public class BootstrapRenderer implements ElementRenderer {
 
   protected String generateLabel(ProducerInfos pi, OneFieldDecoration decoration) {
     StringBuilder labelAppend = new StringBuilder(":");
-    if (pi.getElementContainer().validator.containsCriterion(Required.getInstance())) {
+    if (pi.getElementContainer().validator.containsExactCriterion(Required.getInstance())) {
       labelAppend.append(" *");
     }
     StringBuilder complete = new StringBuilder();
