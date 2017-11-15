@@ -84,8 +84,7 @@ public class ElementResult {
   }
 
   public ElementResult cloneWithNewValidationResult(ValidationResult newValidationResult) {
-    return new ElementResult(newValidationResult, value, staticElementInfo, childs,
-        valueObject);
+    return new ElementResult(newValidationResult, value, staticElementInfo, childs, valueObject);
   }
 
   ///// end constructors
@@ -107,7 +106,7 @@ public class ElementResult {
     return childs;
   }
 
-  
+
 
   public StaticElementInfo getStaticElementInfo() {
     return staticElementInfo;

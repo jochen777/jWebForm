@@ -31,7 +31,7 @@ public class ElementContainer {
   }
 
   public ElementContainer(Element element) {
-    this(element, null); // RFE: Do we need nulls, can we work with statics?!?
+    this(element, new Validator()); // RFE: Introduce Validator.emptyValidator()
   }
 
   private List<Behaviour> buildListFromOneBehaviour(Behaviour behaviour2) {

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jwebform.element.structure.Element;
+import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
@@ -60,6 +61,7 @@ public class TextDateType implements Element {
     ElementResult monthResult = month.apply(env);
     ElementResult yearResult = year.apply(env);
 
+    // RFE: Ugly
     if (env.isSubmitted()) {
       Validator numberValidator = new Validator(Criteria.number());
       dayResult =
@@ -136,11 +138,12 @@ public class TextDateType implements Element {
       ElementResult monthResult = pi.getElementResult().getChilds().get(1);
       ElementResult yearResult = pi.getElementResult().getChilds().get(2);
       String html = decoration.getLabel() + "<br/>" + errorMessage
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult).getHtml()
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1, pi.getTheme(), monthResult)
-              .getHtml()
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult)
-              .getHtml()
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult,
+              new ElementContainer(day, new Validator())).getHtml()
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1, pi.getTheme(), monthResult,
+              new ElementContainer(month, new Validator())).getHtml()
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult,
+              new ElementContainer(year, new Validator())).getHtml()
           + "<br>" + decoration.getHelptext();
       return html;
     };

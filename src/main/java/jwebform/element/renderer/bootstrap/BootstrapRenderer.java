@@ -101,8 +101,7 @@ public class BootstrapRenderer implements ElementRenderer {
 
   protected String generateLabel(ProducerInfos pi, OneFieldDecoration decoration) {
     StringBuilder labelAppend = new StringBuilder(":");
-    if (pi.getElementContainer() != null && pi.getElementContainer().validator != null
-        && pi.getElementContainer().validator.containsCriterion(Required.getInstance())) {
+    if (pi.getElementContainer().validator.containsCriterion(Required.getInstance())) {
       labelAppend.append(" *");
     }
     StringBuilder complete = new StringBuilder();
