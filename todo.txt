@@ -87,6 +87,7 @@
  * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE (OK)
  * In form and in Formresult: do we need Map<Element, ElementResult>? Or can we live with a List<ElementResult>? (NO, leave it like it is)
  * trim? (OK)
+ * translations (OK)
  #############################
  
  
@@ -97,8 +98,8 @@
  
  
  
- * translations
- * Behaviours, die standard-Criterias zu attributen im Input umrechnen: MAxlen, required
+ 
+ *  MAxlen, required muessen sich in inputfields wiederfinden
  * check, ob security-violations drin sind
  * Warning, if no element is required. (This will not make sense!)
  --- end of heavy stuff
@@ -127,7 +128,6 @@
  
  * implement a template, that renders the form
  
- * custom filters for request (max-len...)
  * bean-validation
  * fromBean, toBean
  * Spring integration

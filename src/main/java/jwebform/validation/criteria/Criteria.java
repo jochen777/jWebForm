@@ -13,7 +13,7 @@ public class Criteria {
   private static final PostcodeCA postcodeCA = new PostcodeCA();
 
   public static Criterion required() {
-    return Required.INSTANCE;
+    return Required.getInstance();
   }
 
   public static Criterion and(Criterion... criteria) {

@@ -4,7 +4,9 @@ package jwebform.element.structure;
 // TODO: Change this to interface!
 public abstract class AbstractBehaviour implements Behaviour {
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see jwebform.element.structure.BehaviourI#getAllAround()
    */
   @Override
@@ -12,11 +14,4 @@ public abstract class AbstractBehaviour implements Behaviour {
     return Wrapper.empty();
   }
 
-  /* (non-Javadoc)
-   * @see jwebform.element.structure.BehaviourI#wrapLabel(jwebform.element.structure.ProducerInfos)
-   */
-  @Override
-  public Wrapper wrapLabel(ProducerInfos pi) {
-    return Wrapper.empty();
-  }
 }

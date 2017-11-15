@@ -7,6 +7,7 @@ import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
+import jwebform.validation.criteria.Required;
 import jwebform.view.MessageSource;
 
 // Renderer for bootstrap for common elements
@@ -99,12 +100,15 @@ public class BootstrapRenderer implements ElementRenderer {
   }
 
   protected String generateLabel(ProducerInfos pi, OneFieldDecoration decoration) {
-    String label = decoration.getLabel() + ":";
-    for (Behaviour be : pi.getBehaviours()) {
-      label = be.wrapLabel(pi).wrap(label);
+    StringBuilder labelAppend = new StringBuilder(":");
+    if (pi.getElementContainer() != null && pi.getElementContainer().validator != null
+        && pi.getElementContainer().validator.containsCriterion(Required.getInstance())) {
+      labelAppend.append(" *");
     }
-    return "<label for=\"" + pi.getNameOfInput() + "\">" + messageSource.getMessage(label)
-        + "</label>";
+    StringBuilder complete = new StringBuilder();
+    return complete.append("<label for=\"").append(pi.getNameOfInput()).append("\">")
+        .append(messageSource.getMessage(decoration.getLabel())).append(labelAppend)
+        .append("</label>").toString();
 
   }
 
