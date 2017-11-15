@@ -7,6 +7,7 @@ import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
+import jwebform.validation.Validator;
 import jwebform.validation.criteria.Required;
 import jwebform.view.MessageSource;
 
@@ -19,30 +20,26 @@ public class BootstrapRenderer implements ElementRenderer {
     this.messageSource = messageSource;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInput(java.lang.String,
-   * jwebform.element.structure.ProducerInfos, jwebform.element.structure.OneFieldDecoration)
-   */
   @Override
   public String renderInput(String type, ProducerInfos pi, OneFieldDecoration decoration) {
     String placeholder = generatePlaceholder(decoration);
     String aria = renderAriaDescribedBy(pi, decoration);
     String val = renderValue(pi);
 
+
+
     return renderInputFree("<input tabindex=\"" + pi.getTabIndex() + "\" type=\"" + type
-        + "\" name=\"" + pi.getNameOfInput() + "\" value" + val + placeholder + aria + ">", pi,
-        decoration);
+        + "\" name=\"" + pi.getNameOfInput() + "\" value" + val + placeholder + aria
+        + renderRequired(pi.getElementContainer().validator) + ">", pi, decoration);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInputComplex(java.lang.String,
-   * java.lang.String, jwebform.element.structure.ProducerInfos,
-   * jwebform.element.structure.OneFieldDecoration)
-   */
+  protected String renderRequired(Validator validator) {
+    if (validator.containsCriterion(Required.getInstance())) {
+      return " required";
+    }
+    return "";
+  }
+
   @Override
   public String renderInputComplex(
       String tagname,
@@ -54,7 +51,8 @@ public class BootstrapRenderer implements ElementRenderer {
     String aria = renderAriaDescribedBy(pi, decoration);
     return renderInputFree(
         "<" + tagname + " tabindex=\"" + pi.getTabIndex() + "\" name=\"" + pi.getNameOfInput()
-            + "\"" + placeholder + aria + ">" + inBetweenHtml + "</" + tagname + ">",
+            + "\"" + placeholder + aria + renderRequired(pi.getElementContainer().validator) + ">"
+            + inBetweenHtml + "</" + tagname + ">",
         pi, decoration);
 
   }

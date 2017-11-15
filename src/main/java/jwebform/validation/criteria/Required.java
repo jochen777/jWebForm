@@ -10,7 +10,7 @@ import jwebform.validation.ValidationResult;
  */
 public final class Required implements Criterion {
 
-  public static Required instance;
+  private static Required instance;
 
   private Required() {}
 
