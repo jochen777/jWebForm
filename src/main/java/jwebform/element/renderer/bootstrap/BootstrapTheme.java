@@ -25,6 +25,14 @@ public class BootstrapTheme implements Theme {
     return instance;
   }
 
+  public static BootstrapTheme instance() {
+    if (instance == null) {
+      instance = new BootstrapTheme(k->k);
+    }
+    return instance;
+  }
+
+  
   private BootstrapTheme(MessageSource messageSource) {
     this.renderer = new BootstrapRenderer(messageSource);
     htmlProducer = new HashMap<>();
