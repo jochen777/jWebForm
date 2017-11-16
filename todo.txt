@@ -88,6 +88,8 @@
  * In form and in Formresult: do we need Map<Element, ElementResult>? Or can we live with a List<ElementResult>? (NO, leave it like it is)
  * trim? (OK)
  * translations (OK)
+ *  MAxlen, required muessen sich in inputfields wiederfinden (OK)
+ * check, ob security-violations drin sind
  #############################
  
  
@@ -99,9 +101,9 @@
  
  
  
- *  MAxlen, required muessen sich in inputfields wiederfinden (OK)
- * check, ob security-violations drin sind
- * Warning, if no element is required. (This will not make sense!)
+ 
+ 
+ 
  --- end of heavy stuff
  
  * select with groups
@@ -110,11 +112,11 @@
  * align 1:1 output with formchecker
  * mehr themes einführen (twocolumn, material)
  * explorable api (form.addText, form.addTextArea
- * all criterias to singletons
  * move classes to right packages
  
 ######################## V 0.1
  
+* Warning, if no element is required. (This will not make sense!)
 * Speed-Optimierung: Wrap should work with StringBuilder
  * evtl. einen EmailType einführen? Wie ist die Browserkompatibiltät?
  * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert
