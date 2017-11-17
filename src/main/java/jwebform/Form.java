@@ -18,7 +18,7 @@ import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 
 // Represents a form
-public class Form {
+public final class Form {
 
   // RFE: maybe keep List<Element> for performance reasons, if we don't have any
   // behaviours/validation
@@ -26,15 +26,19 @@ public class Form {
   private final String id;
   private final List<FormValidator> formValidators;
 
-  public Form(String id, List<ElementContainer> elements) {
-    this(id, elements, new ArrayList<>());
-  }
-
+  // Constructors
+  
+  // full
   public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators) {
     this.elements = elements;
     this.id = id;
     this.formValidators = formValidators;
   }
+
+  public Form(String id, List<ElementContainer> elements) {
+    this(id, elements, new ArrayList<>());
+  }
+
 
   public Form(String id, ElementContainer... elements) {
     this(id, new ArrayList<>(), elements);
@@ -52,7 +56,10 @@ public class Form {
   public Form(String id, List<FormValidator> formValidators, Element... elements) {
     this(id, packElementsInContainer(elements), formValidators);
   }
-
+  // End constructors
+  
+  
+  
   private static List<ElementContainer> packElementsInContainer(Element... elements) {
     List<ElementContainer> ec = new ArrayList<>();
     for (int i = 0; i < elements.length; i++) {
@@ -151,7 +158,7 @@ public class Form {
     return formIsValid;
   }
 
-  List<ElementContainer> getElements() {
+  public final List<ElementContainer> getElements() {
     return elements;
   }
 

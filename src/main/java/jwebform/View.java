@@ -13,7 +13,7 @@ import jwebform.element.structure.ProducerInfos;
 import jwebform.view.StartEndRenderer;
 import jwebform.view.Theme;
 
-public class View {
+public final class View {
 
   private final Map<ElementContainer, ElementResult> elementResults;
   private final String formId;

@@ -5,7 +5,7 @@ import java.util.Map;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 
-public class FormResult {
+public final class FormResult {
 
   private final String formId;
   private final Map<ElementContainer, ElementResult> elementResults;
