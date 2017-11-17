@@ -17,15 +17,31 @@ public class SelectType implements Element {
   final public List<SelectInputEntry> entries;
 
   public final OneValueElementProcessor oneValueElement;
+  public final List<SelectInputEntryGroup> groups;
 
 
   // RFE: Add groups too!
   public SelectType(String name, OneFieldDecoration decoration, String initialValue, String keys[],
       String values[]) {
     this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
-    entries = generateEntriesFromKeyValues(keys, values);
+    this.entries = generateEntriesFromKeyValues(keys, values);
+    this.groups = null;
   }
 
+  public SelectType(String name, OneFieldDecoration decoration, String initialValue, List<SelectInputEntry> entries) {
+    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
+    this.entries = entries;
+    this.groups = null;
+  }
+  
+  // somewhat fishy because groups and entries seems to be the same type, so we have to change the order of inputs
+  public SelectType(String name, OneFieldDecoration decoration, List<SelectInputEntryGroup> groups, String initialValue) {
+    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
+    this.entries = null;
+    this.groups = groups;
+  }
+  
+  
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
     return oneValueElement.calculateElementResultWithInputCheck(env, KEY, getDefault(), 
@@ -39,7 +55,20 @@ public class SelectType implements Element {
    * @return
    */
   private boolean ensureValueIsAllowed(String fetchValue) {
-    for (SelectInputEntry selectInputEntry : entries) {
+    if (groups != null) {
+      for (SelectInputEntryGroup group : groups) {
+        if (checkEntries(group.entries, fetchValue)) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      return checkEntries(entries, fetchValue);
+    }
+  }
+
+  private boolean checkEntries(List<SelectInputEntry> entries2, String fetchValue) {
+    for (SelectInputEntry selectInputEntry : entries2) {
       if (selectInputEntry.getKey().equals(fetchValue)) {
         return true;
       }
@@ -72,12 +101,30 @@ public class SelectType implements Element {
   // very simple version!
   public HTMLProducer getDefault() {
     return (pi) -> pi.getTheme().getRenderer().renderInputComplex("select",
-        buildEntries(pi.getElementResult().getValue(), entries), pi, oneValueElement.decoration);
+        buildEntries(pi.getElementResult().getValue(), entries, groups), pi, oneValueElement.decoration);
   }
 
 
-  private String buildEntries(String value, List<SelectInputEntry> entries2) {
+  private String buildEntries(String value, List<SelectInputEntry> entries2, List<SelectInputEntryGroup> groups2) {
     StringBuilder inputTag = new StringBuilder();
+    
+    if (groups!=null) {
+      groups.forEach(group ->
+      {
+          inputTag.append("<optgroup label=\""+group.getLabel()+"\">");
+          buildEntries(inputTag, group.getEntries(), value);
+          inputTag.append("</optgroup>");
+      }
+      );
+    } else {
+      buildEntries(inputTag, entries, value);
+    }
+    return inputTag.toString();
+  }
+
+  
+  
+  private void buildEntries(StringBuilder inputTag, List<SelectInputEntry> entries2, String value) {
     entries2.forEach(entry -> {
       String sel = "";
       if (value != null && value.equals(entry.key)) {
@@ -86,11 +133,12 @@ public class SelectType implements Element {
       inputTag
           .append("<option value=\"" + entry.key + "\"" + sel + ">" + entry.value + "</option>\n");
     });
-    return inputTag.toString();
   }
 
+
+
   // class that represents an entry in the selectInput
-  public class SelectInputEntry {
+  public static class SelectInputEntry {
     private final String key;
     private final String value;
 
@@ -110,7 +158,7 @@ public class SelectType implements Element {
 
   // class that groups several inputEntries
   // See: https://www.w3schools.com/tags/tag_optgroup.asp
-  public class SelectInputEntryGroup {
+  public static class SelectInputEntryGroup {
     private final String label;
     List<SelectInputEntry> entries;
 

@@ -90,6 +90,7 @@
  * translations (OK)
  *  MAxlen, required muessen sich in inputfields wiederfinden (OK)
  * check, ob security-violations drin sind
+ * select with groups (OK)
  #############################
  
  
@@ -105,8 +106,6 @@
  
  
  --- end of heavy stuff
- 
- * select with groups
  * introduce more protected
  * date-select with dropdowns
  * align 1:1 output with formchecker
@@ -120,7 +119,6 @@
 * Speed-Optimierung: Wrap should work with StringBuilder
  * evtl. einen EmailType einführen? Wie ist die Browserkompatibiltät?
  * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert
- * KomplexPassword Validator
  
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
