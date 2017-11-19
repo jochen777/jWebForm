@@ -91,6 +91,7 @@
  *  MAxlen, required muessen sich in inputfields wiederfinden (OK)
  * check, ob security-violations drin sind
  * select with groups (OK)
+ * introduce more protected (OK)
  #############################
  
  
@@ -106,7 +107,6 @@
  
  
  --- end of heavy stuff
- * introduce more protected
  * date-select with dropdowns
  * align 1:1 output with formchecker
  * mehr themes einführen (twocolumn, material)
