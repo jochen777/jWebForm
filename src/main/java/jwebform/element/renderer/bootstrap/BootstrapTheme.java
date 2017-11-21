@@ -9,6 +9,7 @@ import jwebform.element.structure.Behaviour;
 import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.view.MessageSource;
+import jwebform.view.StartEndRenderer;
 import jwebform.view.Theme;
 
 public class BootstrapTheme implements Theme {
@@ -27,12 +28,12 @@ public class BootstrapTheme implements Theme {
 
   public static BootstrapTheme instance() {
     if (instance == null) {
-      instance = new BootstrapTheme(k->k);
+      instance = new BootstrapTheme(k -> k);
     }
     return instance;
   }
 
-  
+
   private BootstrapTheme(MessageSource messageSource) {
     this.renderer = new BootstrapRenderer(messageSource);
     htmlProducer = new HashMap<>();
@@ -50,6 +51,16 @@ public class BootstrapTheme implements Theme {
   @Override
   public List<Behaviour> getGlobalBehaviours() {
     return globalBehaviours;
+  }
+
+  @Override
+  public String getStart(StartEndRenderer startEndRenderer) {
+    return startEndRenderer.getStart() + "<fieldset>";
+  }
+
+  @Override
+  public String getEnd(StartEndRenderer startEndRenderer) {
+    return "</fieldset>" + startEndRenderer.getEnd();
   }
 
 

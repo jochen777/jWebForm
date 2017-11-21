@@ -92,22 +92,11 @@
  * check, ob security-violations drin sind
  * select with groups (OK)
  * introduce more protected (OK)
+* date-select with dropdowns (OK)
  #############################
  
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- --- end of heavy stuff
- * date-select with dropdowns
+ * Fix test. Read file in a better way.
+ * Make BootstrapRenderer more generic, so it can be easly subclassed. Include start/end as well. Get rid of startEndRenderer? 
  * align 1:1 output with formchecker
  * mehr themes einführen (twocolumn, material)
  * explorable api (form.addText, form.addTextArea

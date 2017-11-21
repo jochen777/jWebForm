@@ -25,13 +25,13 @@ public class BootstrapRenderer implements ElementRenderer {
   public String renderInput(String type, ProducerInfos pi, OneFieldDecoration decoration) {
     String placeholder = generatePlaceholder(decoration);
     String aria = renderAriaDescribedBy(pi, decoration);
-    String val = renderValue(pi);
+    String val = renderValue(pi.getElementResult().getValue());
 
 
 
-    return renderInputFree("<input tabindex=\"" + pi.getTabIndex() + "\" type=\"" + type
-        + "\" name=\"" + pi.getNameOfInput() + "\" value" + val + placeholder + aria
-        + renderRequired(pi.getElementContainer().validator)
+    return renderInputFree("<input class=\"form-control\" tabindex=\"" + pi.getTabIndex()
+        + "\" type=\"" + type + "\" name=\"" + pi.getNameOfInput() + "\" value" + val + placeholder
+        + aria + renderRequired(pi.getElementContainer().validator)
         + renderMaxLen(pi.getElementContainer().validator) + ">", pi, decoration);
   }
 
@@ -59,12 +59,11 @@ public class BootstrapRenderer implements ElementRenderer {
     String placeholder = generatePlaceholder(decoration);
 
     String aria = renderAriaDescribedBy(pi, decoration);
-    return renderInputFree(
-        "<" + tagname + " tabindex=\"" + pi.getTabIndex() + "\" name=\"" + pi.getNameOfInput()
-            + "\"" + placeholder + aria + renderRequired(pi.getElementContainer().validator)
-            + renderMaxLen(pi.getElementContainer().validator) + ">" + inBetweenHtml + "</"
-            + tagname + ">",
-        pi, decoration);
+    return renderInputFree("<" + tagname + " class=\"form-control\" tabindex=\"" + pi.getTabIndex()
+        + "\" name=\"" + pi.getNameOfInput() + "\"" + placeholder + aria
+        + renderRequired(pi.getElementContainer().validator)
+        + renderMaxLen(pi.getElementContainer().validator) + ">" + inBetweenHtml + "</" + tagname
+        + ">", pi, decoration);
 
   }
 
@@ -114,8 +113,8 @@ public class BootstrapRenderer implements ElementRenderer {
       labelAppend.append(" *");
     }
     StringBuilder complete = new StringBuilder();
-    return complete.append("<label for=\"").append(pi.getNameOfInput()).append("\">")
-        .append(messageSource.getMessage(decoration.getLabel())).append(labelAppend)
+    return complete.append("<label class=\"control-label\" for=\"").append(pi.getNameOfInput())
+        .append("\">").append(messageSource.getMessage(decoration.getLabel())).append(labelAppend)
         .append("</label>").toString();
 
   }
@@ -158,8 +157,7 @@ public class BootstrapRenderer implements ElementRenderer {
   }
 
   @Override
-  public String renderValue(ProducerInfos pi) {
-    String val = pi.getElementResult().getValue();
+  public String renderValue(String val) {
     if (val != null && val.length() > 0) {
       val = "=\"" + Escape.html(val) + "\"";
     }
@@ -173,6 +171,17 @@ public class BootstrapRenderer implements ElementRenderer {
       errorMessage = "Problem: " + messageSource.getMessage(vr.getMessage()) + "<br>";
     }
     return errorMessage;
+  }
+
+  @Override
+  public String renderSimpleLabel(String forAttribute, String label) {
+    return "<label class=\"control-label\" for=\"" + forAttribute + "\">" + label + "</label>\n";
+  }
+
+  @Override
+  public String renderInput(String type, String name, String id, String value, String additional) {
+    return "<input class=\"form-control\" id=\"" + id + "\" type=\"" + type + "\" name=\"" + name
+        + "\" value" + this.renderValue(value) + additional + ">";
   }
 
 

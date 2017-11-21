@@ -14,6 +14,12 @@ public interface ElementRenderer {
 
   String renderAriaDescribedBy(ProducerInfos pi, OneFieldDecoration decoration);
 
-  String renderValue(ProducerInfos pi);
+  String renderValue(String value);
+
+  // This may be used, to render label for radio-inputs. No error-highlighting, no required
+  // highlighting!
+  String renderSimpleLabel(String forAttribute, String label);
+
+  String renderInput(String type, String name, String id, String value, String additional);
 
 }

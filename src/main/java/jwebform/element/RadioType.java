@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jwebform.element.structure.Element;
+import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
@@ -80,21 +81,30 @@ public class RadioType implements Element {
 
   private String renderInputs(ProducerInfos pi, List<RadioInputEntry> entries) {
     StringBuffer inputHtml = new StringBuffer();
-    entries.forEach(radioEntriy -> inputHtml
-        .append(getInputTag(radioEntriy, pi.getNameOfInput(), pi.getElementResult().getValue())));
+    entries.forEach(radioEntriy -> inputHtml.append(getInputTag(radioEntriy, pi.getNameOfInput(),
+        pi.getElementResult().getValue(), pi.getTheme().getRenderer())));
     return inputHtml.toString();
   }
 
-  private String getInputTag(RadioInputEntry entry, String name, String value) {
-    return "<input id=\"form-radio-" + name + "-" + entry.getKey() + "\" "
-        + " type=\"radio\" name=\"" + name + "\"  value=\"" + entry.getKey() + "\" "
-        + getCheckedStatus(entry.getKey(), value) + "" + " " + " ><label for=\"form-radio-" + name
-        + "\">" + entry.getValue() + "</label>\n";
+  private String getInputTag(
+      RadioInputEntry entry,
+      String name,
+      String value,
+      ElementRenderer elementRenderer) {
+    // return "<input id=\"form-radio-" + name + "-" + entry.getKey() + "\" "
+    // + " type=\"radio\" name=\"" + name + "\" value=\"" + entry.getKey() + "\" "
+    // + getCheckedStatus(entry.getKey(), value) + " >"
+    // + elementRenderer.renderSimpleLabel("form-radio-" + name, entry.getValue());
+
+    return elementRenderer.renderInput("radio", name, "form-radio-" + name + "-" + entry.getKey(),
+        entry.getKey(), getCheckedStatus(entry.getKey(), value))
+        + elementRenderer.renderSimpleLabel("form-radio-" + name, entry.getValue());
+
   }
 
   private String getCheckedStatus(String _name, String value) {
     if (value != null && value.equals(_name)) {
-      return "checked";
+      return " checked";
     } else {
       return "";
     }

@@ -40,7 +40,7 @@ public final class View {
     // Remove
     // new
     StringBuilder html = new StringBuilder();
-    html.append(startEndRenderer.getStart());
+    html.append(theme.getStart(startEndRenderer));
     int tabIndex = 1;
     ProducerInfos pi;
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
@@ -55,7 +55,7 @@ public final class View {
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
 
-    html.append(startEndRenderer.getEnd());
+    html.append(theme.getEnd(startEndRenderer));
     return html.toString();
   }
 

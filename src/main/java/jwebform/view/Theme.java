@@ -13,4 +13,8 @@ public interface Theme {
   ElementRenderer getRenderer();
 
   List<Behaviour> getGlobalBehaviours();
+
+  String getStart(StartEndRenderer startEndRenderer);
+
+  String getEnd(StartEndRenderer startEndRenderer);
 }

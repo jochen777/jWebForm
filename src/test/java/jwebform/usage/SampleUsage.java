@@ -3,6 +3,7 @@ package jwebform.usage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,11 +113,18 @@ public class SampleUsage {
     MyFormBuilder formBuilder = new MyFormBuilder();
     Form f = formBuilder.buildForm();
     FormResult result = f.run(env);
-    String filecontent = this.template.loadAndProcessTempalte(templateName);
-    assertEquals(filecontent.trim(),
-        result.getView().getHtml(BootstrapTheme.instance(msg -> msg)).trim());
-    // System.err.println("Date: " + formBuilder.getDateValue(result));
-    return result.isOk();
+    String filecontent;
+    try {
+      filecontent = this.template.loadAndProcessTempalte(templateName);
+      assertEquals(filecontent.trim(),
+          result.getView().getHtml(BootstrapTheme.instance(msg -> msg)).trim());
+      // System.err.println("Date: " + formBuilder.getDateValue(result));
+      return result.isOk();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return !result.isOk();
   }
 
 
