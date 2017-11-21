@@ -54,7 +54,8 @@ public class CheckBoxType implements Element {
       String val = renderer.renderValue(pi.getElementResult().getValue());
       String inputHtml = "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"checkbox\" name=\""
           + pi.getNameOfInput() + "\" value" + val + (checked ? " checked" : "") + aria + ">";
-      return renderer.renderInputFree(inputHtml, pi, decoration, "form-check");
+      return renderer.renderInputFree(inputHtml, pi, decoration,
+          renderer.getWrapperClassForCheckBox());
     };
   }
 
