@@ -6,6 +6,7 @@ import jwebform.element.structure.Behaviour;
 import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
+import jwebform.element.structure.Wrapper;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.MaxLength;
@@ -75,18 +76,36 @@ public class BootstrapRenderer implements ElementRenderer {
    */
   @Override
   public String renderInputFree(String free, ProducerInfos pi, OneFieldDecoration decoration) {
-    String errorClass = calculateErrorClass(pi);
+    return renderInputFree(free, pi, decoration, "form-group");
+  }
 
+  private Wrapper getWrapper(ProducerInfos pi, String className) {
+    String errorClass = calculateErrorClass(pi);
+    return new Wrapper("<div class=\"" + className + errorClass + "\">", "</div>");
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInputFree(java.lang.String,
+   * jwebform.element.structure.ProducerInfos, jwebform.element.structure.OneFieldDecoration)
+   */
+  @Override
+  public String renderInputFree(
+      String free,
+      ProducerInfos pi,
+      OneFieldDecoration decoration,
+      String classNameWrapper) {
     String errorMessage = renderErrorMessage(pi);
 
     String labelStr = generateLabel(pi, decoration);
 
     String helpHTML = renderHelpText(pi, decoration);
 
-    StringBuffer buf = new StringBuffer("<div class=\"form-group");
-
-    String input = buf.append(errorClass).append("\">").append(errorMessage).append(labelStr)
-        .append(free).append(helpHTML).append("</div>\n").toString();
+    StringBuffer buf = new StringBuffer();
+    Wrapper wrapAroundCompleteInfo = getWrapper(pi, classNameWrapper);
+    String input = buf.append(wrapAroundCompleteInfo.start).append(errorMessage).append(labelStr)
+        .append(free).append(helpHTML).append(wrapAroundCompleteInfo.end).append("\n").toString();
 
     for (Behaviour be : pi.getBehaviours()) {
       input = be.getAllAround().wrap(input);
@@ -94,6 +113,7 @@ public class BootstrapRenderer implements ElementRenderer {
     return input;
 
   }
+
 
 
   protected String calculateErrorClass(ProducerInfos pi) {
@@ -182,6 +202,11 @@ public class BootstrapRenderer implements ElementRenderer {
   public String renderInput(String type, String name, String id, String value, String additional) {
     return "<input class=\"form-control\" id=\"" + id + "\" type=\"" + type + "\" name=\"" + name
         + "\" value" + this.renderValue(value) + additional + ">";
+  }
+
+  @Override
+  public String getWrapperClassForCheckBox() {
+    return "form-check";
   }
 
 

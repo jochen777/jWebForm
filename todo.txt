@@ -93,9 +93,10 @@
  * select with groups (OK)
  * introduce more protected (OK)
 * date-select with dropdowns (OK)
+ * Fix test. Read file in a better way. (OK)
  #############################
  
- * Fix test. Read file in a better way.
+ 
  * Make BootstrapRenderer more generic, so it can be easly subclassed. Include start/end as well. Get rid of startEndRenderer? 
  * align 1:1 output with formchecker
  * mehr themes einführen (twocolumn, material)

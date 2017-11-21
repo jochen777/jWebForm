@@ -12,6 +12,12 @@ public interface ElementRenderer {
 
   String renderInputFree(String free, ProducerInfos pi, OneFieldDecoration decoration);
 
+  String renderInputFree(
+      String free,
+      ProducerInfos pi,
+      OneFieldDecoration decoration,
+      String classNameWrapper);
+
   String renderAriaDescribedBy(ProducerInfos pi, OneFieldDecoration decoration);
 
   String renderValue(String value);
@@ -21,5 +27,7 @@ public interface ElementRenderer {
   String renderSimpleLabel(String forAttribute, String label);
 
   String renderInput(String type, String name, String id, String value, String additional);
+
+  String getWrapperClassForCheckBox();
 
 }

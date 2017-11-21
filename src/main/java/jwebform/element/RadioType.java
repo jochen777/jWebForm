@@ -74,7 +74,7 @@ public class RadioType implements Element {
   // very simple version!
   public HTMLProducer getDefault() {
     return (pi) -> pi.getTheme().getRenderer().renderInputFree(renderInputs(pi, entries), pi,
-        oneValueElement.decoration);
+        oneValueElement.decoration, "form-check");
   }
 
 
