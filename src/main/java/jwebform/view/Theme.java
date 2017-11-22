@@ -6,6 +6,7 @@ import java.util.Map;
 import jwebform.element.structure.Behaviour;
 import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.HTMLProducer;
+import jwebform.element.structure.RadioRenderer;
 
 public interface Theme {
   Map<String, HTMLProducer> getHtmlProducer();
@@ -17,4 +18,6 @@ public interface Theme {
   String getStart(StartEndRenderer startEndRenderer);
 
   String getEnd(StartEndRenderer startEndRenderer);
+
+  RadioRenderer getRadioRenderer();
 }

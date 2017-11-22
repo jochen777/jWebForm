@@ -9,7 +9,6 @@ import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
-import jwebform.element.structure.ProducerInfos;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class RadioType implements Element {
@@ -73,42 +72,14 @@ public class RadioType implements Element {
 
   // very simple version!
   public HTMLProducer getDefault() {
-    return (pi) -> pi.getTheme().getRenderer().renderInputFree(renderInputs(pi, entries), pi,
-        oneValueElement.decoration, pi.getTheme().getRenderer().getWrapperClassForCheckBox());
+    return (pi) -> {
+      return pi.getTheme().getRenderer().renderInputFree(
+          pi.getTheme().getRadioRenderer().renderInputs(pi, entries), pi,
+          oneValueElement.decoration, ElementRenderer.InputVariant.radio);
+    };
   }
 
 
-
-  private String renderInputs(ProducerInfos pi, List<RadioInputEntry> entries) {
-    StringBuffer inputHtml = new StringBuffer();
-    entries.forEach(radioEntriy -> inputHtml.append(getInputTag(radioEntriy, pi.getNameOfInput(),
-        pi.getElementResult().getValue(), pi.getTheme().getRenderer())));
-    return inputHtml.toString();
-  }
-
-  private String getInputTag(
-      RadioInputEntry entry,
-      String name,
-      String value,
-      ElementRenderer elementRenderer) {
-    // return "<input id=\"form-radio-" + name + "-" + entry.getKey() + "\" "
-    // + " type=\"radio\" name=\"" + name + "\" value=\"" + entry.getKey() + "\" "
-    // + getCheckedStatus(entry.getKey(), value) + " >"
-    // + elementRenderer.renderSimpleLabel("form-radio-" + name, entry.getValue());
-
-    return elementRenderer.renderInput("radio", name, "form-radio-" + name + "-" + entry.getKey(),
-        entry.getKey(), getCheckedStatus(entry.getKey(), value))
-        + elementRenderer.renderSimpleLabel("form-radio-" + name, entry.getValue());
-
-  }
-
-  private String getCheckedStatus(String _name, String value) {
-    if (value != null && value.equals(_name)) {
-      return " checked";
-    } else {
-      return "";
-    }
-  }
 
   // class that represents an entry in the selectInput
   public class RadioInputEntry {

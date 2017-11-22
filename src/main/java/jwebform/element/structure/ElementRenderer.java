@@ -10,13 +10,12 @@ public interface ElementRenderer {
       ProducerInfos pi,
       OneFieldDecoration decoration);
 
-  String renderInputFree(String free, ProducerInfos pi, OneFieldDecoration decoration);
-
   String renderInputFree(
       String free,
       ProducerInfos pi,
       OneFieldDecoration decoration,
-      String classNameWrapper);
+      InputVariant variant);
+
 
   String renderAriaDescribedBy(ProducerInfos pi, OneFieldDecoration decoration);
 
@@ -28,6 +27,9 @@ public interface ElementRenderer {
 
   String renderInput(String type, String name, String id, String value, String additional);
 
-  String getWrapperClassForCheckBox();
 
+
+  public static enum InputVariant {
+    normal, select, radio, checkbox
+  }
 }

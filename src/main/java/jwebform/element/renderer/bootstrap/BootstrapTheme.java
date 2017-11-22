@@ -8,6 +8,7 @@ import java.util.Map;
 import jwebform.element.structure.Behaviour;
 import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.HTMLProducer;
+import jwebform.element.structure.RadioRenderer;
 import jwebform.view.MessageSource;
 import jwebform.view.StartEndRenderer;
 import jwebform.view.Theme;
@@ -15,6 +16,7 @@ import jwebform.view.Theme;
 public class BootstrapTheme implements Theme {
   public Map<String, HTMLProducer> htmlProducer;
   private final BootstrapRenderer renderer;
+  private final BootstrapRadioRenderer radioRenderer;
   private final List<Behaviour> globalBehaviours = new ArrayList<>(); // mutual :/
 
   private static BootstrapTheme instance;
@@ -36,6 +38,7 @@ public class BootstrapTheme implements Theme {
 
   private BootstrapTheme(MessageSource messageSource) {
     this.renderer = new BootstrapRenderer(messageSource);
+    this.radioRenderer = new BootstrapRadioRenderer();
     htmlProducer = new HashMap<>();
   }
 
@@ -62,6 +65,12 @@ public class BootstrapTheme implements Theme {
   public String getEnd(StartEndRenderer startEndRenderer) {
     return "</fieldset>" + startEndRenderer.getEnd();
   }
+
+  @Override
+  public RadioRenderer getRadioRenderer() {
+    return radioRenderer;
+  }
+
 
 
 }
