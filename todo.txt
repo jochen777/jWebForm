@@ -95,9 +95,10 @@
 * date-select with dropdowns (OK)
  * Fix test. Read file in a better way. (OK)
  * Make BootstrapRenderer element agnostic. Means: he should check which element to draw, and then decide to paint it differently. Maybe with marker-interfaces (OK)
+ * make renderer smaller. (OK)
  #############################
  
- * make renderer smaller. 
+ 
  * Make BootstrapRenderer more generic, so it can be easly subclassed. Include start/end as well. Get rid of startEndRenderer? 
  * align 1:1 output with formchecker
  * mehr themes einführen (twocolumn, material)

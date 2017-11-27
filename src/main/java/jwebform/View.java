@@ -86,7 +86,7 @@ public final class View {
                                                                 // here!
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, theme, elementResult);
+      ProducerInfos pi = new ProducerInfos(formId, tabIndex, theme, elementResult, entry.getKey());
       elements.put(elementResult.getStaticElementInfo().getName(),
           new RenderElement(pi.getHtml(), pi, elementResult));
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
