@@ -26,7 +26,8 @@ public class UploadType implements Element, ForceFileuploadMethod {
 
 
   protected HTMLProducer getDefault() {
-    return (pi) -> pi.getTheme().getRenderer().renderInput("file", pi, oneValueElement.decoration);
+    return (pi) -> pi.getTheme().getRenderer().renderInput("file", pi, oneValueElement.decoration,
+        "");
   }
 
   @Override

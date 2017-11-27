@@ -25,7 +25,7 @@ public class PasswordType implements Element {
 
   protected HTMLProducer getDefault() {
     return (pi) -> pi.getTheme().getRenderer().renderInput("password", pi,
-        oneValueElement.decoration);
+        oneValueElement.decoration, "");
   }
 
 

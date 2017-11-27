@@ -41,14 +41,14 @@ public class NumberType implements Element {
     // val);
     ElementResult result = new ElementResult(parsedNumberVal,
         new StaticElementInfo(oneValueElement.name, getDefault(), 1, KEY), ElementResult.NOCHILDS,
-         parsedNumber);
+        parsedNumber);
     return result;
   }
 
   // very simple version!
   protected HTMLProducer getDefault() {
-    return (pi) -> pi.getTheme().getRenderer().renderInput("number", pi,
-        oneValueElement.decoration);
+    return (pi) -> pi.getTheme().getRenderer().renderInput("number", pi, oneValueElement.decoration,
+        "");
   }
 
 

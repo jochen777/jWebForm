@@ -23,7 +23,11 @@ public class BootstrapRenderer implements ElementRenderer {
   }
 
   @Override
-  public String renderInput(String type, ProducerInfos pi, OneFieldDecoration decoration) {
+  public String renderInput(
+      String type,
+      ProducerInfos pi,
+      OneFieldDecoration decoration,
+      String additional) {
     String placeholder = generatePlaceholder(decoration);
     String aria = renderAriaDescribedBy(pi, decoration);
     String val = renderValue(pi.getElementResult().getValue());
@@ -34,7 +38,7 @@ public class BootstrapRenderer implements ElementRenderer {
         "<input class=\"form-control\" tabindex=\"" + pi.getTabIndex() + "\" type=\"" + type
             + "\" name=\"" + pi.getNameOfInput() + "\" value" + val + placeholder + aria
             + renderRequired(pi.getElementContainer().validator)
-            + renderMaxLen(pi.getElementContainer().validator) + ">",
+            + renderMaxLen(pi.getElementContainer().validator) + additional + ">",
         pi, decoration, ElementRenderer.InputVariant.normal);
   }
 
@@ -219,13 +223,6 @@ public class BootstrapRenderer implements ElementRenderer {
   public String renderSimpleLabel(String forAttribute, String label) {
     return "<label class=\"control-label\" for=\"" + forAttribute + "\">" + label + "</label>\n";
   }
-
-  @Override
-  public String renderInput(String type, String name, String id, String value, String additional) {
-    return "<input class=\"form-control\" id=\"" + id + "\" type=\"" + type + "\" name=\"" + name
-        + "\" value" + this.renderValue(value) + additional + ">";
-  }
-
 
 
 }

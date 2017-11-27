@@ -23,7 +23,8 @@ public final class TextType implements Element {
 
   // very simple version!
   protected HTMLProducer getDefault() {
-    return (pi) -> pi.getTheme().getRenderer().renderInput("text", pi, oneValueElement.decoration);
+    return (pi) -> pi.getTheme().getRenderer().renderInput("text", pi, oneValueElement.decoration,
+        "");
   }
 
   @Override
