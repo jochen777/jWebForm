@@ -15,9 +15,11 @@ public interface Theme {
 
   List<Behaviour> getGlobalBehaviours();
 
-  String getStart(StartEndRenderer startEndRenderer);
+  String getStart(String formId, String method, boolean html5Validation, boolean uplaodform);
 
-  String getEnd(StartEndRenderer startEndRenderer);
+  String getEnd();
 
   RadioRenderer getRadioRenderer();
+
+
 }

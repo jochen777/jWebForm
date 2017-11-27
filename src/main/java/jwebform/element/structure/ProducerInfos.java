@@ -23,10 +23,6 @@ public class ProducerInfos {
     this.elementContainer = elementContainer;
   }
 
-  @Deprecated
-  public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult) {
-    this(formId, tabIndex, theme, elementResult, null); // RFE: Fix null
-  }
 
   public List<Behaviour> getBehaviours() {
     // RFE: This may be faster with an immutable list impl.

@@ -19,6 +19,7 @@ public class BootstrapTheme implements Theme {
   private final BootstrapRadioRenderer radioRenderer;
   private final List<Behaviour> globalBehaviours = new ArrayList<>(); // mutual :/
 
+
   private static BootstrapTheme instance;
 
   public static BootstrapTheme instance(MessageSource messageSource) {
@@ -57,13 +58,18 @@ public class BootstrapTheme implements Theme {
   }
 
   @Override
-  public String getStart(StartEndRenderer startEndRenderer) {
-    return startEndRenderer.getStart() + "<fieldset>";
+  public String getStart(
+      String formId,
+      String method,
+      boolean html5Validation,
+      boolean uplaodform) {
+    StartEndRenderer start = new StartEndRenderer(formId, method, html5Validation, uplaodform);
+    return start.getStart() + "<fieldset>";
   }
 
   @Override
-  public String getEnd(StartEndRenderer startEndRenderer) {
-    return "</fieldset>" + startEndRenderer.getEnd();
+  public String getEnd() {
+    return "</fieldset></form>";
   }
 
   @Override

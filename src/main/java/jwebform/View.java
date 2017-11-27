@@ -35,12 +35,9 @@ public final class View {
   // fulll version
   public String getHtml(Theme theme, String method, boolean html5Validation) {
 
-    StartEndRenderer startEndRenderer =
-        new StartEndRenderer(formId, method, html5Validation, determineUploadTypeAutomatically()); // RFE:
-    // Remove
-    // new
     StringBuilder html = new StringBuilder();
-    html.append(theme.getStart(startEndRenderer));
+    html.append(
+        theme.getStart(formId, method, html5Validation, determineUploadTypeAutomatically()));
     int tabIndex = 1;
     ProducerInfos pi;
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
@@ -48,14 +45,11 @@ public final class View {
       ElementContainer container = entry.getKey();
       pi = new ProducerInfos(formId, tabIndex, theme, elementResult, container);
       String renderedHtml = pi.getHtml();
-      // if (container.behaviour != null) {
-      // renderedHtml = container.behaviour.getAllAround().wrap(renderedHtml);
-      // }
       html.append(renderedHtml);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
 
-    html.append(theme.getEnd(startEndRenderer));
+    html.append(theme.getEnd());
     return html.toString();
   }
 

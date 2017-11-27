@@ -99,6 +99,9 @@
  #############################
  
  
+ 
+ 
+ 
  * Make BootstrapRenderer more generic, so it can be easly subclassed. Include start/end as well. Get rid of startEndRenderer? 
  * align 1:1 output with formchecker
  * mehr themes einführen (twocolumn, material)
@@ -111,6 +114,7 @@
 * Speed-Optimierung: Wrap should work with StringBuilder
  * evtl. einen EmailType einführen? Wie ist die Browserkompatibiltät?
  * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert
+ * AttributeBuilder mit einfachem Builder: AttributeBuilder.build("class", "form-class", "required", ""...)
  
  * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
