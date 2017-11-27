@@ -97,7 +97,7 @@ public class BootstrapRenderer implements ElementRenderer {
         wrapperClass = "form-check";
         break;
       default:
-        wrapperClass = "form-group";
+        wrapperClass = getGroupClass();
     }
     return renderInputFree(free, pi, decoration, wrapperClass, renderLabelOutside);
   }
@@ -118,8 +118,8 @@ public class BootstrapRenderer implements ElementRenderer {
     StringBuffer buf = new StringBuffer();
     Wrapper wrapAroundCompleteInfo = getWrapper(pi, classNameWrapper);
     if (renderLabelOutside) {
-      Wrapper labelWrapper =
-          new Wrapper("<div class=\"form-group " + calculateErrorClass(pi) + "\">", "</div>");
+      Wrapper labelWrapper = new Wrapper(
+          "<div class=\"" + getGroupClass() + " " + calculateErrorClass(pi) + "\">", "</div>");
       buf.append(labelWrapper.start).append(errorMessage).append(labelStr).append(labelWrapper.end)
           .append(free).append(helpHTML).append("\n");
     } else {
@@ -134,6 +134,10 @@ public class BootstrapRenderer implements ElementRenderer {
     }
     return input;
 
+  }
+
+  protected String getGroupClass() {
+    return "form-group";
   }
 
   private Wrapper getWrapper(ProducerInfos pi, String className) {

@@ -15,8 +15,8 @@ import jwebform.view.Theme;
 
 public class BootstrapTheme implements Theme {
   public Map<String, HTMLProducer> htmlProducer;
-  private final BootstrapRenderer renderer;
-  private final BootstrapRadioRenderer radioRenderer;
+  protected final ElementRenderer renderer;
+  protected final RadioRenderer radioRenderer;
   private final List<Behaviour> globalBehaviours = new ArrayList<>(); // mutual :/
 
 
@@ -36,11 +36,14 @@ public class BootstrapTheme implements Theme {
     return instance;
   }
 
-
-  private BootstrapTheme(MessageSource messageSource) {
-    this.renderer = new BootstrapRenderer(messageSource);
-    this.radioRenderer = new BootstrapRadioRenderer();
+  protected BootstrapTheme(ElementRenderer renderer, RadioRenderer radioRenderer) {
+    this.renderer = renderer;
+    this.radioRenderer = radioRenderer;
     htmlProducer = new HashMap<>();
+  }
+
+  protected BootstrapTheme(MessageSource messageSource) {
+    this(new BootstrapRenderer(messageSource), new BootstrapRadioRenderer());
   }
 
   public Map<String, HTMLProducer> getHtmlProducer() {
