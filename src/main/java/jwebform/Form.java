@@ -27,7 +27,7 @@ public final class Form {
   private final List<FormValidator> formValidators;
 
   // Constructors
-  
+
   // full
   public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators) {
     this.elements = elements;
@@ -57,20 +57,11 @@ public final class Form {
     this(id, packElementsInContainer(elements), formValidators);
   }
   // End constructors
-  
-  
-  
-  private static List<ElementContainer> packElementsInContainer(Element... elements) {
-    List<ElementContainer> ec = new ArrayList<>();
-    for (int i = 0; i < elements.length; i++) {
-      ec.add(new ElementContainer(elements[i]));
-    }
-    return ec;
-  }
 
   public FormResult run(Env env) {
     return run(env, false);
   }
+
 
   public FormResult run(Env env, boolean debug) {
     // validate form
@@ -86,6 +77,14 @@ public final class Form {
     boolean formIsValid = checkAllValidationResults(correctedElementResults);
 
     return new FormResult(this.getId(), correctedElementResults, formIsValid);
+  }
+
+  private static List<ElementContainer> packElementsInContainer(Element... elements) {
+    List<ElementContainer> ec = new ArrayList<>();
+    for (int i = 0; i < elements.length; i++) {
+      ec.add(new ElementContainer(elements[i]));
+    }
+    return ec;
   }
 
   private void checkDoubleElements(Map<ElementContainer, ElementResult> results) {
