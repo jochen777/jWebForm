@@ -29,16 +29,16 @@ import jwebform.element.TextDateType;
 import jwebform.element.TextType;
 import jwebform.element.UploadType;
 import jwebform.element.XSRFProtectionType;
-import jwebform.element.renderer.bootstrap.BootstrapTheme;
 import jwebform.element.structure.AbstractBehaviour;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.OneFieldDecoration;
-import jwebform.element.structure.Wrapper;
 import jwebform.env.Env;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
+import jwebform.view.Wrapper;
+import jwebform.view.theme.BootstrapTheme;
 
 public class SampleUsage {
 

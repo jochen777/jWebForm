@@ -1,4 +1,7 @@
-package jwebform.element.structure;
+package jwebform.view;
+
+import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.ProducerInfos;
 
 public interface ElementRenderer {
 

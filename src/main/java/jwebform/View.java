@@ -5,13 +5,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import jwebform.element.renderer.bootstrap.BootstrapTheme;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.ForceFileuploadMethod;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.view.StartEndRenderer;
 import jwebform.view.Theme;
+import jwebform.view.theme.BootstrapTheme;
 
 public final class View {
 

@@ -1,12 +1,12 @@
 package jwebform.element;
 
 import jwebform.element.structure.Element;
-import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
+import jwebform.view.ElementRenderer;
 
 public class CheckBoxType implements Element {
 

@@ -1,11 +1,11 @@
-package jwebform.element.renderer.bootstrap;
+package jwebform.view.theme;
 
 import java.util.List;
 
 import jwebform.element.RadioType.RadioInputEntry;
-import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.ProducerInfos;
-import jwebform.element.structure.RadioRenderer;
+import jwebform.view.ElementRenderer;
+import jwebform.view.RadioRenderer;
 
 public class BootstrapRadioRenderer implements RadioRenderer {
 

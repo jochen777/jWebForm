@@ -1,4 +1,4 @@
-package jwebform.element.structure;
+package jwebform.view;
 
 // provides begin and end code, that can wrap something
 public class Wrapper {

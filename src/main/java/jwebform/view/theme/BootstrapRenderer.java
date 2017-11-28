@@ -1,17 +1,17 @@
-package jwebform.element.renderer.bootstrap;
+package jwebform.view.theme;
 
 import com.coverity.security.Escape;
 
 import jwebform.element.structure.Behaviour;
-import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.ProducerInfos;
-import jwebform.element.structure.Wrapper;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.MaxLength;
 import jwebform.validation.criteria.Required;
+import jwebform.view.ElementRenderer;
 import jwebform.view.MessageSource;
+import jwebform.view.Wrapper;
 
 // Renderer for bootstrap for common elements
 public class BootstrapRenderer implements ElementRenderer {

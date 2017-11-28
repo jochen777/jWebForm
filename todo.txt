@@ -103,7 +103,7 @@
  
  
  
- * mehr themes einführen (twocolumn, material)
+ 
  * explorable api (form.addText, form.addTextArea
  * move classes to right packages
  

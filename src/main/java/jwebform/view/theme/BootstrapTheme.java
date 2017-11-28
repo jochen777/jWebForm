@@ -1,4 +1,4 @@
-package jwebform.element.renderer.bootstrap;
+package jwebform.view.theme;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import jwebform.element.structure.Behaviour;
-import jwebform.element.structure.ElementRenderer;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.RadioRenderer;
+import jwebform.view.ElementRenderer;
 import jwebform.view.MessageSource;
+import jwebform.view.RadioRenderer;
 import jwebform.view.StartEndRenderer;
 import jwebform.view.Theme;
 
