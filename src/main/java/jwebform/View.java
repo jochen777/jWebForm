@@ -17,23 +17,26 @@ public final class View {
 
   private final Map<ElementContainer, ElementResult> elementResults;
   private final String formId;
+  private final Theme theme;
+
+  public View(String formId, Map<ElementContainer, ElementResult> elementResults, Theme theme) {
+    this.formId = formId;
+    this.elementResults = elementResults;
+    this.theme = theme;
+  }
 
   public View(String formId, Map<ElementContainer, ElementResult> elementResults) {
     this.formId = formId;
     this.elementResults = elementResults;
+    this.theme = null;
   }
 
   public String getHtml() {
-    return this.getHtml(BootstrapTheme.instance((msg) -> msg), "POST", true);
-  }
-
-
-  public String getHtml(Theme theme) {
-    return this.getHtml(theme, "POST", true);
+    return getHtml("POST", true);
   }
 
   // fulll version
-  public String getHtml(Theme theme, String method, boolean html5Validation) {
+  public String getHtml(String method, boolean html5Validation) {
 
     StringBuilder html = new StringBuilder();
     html.append(
@@ -89,7 +92,7 @@ public final class View {
   }
 
   public StartEndRenderer getStartEnd() {
-    return new StartEndRenderer(formId, "POST", true);
+    return new StartEndRenderer(formId, "POST", true, determineUploadTypeAutomatically());
   }
 
   public class RenderElement {

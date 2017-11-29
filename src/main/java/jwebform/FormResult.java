@@ -4,6 +4,7 @@ import java.util.Map;
 
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
+import jwebform.view.Theme;
 
 public final class FormResult {
 
@@ -25,6 +26,11 @@ public final class FormResult {
   public View getView() {
     return new View(formId, elementResults);
   }
+
+  public View getView(Theme theme) {
+    return new View(formId, elementResults, theme);
+  }
+
 
   public Map<ElementContainer, ElementResult> getElementResults() {
     return elementResults;

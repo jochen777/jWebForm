@@ -97,6 +97,7 @@
  * Make BootstrapRenderer element agnostic. Means: he should check which element to draw, and then decide to paint it differently. Maybe with marker-interfaces (OK)
  * make renderer smaller. (OK)
  * Make BootstrapRenderer more generic, so it can be easly subclassed. Include start/end as well. Get rid of startEndRenderer? (OK) 
+ * move classes to right packages
  #############################
  
  
@@ -105,7 +106,7 @@
  
  
  * explorable api (form.addText, form.addTextArea
- * move classes to right packages
+ 
  
 ######################## V 0.1
  

@@ -117,7 +117,7 @@ public class SampleUsage {
     try {
       filecontent = this.template.loadAndProcessTempalte(templateName);
       assertEquals(filecontent.trim(),
-          result.getView().getHtml(BootstrapTheme.instance(msg -> msg)).trim());
+          result.getView(BootstrapTheme.instance(msg -> msg)).getHtml().trim());
       // System.err.println("Date: " + formBuilder.getDateValue(result));
       return result.isOk();
     } catch (IOException e) {

@@ -11,9 +11,10 @@ public class StartEndRenderer {
   private final boolean html5Validation;
   private final boolean uploadform;
 
-  public StartEndRenderer(String formId, String method, boolean html5Validation) {
-    this(formId, method, html5Validation, false);
-  }
+
+  // public StartEndRenderer(String formId, String method, boolean html5Validation) {
+  // this(formId, method, html5Validation, false);
+  // }
 
 
   public StartEndRenderer(String formId, String method, boolean html5Validation,
