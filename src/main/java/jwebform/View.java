@@ -37,23 +37,31 @@ public final class View {
 
   // fulll version
   public String getHtml(String method, boolean html5Validation) {
-
     StringBuilder html = new StringBuilder();
-    html.append(
-        theme.getStart(formId, method, html5Validation, determineUploadTypeAutomatically()));
+    html.append(ensureThemeIsThere().getStart(formId, method, html5Validation,
+        determineUploadTypeAutomatically()));
     int tabIndex = 1;
     ProducerInfos pi;
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ElementContainer container = entry.getKey();
-      pi = new ProducerInfos(formId, tabIndex, theme, elementResult, container);
+      pi = new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult, container);
       String renderedHtml = pi.getHtml();
       html.append(renderedHtml);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
 
-    html.append(theme.getEnd());
+    html.append(ensureThemeIsThere().getEnd());
     return html.toString();
+  }
+
+  private Theme ensureThemeIsThere() {
+    if (theme == null) {
+      return BootstrapTheme.instance();
+    } else {
+      return theme;
+    }
+
   }
 
   private boolean determineUploadTypeAutomatically() {
@@ -79,11 +87,10 @@ public final class View {
   public Map<String, RenderElement> getElements() {
     Map<String, RenderElement> elements = new LinkedHashMap<>();
     int tabIndex = 1;
-    BootstrapTheme theme = BootstrapTheme.instance(msg -> msg); // RFE: Maybe better empty theme
-                                                                // here!
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, theme, elementResult, entry.getKey());
+      ProducerInfos pi =
+          new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult, entry.getKey());
       elements.put(elementResult.getStaticElementInfo().getName(),
           new RenderElement(pi.getHtml(), pi, elementResult));
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
