@@ -84,15 +84,28 @@ public final class View {
     return names;
   }
 
-  public Map<String, RenderElement> getElements() {
-    Map<String, RenderElement> elements = new LinkedHashMap<>();
+  public List<UnRenderedElement> getUnrenderedElements() {
+    List<UnRenderedElement> elements = new ArrayList<>();
+    int tabIndex = 1;
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
+      ElementResult elementResult = entry.getValue();
+      ProducerInfos pi =
+          new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult, entry.getKey());
+      elements.add(new UnRenderedElement(pi, elementResult));
+      tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
+    }
+    return elements;
+  }
+
+  public Map<String, RenderedElement> getElements() {
+    Map<String, RenderedElement> elements = new LinkedHashMap<>();
     int tabIndex = 1;
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ProducerInfos pi =
           new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult, entry.getKey());
       elements.put(elementResult.getStaticElementInfo().getName(),
-          new RenderElement(pi.getHtml(), pi, elementResult));
+          new RenderedElement(pi.getHtml(), pi, elementResult));
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
     return elements;
@@ -102,13 +115,12 @@ public final class View {
     return new StartEndRenderer(formId, "POST", true, determineUploadTypeAutomatically());
   }
 
-  public class RenderElement {
+  public class RenderedElement {
     private final String html;
     private final ProducerInfos producerInfos;
     private final ElementResult elementResult;
 
-    public RenderElement(String html, ProducerInfos producerInfos, ElementResult elementResult) {
-      super();
+    public RenderedElement(String html, ProducerInfos producerInfos, ElementResult elementResult) {
       this.html = html;
       this.producerInfos = producerInfos;
       this.elementResult = elementResult;
@@ -128,4 +140,23 @@ public final class View {
 
   }
 
+
+  public class UnRenderedElement {
+    private final ProducerInfos producerInfos;
+    private final ElementResult elementResult;
+
+    public UnRenderedElement(ProducerInfos producerInfos, ElementResult elementResult) {
+      this.producerInfos = producerInfos;
+      this.elementResult = elementResult;
+    }
+
+    public ProducerInfos getProducerInfos() {
+      return producerInfos;
+    }
+
+    public ElementResult getElementResult() {
+      return elementResult;
+    }
+
+  }
 }
