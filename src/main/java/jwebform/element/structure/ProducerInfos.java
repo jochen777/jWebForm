@@ -60,8 +60,16 @@ public class ProducerInfos {
     return elementResult;
   }
 
+  public Element getElement() {
+    return this.elementContainer.element;
+  }
+
   public String getNameOfInput() {
     return elementResult.getStaticElementInfo().getName();
+  }
+
+  public String getElementTypeName() {
+    return elementContainer.element.getClass().getName();
   }
 
   public ElementContainer getElementContainer() {

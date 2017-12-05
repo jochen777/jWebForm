@@ -84,18 +84,33 @@ public final class View {
     return names;
   }
 
-  public List<UnRenderedElement> getUnrenderedElements() {
-    List<UnRenderedElement> elements = new ArrayList<>();
+  public List<ProducerInfos> getUnrenderedElements() {
+    List<ProducerInfos> elements = new ArrayList<>();
     int tabIndex = 1;
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ProducerInfos pi =
           new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult, entry.getKey());
-      elements.add(new UnRenderedElement(pi, elementResult));
+      elements.add(pi);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
     return elements;
   }
+
+
+  public Map<String, ProducerInfos> getAllUnrenderedElements() {
+    Map<String, ProducerInfos> elements = new LinkedHashMap<>();
+    int tabIndex = 1;
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
+      ElementResult elementResult = entry.getValue();
+      ProducerInfos pi =
+          new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult, entry.getKey());
+      elements.put(elementResult.getStaticElementInfo().getName(), pi);
+      tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
+    }
+    return elements;
+  }
+
 
   public Map<String, RenderedElement> getElements() {
     Map<String, RenderedElement> elements = new LinkedHashMap<>();
@@ -141,22 +156,4 @@ public final class View {
   }
 
 
-  public class UnRenderedElement {
-    private final ProducerInfos producerInfos;
-    private final ElementResult elementResult;
-
-    public UnRenderedElement(ProducerInfos producerInfos, ElementResult elementResult) {
-      this.producerInfos = producerInfos;
-      this.elementResult = elementResult;
-    }
-
-    public ProducerInfos getProducerInfos() {
-      return producerInfos;
-    }
-
-    public ElementResult getElementResult() {
-      return elementResult;
-    }
-
-  }
 }
