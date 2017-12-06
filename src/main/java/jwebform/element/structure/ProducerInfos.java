@@ -13,10 +13,6 @@ public class ProducerInfos {
   private final ElementContainer elementContainer;
   private final List<ProducerInfos> childs;
 
-  public List<ProducerInfos> getChilds() {
-    return childs;
-  }
-
   private final static List<ProducerInfos> NO_CHILDS = new ArrayList<>();
 
   private final ElementResult elementResult;
@@ -34,6 +30,10 @@ public class ProducerInfos {
   public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult,
       ElementContainer elementContainer) {
     this(formId, tabIndex, theme, elementResult, elementContainer, NO_CHILDS);
+  }
+
+  public List<ProducerInfos> getChilds() {
+    return childs;
   }
 
 
