@@ -1,7 +1,7 @@
 package jwebform.element.structure;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import jwebform.validation.ValidationResult;
 
@@ -14,18 +14,20 @@ public class ElementResult {
   private final Object valueObject;
 
   private final StaticElementInfo staticElementInfo;
-  private final List<ElementResult> childs; // static
+  private final Map<ElementContainer, ElementResult> childs;
 
   public static final String EMPTY_STRING = "";
   public static final String NO_NAME = "";
-  public static final List<ElementResult> NOCHILDS = new ArrayList<>();
+  public static final Map<ElementContainer, ElementResult> NOCHILDS = new HashMap<>();
 
   // RFE: Builder, der checkt, ob Themable element übergeben wird. wenn ja,
   // muss kein producer angegeben werden. ansonsten ist nur name mandatory
 
+  // TODO: Remove validationResult entirely here! This can move to producerInfos
+
   // complete
   private ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
-      List<ElementResult> childs, Object valueObject) {
+      Map<ElementContainer, ElementResult> childs, Object valueObject) {
     this.validationResult = vr;
     this.value = value;
     this.childs = childs;
@@ -35,7 +37,7 @@ public class ElementResult {
 
   // complete
   public ElementResult(String value, StaticElementInfo staticElementInfo,
-      List<ElementResult> childs, Object valueObject) {
+      Map<ElementContainer, ElementResult> childs, Object valueObject) {
     this.validationResult = ValidationResult.undefined();
     this.value = value;
     this.childs = childs;
@@ -45,7 +47,7 @@ public class ElementResult {
 
 
   public ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
-      List<ElementResult> childs) {
+      Map<ElementContainer, ElementResult> childs) {
     // init sourceObject with string per defautl.
     this(vr, value, staticElementInfo, childs, value);
   }
@@ -102,7 +104,7 @@ public class ElementResult {
     return value;
   }
 
-  public List<ElementResult> getChilds() {
+  public Map<ElementContainer, ElementResult> getChilds() {
     return childs;
   }
 

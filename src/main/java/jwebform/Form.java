@@ -66,7 +66,7 @@ public final class Form {
   public FormResult run(Env env, boolean debug) {
     // validate form
     Map<ElementContainer, ElementResult> elementResults =
-        processElements(env.getEnvWithSumitInfo(id));
+        processElements(env.getEnvWithSumitInfo(id, this), elements);
     if (debug) {
       checkDoubleElements(elementResults);
     }
@@ -87,6 +87,16 @@ public final class Form {
     return ec;
   }
 
+  // RFE: There might be an api for this!!
+  private static List<ElementContainer> packElementContainerInList(ElementContainer... elements) {
+    List<ElementContainer> ec = new ArrayList<>();
+    for (int i = 0; i < elements.length; i++) {
+      ec.add(elements[i]);
+    }
+    return ec;
+  }
+
+
   private void checkDoubleElements(Map<ElementContainer, ElementResult> results) {
     Set<String> availElements = new HashSet<>();
     results.forEach((k, v) -> {
@@ -98,20 +108,29 @@ public final class Form {
     });
   }
 
-  private Map<ElementContainer, ElementResult> processElements(
-      EnvWithSubmitInfo envWithSubmitInfo) {
+  public Map<ElementContainer, ElementResult> processElements(
+      EnvWithSubmitInfo envWithSubmitInfo,
+      ElementContainer... elementsToProcess) {
+    return this.processElements(envWithSubmitInfo, packElementContainerInList(elementsToProcess));
+  }
+
+
+  public Map<ElementContainer, ElementResult> processElements(
+      EnvWithSubmitInfo envWithSubmitInfo,
+      List<ElementContainer> elementsToProcess) {
     // check each element
     Map<ElementContainer, ElementResult> elementResults = new LinkedHashMap<>();
-    for (ElementContainer element : elements) {
-      ElementResult result = element.element.apply(envWithSubmitInfo);
+    for (ElementContainer container : elementsToProcess) {
+      // here is where the magic happens! The "apply" method of the elements is called.
+      ElementResult result = container.element.apply(envWithSubmitInfo);
       if (envWithSubmitInfo.isSubmitted()) {
         if (result.getValidationResult() != ValidationResult.undefined()) {
           // element has set the validation itself. This might happen in complex elements. And will
           // override the following validation
           // --- do nothing
         } else {
-          if (element.validator != null) {
-            result = result.ofValidationResult(element.validator.validate(result.getValue()));
+          if (container.validator != null) {
+            result = result.ofValidationResult(container.validator.validate(result.getValue()));
           } else {
             result = result.ofValidationResult(ValidationResult.ok());
           }
@@ -120,7 +139,7 @@ public final class Form {
         // do nothing
       }
 
-      elementResults.put(element, result);
+      elementResults.put(container, result);
     }
     return elementResults;
   }

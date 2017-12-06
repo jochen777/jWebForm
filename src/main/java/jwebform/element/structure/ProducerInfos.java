@@ -11,17 +11,31 @@ public class ProducerInfos {
   private final int tabIndex;
   private final Theme theme;
   private final ElementContainer elementContainer;
+  private final List<ProducerInfos> childs;
+
+  public List<ProducerInfos> getChilds() {
+    return childs;
+  }
+
+  private final static List<ProducerInfos> NO_CHILDS = new ArrayList<>();
 
   private final ElementResult elementResult;
 
   public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult,
-      ElementContainer elementContainer) {
+      ElementContainer elementContainer, List<ProducerInfos> childs) {
     this.formId = formId;
     this.tabIndex = tabIndex;
     this.theme = theme;
     this.elementResult = elementResult;
     this.elementContainer = elementContainer;
+    this.childs = childs;
   }
+
+  public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult,
+      ElementContainer elementContainer) {
+    this(formId, tabIndex, theme, elementResult, elementContainer, NO_CHILDS);
+  }
+
 
 
   public List<Behaviour> getBehaviours() {

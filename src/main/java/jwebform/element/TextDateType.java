@@ -3,8 +3,7 @@ package jwebform.element;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
@@ -35,57 +34,40 @@ public class TextDateType implements Element {
   final private LocalDate initialValue;
   final public OneFieldDecoration decoration;
 
-  final private TextType day;
-  final private TextType month;
-  final private TextType year;
+  final private ElementContainer day;
+  final private ElementContainer month;
+  final private ElementContainer year;
 
   public TextDateType(String name, OneFieldDecoration decoration, LocalDate initialValue) {
     this.name = name;
     this.initialValue = initialValue;
     this.decoration = decoration;
 
+    Validator numberValidator = new Validator(Criteria.number());
 
     this.day = new TextType(name + "_day", new OneFieldDecoration("Day"),
-        String.valueOf(initialValue.getDayOfMonth())); // TODO: , numberValidator
+        String.valueOf(initialValue.getDayOfMonth())).of(numberValidator);
     this.month = new TextType(name + "_month", new OneFieldDecoration("Month"),
-        String.valueOf(initialValue.getMonthValue()));
+        String.valueOf(initialValue.getMonthValue())).of(numberValidator);
     this.year = new TextType(name + "_year", new OneFieldDecoration("Year"),
-        String.valueOf(initialValue.getYear()));
+        String.valueOf(initialValue.getYear())).of(numberValidator);
 
   }
 
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    ElementResult dayResult = day.apply(env);
-    ElementResult monthResult = month.apply(env);
-    ElementResult yearResult = year.apply(env);
-
-    // RFE: Ugly
-    if (env.isSubmitted()) {
-      Validator numberValidator = new Validator(Criteria.number());
-      dayResult =
-          dayResult.cloneWithNewValidationResult(numberValidator.validate(dayResult.getValue()));
-      monthResult = monthResult
-          .cloneWithNewValidationResult(numberValidator.validate(monthResult.getValue()));
-      yearResult =
-          yearResult.cloneWithNewValidationResult(numberValidator.validate(yearResult.getValue()));
-    }
-
-    List<ElementResult> childs = new ArrayList<>();
-    childs.add(dayResult);
-    childs.add(monthResult);
-    childs.add(yearResult);
+    Map<ElementContainer, ElementResult> childs =
+        env.getForm().processElements(env, day, month, year);
 
     LocalDate dateValue = initialValue;
     ValidationResult validationResult = ValidationResult.undefined();
     String dateValStr = "";
     if (env.isSubmitted()) {
       try {
-        dateValue = this.setupValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
-            yearResult.getValue());
+        dateValue = this.setupValue(this.initialValue, childs.get(day).getValue(),
+            childs.get(month).getValue(), childs.get(year).getValue());
         dateValStr = dateValue.format(DateTimeFormatter.ISO_DATE);
-        // TODO: validationResult = validator.validate(dateValStr);
       } catch (DateTimeException | NumberFormatException e) {
         validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
       }
@@ -134,16 +116,18 @@ public class TextDateType implements Element {
       if (vr != ValidationResult.undefined() && !vr.isValid) {
         errorMessage = "Problem: " + vr.getMessage() + "<br>";
       }
-      ElementResult dayResult = pi.getElementResult().getChilds().get(0);
-      ElementResult monthResult = pi.getElementResult().getChilds().get(1);
-      ElementResult yearResult = pi.getElementResult().getChilds().get(2);
+
+      Map<ElementContainer, ElementResult> childs = pi.getElementResult().getChilds();
+      ElementResult dayResult = childs.get(day);
+      ElementResult monthResult = childs.get(month);
+      ElementResult yearResult = childs.get(year);
       String html = decoration.getLabel() + "<br/>" + errorMessage
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult,
-              new ElementContainer(day, new Validator())).getHtml()
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult, day)
+              .getHtml()
           + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1, pi.getTheme(), monthResult,
-              new ElementContainer(month, new Validator())).getHtml()
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult,
-              new ElementContainer(year, new Validator())).getHtml()
+              month).getHtml()
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult, year)
+              .getHtml()
           + "<br>" + decoration.getHelptext();
       return html;
     };
