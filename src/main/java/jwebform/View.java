@@ -45,8 +45,7 @@ public final class View {
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ElementContainer container = entry.getKey();
-      List<ProducerInfos> childs =
-          createProducerInfoChilds(elementResult.getChilds(), tabIndex, elementResult);
+      List<ProducerInfos> childs = createProducerInfoChilds(elementResult.getChilds(), tabIndex);
       pi = new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult, container,
           childs);
       html.append(pi.getHtml());
@@ -59,8 +58,7 @@ public final class View {
 
   private List<ProducerInfos> createProducerInfoChilds(
       Map<ElementContainer, ElementResult> childs,
-      int tabIndex,
-      ElementResult elementResult) {
+      int tabIndex) {
     List<ProducerInfos> listOfPis = new ArrayList<>(); // RFE: only, if childs is not empty!
     // RFE: This allows only one depth! It would be cooler, if we can do infinite depth
     childs.forEach((container, result) -> listOfPis
@@ -102,8 +100,8 @@ public final class View {
     int tabIndex = 1;
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
-      ProducerInfos pi =
-          new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult, entry.getKey());
+      ProducerInfos pi = new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult,
+          entry.getKey(), createProducerInfoChilds(elementResult.getChilds(), tabIndex));
       elements.add(pi);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
