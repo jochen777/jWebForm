@@ -11,6 +11,7 @@ import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
@@ -62,25 +63,6 @@ public class SelectDateType implements Element {
   public ElementResult apply(EnvWithSubmitInfo env) {
     Map<ElementContainer, ElementResult> results =
         env.getForm().processElements(env, day, month, year);
-    // ElementResult dayResult = day.apply(env);
-    // ElementResult monthResult = month.apply(env);
-    // ElementResult yearResult = year.apply(env);
-
-    // RFE: Ugly
-    if (env.isSubmitted()) {
-      Validator numberValidator = new Validator(Criteria.number());
-      // dayResult =
-      // dayResult.cloneWithNewValidationResult(numberValidator.validate(dayResult.getValue()));
-      // monthResult = monthResult
-      // .cloneWithNewValidationResult(numberValidator.validate(monthResult.getValue()));
-      // yearResult =
-      // yearResult.cloneWithNewValidationResult(numberValidator.validate(yearResult.getValue()));
-    }
-
-    // List<ElementResult> childs = new ArrayList<>();
-    // childs.add(dayResult);
-    // childs.add(monthResult);
-    // childs.add(yearResult);
 
     LocalDate dateValue = initialValue;
     ValidationResult validationResult = ValidationResult.undefined();
@@ -96,11 +78,8 @@ public class SelectDateType implements Element {
       }
     }
 
-    // ElementResult result = new ElementResult(dateValStr,
-    // new StaticElementInfo(name, getDefault(), 3, KEY), childs, dateValue);
-
     ElementResult result = new ElementResult(dateValStr,
-        new StaticElementInfo(name, getDefault(), 3, KEY), ElementResult.NOCHILDS, dateValue);
+        new StaticElementInfo(name, getDefault(), 3, KEY), results, dateValue);
 
     if (validationResult != ValidationResult.undefined()) {
       return result.cloneWithNewValidationResult(validationResult);
@@ -142,19 +121,21 @@ public class SelectDateType implements Element {
       if (vr != ValidationResult.undefined() && !vr.isValid) {
         errorMessage = "Problem: " + vr.getMessage() + "<br>";
       }
-      return "";
-      // ElementResult dayResult = pi.getElementResult().getChilds().get(0);
-      // ElementResult monthResult = pi.getElementResult().getChilds().get(1);
-      // ElementResult yearResult = pi.getElementResult().getChilds().get(2);
-      // String html = decoration.getLabel() + "<br/>" + errorMessage
-      // + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult,
-      // new ElementContainer(day, new Validator())).getHtml()
-      // + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1, pi.getTheme(), monthResult,
-      // new ElementContainer(month, new Validator())).getHtml()
-      // + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult,
-      // new ElementContainer(year, new Validator())).getHtml()
-      // + "<br>" + decoration.getHelptext();
-      // return html;
+
+      Map<ElementContainer, ElementResult> childs = pi.getElementResult().getChilds();
+      ElementResult dayResult = childs.get(day);
+      ElementResult monthResult = childs.get(month);
+      ElementResult yearResult = childs.get(year);
+      String html = decoration.getLabel() + "<br/>" + errorMessage
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult, day)
+              .getHtml()
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1, pi.getTheme(), monthResult,
+              month).getHtml()
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult, year)
+              .getHtml()
+          + "<br>" + decoration.getHelptext();
+      return html;
+
     };
   }
 
