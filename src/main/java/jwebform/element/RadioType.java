@@ -101,4 +101,10 @@ public class RadioType implements Element {
   }
 
 
+
+  public List<RadioInputEntry> getEntries() {
+    return entries;
+  }
+
+
 }

@@ -106,6 +106,8 @@
  
  
  * explorable api (form.addText, form.addTextArea
+ * fix checkbox
+ * simplify template
  
  
 ######################## V 0.1
