@@ -26,21 +26,30 @@ public class StartEndRenderer {
   }
 
   public String getStart() {
-    TagAttributes attribs = new TagAttributes();
-    attribs.addToAttribute("name", formId + "-FORMCHECKER");
-    attribs.addToAttribute("method", method);
-    attribs.addToAttribute("id", formId);
-    String uploadStr = "";
-    if (uploadform) {
-      uploadStr = "enctype=\"multipart/form-data\"";
-    }
-    if (!html5Validation) {
-      attribs.addToAttribute("novalidate", "");
-    }
-    Tag startTag = new Tag("form", attribs);
+    return getStart("");
+  }
+  
+  public String getStart(String additional) {
+    String formTag = "<form name=\"" + formId + "-FORMCHECKER\" method=\"" + method + "\" id=\"" + formId + "\"" + getUpload(uploadform) +
+        getHtml5Validaiton(html5Validation) +
+        ">\n";
     String submittedTag = "<input type=\"hidden\" name=\"" + SUBMIT_KEY + "\" value=\""
         + SUBMIT_VALUE_PREFIX + formId + "\">\n";
-    return startTag.getStartHtml(uploadStr) + "\n" + submittedTag + "\n";
+    return  formTag + submittedTag + "\n";
+  }
+
+  private String getHtml5Validaiton(boolean html5Validation) {
+    if (!html5Validation) {
+      return " novalidate ";
+    } 
+    return "";
+  }
+
+  private String getUpload(boolean uploadform2) {
+    if (uploadform) {
+      return " enctype=\"multipart/form-data\" ";
+    } 
+    return "";
   }
 
   public String getEnd() {
