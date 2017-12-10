@@ -98,6 +98,7 @@
  * make renderer smaller. (OK)
  * Make BootstrapRenderer more generic, so it can be easly subclassed. Include start/end as well. Get rid of startEndRenderer? (OK) 
  * move classes to right packages
+ * implement a template, that renders the form (OK)
  #############################
  
  
@@ -107,8 +108,6 @@
  
  * explorable api (form.addText, form.addTextArea
  * fix checkbox
-* required - attribut auswerten
-* maxlen auswerten
 * helper macros von template in view verlagern
  
 ######################## V 0.1
@@ -125,7 +124,7 @@
  * google captcha in core with lamdas for json serialisierung/desserialsierung
  * drop konzept of Theme.KEY entirely? 
  
- * implement a template, that renders the form
+ 
  
  * bean-validation
  * fromBean, toBean
