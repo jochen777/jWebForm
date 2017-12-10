@@ -34,7 +34,7 @@ public class StartEndRenderer {
     if (uploadform) {
       uploadStr = "enctype=\"multipart/form-data\"";
     }
-    if (html5Validation) {
+    if (!html5Validation) {
       attribs.addToAttribute("novalidate", "");
     }
     Tag startTag = new Tag("form", attribs);

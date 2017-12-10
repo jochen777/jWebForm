@@ -107,8 +107,9 @@
  
  * explorable api (form.addText, form.addTextArea
  * fix checkbox
- * simplify template
- 
+* required - attribut auswerten
+* maxlen auswerten
+* helper macros von template in view verlagern
  
 ######################## V 0.1
  

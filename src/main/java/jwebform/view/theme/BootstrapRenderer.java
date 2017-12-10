@@ -8,7 +8,6 @@ import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.MaxLength;
-import jwebform.validation.criteria.Required;
 import jwebform.view.ElementRenderer;
 import jwebform.view.MessageSource;
 import jwebform.view.Wrapper;
@@ -51,7 +50,7 @@ public class BootstrapRenderer implements ElementRenderer {
   }
 
   protected String renderRequired(Validator validator) {
-    if (validator.containsExactCriterion(Required.getInstance())) {
+    if (validator.isRequired()) {
       return " required";
     }
     return "";
@@ -159,7 +158,7 @@ public class BootstrapRenderer implements ElementRenderer {
 
   protected String generateLabel(ProducerInfos pi, OneFieldDecoration decoration) {
     StringBuilder labelAppend = new StringBuilder(":");
-    if (pi.getElementContainer().validator.containsExactCriterion(Required.getInstance())) {
+    if (pi.getElementContainer().validator.isRequired()) {
       labelAppend.append(" *");
     }
     StringBuilder complete = new StringBuilder();
