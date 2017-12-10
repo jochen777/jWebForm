@@ -32,6 +32,7 @@ public class StartEndRenderer {
   public String getStart(String additional) {
     String formTag = "<form name=\"" + formId + "-FORMCHECKER\" method=\"" + method + "\" id=\"" + formId + "\"" + getUpload(uploadform) +
         getHtml5Validaiton(html5Validation) +
+        additional + 
         ">\n";
     String submittedTag = "<input type=\"hidden\" name=\"" + SUBMIT_KEY + "\" value=\""
         + SUBMIT_VALUE_PREFIX + formId + "\">\n";
