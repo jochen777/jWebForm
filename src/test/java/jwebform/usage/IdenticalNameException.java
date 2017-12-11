@@ -19,7 +19,7 @@ public class IdenticalNameException {
     try {
       Form f = new Form("id", new TextType("pete", new OneFieldDecoration("Pete1"), ""),
           new TextType("pete", new OneFieldDecoration("Pete2"), ""));
-      f.run(new Env(t -> t), true, new FormResultFactory());
+      f.run(new Env(t -> t), true);
       assertTrue("An exeption should be raised before!", false); // fail, because the run should
                                                                  // raise the exception
     } catch (Exception e) {

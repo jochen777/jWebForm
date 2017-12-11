@@ -43,4 +43,11 @@ public final class FormResult {
     return "FormResult" + formIsValid + "\n " + b.toString();
   }
 
+  
+  public static class FormResultFactory {
+    public FormResult of(String formId, Map<ElementContainer, ElementResult> elements, boolean valid) {
+      return new FormResult(formId, elements, valid);
+    }
+  }
+
 }

@@ -64,7 +64,7 @@ public final class Form {
   }
 
   public final FormResult run(Env env, boolean debug) {
-    return run(env, debug,  new FormResultFactory());
+    return run(env, debug, new FormResultFactory());
   }
   
 
