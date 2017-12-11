@@ -10,7 +10,6 @@ import jwebform.element.SimpleType;
 import jwebform.element.TextType;
 import jwebform.element.structure.OneFieldDecoration;
 import jwebform.env.Env;
-import jwebform.factories.FormResultFactory;
 
 public class IdenticalNameException {
 
