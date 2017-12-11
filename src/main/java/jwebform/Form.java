@@ -13,6 +13,7 @@ import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 import jwebform.env.Env.EnvWithSubmitInfo;
+import jwebform.factories.FormResultFactory;
 import jwebform.validation.DoubleTakenNameException;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -62,8 +63,12 @@ public final class Form {
     return run(env, false);
   }
 
+  public final FormResult run(Env env, boolean debug) {
+    return run(env, debug,  new FormResultFactory());
+  }
+  
 
-  public FormResult run(Env env, boolean debug) {
+  public final FormResult run(Env env, boolean debug, FormResultFactory formResultFactory) {
     // validate form
     Map<ElementContainer, ElementResult> elementResults =
         processElements(env.getEnvWithSumitInfo(id, this), elements);
@@ -76,7 +81,7 @@ public final class Form {
         correctElementResults(elementResults, overridenValidationResults);
     boolean formIsValid = checkAllValidationResults(correctedElementResults);
 
-    return new FormResult(this.getId(), correctedElementResults, formIsValid);
+    return formResultFactory.of(this.getId(), correctedElementResults, formIsValid);
   }
 
   private static List<ElementContainer> packElementsInContainer(Element... elements) {
@@ -180,7 +185,7 @@ public final class Form {
     return elements;
   }
 
-  public String getId() {
+  public final String getId() {
     return id;
   }
 

@@ -105,7 +105,7 @@
  
  
  
- 
+ * form2bean as "integration" project
  * explorable api (form.addText, form.addTextArea
  * fix checkbox
 * helper macros von template in view verlagern
@@ -123,7 +123,7 @@
  
  * google captcha in core with lamdas for json serialisierung/desserialsierung
  * drop konzept of Theme.KEY entirely? 
- 
+ * html output generally over simple template engine?!
  
  
  * bean-validation
