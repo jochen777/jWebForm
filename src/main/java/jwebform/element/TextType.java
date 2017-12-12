@@ -7,7 +7,7 @@ import jwebform.element.structure.OneFieldDecoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
-public final class TextType implements Element {
+public class TextType implements Element {
 
   public final static String KEY = "jwebform.element.TextInput";
   final public OneValueElementProcessor oneValueElement;
