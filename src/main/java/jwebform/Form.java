@@ -137,7 +137,9 @@ public final class Form {
       } else {
         // do nothing
       }
-
+      if (elementResults.containsKey(container)) {
+        throw new IdenticalElementException(container);
+      }
       elementResults.put(container, result);
     }
     return elementResults;
@@ -181,6 +183,15 @@ public final class Form {
 
   public final String getId() {
     return id;
+  }
+
+  @SuppressWarnings("serial")
+  public class IdenticalElementException extends RuntimeException {
+
+    public IdenticalElementException(ElementContainer container) {
+      super("Identical Elements are not allowed. Plese remove double container: "
+          + container.element);
+    }
   }
 
 }
