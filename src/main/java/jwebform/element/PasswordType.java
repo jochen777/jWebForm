@@ -1,9 +1,9 @@
 package jwebform.element;
 
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.Decoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
@@ -11,10 +11,11 @@ public class PasswordType implements Element {
 
   public final static String KEY = "jwebform.element.PasswordInput";
   public final OneValueElementProcessor oneValueElement;
-
+  public final Decoration decoration;
 
   public PasswordType(String name, Decoration decoration) {
-    this.oneValueElement = new OneValueElementProcessor(name, decoration, "");
+    this.oneValueElement = new OneValueElementProcessor(name,"");
+    this.decoration = decoration;
 
   }
 
@@ -25,7 +26,7 @@ public class PasswordType implements Element {
 
   protected HTMLProducer getDefault() {
     return (pi) -> pi.getTheme().getRenderer().renderInput("password", pi,
-        oneValueElement.decoration, "");
+        decoration, "");
   }
 
 

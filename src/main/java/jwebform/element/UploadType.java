@@ -1,10 +1,10 @@
 package jwebform.element;
 
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.ForceFileuploadMethod;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.Decoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
@@ -14,9 +14,11 @@ public class UploadType implements Element, ForceFileuploadMethod {
 
   public final static String KEY = "jwebform.element.UploadInput";
   public final OneValueElementProcessor oneValueElement;
+  private final Decoration decoration;
 
   public UploadType(String name, Decoration decoration) {
-    this.oneValueElement = new OneValueElementProcessor(name, decoration, "");
+    this.oneValueElement = new OneValueElementProcessor(name, "");
+    this.decoration = decoration;
   }
 
   @Override
@@ -26,7 +28,7 @@ public class UploadType implements Element, ForceFileuploadMethod {
 
 
   protected HTMLProducer getDefault() {
-    return (pi) -> pi.getTheme().getRenderer().renderInput("file", pi, oneValueElement.decoration,
+    return (pi) -> pi.getTheme().getRenderer().renderInput("file", pi, decoration,
         "");
   }
 

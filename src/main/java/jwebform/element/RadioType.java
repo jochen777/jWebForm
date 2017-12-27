@@ -3,10 +3,10 @@ package jwebform.element;
 import java.util.ArrayList;
 import java.util.List;
 
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.Decoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.view.ElementRenderer;
@@ -18,13 +18,14 @@ public class RadioType implements Element {
   final public List<RadioInputEntry> entries;
 
   public final OneValueElementProcessor oneValueElement;
-
+  public final Decoration decoration;
 
   // RFE: Add groups too!
   public RadioType(String name, Decoration decoration, String initialValue, String keys[],
       String values[]) {
-    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
+    this.oneValueElement = new OneValueElementProcessor(name, initialValue);
     entries = generateEntriesFromKeyValues(keys, values);
+    this.decoration = decoration;
   }
 
   @Override
@@ -75,7 +76,7 @@ public class RadioType implements Element {
     return (pi) -> {
       return pi.getTheme().getRenderer().renderInputFree(
           pi.getTheme().getRadioRenderer().renderInputs(pi, entries), pi,
-          oneValueElement.decoration, ElementRenderer.InputVariant.radio);
+          decoration, ElementRenderer.InputVariant.radio);
     };
   }
 

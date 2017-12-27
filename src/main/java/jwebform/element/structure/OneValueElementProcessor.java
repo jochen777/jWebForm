@@ -11,13 +11,11 @@ public class OneValueElementProcessor {
 
   final public String name;
   final public String initialValue;
-  final public Decoration decoration;
 
 
-  public OneValueElementProcessor(String name, Decoration decoration, String initialValue) {
+  public OneValueElementProcessor(String name, String initialValue) {
     this.name = name;
     this.initialValue = initialValue;
-    this.decoration = decoration;
   }
 
   public ElementResult calculateElementResultWithInputCheck(

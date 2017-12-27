@@ -1,9 +1,9 @@
 package jwebform.element;
 
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.Decoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
@@ -15,11 +15,13 @@ public class NumberType implements Element {
   private final int initialNumber;
 
   public final OneValueElementProcessor oneValueElement;
+  public final Decoration decoration;
 
   public NumberType(String name, Decoration decoration, int initialValue) {
     this.oneValueElement =
-        new OneValueElementProcessor(name, decoration, Integer.toString(initialValue));
+        new OneValueElementProcessor(name, Integer.toString(initialValue));
     initialNumber = initialValue;
+    this.decoration = decoration;
   }
 
   @Override
@@ -47,7 +49,7 @@ public class NumberType implements Element {
 
   // very simple version!
   protected HTMLProducer getDefault() {
-    return (pi) -> pi.getTheme().getRenderer().renderInput("number", pi, oneValueElement.decoration,
+    return (pi) -> pi.getTheme().getRenderer().renderInput("number", pi, decoration,
         "");
   }
 

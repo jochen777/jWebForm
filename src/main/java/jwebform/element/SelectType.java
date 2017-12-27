@@ -3,10 +3,10 @@ package jwebform.element;
 import java.util.ArrayList;
 import java.util.List;
 
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.Decoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
@@ -18,27 +18,31 @@ public class SelectType implements Element {
 
   public final OneValueElementProcessor oneValueElement;
   public final List<SelectInputEntryGroup> groups;
+  public final Decoration decoration;
 
 
   // RFE: Add groups too!
   public SelectType(String name, Decoration decoration, String initialValue, String keys[],
       String values[]) {
-    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
+    this.oneValueElement = new OneValueElementProcessor(name, initialValue);
     this.entries = generateEntriesFromKeyValues(keys, values);
     this.groups = null;
+    this.decoration = decoration;
   }
 
   public SelectType(String name, Decoration decoration, String initialValue, List<SelectInputEntry> entries) {
-    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
+    this.oneValueElement = new OneValueElementProcessor(name, initialValue);
     this.entries = entries;
     this.groups = null;
+    this.decoration = decoration;
   }
   
   // somewhat fishy because groups and entries seems to be the same type, so we have to change the order of inputs
   public SelectType(String name, Decoration decoration, List<SelectInputEntryGroup> groups, String initialValue) {
-    this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
+    this.oneValueElement = new OneValueElementProcessor(name, initialValue);
     this.entries = null;
     this.groups = groups;
+    this.decoration = decoration;
   }
   
   
@@ -101,7 +105,7 @@ public class SelectType implements Element {
   // very simple version!
   public HTMLProducer getDefault() {
     return (pi) -> pi.getTheme().getRenderer().renderInputComplex("select",
-        buildEntries(pi.getElementResult().getValue(), entries, groups), pi, oneValueElement.decoration);
+        buildEntries(pi.getElementResult().getValue(), entries, groups), pi, decoration);
   }
 
 
