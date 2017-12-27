@@ -8,7 +8,7 @@ import jwebform.Form;
 import jwebform.element.HtmlType;
 import jwebform.element.SimpleType;
 import jwebform.element.TextType;
-import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Decoration;
 import jwebform.env.Env;
 
 public class IdenticalNameException {
@@ -16,8 +16,8 @@ public class IdenticalNameException {
   @Test
   public void testIdenticalName() {
     try {
-      Form f = new Form("id", new TextType("pete", new OneFieldDecoration("Pete1"), ""),
-          new TextType("pete", new OneFieldDecoration("Pete2"), ""));
+      Form f = new Form("id", new TextType("pete", new Decoration("Pete1"), ""),
+          new TextType("pete", new Decoration("Pete2"), ""));
       f.run(new Env(t -> t), true);
       assertTrue("An exeption should be raised before!", false); // fail, because the run should
                                                                  // raise the exception

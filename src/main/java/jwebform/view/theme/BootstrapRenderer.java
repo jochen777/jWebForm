@@ -3,7 +3,7 @@ package jwebform.view.theme;
 import com.coverity.security.Escape;
 
 import jwebform.element.structure.Behaviour;
-import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -25,7 +25,7 @@ public class BootstrapRenderer implements ElementRenderer {
   public String renderInput(
       String type,
       ProducerInfos pi,
-      OneFieldDecoration decoration,
+      Decoration decoration,
       String additional) {
     String placeholder = generatePlaceholder(decoration);
     String aria = renderAriaDescribedBy(pi, decoration);
@@ -61,7 +61,7 @@ public class BootstrapRenderer implements ElementRenderer {
       String tagname,
       String inBetweenHtml,
       ProducerInfos pi,
-      OneFieldDecoration decoration) {
+      Decoration decoration) {
     String placeholder = generatePlaceholder(decoration);
 
     String aria = renderAriaDescribedBy(pi, decoration);
@@ -83,7 +83,7 @@ public class BootstrapRenderer implements ElementRenderer {
   public String renderInputFree(
       String free,
       ProducerInfos pi,
-      OneFieldDecoration decoration,
+      Decoration decoration,
       ElementRenderer.InputVariant variant) {
     String wrapperClass;
     boolean renderLabelOutside = false;
@@ -105,7 +105,7 @@ public class BootstrapRenderer implements ElementRenderer {
   private String renderInputFree(
       String free,
       ProducerInfos pi,
-      OneFieldDecoration decoration,
+      Decoration decoration,
       String classNameWrapper,
       boolean renderLabelOutside) {
     String errorMessage = renderErrorMessage(pi);
@@ -156,7 +156,7 @@ public class BootstrapRenderer implements ElementRenderer {
     return errorClass;
   }
 
-  protected String generateLabel(ProducerInfos pi, OneFieldDecoration decoration) {
+  protected String generateLabel(ProducerInfos pi, Decoration decoration) {
     StringBuilder labelAppend = new StringBuilder(":");
     if (pi.getElementContainer().validator.isRequired()) {
       labelAppend.append(" *");
@@ -169,9 +169,9 @@ public class BootstrapRenderer implements ElementRenderer {
   }
 
 
-  protected String generatePlaceholder(OneFieldDecoration decoration) {
+  protected String generatePlaceholder(Decoration decoration) {
     String placeholder = "";
-    if (decoration.getPlaceholder() != OneFieldDecoration.EMPTY) {
+    if (decoration.getPlaceholder() != Decoration.EMPTY) {
       placeholder =
           " placeholder=\"" + messageSource.getMessage(decoration.getPlaceholder()) + "\"";
     }
@@ -179,11 +179,11 @@ public class BootstrapRenderer implements ElementRenderer {
   }
 
 
-  protected boolean isHelpDesired(OneFieldDecoration decoration) {
-    return decoration.getHelptext() != OneFieldDecoration.EMPTY;
+  protected boolean isHelpDesired(Decoration decoration) {
+    return decoration.getHelptext() != Decoration.EMPTY;
   }
 
-  protected String renderHelpText(ProducerInfos pi, OneFieldDecoration decoration) {
+  protected String renderHelpText(ProducerInfos pi, Decoration decoration) {
     String helpHTML;
     if (isHelpDesired(decoration)) {
       helpHTML = "<span id=\"helpBlock-" + pi.getNameOfInput() + "\" class=\"help-block\">"
@@ -195,7 +195,7 @@ public class BootstrapRenderer implements ElementRenderer {
   }
 
   @Override
-  public String renderAriaDescribedBy(ProducerInfos pi, OneFieldDecoration decoration) {
+  public String renderAriaDescribedBy(ProducerInfos pi, Decoration decoration) {
     String aria;
     if (this.isHelpDesired(decoration)) {
       aria = " aria-describedby=\"helpBlock-" + pi.getNameOfInput() + "\"";

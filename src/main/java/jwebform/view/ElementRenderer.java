@@ -1,6 +1,6 @@
 package jwebform.view;
 
-import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ProducerInfos;
 
 public interface ElementRenderer {
@@ -9,7 +9,7 @@ public interface ElementRenderer {
   String renderInput(
       String type,
       ProducerInfos pi,
-      OneFieldDecoration decoration,
+      Decoration decoration,
       String additional);
 
   // renders an input value, that is not a typical input (for example TextArea)
@@ -17,17 +17,17 @@ public interface ElementRenderer {
       String tagname,
       String inBetweenHtml,
       ProducerInfos pi,
-      OneFieldDecoration decoration);
+      Decoration decoration);
 
   // just renders label and help, provide the input-element yourself
   String renderInputFree(
       String free,
       ProducerInfos pi,
-      OneFieldDecoration decoration,
+      Decoration decoration,
       InputVariant variant);
 
   // render the aria attribute
-  String renderAriaDescribedBy(ProducerInfos pi, OneFieldDecoration decoration);
+  String renderAriaDescribedBy(ProducerInfos pi, Decoration decoration);
 
   // render the value attribute
   String renderValue(String value);

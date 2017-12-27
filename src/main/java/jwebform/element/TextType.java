@@ -3,7 +3,7 @@ package jwebform.element;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
@@ -12,7 +12,7 @@ public class TextType implements Element {
   public final static String KEY = "jwebform.element.TextInput";
   final public OneValueElementProcessor oneValueElement;
 
-  public TextType(String name, OneFieldDecoration decoration, String initialValue) {
+  public TextType(String name, Decoration decoration, String initialValue) {
     this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
   }
 

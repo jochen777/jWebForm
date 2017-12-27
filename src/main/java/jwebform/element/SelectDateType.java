@@ -10,7 +10,7 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
@@ -33,26 +33,26 @@ public class SelectDateType implements Element {
 
 
   final private LocalDate initialValue;
-  final public OneFieldDecoration decoration;
+  final public Decoration decoration;
 
   final private ElementContainer day;
   final private ElementContainer month;
   final private ElementContainer year;
 
-  public SelectDateType(String name, OneFieldDecoration decoration, LocalDate initialValue,
+  public SelectDateType(String name, Decoration decoration, LocalDate initialValue,
       int yearStart, int yearEnd) {
     this.name = name;
     this.initialValue = initialValue;
     this.decoration = decoration;
 
     Validator numberValidator = new Validator(Criteria.number());
-    this.day = new SelectType(name + "_day", new OneFieldDecoration("Day"),
+    this.day = new SelectType(name + "_day", new Decoration("Day"),
         String.valueOf(initialValue.getDayOfMonth()), CommonSelects.build().buildDays())
             .of(numberValidator);
-    this.month = new SelectType(name + "_month", new OneFieldDecoration("Month"),
+    this.month = new SelectType(name + "_month", new Decoration("Month"),
         String.valueOf(initialValue.getMonthValue()), CommonSelects.build().buildMonths())
             .of(numberValidator);;
-    this.year = new SelectType(name + "_year", new OneFieldDecoration("Year"),
+    this.year = new SelectType(name + "_year", new Decoration("Year"),
         String.valueOf(initialValue.getYear()), CommonSelects.build().getYears(yearStart, yearEnd))
             .of(numberValidator);;
 

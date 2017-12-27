@@ -13,6 +13,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import jwebform.Form;
+import jwebform.FormBuilder;
 import jwebform.FormResult;
 import jwebform.element.CheckBoxType;
 import jwebform.element.HiddenType;
@@ -31,7 +32,7 @@ import jwebform.element.UploadType;
 import jwebform.element.XSRFProtectionType;
 import jwebform.element.structure.AbstractBehaviour;
 import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Decoration;
 import jwebform.env.Env;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -153,33 +154,33 @@ public class SampleUsage {
     };
 
     ElementContainer textInput = new ElementContainer(
-        new TextType("textInput", new OneFieldDecoration("TextInputLabel"), "Peter\"Paul"),
+        new TextType("textInput", new Decoration("TextInputLabel"), "Peter\"Paul"),
         new Validator(Criteria.required()), testBe);
 
     TextDateType date = new TextDateType("dateInput",
-        new OneFieldDecoration("Please insert date", "datehelptext"), LocalDate.of(2017, 7, 4));
+        new Decoration("Please insert date", "datehelptext"), LocalDate.of(2017, 7, 4));
     ElementContainer textInput2 = new TextType("textInput2",
-        new OneFieldDecoration("TextInputLabel2", "Help-Text", "Placeholder"), "Peter\"Paul")
+        new Decoration("TextInputLabel2", "Help-Text", "Placeholder"), "Peter\"Paul")
             .of(new Validator(Criteria.required()));
     ElementContainer gender =
-        new ElementContainer(new SelectType("gender", new OneFieldDecoration("Gender"), "",
+        new ElementContainer(new SelectType("gender", new Decoration("Gender"), "",
             new String[] {"m", "f"}, new String[] {"Male", "Female"}));
     ElementContainer chk = new ElementContainer(
-        new CheckBoxType("chk", new OneFieldDecoration("chk-label", "chk_help"), true),
+        new CheckBoxType("chk", new Decoration("chk-label", "chk_help"), true),
         new Validator(Criteria.required()));
     ElementContainer lbl = new ElementContainer(new LabelType("lbl"));
     ElementContainer html = new HtmlType("<strong>HTML</strong>").of();
     ElementContainer hddn = new HiddenType("hddn", "hddn-value").of();
     ElementContainer area =
-        new TextAreaType("area", new OneFieldDecoration("Area", "Area-Help", "Area-Placeholder"),
+        new TextAreaType("area", new Decoration("Area", "Area-Help", "Area-Placeholder"),
             "Area-Prebuild").of(new Validator(Criteria.required()));
 
     ElementContainer nmbr =
-        new NumberType("nbr", new OneFieldDecoration("chk-label", "chk_help"), 5)
+        new NumberType("nbr", new Decoration("chk-label", "chk_help"), 5)
             .of(new Validator(Criteria.required()));
-    ElementContainer pssword = new PasswordType("pssword", new OneFieldDecoration("Password")).of();
-    ElementContainer upld = new UploadType("upld", new OneFieldDecoration("Upload")).of();
-    ElementContainer radio = new RadioType("radio", new OneFieldDecoration("Radio"), "1",
+    ElementContainer pssword = new PasswordType("pssword", new Decoration("Password")).of();
+    ElementContainer upld = new UploadType("upld", new Decoration("Upload")).of();
+    ElementContainer radio = new RadioType("radio", new Decoration("Radio"), "1",
         new String[] {"1", "2"}, new String[] {"yes", "no"}).of();
 
     /*
@@ -187,7 +188,7 @@ public class SampleUsage {
      */
 
     public MyFormBuilder() {
-
+      FormBuilder fac = new FormBuilder();
     }
 
     public LocalDate getDateValue(FormResult formResult) {

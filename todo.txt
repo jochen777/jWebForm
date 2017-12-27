@@ -113,10 +113,7 @@
 * how can we avoid sublcassing only to have a new renderer? (vielleicht über Renderer-Interface?)
 
 ### Unschönheiten aus der Praxis:
-* riesiges template für ausgabe, keine automatischen updates des Template. 
-* anstrengendes subclassen bei neuen inputs
-* zu viel Subclassing
-* unintuitives API
+* riesiges template für ausgabe, keine automatischen updates des Template. (1)
  
 ######################## V 0.1
  

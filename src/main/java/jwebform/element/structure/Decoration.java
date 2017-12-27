@@ -1,25 +1,25 @@
 package jwebform.element.structure;
 
 // Decorative data for typical inputfield
-public class OneFieldDecoration {
+public class Decoration {
 
   private final String label;
   private final String helptext;
   private final String placeholder;
   public static final String EMPTY = "";
 
-  public OneFieldDecoration(String label) {
+  public Decoration(String label) {
     this(label, EMPTY, EMPTY);
   }
 
 
-  public OneFieldDecoration(String label, String helptext, String placeholder) {
+  public Decoration(String label, String helptext, String placeholder) {
     this.label = label;
     this.helptext = helptext;
     this.placeholder = placeholder;
   }
 
-  public OneFieldDecoration(String label, String helptext) {
+  public Decoration(String label, String helptext) {
     this(label, helptext, EMPTY);
   }
 

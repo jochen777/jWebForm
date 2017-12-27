@@ -3,7 +3,7 @@ package jwebform.element;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
@@ -13,7 +13,7 @@ public class PasswordType implements Element {
   public final OneValueElementProcessor oneValueElement;
 
 
-  public PasswordType(String name, OneFieldDecoration decoration) {
+  public PasswordType(String name, Decoration decoration) {
     this.oneValueElement = new OneValueElementProcessor(name, decoration, "");
 
   }

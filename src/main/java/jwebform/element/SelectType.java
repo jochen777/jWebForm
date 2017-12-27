@@ -6,7 +6,7 @@ import java.util.List;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
@@ -21,21 +21,21 @@ public class SelectType implements Element {
 
 
   // RFE: Add groups too!
-  public SelectType(String name, OneFieldDecoration decoration, String initialValue, String keys[],
+  public SelectType(String name, Decoration decoration, String initialValue, String keys[],
       String values[]) {
     this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
     this.entries = generateEntriesFromKeyValues(keys, values);
     this.groups = null;
   }
 
-  public SelectType(String name, OneFieldDecoration decoration, String initialValue, List<SelectInputEntry> entries) {
+  public SelectType(String name, Decoration decoration, String initialValue, List<SelectInputEntry> entries) {
     this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
     this.entries = entries;
     this.groups = null;
   }
   
   // somewhat fishy because groups and entries seems to be the same type, so we have to change the order of inputs
-  public SelectType(String name, OneFieldDecoration decoration, List<SelectInputEntryGroup> groups, String initialValue) {
+  public SelectType(String name, Decoration decoration, List<SelectInputEntryGroup> groups, String initialValue) {
     this.oneValueElement = new OneValueElementProcessor(name, decoration, initialValue);
     this.entries = null;
     this.groups = groups;

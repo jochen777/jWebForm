@@ -11,10 +11,10 @@ public class OneValueElementProcessor {
 
   final public String name;
   final public String initialValue;
-  final public OneFieldDecoration decoration;
+  final public Decoration decoration;
 
 
-  public OneValueElementProcessor(String name, OneFieldDecoration decoration, String initialValue) {
+  public OneValueElementProcessor(String name, Decoration decoration, String initialValue) {
     this.name = name;
     this.initialValue = initialValue;
     this.decoration = decoration;

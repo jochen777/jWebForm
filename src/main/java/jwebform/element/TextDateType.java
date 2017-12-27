@@ -9,7 +9,7 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
@@ -32,24 +32,24 @@ public class TextDateType implements Element {
 
 
   final private LocalDate initialValue;
-  final public OneFieldDecoration decoration;
+  final public Decoration decoration;
 
   final private ElementContainer day;
   final private ElementContainer month;
   final private ElementContainer year;
 
-  public TextDateType(String name, OneFieldDecoration decoration, LocalDate initialValue) {
+  public TextDateType(String name, Decoration decoration, LocalDate initialValue) {
     this.name = name;
     this.initialValue = initialValue;
     this.decoration = decoration;
 
     Validator numberValidator = new Validator(Criteria.number());
 
-    this.day = new TextType(name + "_day", new OneFieldDecoration("Day"),
+    this.day = new TextType(name + "_day", new Decoration("Day"),
         String.valueOf(initialValue.getDayOfMonth())).of(numberValidator);
-    this.month = new TextType(name + "_month", new OneFieldDecoration("Month"),
+    this.month = new TextType(name + "_month", new Decoration("Month"),
         String.valueOf(initialValue.getMonthValue())).of(numberValidator);
-    this.year = new TextType(name + "_year", new OneFieldDecoration("Year"),
+    this.year = new TextType(name + "_year", new Decoration("Year"),
         String.valueOf(initialValue.getYear())).of(numberValidator);
 
   }

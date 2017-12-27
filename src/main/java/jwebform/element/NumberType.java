@@ -3,7 +3,7 @@ package jwebform.element;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
@@ -16,7 +16,7 @@ public class NumberType implements Element {
 
   public final OneValueElementProcessor oneValueElement;
 
-  public NumberType(String name, OneFieldDecoration decoration, int initialValue) {
+  public NumberType(String name, Decoration decoration, int initialValue) {
     this.oneValueElement =
         new OneValueElementProcessor(name, decoration, Integer.toString(initialValue));
     initialNumber = initialValue;

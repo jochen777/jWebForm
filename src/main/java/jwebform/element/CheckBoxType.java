@@ -3,7 +3,7 @@ package jwebform.element;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.view.ElementRenderer;
@@ -17,10 +17,10 @@ public class CheckBoxType implements Element {
   final private boolean initialValue;
 
 
-  final public OneFieldDecoration decoration;
+  final public Decoration decoration;
 
 
-  public CheckBoxType(String name, OneFieldDecoration decoration, boolean initialValue) {
+  public CheckBoxType(String name, Decoration decoration, boolean initialValue) {
     this.name = name;
     this.initialValue = initialValue;
     this.decoration = decoration;

@@ -4,7 +4,7 @@ import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.ForceFileuploadMethod;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.OneFieldDecoration;
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
@@ -15,7 +15,7 @@ public class UploadType implements Element, ForceFileuploadMethod {
   public final static String KEY = "jwebform.element.UploadInput";
   public final OneValueElementProcessor oneValueElement;
 
-  public UploadType(String name, OneFieldDecoration decoration) {
+  public UploadType(String name, Decoration decoration) {
     this.oneValueElement = new OneValueElementProcessor(name, decoration, "");
   }
 
