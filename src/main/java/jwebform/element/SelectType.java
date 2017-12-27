@@ -12,8 +12,6 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class SelectType implements Element {
 
-  public final static String KEY = "jwebform.element.SelectInput";
-
   final public List<SelectInputEntry> entries;
 
   public final OneValueElementProcessor oneValueElement;
@@ -48,7 +46,7 @@ public class SelectType implements Element {
   
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResultWithInputCheck(env, KEY, getDefault(), 
+    return oneValueElement.calculateElementResultWithInputCheck(env, getDefault(), 
         t -> ensureValueIsAllowed(t));
   }
 

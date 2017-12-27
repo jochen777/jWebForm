@@ -10,8 +10,6 @@ import jwebform.view.ElementRenderer;
 
 public class CheckBoxType implements Element {
 
-  public final static String KEY = "jwebform.element.CheckboxInput";
-
   final private String name;
 
   final private boolean initialValue;
@@ -42,7 +40,7 @@ public class CheckBoxType implements Element {
         checked = false;
       }
     }
-    return new ElementResult(value, new StaticElementInfo(name, getDefault(checked), 1, KEY),
+    return new ElementResult(value, new StaticElementInfo(name, getDefault(checked), 1),
         ElementResult.NOCHILDS, Boolean.valueOf(checked));
   }
 

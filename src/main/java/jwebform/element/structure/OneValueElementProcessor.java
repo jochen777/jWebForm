@@ -20,7 +20,6 @@ public class OneValueElementProcessor {
 
   public ElementResult calculateElementResultWithInputCheck(
       EnvWithSubmitInfo env,
-      String key,
       HTMLProducer htmlProducer,
       Predicate<String> validateInput) {
 
@@ -31,15 +30,14 @@ public class OneValueElementProcessor {
       value = input;
     }
     // ValidationResult vr = validate(env, validator, requestVal, value);
-    return new ElementResult(value, new StaticElementInfo(name, htmlProducer, 1, key));
+    return new ElementResult(value, new StaticElementInfo(name, htmlProducer, 1));
   }
 
   public ElementResult calculateElementResult(
       EnvWithSubmitInfo env,
-      String key,
       HTMLProducer htmlProducer
       ) {
-    return calculateElementResultWithInputCheck(env, key, htmlProducer, null);
+    return calculateElementResultWithInputCheck(env, htmlProducer, null);
   }
 
   

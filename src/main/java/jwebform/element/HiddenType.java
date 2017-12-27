@@ -8,8 +8,6 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class HiddenType implements Element {
 
-  public static String KEY = "jwebform.element.HiddenInput";
-
   public final String name;
   public final String value;
 
@@ -21,7 +19,7 @@ public class HiddenType implements Element {
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
     return new ElementResult(name, (pi) -> "<input type=\"hidden\" name=\"" + name + "\" value=\""
-        + Escape.html(value) + "\">\n", HiddenType.KEY);
+        + Escape.html(value) + "\">\n");
   }
 
 }

@@ -11,8 +11,6 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class TextAreaType implements Element {
 
-  public final static String KEY = "jwebform.element.TextAreaInput";
-
   public final OneValueElementProcessor oneValueElement;
 
   private final Decoration decoration;
@@ -25,7 +23,7 @@ public class TextAreaType implements Element {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResult(env, KEY, getDefault());
+    return oneValueElement.calculateElementResult(env, getDefault());
   }
 
   public HTMLProducer getDefault() {

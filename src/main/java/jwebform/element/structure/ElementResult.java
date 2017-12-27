@@ -35,7 +35,6 @@ public class ElementResult {
     this.valueObject = valueObject;
   }
 
-  // complete
   public ElementResult(String value, StaticElementInfo staticElementInfo,
       Map<ElementContainer, ElementResult> childs, Object valueObject) {
     this.validationResult = ValidationResult.undefined();
@@ -43,6 +42,10 @@ public class ElementResult {
     this.childs = childs;
     this.staticElementInfo = staticElementInfo;
     this.valueObject = valueObject;
+  }
+
+  public ElementResult(String name, HTMLProducer htmlProducer, int tabIndexIncrement) {
+    this(ValidationResult.undefined(), EMPTY_STRING, new StaticElementInfo(name, htmlProducer, tabIndexIncrement), NOCHILDS, EMPTY_STRING);
   }
 
 
@@ -64,26 +67,15 @@ public class ElementResult {
 
   // simple with validation
   public ElementResult(String name, HTMLProducer htmlProducer, ValidationResult vr) {
-    this(vr, EMPTY_STRING, new StaticElementInfo(name, htmlProducer, 0, EMPTY_STRING), NOCHILDS);
+    this(vr, EMPTY_STRING, new StaticElementInfo(name, htmlProducer, 0), NOCHILDS);
   }
 
-  // simple with themable
-  public ElementResult(String name, HTMLProducer htmlProducer, String renderkey) {
-    this(ValidationResult.ok(), EMPTY_STRING,
-        new StaticElementInfo(name, htmlProducer, 1, renderkey), NOCHILDS);
-  }
-
-  // simple with themable without name
-  public ElementResult(HTMLProducer htmlProducer, String renderkey) {
-    this(ValidationResult.ok(), EMPTY_STRING,
-        new StaticElementInfo(NO_NAME, htmlProducer, 1, renderkey), NOCHILDS);
-  }
-
-
+  
   // completeWithout Childs
   public ElementResult(String value, StaticElementInfo staticElementInfo) {
     this(ValidationResult.undefined(), value, staticElementInfo, NOCHILDS);
   }
+
 
   public ElementResult cloneWithNewValidationResult(ValidationResult newValidationResult) {
     return new ElementResult(newValidationResult, value, staticElementInfo, childs, valueObject);

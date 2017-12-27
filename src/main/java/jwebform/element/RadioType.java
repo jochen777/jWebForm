@@ -13,8 +13,6 @@ import jwebform.view.ElementRenderer;
 
 public class RadioType implements Element {
 
-  public final static String KEY = "jwebform.element.RadioInput";
-
   final public List<RadioInputEntry> entries;
 
   public final OneValueElementProcessor oneValueElement;
@@ -30,7 +28,7 @@ public class RadioType implements Element {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResultWithInputCheck(env, KEY, getDefault(),
+    return oneValueElement.calculateElementResultWithInputCheck(env, getDefault(),
         t -> ensureValueIsAllowed(t));
   }
 

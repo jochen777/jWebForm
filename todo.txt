@@ -106,14 +106,10 @@
  
  
  * form2bean as "integration" project
- * explorable api (form.addText, form.addTextArea
  * fix checkbox
-* helper macros von template in view verlagern
 * Idee: form2bean in FormResult implementieren. (ist zu wichtig)
 * how can we avoid sublcassing only to have a new renderer? (vielleicht über Renderer-Interface?)
 
-### Unschönheiten aus der Praxis:
-* riesiges template für ausgabe, keine automatischen updates des Template. (1)
  
 ######################## V 0.1
  

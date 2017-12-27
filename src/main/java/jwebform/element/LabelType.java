@@ -7,8 +7,6 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 // RFE: Is this useful at all? (as long as we have HTMLType)
 public class LabelType implements Element {
 
-  public static String KEY = "jwebform.element.LabelInput";
-
   public final String label;
 
   public LabelType(String label) {
@@ -18,7 +16,7 @@ public class LabelType implements Element {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return new ElementResult(t -> "<label>" + label + "</label>", KEY);
+    return new ElementResult(t -> "<label>" + label + "</label>");
   }
 
 

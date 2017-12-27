@@ -26,8 +26,6 @@ import jwebform.view.StringUtils;
  */
 public class TextDateType implements Element {
 
-  public final static String KEY = "jwebform.element.TextDateInput";
-
   final private String name;
 
 
@@ -74,7 +72,7 @@ public class TextDateType implements Element {
     }
 
     ElementResult result = new ElementResult(dateValStr,
-        new StaticElementInfo(name, getDefault(), 3, KEY), childs, dateValue);
+        new StaticElementInfo(name, getDefault(), 3), childs, dateValue);
 
     if (validationResult != ValidationResult.undefined()) {
       return result.cloneWithNewValidationResult(validationResult);

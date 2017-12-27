@@ -9,7 +9,6 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class PasswordType implements Element {
 
-  public final static String KEY = "jwebform.element.PasswordInput";
   public final OneValueElementProcessor oneValueElement;
   public final Decoration decoration;
 
@@ -21,7 +20,7 @@ public class PasswordType implements Element {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResult(env, KEY, getDefault());
+    return oneValueElement.calculateElementResult(env, getDefault());
   }
 
   protected HTMLProducer getDefault() {

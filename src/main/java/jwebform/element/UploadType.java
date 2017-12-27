@@ -12,7 +12,6 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 // TODO: No value here!, change method!
 public class UploadType implements Element, ForceFileuploadMethod {
 
-  public final static String KEY = "jwebform.element.UploadInput";
   public final OneValueElementProcessor oneValueElement;
   private final Decoration decoration;
 
@@ -23,7 +22,7 @@ public class UploadType implements Element, ForceFileuploadMethod {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResult(env, KEY, getDefault());
+    return oneValueElement.calculateElementResult(env, getDefault());
   }
 
 

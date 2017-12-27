@@ -10,8 +10,6 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class NumberType implements Element {
 
-  public final static String KEY = "jwebform.element.NumberInput";
-
   private final int initialNumber;
 
   public final OneValueElementProcessor oneValueElement;
@@ -42,7 +40,7 @@ public class NumberType implements Element {
     // ValidationResult vr = oneValueElement.validate(env, oneValueElement.validator, requestVal,
     // val);
     ElementResult result = new ElementResult(parsedNumberVal,
-        new StaticElementInfo(oneValueElement.name, getDefault(), 1, KEY), ElementResult.NOCHILDS,
+        new StaticElementInfo(oneValueElement.name, getDefault(), 1), ElementResult.NOCHILDS,
         parsedNumber);
     return result;
   }

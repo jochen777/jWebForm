@@ -7,8 +7,6 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class SubmitType implements Element {
 
-  public static String KEY = "jwebform.element.SubmitButton";
-
   public final String label;
   public final String name;
 
@@ -24,7 +22,7 @@ public class SubmitType implements Element {
   
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return new ElementResult(name, getDefault(), SubmitType.KEY);
+    return new ElementResult(name, getDefault(), 1);
   }
 
   public HTMLProducer getDefault() {

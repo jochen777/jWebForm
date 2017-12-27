@@ -50,11 +50,7 @@ public class ProducerInfos {
 
 
   public String getHtml() {
-    HTMLProducer producer = elementResult.getStaticElementInfo().getHtmlProducer();
-    if (theme.getHtmlProducer().containsKey(elementResult.getStaticElementInfo().getRenderKey())) {
-      producer = theme.getHtmlProducer().get(elementResult.getStaticElementInfo().getRenderKey());
-    }
-    return producer.getHTML(this);
+    return elementResult.getStaticElementInfo().getHtmlProducer().getHTML(this);
   }
 
 

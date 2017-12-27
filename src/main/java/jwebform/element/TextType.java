@@ -9,7 +9,6 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class TextType implements Element {
 
-  public final static String KEY = "jwebform.element.TextInput";
   final public OneValueElementProcessor oneValueElement;
   private final Decoration decoration;
 
@@ -20,7 +19,7 @@ public class TextType implements Element {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResult(env, KEY, getDefault());
+    return oneValueElement.calculateElementResult(env, getDefault());
   }
 
   // very simple version!
