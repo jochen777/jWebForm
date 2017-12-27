@@ -2,18 +2,14 @@ package jwebform.usage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.junit.Test;
-
 import jwebform.Form;
-import jwebform.FormBuilder;
 import jwebform.FormResult;
 import jwebform.element.CheckBoxType;
 import jwebform.element.HiddenType;
@@ -31,8 +27,8 @@ import jwebform.element.TextType;
 import jwebform.element.UploadType;
 import jwebform.element.XSRFProtectionType;
 import jwebform.element.structure.AbstractBehaviour;
-import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.Decoration;
+import jwebform.element.structure.ElementContainer;
 import jwebform.env.Env;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -168,7 +164,7 @@ public class SampleUsage {
     ElementContainer chk = new ElementContainer(
         new CheckBoxType("chk", new Decoration("chk-label", "chk_help"), true),
         new Validator(Criteria.required()));
-    ElementContainer lbl = new ElementContainer(new LabelType("lbl"));
+    ElementContainer lbl = new LabelType("lbl").of();
     ElementContainer html = new HtmlType("<strong>HTML</strong>").of();
     ElementContainer hddn = new HiddenType("hddn", "hddn-value").of();
     ElementContainer area =
@@ -188,7 +184,6 @@ public class SampleUsage {
      */
 
     public MyFormBuilder() {
-      FormBuilder fac = new FormBuilder();
     }
 
     public LocalDate getDateValue(FormResult formResult) {
