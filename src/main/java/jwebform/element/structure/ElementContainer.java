@@ -2,7 +2,7 @@ package jwebform.element.structure;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import jwebform.element.structure.behaviour.Behaviour;
 import jwebform.validation.Validator;
 
 // holds everything, that is important to an element (Element Definition, validation, behaviours)

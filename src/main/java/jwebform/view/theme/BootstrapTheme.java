@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import jwebform.element.structure.Behaviour;
 import jwebform.element.structure.HTMLProducer;
+import jwebform.element.structure.behaviour.Behaviour;
 import jwebform.view.ElementRenderer;
 import jwebform.view.MessageSource;
 import jwebform.view.RadioRenderer;

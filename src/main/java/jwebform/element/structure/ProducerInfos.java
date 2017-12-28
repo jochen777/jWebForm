@@ -2,7 +2,7 @@ package jwebform.element.structure;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import jwebform.element.structure.behaviour.Behaviour;
 import jwebform.view.Theme;
 
 // Infos, that the HTMLProducer needs to render the HTML. This will be provided by the form-run

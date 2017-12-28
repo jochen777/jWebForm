@@ -1,10 +1,9 @@
 package jwebform.view.theme;
 
 import com.coverity.security.Escape;
-
-import jwebform.element.structure.Behaviour;
 import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ProducerInfos;
+import jwebform.element.structure.behaviour.Behaviour;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.MaxLength;

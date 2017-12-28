@@ -1,4 +1,4 @@
-package jwebform.element.structure;
+package jwebform.element.structure.behaviour;
 
 import jwebform.view.Wrapper;
 
