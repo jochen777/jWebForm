@@ -18,7 +18,7 @@ public class IdenticalNameException {
     try {
       Form f = new Form("id", new TextType("pete", new Decoration("Pete1"), ""),
           new TextType("pete", new Decoration("Pete2"), ""));
-      f.run(new Env(t -> t), true);
+      f.run(new Env(t -> t));
       assertTrue("An exeption should be raised before!", false); // fail, because the run should
                                                                  // raise the exception
     } catch (Exception e) {
@@ -31,7 +31,7 @@ public class IdenticalNameException {
     try {
       Form f = new Form("id", new SimpleType(), new SimpleType(), new HtmlType("Hello"),
           new HtmlType("world"));
-      f.run(new Env(t -> t), true);
+      f.run(new Env(t -> t));
       assertTrue("An exeption should not be raised before!", true);
     } catch (Exception e) {
       assertTrue("An exeption should not be raised, because we have double SIMPLE elements!",

@@ -7,13 +7,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.validation.DoubleTakenNameException;
+import jwebform.processors.DefaultProcessors;
+import jwebform.processors.DoubleTakenNameException;
+import jwebform.processors.PostProcessor;
+import jwebform.processors.Processors;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 
@@ -25,6 +27,7 @@ public final class Form {
   private final List<ElementContainer> elements;
   private final String id;
   private final List<FormValidator> formValidators;
+  private final Processors processors;
 
   // Constructors
 
@@ -33,6 +36,7 @@ public final class Form {
     this.elements = elements;
     this.id = id;
     this.formValidators = formValidators;
+    this.processors = new DefaultProcessors();
   }
 
   public Form(String id, List<ElementContainer> elements) {
@@ -58,17 +62,11 @@ public final class Form {
   }
   // End constructors
 
-  public FormResult run(Env env) {
-    return run(env, false);
-  }
-
-  public final FormResult run(Env env, boolean debug) {
+  public final FormResult run(Env env) {
     // validate form
     Map<ElementContainer, ElementResult> elementResults =
         processElements(env.getEnvWithSumitInfo(id, this), elements);
-    if (debug) {
-      checkDoubleElements(elementResults);
-    }
+    elementResults = runPostProcessors(elementResults);
     Map<ElementContainer, ValidationResult> overridenValidationResults =
         runFormValidations(elementResults);
     Map<ElementContainer, ElementResult> correctedElementResults =
@@ -76,6 +74,14 @@ public final class Form {
     boolean formIsValid = checkAllValidationResults(correctedElementResults);
 
     return new FormResult(this.getId(), correctedElementResults, formIsValid);
+  }
+
+  private Map<ElementContainer, ElementResult> runPostProcessors(
+      Map<ElementContainer, ElementResult> elementResults) {
+    for (PostProcessor postProcessor : processors.getPostProcessors()) {
+      elementResults = postProcessor.postProcess(elementResults);
+    }
+    return elementResults;
   }
 
   private static List<ElementContainer> packElementsInContainer(Element... elements) {
@@ -95,17 +101,6 @@ public final class Form {
     return ec;
   }
 
-
-  private void checkDoubleElements(Map<ElementContainer, ElementResult> results) {
-    Set<String> availElements = new HashSet<>();
-    results.forEach((k, v) -> {
-      // empty names are skipped
-      if (v.getStaticElementInfo().getName() != ElementResult.NO_NAME
-          && !availElements.add(v.getStaticElementInfo().getName())) {
-        throw new DoubleTakenNameException(v.getStaticElementInfo().getName());
-      }
-    });
-  }
 
   public Map<ElementContainer, ElementResult> processElements(
       EnvWithSubmitInfo envWithSubmitInfo,

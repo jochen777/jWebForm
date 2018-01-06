@@ -1,4 +1,4 @@
-package jwebform.validation;
+package jwebform.processors;
 
 // This exeption will be thrown, if you run a form and assigned elements with identical name
 public class DoubleTakenNameException extends RuntimeException{
