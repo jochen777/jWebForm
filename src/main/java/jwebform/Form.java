@@ -2,7 +2,6 @@ package jwebform;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,10 +59,11 @@ public final class Form {
 
   public final FormResult run(Env env) {
     // validate form
-    Map<ElementContainer, ElementResult> elementResults = processor.processElements(env.getEnvWithSumitInfo(id, this), elements, id);
+    Map<ElementContainer, ElementResult> elementResults =
+        processElements(env.getEnvWithSumitInfo(id, this), elements);
     elementResults = processor.runPostProcessors(elementResults);
     Map<ElementContainer, ValidationResult> overridenValidationResults =
-        runFormValidations(elementResults);
+        processor.runFormValidations(elementResults, formValidators);
     Map<ElementContainer, ElementResult> correctedElementResults =
         correctElementResults(elementResults, overridenValidationResults);
     boolean formIsValid = checkAllValidationResults(correctedElementResults);
@@ -105,15 +105,6 @@ public final class Form {
     return processor.processElements(envWithSubmitInfo, elementsToProcess, id);
   }
 
-  private Map<ElementContainer, ValidationResult> runFormValidations(
-      Map<ElementContainer, ElementResult> elementResults) {
-    // run the form-validators
-    Map<ElementContainer, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
-    for (FormValidator formValidator : formValidators) {
-      overridenValidationResults.putAll(formValidator.validate(elementResults));
-    }
-    return overridenValidationResults;
-  }
 
   private Map<ElementContainer, ElementResult> correctElementResults(
       Map<ElementContainer, ElementResult> elementResults,
@@ -145,13 +136,6 @@ public final class Form {
     return id;
   }
 
-  @SuppressWarnings("serial")
-  public class IdenticalElementException extends RuntimeException {
-
-    public IdenticalElementException(ElementContainer container) {
-      super("Identical Elements are not allowed. Plese remove double container: "
-          + container.element);
-    }
-  }
+ 
 
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env.EnvWithSubmitInfo;
+import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 
 public final class Processor {
@@ -56,6 +57,17 @@ public final class Processor {
     }
     return elementResults;
   }
+  
+  public final Map<ElementContainer, ValidationResult> runFormValidations(
+      Map<ElementContainer, ElementResult> elementResults, List<FormValidator> formValidators) {
+    // run the form-validators
+    Map<ElementContainer, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
+    for (FormValidator formValidator : formValidators) {
+      overridenValidationResults.putAll(formValidator.validate(elementResults));
+    }
+    return overridenValidationResults;
+  }
+
 
   @SuppressWarnings("serial")
   public class IdenticalElementException extends RuntimeException {
