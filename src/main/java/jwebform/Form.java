@@ -2,20 +2,16 @@ package jwebform;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.processors.DefaultProcessors;
-import jwebform.processors.DoubleTakenNameException;
-import jwebform.processors.PostProcessor;
-import jwebform.processors.Processors;
+import jwebform.processors.Processor;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 
@@ -27,7 +23,7 @@ public final class Form {
   private final List<ElementContainer> elements;
   private final String id;
   private final List<FormValidator> formValidators;
-  private final Processors processors;
+  private final Processor processor;
 
   // Constructors
 
@@ -36,7 +32,7 @@ public final class Form {
     this.elements = elements;
     this.id = id;
     this.formValidators = formValidators;
-    this.processors = new DefaultProcessors();
+    this.processor = new Processor();
   }
 
   public Form(String id, List<ElementContainer> elements) {
@@ -64,9 +60,8 @@ public final class Form {
 
   public final FormResult run(Env env) {
     // validate form
-    Map<ElementContainer, ElementResult> elementResults =
-        processElements(env.getEnvWithSumitInfo(id, this), elements);
-    elementResults = runPostProcessors(elementResults);
+    Map<ElementContainer, ElementResult> elementResults = processor.processElements(env.getEnvWithSumitInfo(id, this), elements, id);
+    elementResults = processor.runPostProcessors(elementResults);
     Map<ElementContainer, ValidationResult> overridenValidationResults =
         runFormValidations(elementResults);
     Map<ElementContainer, ElementResult> correctedElementResults =
@@ -76,13 +71,7 @@ public final class Form {
     return new FormResult(this.getId(), correctedElementResults, formIsValid);
   }
 
-  private Map<ElementContainer, ElementResult> runPostProcessors(
-      Map<ElementContainer, ElementResult> elementResults) {
-    for (PostProcessor postProcessor : processors.getPostProcessors()) {
-      elementResults = postProcessor.postProcess(elementResults);
-    }
-    return elementResults;
-  }
+
 
   private static List<ElementContainer> packElementsInContainer(Element... elements) {
     List<ElementContainer> ec = new ArrayList<>();
@@ -113,31 +102,7 @@ public final class Form {
       EnvWithSubmitInfo envWithSubmitInfo,
       List<ElementContainer> elementsToProcess) {
     // check each element
-    Map<ElementContainer, ElementResult> elementResults = new LinkedHashMap<>();
-    for (ElementContainer container : elementsToProcess) {
-      // here is where the magic happens! The "apply" method of the elements is called.
-      ElementResult result = container.element.apply(envWithSubmitInfo);
-      if (envWithSubmitInfo.isSubmitted()) {
-        if (result.getValidationResult() != ValidationResult.undefined()) {
-          // element has set the validation itself. This might happen in complex elements. And will
-          // override the following validation
-          // --- do nothing
-        } else {
-          if (container.validator != null) {
-            result = result.ofValidationResult(container.validator.validate(result.getValue()));
-          } else {
-            result = result.ofValidationResult(ValidationResult.ok());
-          }
-        }
-      } else {
-        // do nothing
-      }
-      if (elementResults.containsKey(container)) {
-        throw new IdenticalElementException(container);
-      }
-      elementResults.put(container, result);
-    }
-    return elementResults;
+    return processor.processElements(envWithSubmitInfo, elementsToProcess, id);
   }
 
   private Map<ElementContainer, ValidationResult> runFormValidations(
