@@ -51,6 +51,7 @@ public final class Form {
   }
   // End constructors
 
+  // process each element, run validations
   public final FormResult run(Env env) {
     return processor.run(env, id, elements, formValidators);
   }

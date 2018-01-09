@@ -19,7 +19,6 @@ public class SelectType implements Element {
   public final Decoration decoration;
 
 
-  // RFE: Add groups too!
   public SelectType(String name, Decoration decoration, String initialValue, String keys[],
       String values[]) {
     this.oneValueElement = new OneValueElementProcessor(name, initialValue);
