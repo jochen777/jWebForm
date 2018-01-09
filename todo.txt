@@ -99,17 +99,19 @@
  * Make BootstrapRenderer more generic, so it can be easly subclassed. Include start/end as well. Get rid of startEndRenderer? (OK) 
  * move classes to right packages
  * implement a template, that renders the form (OK)
+ * drop konzept of Theme.KEY entirely? (OK)
  #############################
  
  
  
  
+ * eliminate new, eliminate null
  
  * form2bean as "integration" project
  * fix checkbox
 * Idee: form2bean in FormResult implementieren. (ist zu wichtig)
 * how can we avoid sublcassing only to have a new renderer? (vielleicht über Renderer-Interface?)
-
+* Integration: Google Captcha with praeProcessor: CheckCaptcha
  
 ######################## V 0.1
  
@@ -123,7 +125,7 @@
  * evtl. staticElmentInfo mit Vererbungshierachie? 
  
  * google captcha in core with lamdas for json serialisierung/desserialsierung
- * drop konzept of Theme.KEY entirely? 
+ 
  * html output generally over simple template engine?!
  
  
