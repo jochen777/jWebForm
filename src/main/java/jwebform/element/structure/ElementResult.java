@@ -6,7 +6,7 @@ import java.util.Map;
 import jwebform.validation.ValidationResult;
 
 // that wat is coming out of a "run" method of an element
-public class ElementResult {
+public final class ElementResult {
 
   // RFE: group this to reduce number of fields.
   private final ValidationResult validationResult; // not static
