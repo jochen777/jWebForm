@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+import jwebform.element.structure.Decoration;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
@@ -56,7 +56,7 @@ public class TextDateType implements Element {
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
     Map<ElementContainer, ElementResult> childs =
-        env.getForm().processElements(env, day, month, year);
+        env.getProcessor().processElements(env, day, month, year);
 
     LocalDate dateValue = initialValue;
     ValidationResult validationResult = ValidationResult.undefined();

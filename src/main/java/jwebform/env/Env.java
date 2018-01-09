@@ -1,6 +1,6 @@
 package jwebform.env;
 
-import jwebform.Form;
+import jwebform.processors.Processor;
 import jwebform.view.StartEndRenderer;
 
 // holds pointers to the web-env. (request, response, session, maybe headers...)
@@ -54,8 +54,8 @@ public class Env {
     }
   }
 
-  public EnvWithSubmitInfo getEnvWithSumitInfo(String formId, Form form) {
-    return new EnvWithSubmitInfo(formId, this, form);
+  public EnvWithSubmitInfo getEnvWithSumitInfo(String formId, Processor processor) {
+    return new EnvWithSubmitInfo(formId, this, processor);
   }
 
   // will deliver an Env, that cuts the input after some chars. Useful for security-reasons
@@ -101,16 +101,18 @@ public class Env {
   public class EnvWithSubmitInfo {
     private final Env env;
     private final boolean submitted;
-    private final Form form;
+    private final Processor processor;
 
 
-    public Form getForm() {
-      return form;
+
+
+    public Processor getProcessor() {
+      return processor;
     }
 
 
 
-    public EnvWithSubmitInfo(String formId, Env env, Form form) {
+    public EnvWithSubmitInfo(String formId, Env env, Processor processor) {
       this.env = env;
       if ((StartEndRenderer.SUBMIT_VALUE_PREFIX + formId)
           .equals(env.getRequest().getParameter(StartEndRenderer.SUBMIT_KEY))) {
@@ -118,7 +120,7 @@ public class Env {
       } else {
         this.submitted = false;
       }
-      this.form = form;
+      this.processor = processor;
     }
 
 
