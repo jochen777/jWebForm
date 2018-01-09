@@ -14,22 +14,11 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 
+// this is doing the "hard work": Let each element do the apply function, run validations, run form-validations
 public final class Processor {
 
-
-  public List<PostProcessor> getPostProcessors() {
-    return Arrays.asList(new CheckDoubleElementsPostProcessor());
-  }
-
-  public final Map<ElementContainer, ElementResult> runPostProcessors(
-      Map<ElementContainer, ElementResult> elementResults) {
-    for (PostProcessor postProcessor : getPostProcessors()) {
-      elementResults = postProcessor.postProcess(elementResults);
-    }
-    return elementResults;
-
-  }
   
+  // do the processing of the elements, the validation and the form-validation
   public final FormResult run(Env env, String id, List<ElementContainer> elements, List<FormValidator> formValidators) {
     // validate form
     Map<ElementContainer, ElementResult> elementResults =
@@ -44,7 +33,28 @@ public final class Processor {
     return new FormResult(id, correctedElementResults, formIsValid);
   }
 
-  public final Map<ElementContainer, ElementResult> processElements(
+  // process each element. This is used for elements, that have children... (Lke Date-Selects)
+  public Map<ElementContainer, ElementResult> processElements(
+      EnvWithSubmitInfo env,
+      ElementContainer... elementsToProcess) {
+    return this.processElements(env,  packElementContainerInList(elementsToProcess));
+  }
+
+
+  private List<PostProcessor> getPostProcessors() {
+    return Arrays.asList(new CheckDoubleElementsPostProcessor());
+  }
+
+  private Map<ElementContainer, ElementResult> runPostProcessors(
+      Map<ElementContainer, ElementResult> elementResults) {
+    for (PostProcessor postProcessor : getPostProcessors()) {
+      elementResults = postProcessor.postProcess(elementResults);
+    }
+    return elementResults;
+
+  }
+
+  private Map<ElementContainer, ElementResult> processElements(
       EnvWithSubmitInfo env,
       List<ElementContainer> elements
       ) {
@@ -75,7 +85,7 @@ public final class Processor {
     return elementResults;
   }
   
-  public final Map<ElementContainer, ValidationResult> runFormValidations(
+  private Map<ElementContainer, ValidationResult> runFormValidations(
       Map<ElementContainer, ElementResult> elementResults, List<FormValidator> formValidators) {
     // run the form-validators
     Map<ElementContainer, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
@@ -85,7 +95,7 @@ public final class Processor {
     return overridenValidationResults;
   }
   
-  public final boolean checkAllValidationResults(
+  private boolean checkAllValidationResults(
       Map<ElementContainer, ElementResult> correctedElementResults) {
     boolean formIsValid = true;
     for (Map.Entry<ElementContainer, ElementResult> entry : correctedElementResults.entrySet()) {
@@ -99,7 +109,7 @@ public final class Processor {
 
 
   
-  public final Map<ElementContainer, ElementResult> correctElementResults(
+  private Map<ElementContainer, ElementResult> correctElementResults(
       Map<ElementContainer, ElementResult> elementResults,
       Map<ElementContainer, ValidationResult> overridenValidationResults) {
     overridenValidationResults.forEach((element, overridenValidationResult) -> {
@@ -128,9 +138,4 @@ public final class Processor {
   }
 
 
-  public Map<ElementContainer, ElementResult> processElements(
-      EnvWithSubmitInfo env,
-      ElementContainer... elementsToProcess) {
-    return this.processElements(env,  packElementContainerInList(elementsToProcess));
-  }
 }
