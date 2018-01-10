@@ -11,11 +11,12 @@ import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 import jwebform.env.Env.EnvWithSubmitInfo;
+import jwebform.transfer.DummyTransferToBean;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 
 // this is doing the "hard work": Let each element do the apply function, run validations, run form-validations
-public final class Processor {
+public class Processor {
 
   
   // do the processing of the elements, the validation and the form-validation
@@ -30,7 +31,14 @@ public final class Processor {
         this.correctElementResults(elementResults, overridenValidationResults);
     boolean formIsValid = this.checkAllValidationResults(correctedElementResults);
 
-    return new FormResult(id, correctedElementResults, formIsValid);
+    return createFormResult(id, correctedElementResults, formIsValid);
+  }
+
+  public FormResult createFormResult(
+      String id,
+      Map<ElementContainer, ElementResult> correctedElementResults,
+      boolean formIsValid) {
+    return new FormResult(id, correctedElementResults, formIsValid, new DummyTransferToBean());
   }
 
   // process each element. This is used for elements, that have children... (Lke Date-Selects)
