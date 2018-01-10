@@ -21,11 +21,16 @@ public final class Form {
   // Constructors
 
   // full
-  public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators) {
+  public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators,
+      Processor processor) {
     this.elements = elements;
     this.id = id;
     this.formValidators = formValidators;
-    this.processor = new Processor();
+    this.processor = processor;
+  }
+
+  public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators) {
+    this(id, elements, formValidators, new Processor());
   }
 
   public Form(String id, List<ElementContainer> elements) {
