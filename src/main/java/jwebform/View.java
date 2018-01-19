@@ -1,6 +1,7 @@
 package jwebform;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,6 +109,20 @@ public final class View {
     return elements;
   }
 
+  public List<DrawableElement> getDrawableElements() {
+    List<DrawableElement> elements = new ArrayList<>();
+    int tabIndex = 1;
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
+      ElementResult elementResult = entry.getValue();
+      ProducerInfos pi = new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult,
+          entry.getKey(), createProducerInfoChilds(elementResult.getChilds(), tabIndex));
+      elements.add(new DrawableElement(pi));
+      tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
+    }
+    return elements;
+  }
+
+
 
   public Map<String, ProducerInfos> getAllUnrenderedElements() {
     Map<String, ProducerInfos> elements = new LinkedHashMap<>();
@@ -121,6 +136,7 @@ public final class View {
     }
     return elements;
   }
+
 
 
   public Map<String, RenderedElement> getElements() {
@@ -139,6 +155,28 @@ public final class View {
 
   public StartEndRenderer getStartEnd() {
     return new StartEndRenderer(formId, "POST", true, determineUploadTypeAutomatically());
+  }
+
+  // this is for simple template-engines like mustache
+  public class DrawableElement {
+    private final ProducerInfos producerInfos;
+    private final Map<String, Boolean> elementNameInfo;
+
+    public Map<String, Boolean> getElementNameInfo() {
+      return elementNameInfo;
+    }
+
+    public DrawableElement(ProducerInfos producerInfos) {
+      this.producerInfos = producerInfos;
+      elementNameInfo = new HashMap<>();
+      elementNameInfo.put(
+          producerInfos.getElementTypeName().replaceAll("jwebform\\.element\\.", ""), Boolean.TRUE);
+    }
+
+    public ProducerInfos getProducerInfos() {
+      return producerInfos;
+    }
+
   }
 
   public class RenderedElement {

@@ -104,16 +104,17 @@
  
  
  
+* try with mustache. (Idea: Map with booleans to check which element we have to render) 
+* make it JDK 9 ready
+* fix checkbox
+
  
  * eliminate new, eliminate null
  
  * form2bean as "integration" project
- * fix checkbox
 * Idee: form2bean in FormResult implementieren. (ist zu wichtig)
 * how can we avoid sublcassing only to have a new renderer? (vielleicht über Renderer-Interface?)
 * Integration: Google Captcha with praeProcessor: CheckCaptcha
-* try with mustache. (Idea: Map with booleans to check which element we have to render) 
-* make it JDK 9 ready
 
 maxlen required??
  

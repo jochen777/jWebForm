@@ -10,7 +10,7 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 public class TextType implements Element {
 
   final public OneValueElementProcessor oneValueElement;
-  private final Decoration decoration;
+  public final Decoration decoration;
 
   public TextType(String name, Decoration decoration, String initialValue) {
     this.oneValueElement = new OneValueElementProcessor(name, initialValue);

@@ -13,7 +13,7 @@ public class TextAreaType implements Element {
 
   public final OneValueElementProcessor oneValueElement;
 
-  private final Decoration decoration;
+  public final Decoration decoration;
 
   public TextAreaType(String name, Decoration decoration, String initialValue) {
     oneValueElement = new OneValueElementProcessor(name, initialValue);
