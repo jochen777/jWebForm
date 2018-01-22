@@ -6,6 +6,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import jwebform.element.NumberType;
+import jwebform.element.PasswordType;
+import jwebform.element.TextType;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.ForceFileuploadMethod;
@@ -109,6 +112,7 @@ public final class View {
     return elements;
   }
 
+  // for using with low capable template engines like mustache
   public List<DrawableElement> getDrawableElements() {
     List<DrawableElement> elements = new ArrayList<>();
     int tabIndex = 1;
@@ -160,9 +164,9 @@ public final class View {
   // this is for simple template-engines like mustache
   public class DrawableElement {
     private final ProducerInfos producerInfos;
-    private final Map<String, Boolean> elementNameInfo;
+    private final Map<String, Object> elementNameInfo;
 
-    public Map<String, Boolean> getElementNameInfo() {
+    public Map<String, Object> getElementNameInfo() {
       return elementNameInfo;
     }
 
@@ -171,6 +175,13 @@ public final class View {
       elementNameInfo = new HashMap<>();
       elementNameInfo.put(
           producerInfos.getElementTypeName().replaceAll("jwebform\\.element\\.", ""), Boolean.TRUE);
+      if (producerInfos.getElement() instanceof TextType) {
+        elementNameInfo.put("type", "text");
+      } else if (producerInfos.getElement() instanceof NumberType) {
+        elementNameInfo.put("type", "number");
+      } else if (producerInfos.getElement() instanceof PasswordType) {
+        elementNameInfo.put("type", "password");
+      }
     }
 
     public ProducerInfos getProducerInfos() {
