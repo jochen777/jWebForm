@@ -1,7 +1,6 @@
 package jwebform.element.structure;
 
 import java.util.function.Predicate;
-
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -11,6 +10,7 @@ public class OneValueElementProcessor {
 
   final public String name;
   final public String initialValue;
+  final public Predicate<String> alwaysFine = (t) -> true;
 
 
   public OneValueElementProcessor(String name, String initialValue) {
@@ -18,34 +18,26 @@ public class OneValueElementProcessor {
     this.initialValue = initialValue;
   }
 
-  public ElementResult calculateElementResultWithInputCheck(
-      EnvWithSubmitInfo env,
-      HTMLProducer htmlProducer,
-      Predicate<String> validateInput) {
+  public ElementResult calculateElementResultWithInputCheck(EnvWithSubmitInfo env,
+      HTMLProducer htmlProducer, Predicate<String> validateInput) {
 
     String requestVal = env.getEnv().getRequest().getParameter(name);
     String value = "";
     String input = fetchValue(env, requestVal, initialValue);
-    if (validateInput == null || validateInput.test(input)) {
+    if (validateInput.test(input)) {
       value = input;
     }
     // ValidationResult vr = validate(env, validator, requestVal, value);
     return new ElementResult(value, new StaticElementInfo(name, htmlProducer, 1));
   }
 
-  public ElementResult calculateElementResult(
-      EnvWithSubmitInfo env,
-      HTMLProducer htmlProducer
-      ) {
-    return calculateElementResultWithInputCheck(env, htmlProducer, null);
+  public ElementResult calculateElementResult(EnvWithSubmitInfo env, HTMLProducer htmlProducer) {
+    return calculateElementResultWithInputCheck(env, htmlProducer, alwaysFine);
   }
 
-  
-  
-  public ValidationResult validate(
-      EnvWithSubmitInfo env,
-      Validator validator,
-      String requestVal,
+
+
+  public ValidationResult validate(EnvWithSubmitInfo env, Validator validator, String requestVal,
       String value) {
     if (env.isSubmitted()) {
       return validator.validate(value);

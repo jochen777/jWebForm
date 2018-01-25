@@ -1,5 +1,6 @@
 package jwebform.view.theme;
 
+import java.util.Optional;
 import com.coverity.security.Escape;
 import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ProducerInfos;
@@ -41,9 +42,9 @@ public class BootstrapRenderer implements ElementRenderer {
   }
 
   private String renderMaxLen(Validator validator) {
-    MaxLength maxLen = validator.getMaxLen();
-    if (maxLen != null) {
-      return " maxlength=\"" + maxLen.getMaxLength() + "\"";
+    Optional<MaxLength> maxLen = validator.getMaxLen();
+    if (maxLen.isPresent()) {
+      return " maxlength=\"" + maxLen.get().getMaxLength() + "\"";
     }
     return "";
   }
@@ -206,7 +207,7 @@ public class BootstrapRenderer implements ElementRenderer {
 
   @Override
   public String renderValue(String val) {
-    if (val != null && val.length() > 0) {
+    if (val.length() > 0) {
       val = "=\"" + Escape.html(val) + "\"";
     }
     return val;

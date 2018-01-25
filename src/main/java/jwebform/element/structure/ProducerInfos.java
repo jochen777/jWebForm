@@ -42,9 +42,7 @@ public class ProducerInfos {
     // RFE: This may be faster with an immutable list impl.
     List<Behaviour> allBehaviours = new ArrayList<>();
     allBehaviours.addAll(theme.getGlobalBehaviours());
-    if (elementContainer != null && elementContainer.behaviour != null) {
-      allBehaviours.addAll(elementContainer.behaviour);
-    }
+    allBehaviours.addAll(elementContainer.behaviour);
     return allBehaviours;
   }
 

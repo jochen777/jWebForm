@@ -100,16 +100,16 @@
  * move classes to right packages
  * implement a template, that renders the form (OK)
  * drop konzept of Theme.KEY entirely? (OK)
+* try with mustache. (Idea: Map with booleans to check which element we have to render) (WORKS!!) :) (OK)
  #############################
  
  
- 
-* try with mustache. (Idea: Map with booleans to check which element we have to render) 
+ * eliminate new, eliminate null
 * make it JDK 9 ready
 * fix checkbox
-
+* fix filling of mustache templates
+* erzwinge Request-Chain .cloneWithMaxLenInput(500).cloneWithNullCheck().cloneWithTrim() bzw. biete sinnvollen Default dafür an.
  
- * eliminate new, eliminate null
  
  * form2bean as "integration" project
 * Idee: form2bean in FormResult implementieren. (ist zu wichtig)

@@ -17,27 +17,28 @@ public class SelectType implements Element {
   public final OneValueElementProcessor oneValueElement;
   public final List<SelectInputEntryGroup> groups;
   public final Decoration decoration;
+  private final static List<SelectInputEntryGroup> EMPTY_GROUPS = new ArrayList<>(); 
 
 
   public SelectType(String name, Decoration decoration, String initialValue, String keys[],
       String values[]) {
     this.oneValueElement = new OneValueElementProcessor(name, initialValue);
     this.entries = generateEntriesFromKeyValues(keys, values);
-    this.groups = null;
+    this.groups = EMPTY_GROUPS;
     this.decoration = decoration;
   }
 
   public SelectType(String name, Decoration decoration, String initialValue, List<SelectInputEntry> entries) {
     this.oneValueElement = new OneValueElementProcessor(name, initialValue);
     this.entries = entries;
-    this.groups = null;
+    this.groups = EMPTY_GROUPS;
     this.decoration = decoration;
   }
   
   // somewhat fishy because groups and entries seems to be the same type, so we have to change the order of inputs
   public SelectType(String name, Decoration decoration, List<SelectInputEntryGroup> groups, String initialValue) {
     this.oneValueElement = new OneValueElementProcessor(name, initialValue);
-    this.entries = null;
+    this.entries = new ArrayList<>();
     this.groups = groups;
     this.decoration = decoration;
   }
@@ -56,7 +57,7 @@ public class SelectType implements Element {
    * @return
    */
   private boolean ensureValueIsAllowed(String fetchValue) {
-    if (groups != null) {
+    if (!groups.isEmpty()) {
       for (SelectInputEntryGroup group : groups) {
         if (checkEntries(group.entries, fetchValue)) {
           return true;
@@ -109,7 +110,7 @@ public class SelectType implements Element {
   private String buildEntries(String value, List<SelectInputEntry> entries2, List<SelectInputEntryGroup> groups2) {
     StringBuilder inputTag = new StringBuilder();
     
-    if (groups!=null) {
+    if (!groups.isEmpty()) {
       groups.forEach(group ->
       {
           inputTag.append("<optgroup label=\""+group.getLabel()+"\">");
@@ -125,10 +126,10 @@ public class SelectType implements Element {
 
   
   
-  private void buildEntries(StringBuilder inputTag, List<SelectInputEntry> entries2, String value) {
+  private void buildEntries(StringBuilder inputTag, List<SelectInputEntry> entries2, String inputValue) {
     entries2.forEach(entry -> {
       String sel = "";
-      if (value != null && value.equals(entry.key)) {
+      if (entry.key.equals(inputValue)) {
         sel = " SELECTED ";
       }
       inputTag

@@ -46,7 +46,7 @@ public class BootstrapRadioRenderer implements RadioRenderer {
   }
 
   private String getCheckedStatus(String _name, String value) {
-    if (value != null && value.equals(_name)) {
+    if (_name.equals(value)) {
       return " checked";
     } else {
       return "";

@@ -34,7 +34,7 @@ public final class View {
   public View(String formId, Map<ElementContainer, ElementResult> elementResults) {
     this.formId = formId;
     this.elementResults = elementResults;
-    this.theme = null;
+    this.theme = BootstrapTheme.instance();
   }
 
   public String getHtml() {
@@ -44,7 +44,7 @@ public final class View {
   // fulll version
   public String getHtml(String method, boolean html5Validation) {
     StringBuilder html = new StringBuilder();
-    html.append(ensureThemeIsThere().getStart(formId, method, html5Validation,
+    html.append(theme.getStart(formId, method, html5Validation,
         determineUploadTypeAutomatically()));
     int tabIndex = 1;
     ProducerInfos pi;
@@ -52,13 +52,13 @@ public final class View {
       ElementResult elementResult = entry.getValue();
       ElementContainer container = entry.getKey();
       List<ProducerInfos> childs = createProducerInfoChilds(elementResult.getChilds(), tabIndex);
-      pi = new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult, container,
+      pi = new ProducerInfos(formId, tabIndex, theme, elementResult, container,
           childs);
       html.append(pi.getHtml());
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
 
-    html.append(ensureThemeIsThere().getEnd());
+    html.append(theme.getEnd());
     return html.toString();
   }
 
@@ -68,17 +68,8 @@ public final class View {
     List<ProducerInfos> listOfPis = new ArrayList<>(); // RFE: only, if childs is not empty!
     // RFE: This allows only one depth! It would be cooler, if we can do infinite depth
     childs.forEach((container, result) -> listOfPis
-        .add(new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), result, container)));
+        .add(new ProducerInfos(formId, tabIndex, theme, result, container)));
     return listOfPis;
-  }
-
-  private Theme ensureThemeIsThere() {
-    if (theme == null) {
-      return BootstrapTheme.instance();
-    } else {
-      return theme;
-    }
-
   }
 
   private boolean determineUploadTypeAutomatically() {
@@ -106,7 +97,7 @@ public final class View {
     int tabIndex = 1;
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult,
+      ProducerInfos pi = new ProducerInfos(formId, tabIndex, theme, elementResult,
           entry.getKey(), createProducerInfoChilds(elementResult.getChilds(), tabIndex));
       elements.add(pi);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
@@ -120,7 +111,7 @@ public final class View {
     int tabIndex = 1;
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult,
+      ProducerInfos pi = new ProducerInfos(formId, tabIndex, theme, elementResult,
           entry.getKey(), createProducerInfoChilds(elementResult.getChilds(), tabIndex));
       elements.add(new DrawableElement(pi));
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
@@ -136,7 +127,7 @@ public final class View {
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ProducerInfos pi =
-          new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult, entry.getKey());
+          new ProducerInfos(formId, tabIndex, theme, elementResult, entry.getKey());
       elements.put(elementResult.getStaticElementInfo().getName(), pi);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
@@ -151,7 +142,7 @@ public final class View {
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ProducerInfos pi =
-          new ProducerInfos(formId, tabIndex, ensureThemeIsThere(), elementResult, entry.getKey());
+          new ProducerInfos(formId, tabIndex, theme, elementResult, entry.getKey());
       elements.put(elementResult.getStaticElementInfo().getName(),
           new RenderedElement(pi.getHtml(), pi, elementResult));
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();

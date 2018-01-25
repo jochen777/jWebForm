@@ -4,7 +4,7 @@ package jwebform.view;
 public class Wrapper {
 	public final String start;
 	public final String end;
-	public final static Wrapper emptyWrapper = Wrapper.of(null, null);
+	public final static Wrapper emptyWrapper = Wrapper.of("", "");
 
 	public static Wrapper of(String start, String end) {
 		return new Wrapper(start, end);

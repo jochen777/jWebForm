@@ -31,7 +31,7 @@ public class ElementContainer {
   }
 
   public ElementContainer(Element element) {
-    this(element, new Validator()); // RFE: Introduce Validator.emptyValidator()
+    this(element, Validator.emptyValidator()); 
   }
 
   private List<Behaviour> buildListFromOneBehaviour(Behaviour behaviour2) {

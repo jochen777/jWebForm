@@ -2,7 +2,7 @@ package jwebform.validation;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 import jwebform.validation.criteria.MaxLength;
 import jwebform.validation.criteria.Required;
 
@@ -15,6 +15,7 @@ import jwebform.validation.criteria.Required;
 public class Validator {
 
   private final List<Criterion> criteria = new ArrayList<>();
+  private static final Validator EMPTY_VALIDATOR = new Validator();
 
   public Validator(Criterion... inputCriterium) {
     for (Criterion cirterion : inputCriterium) {
@@ -22,6 +23,10 @@ public class Validator {
     }
   }
 
+  public static Validator emptyValidator() {
+    return EMPTY_VALIDATOR;
+  }
+  
   // this will not work for criteria, that are not constant! Use a loop with "instantof"
   @Deprecated 
   public boolean containsExactCriterion(Criterion criterionToSearch) {
@@ -43,13 +48,13 @@ public class Validator {
   }
 
   
-  public MaxLength getMaxLen() {
+  public Optional<MaxLength> getMaxLen() {
     for (Criterion criterion : criteria) {
       if (criterion instanceof MaxLength) { // this
-        return (MaxLength) criterion;
+        return Optional.of((MaxLength) criterion);
       }
     }
-    return null;
+    return Optional.empty();
   }
 
 

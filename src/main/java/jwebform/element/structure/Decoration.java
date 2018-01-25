@@ -28,7 +28,7 @@ public class Decoration {
   }
 
   public boolean isLabelNotEmpty() {
-    return label != null && label.length() > 0;
+    return label.length() > 0;
   }
 
   public String getHelptext() {

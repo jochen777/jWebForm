@@ -76,11 +76,7 @@ public class Processor {
           // override the following validation
           // --- do nothing
         } else {
-          if (container.validator != null) {
             result = result.ofValidationResult(container.validator.validate(result.getValue()));
-          } else {
-            result = result.ofValidationResult(ValidationResult.ok());
-          }
         }
       } else {
         // do nothing
