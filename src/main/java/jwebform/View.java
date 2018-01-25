@@ -8,6 +8,8 @@ import java.util.Map;
 
 import jwebform.element.NumberType;
 import jwebform.element.PasswordType;
+import jwebform.element.RadioType;
+import jwebform.element.SelectType;
 import jwebform.element.TextType;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
@@ -182,7 +184,27 @@ public final class View {
       } else if (producerInfos.getElement() instanceof PasswordType) {
         elementNameInfo.put("type", "password");
       }
+      if (producerInfos.getElement() instanceof SelectType) {
+        SelectType select = (SelectType) producerInfos.getElement();
+        elementNameInfo.put("selected",
+            select.getSelectListWithSelected(producerInfos.getElementResult().getValue()));
+      }
+      if (producerInfos.getElement() instanceof RadioType) {
+        RadioType radio = (RadioType) producerInfos.getElement();
+        elementNameInfo.put("radioElements",
+            radio.getEntryListWithSelected(producerInfos.getElementResult().getValue()));
+      }
     }
+
+    public List<DrawableElement> getChilds() {
+      List<DrawableElement> drawableChilds = new ArrayList<>();
+      producerInfos.getChilds().forEach((producerInfos) -> {
+        drawableChilds.add(new DrawableElement(producerInfos));
+      });
+      return drawableChilds;
+    }
+
+
 
     public ProducerInfos getProducerInfos() {
       return producerInfos;

@@ -142,10 +142,21 @@ public class SelectType implements Element {
   public static class SelectInputEntry {
     private final String key;
     private final String value;
+    private final boolean selcted;
+
 
     public SelectInputEntry(String key, String value) {
+      this(key, value, false);
+    }
+
+    public SelectInputEntry(String key, String value, boolean selected) {
       this.key = key;
       this.value = value;
+      this.selcted = selected;
+    }
+
+    public boolean isSelcted() {
+      return selcted;
     }
 
     public String getKey() {
@@ -155,6 +166,18 @@ public class SelectType implements Element {
     public String getValue() {
       return value;
     }
+  }
+
+  public List<SelectInputEntry> getSelectListWithSelected(String selectedKey) {
+    List<SelectInputEntry> resultList = new ArrayList<>();
+    entries.forEach((entry) -> {
+      if (entry.getKey().equals(selectedKey)) {
+        resultList.add(new SelectInputEntry(entry.key, entry.value, true));
+      } else {
+        resultList.add(entry);
+      }
+    });
+    return resultList;
   }
 
   // class that groups several inputEntries

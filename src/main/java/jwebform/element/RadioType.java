@@ -99,10 +99,31 @@ public class RadioType implements Element {
     }
   }
 
+  public class RadioInputEntryWithSelectedInfo extends RadioInputEntry {
+    private final boolean selected;
+
+    public RadioInputEntryWithSelectedInfo(String key, String value, boolean selected) {
+      super(key, value);
+      this.selected = selected;
+    }
+
+  }
 
 
   public List<RadioInputEntry> getEntries() {
     return entries;
+  }
+
+  public List<RadioInputEntryWithSelectedInfo> getEntryListWithSelected(String selectedKey) {
+    List<RadioInputEntryWithSelectedInfo> resultList = new ArrayList<>();
+    entries.forEach((entry) -> {
+      boolean selected = false;
+      if (entry.getKey().equals(selectedKey)) {
+        selected = true;
+      }
+      resultList.add(new RadioInputEntryWithSelectedInfo(entry.key, entry.value, selected));
+    });
+    return resultList;
   }
 
 
