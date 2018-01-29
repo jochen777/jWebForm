@@ -8,6 +8,11 @@ public class EnvBuilder {
   public EnvBuilder() {
   }
 
+  public EnvBuilder setMaxLen(int maxLen) {
+    this.maxLen = maxLen;
+    return this;
+  }
+
   public Env of(Request request) {
     return of(request, Env.EMPTY_SESSION_GET, Env.EMPTY_SESSION_SET);
   }
