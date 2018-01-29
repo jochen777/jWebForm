@@ -9,7 +9,7 @@ import jwebform.element.HtmlType;
 import jwebform.element.SimpleType;
 import jwebform.element.TextType;
 import jwebform.element.structure.Decoration;
-import jwebform.env.Env;
+import jwebform.env.EnvBuilder;
 
 public class IdenticalNameException {
 
@@ -18,7 +18,8 @@ public class IdenticalNameException {
     try {
       Form f = new Form("id", new TextType("pete", new Decoration("Pete1"), ""),
           new TextType("pete", new Decoration("Pete2"), ""));
-      f.run(new Env(t -> t));
+      EnvBuilder eb = new EnvBuilder();
+      f.run(new EnvBuilder().of(t -> t));
       assertTrue("An exeption should be raised before!", false); // fail, because the run should
                                                                  // raise the exception
     } catch (Exception e) {
@@ -31,7 +32,7 @@ public class IdenticalNameException {
     try {
       Form f = new Form("id", new SimpleType(), new SimpleType(), new HtmlType("Hello"),
           new HtmlType("world"));
-      f.run(new Env(t -> t));
+      f.run(new EnvBuilder().of(t -> t));
       assertTrue("An exeption should not be raised before!", true);
     } catch (Exception e) {
       assertTrue("An exeption should not be raised, because we have double SIMPLE elements!",

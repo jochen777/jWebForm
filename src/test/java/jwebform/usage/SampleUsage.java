@@ -2,13 +2,16 @@ package jwebform.usage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.junit.Test;
+
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.element.CheckBoxType;
@@ -30,6 +33,7 @@ import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.behaviour.AbstractBehaviour;
 import jwebform.env.Env;
+import jwebform.env.EnvBuilder;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -47,7 +51,7 @@ public class SampleUsage {
   @Test
   public void testnormalUsageFirstRun() {
 
-    Env env = new Env(it -> null, // this simulates the first run (all values null)
+    Env env = new EnvBuilder().of(it -> null, // this simulates the first run (all values null)
         t -> t, (k, v) -> {
         });
     boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_firstrun.html");
@@ -57,7 +61,7 @@ public class SampleUsage {
 
   @Test
   public void testnormalUsageSubmitSuccess() {
-    Env env = new Env(it -> {
+    Env env = new EnvBuilder().of(it -> {
       if (it.equals("WF_SUBMITTED")) {
         return "WF-fid";
       }
@@ -72,7 +76,7 @@ public class SampleUsage {
 
   @Test
   public void testnormalUsageSubmitError() {
-    Env env = new Env(it -> {
+    Env env = new EnvBuilder().of(it -> {
       if (it.equals("WF_SUBMITTED")) {
         return "WF-fid";
       }
@@ -89,7 +93,7 @@ public class SampleUsage {
 
   @Test
   public void testnormalUsageSubmitVarious() {
-    Env env = new Env(it -> {
+    Env env = new EnvBuilder().of(it -> {
       if (it.equals("WF_SUBMITTED")) {
         return "WF-fid";
       }

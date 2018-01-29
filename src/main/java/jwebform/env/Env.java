@@ -13,11 +13,7 @@ public class Env {
   final static SessionSet EMPTY_SESSION_SET = (k, v) -> {
   };
 
-  public Env(Request request) {
-    this(request, EMPTY_SESSION_GET, EMPTY_SESSION_SET);
-  }
-
-  public Env(Request request, SessionGet sessionGet, SessionSet sessionSet) {
+  protected Env(Request request, SessionGet sessionGet, SessionSet sessionSet) {
     this.request = request;
     this.sessionGet = sessionGet;
     this.sessionSet = sessionSet;
