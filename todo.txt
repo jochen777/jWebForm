@@ -101,12 +101,12 @@
  * implement a template, that renders the form (OK)
  * drop konzept of Theme.KEY entirely? (OK)
 * try with mustache. (Idea: Map with booleans to check which element we have to render) (WORKS!!) :) (OK)
+ * eliminate new, eliminate null (OK)
+* make it JDK 9 ready (OK)
+* erzwinge Request-Chain .cloneWithMaxLenInput(500).cloneWithNullCheck().cloneWithTrim() bzw. biete sinnvollen Default dafür an. (OK)
  #############################
  
  
- * eliminate new, eliminate null (OK)
-* make it JDK 9 ready (OK)
-* erzwinge Request-Chain .cloneWithMaxLenInput(500).cloneWithNullCheck().cloneWithTrim() bzw. biete sinnvollen Default dafür an.
 * fix checkbox
 * fix filling of mustache templates
  
