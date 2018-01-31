@@ -7,6 +7,7 @@ import java.util.List;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
 import jwebform.env.Env;
+import jwebform.processors.FormResultBuilder;
 import jwebform.processors.Processor;
 import jwebform.validation.FormValidator;
 
@@ -16,21 +17,21 @@ public final class Form {
   private final List<ElementContainer> elements;
   private final String id;
   private final List<FormValidator> formValidators;
-  private final Processor processor;
+  private final FormResultBuilder formResultBuilder;
 
   // Constructors
 
   // full
   public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators,
-      Processor processor) {
+      FormResultBuilder formResultBuilder) {
     this.elements = elements;
     this.id = id;
     this.formValidators = formValidators;
-    this.processor = processor;
+    this.formResultBuilder = formResultBuilder;
   }
 
   public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators) {
-    this(id, elements, formValidators, new Processor());
+    this(id, elements, formValidators, new FormResultBuilder());
   }
 
   public Form(String id, List<ElementContainer> elements) {
@@ -58,7 +59,7 @@ public final class Form {
 
   // process each element, run validations
   public final FormResult run(Env env) {
-    return processor.run(env, id, elements, formValidators);
+    return new Processor().run(env, id, elements, formValidators, formResultBuilder);
   }
 
 

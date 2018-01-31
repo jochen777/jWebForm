@@ -104,11 +104,13 @@
  * eliminate new, eliminate null (OK)
 * make it JDK 9 ready (OK)
 * erzwinge Request-Chain .cloneWithMaxLenInput(500).cloneWithNullCheck().cloneWithTrim() bzw. biete sinnvollen Default dafür an. (OK)
+* fix checkbox (OK)
+* fix filling of mustache templates (OK)
  #############################
  
  
-* fix checkbox
-* fix filling of mustache templates
+
+
  
  
  * form2bean as "integration" project

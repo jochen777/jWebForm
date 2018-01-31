@@ -4,7 +4,6 @@ import java.util.Map;
 
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
-import jwebform.transfer.TransfererFromFormResult;
 import jwebform.view.Theme;
 
 public class FormResult {
@@ -12,14 +11,12 @@ public class FormResult {
   private final String formId;
   private final Map<ElementContainer, ElementResult> elementResults;
   private final boolean formIsValid;
-  private final TransfererFromFormResult transferer;
 
   public FormResult(String formId, Map<ElementContainer, ElementResult> elementResults,
-      boolean formIsValid, TransfererFromFormResult transferer) {
+      boolean formIsValid) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.elementResults = elementResults;
-    this.transferer = transferer;
   }
 
 
@@ -45,11 +42,6 @@ public class FormResult {
     elementResults.forEach(
         (k, v) -> b.append("Value" + v.getValue() + "\n" + v.getValidationResult() + "\n"));
     return "FormResult" + formIsValid + "\n " + b.toString();
-  }
-
-
-  public final TransfererFromFormResult getTransferer() {
-    return transferer;
   }
 
 }

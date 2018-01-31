@@ -11,7 +11,6 @@ import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.transfer.DummyTransferToBean;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 
@@ -20,7 +19,12 @@ public class Processor {
 
   
   // do the processing of the elements, the validation and the form-validation
-  public final FormResult run(Env env, String id, List<ElementContainer> elements, List<FormValidator> formValidators) {
+  public final FormResult run(
+      Env env,
+      String id,
+      List<ElementContainer> elements,
+      List<FormValidator> formValidators,
+      FormResultBuilder formResultBuilder) {
     // validate form
     Map<ElementContainer, ElementResult> elementResults =
         processElements(env.getEnvWithSumitInfo(id, this), elements);
@@ -30,16 +34,10 @@ public class Processor {
     Map<ElementContainer, ElementResult> correctedElementResults =
         this.correctElementResults(elementResults, overridenValidationResults);
     boolean formIsValid = this.checkAllValidationResults(correctedElementResults);
-
-    return createFormResult(id, correctedElementResults, formIsValid);
+    return formResultBuilder.build(id, correctedElementResults, formIsValid);
   }
 
-  public FormResult createFormResult(
-      String id,
-      Map<ElementContainer, ElementResult> correctedElementResults,
-      boolean formIsValid) {
-    return new FormResult(id, correctedElementResults, formIsValid, new DummyTransferToBean());
-  }
+
 
   // process each element. This is used for elements, that have children... (Lke Date-Selects)
   public Map<ElementContainer, ElementResult> processElements(
