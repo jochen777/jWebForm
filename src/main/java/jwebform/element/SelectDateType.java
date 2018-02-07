@@ -110,7 +110,7 @@ public class SelectDateType implements Element {
   }
 
 
-  public HTMLProducer getDefault() {
+  private HTMLProducer getDefault() {
     return (pi) -> {
       String errorMessage = "";
 

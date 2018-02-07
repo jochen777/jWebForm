@@ -45,6 +45,11 @@ public final class Form {
     this(id, new ArrayList<>(), elements);
   }
 
+  public Form(ElementContainer... elements) {
+    this("id", new ArrayList<>(), elements);
+  }
+
+
   public Form(String id, Element... elements) {
     this(id, packElementsInContainer(elements), new ArrayList<>());
   }
