@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import jwebform.element.SimpleGroup;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
+import jwebform.element.structure.GroupElement;
 import jwebform.env.Env;
 import jwebform.processors.FormResultBuilder;
 import jwebform.processors.Processor;
@@ -14,20 +16,24 @@ import jwebform.validation.FormValidator;
 // Represents a form
 public final class Form {
 
-  private final List<ElementContainer> elements;
   private final String id;
-  private final List<FormValidator> formValidators;
   private final FormResultBuilder formResultBuilder;
+
+  private final GroupElement group;
 
   // Constructors
 
   // full
+  public Form(String id, GroupElement group, FormResultBuilder formResultBuilder) {
+    this.id = id;
+    this.formResultBuilder = formResultBuilder;
+    this.group = group;
+  }
+
+
   public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators,
       FormResultBuilder formResultBuilder) {
-    this.elements = elements;
-    this.id = id;
-    this.formValidators = formValidators;
-    this.formResultBuilder = formResultBuilder;
+    this(id, new SimpleGroup(elements, formValidators), formResultBuilder);
   }
 
   public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators) {
@@ -66,7 +72,8 @@ public final class Form {
 
   // process each element, run validations
   public final FormResult run(Env env) {
-    return new Processor().run(env, id, elements, formValidators, formResultBuilder);
+    return new Processor().run(env, id, group.getChilds(), group.getValidators(),
+        formResultBuilder);
   }
 
 
@@ -81,7 +88,7 @@ public final class Form {
 
 
   public final List<ElementContainer> getElements() {
-    return elements;
+    return group.getChilds();
   }
 
   public final String getId() {

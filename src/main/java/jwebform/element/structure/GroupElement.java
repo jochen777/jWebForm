@@ -2,7 +2,7 @@ package jwebform.element.structure;
 
 import java.util.List;
 
-import jwebform.validation.Validator;
+import jwebform.validation.FormValidator;
 
 // a group of elements. this is basically a form.
 /**
@@ -11,7 +11,7 @@ import jwebform.validation.Validator;
  *
  */
 public interface GroupElement extends Element {
-  public List<Element> getChilds();
+  public List<ElementContainer> getChilds();
 
-  public Validator getValidator();
+  public List<FormValidator> getValidators();
 }
