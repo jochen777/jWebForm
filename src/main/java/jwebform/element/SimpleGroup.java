@@ -30,7 +30,7 @@ public class SimpleGroup implements GroupElement {
   }
 
   @Override
-  public List<FormValidator> getValidators() {
+  public List<FormValidator> getValidators(ElementContainer source) {
     return formValidators;
   }
 

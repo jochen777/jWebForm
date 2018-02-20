@@ -6,10 +6,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import jwebform.FormResult;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
-import jwebform.env.Env;
+import jwebform.element.structure.GroupElement;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -19,22 +18,18 @@ public class Processor {
 
   
   // do the processing of the elements, the validation and the form-validation
-  public final FormResult run(
-      Env env,
-      String id,
-      List<ElementContainer> elements,
-      List<FormValidator> formValidators,
-      FormResultBuilder formResultBuilder) {
+  public final Map<ElementContainer, ElementResult>  run(
+      EnvWithSubmitInfo envWithSubmitInfo,
+      GroupElement group) {
     // validate form
     Map<ElementContainer, ElementResult> elementResults =
-        processElements(env.getEnvWithSumitInfo(id, this), elements);
+        processElements(envWithSubmitInfo, group.getChilds());
     elementResults = this.runPostProcessors(elementResults);
     Map<ElementContainer, ValidationResult> overridenValidationResults =
-        this.runFormValidations(elementResults, formValidators);
+        this.runFormValidations(elementResults, group.getValidators(group.of()));
     Map<ElementContainer, ElementResult> correctedElementResults =
         this.correctElementResults(elementResults, overridenValidationResults);
-    boolean formIsValid = this.checkAllValidationResults(correctedElementResults);
-    return formResultBuilder.build(id, correctedElementResults, formIsValid);
+    return correctedElementResults;
   }
 
 
@@ -97,7 +92,7 @@ public class Processor {
     return overridenValidationResults;
   }
   
-  private boolean checkAllValidationResults(
+  public boolean checkAllValidationResults(
       Map<ElementContainer, ElementResult> correctedElementResults) {
     boolean formIsValid = true;
     for (Map.Entry<ElementContainer, ElementResult> entry : correctedElementResults.entrySet()) {

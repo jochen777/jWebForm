@@ -3,16 +3,20 @@ package jwebform.element;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import jwebform.element.structure.Decoration;
-import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.GroupElement;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
+import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
@@ -24,7 +28,7 @@ import jwebform.view.StringUtils;
  * @author jochen
  *
  */
-public class TextDateType implements Element {
+public class TextDateType implements GroupElement {
 
   final private String name;
 
@@ -129,6 +133,34 @@ public class TextDateType implements Element {
           + "<br>" + decoration.getHelptext();
       return html;
     };
+  }
+
+
+  @Override
+  public List<ElementContainer> getChilds() {
+    return Arrays.asList(day, month, year);
+  }
+
+
+  @Override
+  public List<FormValidator> getValidators(ElementContainer source) {
+    return Arrays.asList((elements) -> {
+      Map<ElementContainer, ValidationResult> validationResult = new HashMap<>();
+      
+      ElementResult dayResult = elements.get(day);
+      ElementResult monthResult = elements.get(month);
+      ElementResult yearResult = elements.get(year);
+        try {
+        LocalDate dateValue = this.setupValue(this.initialValue, dayResult.getValue(),
+            monthResult.getValue(), yearResult.getValue());
+        } catch (DateTimeException | NumberFormatException e) {
+        validationResult.put(source, ValidationResult.fail("jformchecker.wrong_date_format"));
+        }
+      return validationResult;
+    });
+
+
+
   }
 
 

@@ -13,5 +13,5 @@ import jwebform.validation.FormValidator;
 public interface GroupElement extends Element {
   public List<ElementContainer> getChilds();
 
-  public List<FormValidator> getValidators();
+  public List<FormValidator> getValidators(ElementContainer source);
 }

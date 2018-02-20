@@ -3,10 +3,12 @@ package jwebform;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import jwebform.element.SimpleGroup;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
+import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.GroupElement;
 import jwebform.env.Env;
 import jwebform.processors.FormResultBuilder;
@@ -72,8 +74,9 @@ public final class Form {
 
   // process each element, run validations
   public final FormResult run(Env env) {
-    return new Processor().run(env, id, group.getChilds(), group.getValidators(),
-        formResultBuilder);
+    Processor p = new Processor();
+    Map<ElementContainer, ElementResult> result = p.run(env.getEnvWithSumitInfo(id, p), group);
+    return formResultBuilder.build(id, result, p.checkAllValidationResults(result));
   }
 
 
