@@ -75,7 +75,7 @@ public final class Form {
   // process each element, run validations
   public final FormResult run(Env env) {
     Processor p = new Processor();
-    Map<ElementContainer, ElementResult> result = p.run(env.getEnvWithSumitInfo(id, p), group);
+    Map<ElementContainer, ElementResult> result = p.run(env.getEnvWithSumitInfo(id), group);
     return formResultBuilder.build(id, result, p.checkAllValidationResults(result));
   }
 

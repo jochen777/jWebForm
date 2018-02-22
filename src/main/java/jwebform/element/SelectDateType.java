@@ -1,8 +1,6 @@
 package jwebform.element;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import jwebform.element.structure.CommonSelects;
@@ -12,7 +10,6 @@ import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.ProducerInfos;
-import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -59,30 +56,31 @@ public class SelectDateType implements Element {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    Map<ElementContainer, ElementResult> results =
-        env.getProcessor().processElements(env, day, month, year);
-
-    LocalDate dateValue = initialValue;
-    ValidationResult validationResult = ValidationResult.undefined();
-    String dateValStr = "";
-    if (env.isSubmitted()) {
-      try {
-        dateValue = this.setupValue(this.initialValue, results.get(day).getValue(),
-            results.get(month).getValue(), results.get(year).getValue());
-        dateValStr = dateValue.format(DateTimeFormatter.ISO_DATE);
-        // TODO: validationResult = validator.validate(dateValStr);
-      } catch (DateTimeException | NumberFormatException e) {
-        validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
-      }
-    }
-
-    ElementResult result = new ElementResult(dateValStr,
-        new StaticElementInfo(name, getDefault(), 3), results, dateValue);
-
-    if (validationResult != ValidationResult.undefined()) {
-      return result.cloneWithNewValidationResult(validationResult);
-    }
-    return result;
+    // Map<ElementContainer, ElementResult> results =
+    // env.getProcessor().processElements(env, day, month, year);
+    //
+    // LocalDate dateValue = initialValue;
+    // ValidationResult validationResult = ValidationResult.undefined();
+    // String dateValStr = "";
+    // if (env.isSubmitted()) {
+    // try {
+    // dateValue = this.setupValue(this.initialValue, results.get(day).getValue(),
+    // results.get(month).getValue(), results.get(year).getValue());
+    // dateValStr = dateValue.format(DateTimeFormatter.ISO_DATE);
+    // // TODO: validationResult = validator.validate(dateValStr);
+    // } catch (DateTimeException | NumberFormatException e) {
+    // validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
+    // }
+    // }
+    //
+    // ElementResult result = new ElementResult(dateValStr,
+    // new StaticElementInfo(name, getDefault(), 3), results, dateValue);
+    //
+    // if (validationResult != ValidationResult.undefined()) {
+    // return result.cloneWithNewValidationResult(validationResult);
+    // }
+    // return result;
+    return null;
   }
 
 

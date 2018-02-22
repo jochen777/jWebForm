@@ -66,7 +66,8 @@ public class Processor {
       if (container.element instanceof GroupElement) {
         Map<ElementContainer, ElementResult> groupElementResults =
             this.run(env, (GroupElement) container.element);
-        ElementResult groupResult = ((GroupElement) container.element).process(groupElementResults);
+        ElementResult groupResult =
+            ((GroupElement) container.element).process(env, groupElementResults);
         elementResults.put(container, groupResult.cloneWithChilds(groupElementResults));
 
         // TODO: das eigentliche element (groupElement) brauch auch ein Value. Wie kommt es da dran?

@@ -38,7 +38,7 @@ public class SimpleGroup implements GroupElement {
 
 
   @Override
-  public ElementResult process(Map<ElementContainer, ElementResult> childs)
+  public ElementResult process(EnvWithSubmitInfo env, Map<ElementContainer, ElementResult> childs)
   {
     return new ElementResult("", new StaticElementInfo("", t -> "", 0));
   }

@@ -122,6 +122,8 @@
 * write test for integration project
 
 maxlen required??
+
+Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Logger(!), Request....
  
 ######################## V 0.1
  

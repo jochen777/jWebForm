@@ -2,6 +2,7 @@ package jwebform.element;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -166,11 +167,27 @@ public class TextDateType implements GroupElement {
 
 
   @Override
-  public ElementResult process(Map<ElementContainer, ElementResult> childs) {
-    // TODO: Hier weitermachen: Schwierigkeit: hier darf kein HTML generiert werden, sondern nur
-    // ElementResults
-    ElementResult result = new ElementResult(ValidationResult.ok(), "",
-        new StaticElementInfo(name, getDefault(), 3), childs, "");
+  public ElementResult process(EnvWithSubmitInfo env, Map<ElementContainer, ElementResult> childs) {
+    LocalDate dateValue = initialValue;
+    ValidationResult validationResult = ValidationResult.undefined();
+    String dateValStr = "";
+    if (env.isSubmitted()) {
+      try {
+        dateValue = this.setupValue(this.initialValue, childs.get(day).getValue(),
+            childs.get(month).getValue(), childs.get(year).getValue());
+        dateValStr = dateValue.format(DateTimeFormatter.ISO_DATE);
+        validationResult = ValidationResult.ok();
+      } catch (DateTimeException | NumberFormatException e) {
+        validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
+      }
+    }
+
+    ElementResult result = new ElementResult(dateValStr,
+        new StaticElementInfo(name, getDefault(), 3), childs, dateValue);
+
+    if (validationResult != ValidationResult.undefined()) {
+      return result.cloneWithNewValidationResult(validationResult);
+    }
     return result;
   }
 
