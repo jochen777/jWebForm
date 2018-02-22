@@ -26,7 +26,7 @@ public final class ElementResult {
   // TODO: Remove validationResult entirely here! This can move to producerInfos
 
   // complete
-  private ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
+  public ElementResult(ValidationResult vr, String value, StaticElementInfo staticElementInfo,
       Map<ElementContainer, ElementResult> childs, Object valueObject) {
     this.validationResult = vr;
     this.value = value;
@@ -60,6 +60,7 @@ public final class ElementResult {
     this(name, htmlProducer, ValidationResult.ok());
   }
 
+
   // simplest
   public ElementResult(HTMLProducer htmlProducer) {
     this(NO_NAME, htmlProducer, ValidationResult.ok());
@@ -74,6 +75,10 @@ public final class ElementResult {
   // completeWithout Childs
   public ElementResult(String value, StaticElementInfo staticElementInfo) {
     this(ValidationResult.undefined(), value, staticElementInfo, NOCHILDS);
+  }
+
+  public ElementResult cloneWithChilds(Map<ElementContainer, ElementResult> childs) {
+    return new ElementResult(validationResult, value, staticElementInfo, childs, valueObject);
   }
 
 

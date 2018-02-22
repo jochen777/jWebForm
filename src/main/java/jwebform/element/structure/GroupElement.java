@@ -1,6 +1,7 @@
 package jwebform.element.structure;
 
 import java.util.List;
+import java.util.Map;
 
 import jwebform.validation.FormValidator;
 
@@ -12,6 +13,8 @@ import jwebform.validation.FormValidator;
  */
 public interface GroupElement extends Element {
   public List<ElementContainer> getChilds();
+
+  public ElementResult process(Map<ElementContainer, ElementResult> childResults);
 
   public List<FormValidator> getValidators(ElementContainer source);
 }

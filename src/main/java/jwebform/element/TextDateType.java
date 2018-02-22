@@ -2,7 +2,6 @@ package jwebform.element;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -59,7 +58,7 @@ public class TextDateType implements GroupElement {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    Map<ElementContainer, ElementResult> childs =
+   /* Map<ElementContainer, ElementResult> childs =
         env.getProcessor().processElements(env, day, month, year);
 
     LocalDate dateValue = initialValue;
@@ -82,6 +81,8 @@ public class TextDateType implements GroupElement {
       return result.cloneWithNewValidationResult(validationResult);
     }
     return result;
+    */
+    return null;
   }
 
 
@@ -161,6 +162,16 @@ public class TextDateType implements GroupElement {
 
 
 
+  }
+
+
+  @Override
+  public ElementResult process(Map<ElementContainer, ElementResult> childs) {
+    // TODO: Hier weitermachen: Schwierigkeit: hier darf kein HTML generiert werden, sondern nur
+    // ElementResults
+    ElementResult result = new ElementResult(ValidationResult.ok(), "",
+        new StaticElementInfo(name, getDefault(), 3), childs, "");
+    return result;
   }
 
 

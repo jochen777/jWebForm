@@ -61,23 +61,36 @@ public class Processor {
       ) {
     Map<ElementContainer, ElementResult> elementResults = new LinkedHashMap<>();
     for (ElementContainer container : elements) {
-      // here is where the magic happens! The "apply" method of the elements is called.
-      ElementResult result = container.element.apply(env);
-      if (env.isSubmitted()) {
-        if (result.getValidationResult() != ValidationResult.undefined()) {
-          // element has set the validation itself. This might happen in complex elements. And will
-          // override the following validation
-          // --- do nothing
-        } else {
-            result = result.ofValidationResult(container.validator.validate(result.getValue()));
-        }
+
+     
+      if (container.element instanceof GroupElement) {
+        Map<ElementContainer, ElementResult> groupElementResults =
+            this.run(env, (GroupElement) container.element);
+        ElementResult groupResult = ((GroupElement) container.element).process(groupElementResults);
+        elementResults.put(container, groupResult.cloneWithChilds(groupElementResults));
+
+        // TODO: das eigentliche element (groupElement) brauch auch ein Value. Wie kommt es da dran?
+        // Dürfte es auch HTML und ein input-element ausgeben?
+        // evtl. ein neues "Ober" Element einführen? Also z.B. Element -> Input, Group
       } else {
-        // do nothing
+        // here is where the magic happens! The "apply" method of the elements is called.
+        ElementResult result = container.element.apply(env);
+        if (env.isSubmitted()) {
+          if (result.getValidationResult() != ValidationResult.undefined()) {
+            // element has set the validation itself. This might happen in complex elements. And will
+            // override the following validation
+            // --- do nothing
+          } else {
+              result = result.ofValidationResult(container.validator.validate(result.getValue()));
+          }
+        } else {
+          // do nothing
+        }
+        if (elementResults.containsKey(container)) {
+          throw new IdenticalElementException(container);
+        }
+        elementResults.put(container, result);
       }
-      if (elementResults.containsKey(container)) {
-        throw new IdenticalElementException(container);
-      }
-      elementResults.put(container, result);
     }
     return elementResults;
   }
