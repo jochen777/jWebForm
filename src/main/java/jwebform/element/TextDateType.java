@@ -156,7 +156,9 @@ public class TextDateType implements GroupElement {
         LocalDate dateValue = this.setupValue(this.initialValue, dayResult.getValue(),
             monthResult.getValue(), yearResult.getValue());
         } catch (DateTimeException | NumberFormatException e) {
-        validationResult.put(source, ValidationResult.fail("jformchecker.wrong_date_format"));
+        // validationResult.put(day, ValidationResult.fail("jformchecker.wrong_date_format"));
+        // validationResult.put(month, ValidationResult.fail("jformchecker.wrong_date_format"));
+        // validationResult.put(year, ValidationResult.fail("jformchecker.wrong_date_format"));
         }
       return validationResult;
     });

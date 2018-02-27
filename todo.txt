@@ -107,6 +107,7 @@
 * fix checkbox (OK)
 * fix filling of mustache templates (OK)
 * form2bean as "integration" project (OK)
+* fix moving dropdown-box on example form (WTF?!) (OK)
 #############################
  
  
@@ -126,7 +127,7 @@ maxlen required??
 
 Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Logger(!), Request....
 * fix nullpointer bei problem mit textDate
-* fix moving dropdown-box on example form (WTF?!)
+
  
 ######################## V 0.1
  
