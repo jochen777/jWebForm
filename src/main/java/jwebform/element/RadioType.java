@@ -82,8 +82,8 @@ public class RadioType implements Element {
 
   // class that represents an entry in the selectInput
   public class RadioInputEntry {
-    private final String key;
-    private final String value;
+    protected final String key;
+    protected final String value;
 
     public RadioInputEntry(String key, String value) {
       this.key = key;
@@ -106,6 +106,17 @@ public class RadioType implements Element {
       super(key, value);
       this.selected = selected;
     }
+
+    @Override
+    public String toString() {
+      return String.format("Key: %s Value: %s, Selected: %s", key, value, selected);
+    }
+
+    public boolean isSelected() {
+      return selected;
+    }
+
+
 
   }
 

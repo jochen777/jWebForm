@@ -122,8 +122,11 @@
 * write test for integration project
 
 maxlen required??
+* View::DrawableElement - Inputs, die mit Marker interface markiert sind, können View-Infos zurückliefern. (Einfach eine Map, die dann mustache verwertet)
 
 Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Logger(!), Request....
+* fix nullpointer bei problem mit textDate
+* fix moving dropdown-box on example form (WTF?!)
  
 ######################## V 0.1
  

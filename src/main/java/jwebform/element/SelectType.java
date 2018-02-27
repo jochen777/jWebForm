@@ -167,6 +167,11 @@ public class SelectType implements Element {
     public String getValue() {
       return value;
     }
+
+    @Override
+    public String toString() {
+      return String.format("Key: %s Value: %s Selected: %s", key, value, selcted);
+    }
   }
 
   public List<SelectInputEntry> getSelectListWithSelected(String selectedKey) {
