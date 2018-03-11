@@ -108,6 +108,8 @@
 * fix filling of mustache templates (OK)
 * form2bean as "integration" project (OK)
 * fix moving dropdown-box on example form (WTF?!) (OK)
+* fix nullpointer bei problem mit textDate (OK)
+* convert SelectDate to new GroupElement (OK)
 #############################
  
  
@@ -126,7 +128,10 @@ maxlen required??
 * View::DrawableElement - Inputs, die mit Marker interface markiert sind, können View-Infos zurückliefern. (Einfach eine Map, die dann mustache verwertet)
 
 Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Logger(!), Request....
-* fix nullpointer bei problem mit textDate
+
+* Element und GroupElement müssen super-Typ haben. Davon können dann beide ableiten.
+
+* cleanup TextDate and SelectDate
 
  
 ######################## V 0.1
