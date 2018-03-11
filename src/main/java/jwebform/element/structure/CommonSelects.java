@@ -2,6 +2,7 @@ package jwebform.element.structure;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import jwebform.element.SelectType;
 
 /**
@@ -34,6 +35,11 @@ public class CommonSelects {
 	}
 
 	public List<SelectType.SelectInputEntry>  getYears(int startYear, int endYear) { 
+    if (startYear < endYear) {
+      int tmp = startYear;
+      startYear = endYear;
+      endYear = tmp;
+    }
 		return builReverseMap(startYear, endYear, "jformchecker.select.year");
 	}
 
