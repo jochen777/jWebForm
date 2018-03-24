@@ -2,6 +2,7 @@ package jwebform.element.structure;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import jwebform.element.structure.behaviour.Behaviour;
 import jwebform.validation.Validator;
 

@@ -5,12 +5,12 @@ import java.util.Map;
 
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.GroupElement;
+import jwebform.element.structure.GroupType;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.FormValidator;
 
-public class SimpleGroup implements GroupElement {
+public class SimpleGroup implements GroupType {
 
   private final List<ElementContainer> childs;
   private final List<FormValidator> formValidators;
@@ -21,10 +21,7 @@ public class SimpleGroup implements GroupElement {
   }
 
 
-  @Override
-  public ElementResult apply(EnvWithSubmitInfo t) {
-    return new ElementResult(producerInfos -> "");
-  }
+
 
   @Override
   public List<ElementContainer> getChilds() {

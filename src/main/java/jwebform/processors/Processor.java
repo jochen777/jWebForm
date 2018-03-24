@@ -8,7 +8,8 @@ import java.util.Map;
 
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.GroupElement;
+import jwebform.element.structure.GroupType;
+import jwebform.element.structure.SingleType;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -20,13 +21,19 @@ public class Processor {
   // do the processing of the elements, the validation and the form-validation
   public final Map<ElementContainer, ElementResult>  run(
       EnvWithSubmitInfo envWithSubmitInfo,
-      GroupElement group) {
-    // validate form
+      GroupType group) {
+    // call the apply Method
     Map<ElementContainer, ElementResult> elementResults =
         processElements(envWithSubmitInfo, group.getChilds());
+
+    // run preprocessors
     elementResults = this.runPostProcessors(elementResults);
+
+    // run the form validators
     Map<ElementContainer, ValidationResult> overridenValidationResults =
         this.runFormValidations(elementResults, group.getValidators(group.of()));
+
+    // if form-validators changed validaiton results, correct them on the elemtns
     Map<ElementContainer, ElementResult> correctedElementResults =
         this.correctElementResults(elementResults, overridenValidationResults);
     return correctedElementResults;
@@ -63,11 +70,11 @@ public class Processor {
     for (ElementContainer container : elements) {
 
      
-      if (container.element instanceof GroupElement) {
+      if (container.element instanceof GroupType) {
         Map<ElementContainer, ElementResult> groupElementResults =
-            this.run(env, (GroupElement) container.element);
+            this.run(env, (GroupType) container.element);
         ElementResult groupResult =
-            ((GroupElement) container.element).process(env, groupElementResults);
+            ((GroupType) container.element).process(env, groupElementResults);
         elementResults.put(container, groupResult.cloneWithChilds(groupElementResults));
 
         // TODO: das eigentliche element (groupElement) brauch auch ein Value. Wie kommt es da dran?
@@ -75,7 +82,7 @@ public class Processor {
         // evtl. ein neues "Ober" Element einführen? Also z.B. Element -> Input, Group
       } else {
         // here is where the magic happens! The "apply" method of the elements is called.
-        ElementResult result = container.element.apply(env);
+        ElementResult result = ((SingleType) container.element).apply(env);
         if (env.isSubmitted()) {
           if (result.getValidationResult() != ValidationResult.undefined()) {
             // element has set the validation itself. This might happen in complex elements. And will

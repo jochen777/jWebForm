@@ -12,7 +12,7 @@ import jwebform.validation.FormValidator;
  * need a GroupFormResult?
  *
  */
-public interface GroupElement extends Element {
+public interface GroupType extends Element {
   public List<ElementContainer> getChilds();
 
   public ElementResult process(

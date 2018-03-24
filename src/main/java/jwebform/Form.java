@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import jwebform.element.SimpleGroup;
-import jwebform.element.structure.Element;
+import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.GroupElement;
+import jwebform.element.structure.GroupType;
 import jwebform.env.Env;
 import jwebform.processors.FormResultBuilder;
 import jwebform.processors.Processor;
@@ -21,12 +21,12 @@ public final class Form {
   private final String id;
   private final FormResultBuilder formResultBuilder;
 
-  private final GroupElement group;
+  private final GroupType group;
 
   // Constructors
 
   // full
-  public Form(String id, GroupElement group, FormResultBuilder formResultBuilder) {
+  public Form(String id, GroupType group, FormResultBuilder formResultBuilder) {
     this.id = id;
     this.formResultBuilder = formResultBuilder;
     this.group = group;
@@ -58,7 +58,7 @@ public final class Form {
   }
 
 
-  public Form(String id, Element... elements) {
+  public Form(String id, SingleType... elements) {
     this(id, packElementsInContainer(elements), new ArrayList<>());
   }
 
@@ -67,7 +67,7 @@ public final class Form {
     this(id, Arrays.asList(elements), formValidators);
   }
 
-  public Form(String id, List<FormValidator> formValidators, Element... elements) {
+  public Form(String id, List<FormValidator> formValidators, SingleType... elements) {
     this(id, packElementsInContainer(elements), formValidators);
   }
   // End constructors
@@ -81,7 +81,7 @@ public final class Form {
 
 
 
-  private static List<ElementContainer> packElementsInContainer(Element... elements) {
+  private static List<ElementContainer> packElementsInContainer(SingleType... elements) {
     List<ElementContainer> ec = new ArrayList<>();
     for (int i = 0; i < elements.length; i++) {
       ec.add(new ElementContainer(elements[i]));

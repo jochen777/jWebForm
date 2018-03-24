@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jwebform.element.structure.Decoration;
-import jwebform.element.structure.Element;
+import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
-public class SelectType implements Element {
+public class SelectType implements SingleType {
 
   final public List<SelectInputEntry> entries;
 

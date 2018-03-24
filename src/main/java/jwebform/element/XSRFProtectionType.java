@@ -3,7 +3,7 @@ package jwebform.element;
 import java.security.SecureRandom;
 import java.util.Base64;
 import com.coverity.security.Escape;
-import jwebform.element.structure.Element;
+import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.env.Env;
@@ -11,7 +11,7 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 
 // Form-Elmement, that provides XSRF protection
-public class XSRFProtectionType implements Element {
+public class XSRFProtectionType implements SingleType {
 
   private final String TOKENNAME = "tokenname";
   private final String TOKENVAL = "tokenVal";

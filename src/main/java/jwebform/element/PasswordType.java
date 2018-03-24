@@ -1,13 +1,13 @@
 package jwebform.element;
 
 import jwebform.element.structure.Decoration;
-import jwebform.element.structure.Element;
+import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
-public class PasswordType implements Element {
+public class PasswordType implements SingleType {
 
   public final OneValueElementProcessor oneValueElement;
   public final Decoration decoration;

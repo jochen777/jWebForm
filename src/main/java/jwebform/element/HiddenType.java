@@ -2,11 +2,11 @@ package jwebform.element;
 
 import com.coverity.security.Escape;
 
-import jwebform.element.structure.Element;
+import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
-public class HiddenType implements Element {
+public class HiddenType implements SingleType {
 
   public final String name;
   public final String value;

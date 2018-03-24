@@ -1,11 +1,11 @@
 package jwebform.element;
 
-import jwebform.element.structure.Element;
+import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
-public class SubmitType implements Element {
+public class SubmitType implements SingleType {
 
   public final String label;
   public final String name;

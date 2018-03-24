@@ -11,7 +11,7 @@ import java.util.Map;
 import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.GroupElement;
+import jwebform.element.structure.GroupType;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticElementInfo;
@@ -28,7 +28,7 @@ import jwebform.view.StringUtils;
  * @author jochen
  *
  */
-public class TextDateType implements GroupElement {
+public class TextDateType implements GroupType {
 
   final private String name;
 
@@ -57,34 +57,6 @@ public class TextDateType implements GroupElement {
   }
 
 
-  @Override
-  public ElementResult apply(EnvWithSubmitInfo env) {
-   /* Map<ElementContainer, ElementResult> childs =
-        env.getProcessor().processElements(env, day, month, year);
-
-    LocalDate dateValue = initialValue;
-    ValidationResult validationResult = ValidationResult.undefined();
-    String dateValStr = "";
-    if (env.isSubmitted()) {
-      try {
-        dateValue = this.setupValue(this.initialValue, childs.get(day).getValue(),
-            childs.get(month).getValue(), childs.get(year).getValue());
-        dateValStr = dateValue.format(DateTimeFormatter.ISO_DATE);
-      } catch (DateTimeException | NumberFormatException e) {
-        validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
-      }
-    }
-
-    ElementResult result = new ElementResult(dateValStr,
-        new StaticElementInfo(name, getDefault(), 3), childs, dateValue);
-
-    if (validationResult != ValidationResult.undefined()) {
-      return result.cloneWithNewValidationResult(validationResult);
-    }
-    return result;
-    */
-    return null;
-  }
 
 
 

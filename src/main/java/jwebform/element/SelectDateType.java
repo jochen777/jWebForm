@@ -12,7 +12,7 @@ import jwebform.element.structure.CommonSelects;
 import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.GroupElement;
+import jwebform.element.structure.GroupType;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticElementInfo;
@@ -29,7 +29,7 @@ import jwebform.view.StringUtils;
  * @author jochen
  *
  */
-public class SelectDateType implements GroupElement {
+public class SelectDateType implements GroupType {
 
   final private String name;
 
@@ -58,12 +58,6 @@ public class SelectDateType implements GroupElement {
         String.valueOf(initialValue.getYear()), CommonSelects.build().getYears(yearStart, yearEnd))
             .of(numberValidator);
 
-  }
-
-
-  @Override
-  public ElementResult apply(EnvWithSubmitInfo env) {
-    return null;
   }
 
 

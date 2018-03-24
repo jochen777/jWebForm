@@ -3,13 +3,13 @@ package jwebform.element;
 import com.coverity.security.Escape;
 
 import jwebform.element.structure.Decoration;
-import jwebform.element.structure.Element;
+import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
-public class TextAreaType implements Element {
+public class TextAreaType implements SingleType {
 
   public final OneValueElementProcessor oneValueElement;
 

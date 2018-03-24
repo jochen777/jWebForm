@@ -1,7 +1,7 @@
 package jwebform.element;
 
 import jwebform.element.structure.Decoration;
-import jwebform.element.structure.Element;
+import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.ForceFileuploadMethod;
 import jwebform.element.structure.HTMLProducer;
@@ -10,7 +10,7 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 
 // TODO: No value here!, change method!
-public class UploadType implements Element, ForceFileuploadMethod {
+public class UploadType implements SingleType, ForceFileuploadMethod {
 
   public final OneValueElementProcessor oneValueElement;
   private final Decoration decoration;

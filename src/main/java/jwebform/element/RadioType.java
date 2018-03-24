@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jwebform.element.structure.Decoration;
-import jwebform.element.structure.Element;
+import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.view.ElementRenderer;
 
-public class RadioType implements Element {
+public class RadioType implements SingleType {
 
   final public List<RadioInputEntry> entries;
 

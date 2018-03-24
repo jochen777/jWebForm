@@ -120,6 +120,7 @@
 * introduce simpler groups: Idee: Jede FormElement Liste ist eine Gruppe und wird von WF rekursiv genau wie die erste Liste behandelt
 * how can we avoid sublcassing only to have a new renderer? (vielleicht über Renderer-Interface?): 
 				neues "Signature" Feld im FormResult einführen? Damit kann man die Ausgabe leichter steuern, ohne ständig ein neues Objejt zu benötigen
+				-> besser: Signature in Decoration einfuehren!
 * Integration: Google Captcha with praeProcessor: CheckCaptcha
 * consider loosing the last dependency: Normally we use a template engine, that is doing the escaping...
 * write test for integration project
