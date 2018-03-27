@@ -16,8 +16,8 @@ public class IdenticalNameException {
   @Test
   public void testIdenticalName() {
     try {
-      Form f = new Form("id", new TextType("pete", new Decoration("Pete1"), ""),
-          new TextType("pete", new Decoration("Pete2"), ""));
+      Form f = new Form("id", new TextType("pete", "").of(new Decoration("Pete1")),
+          new TextType("pete", "").of(new Decoration("Pete2")));
       EnvBuilder eb = new EnvBuilder();
       f.run(new EnvBuilder().of(t -> t));
       assertTrue("An exeption should be raised before!", false); // fail, because the run should

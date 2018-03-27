@@ -1,21 +1,17 @@
 package jwebform.element;
 
-import jwebform.element.structure.Decoration;
-import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneValueElementProcessor;
+import jwebform.element.structure.SingleType;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class PasswordType implements SingleType {
 
   public final OneValueElementProcessor oneValueElement;
-  public final Decoration decoration;
 
-  public PasswordType(String name, Decoration decoration) {
+  public PasswordType(String name) {
     this.oneValueElement = new OneValueElementProcessor(name,"");
-    this.decoration = decoration;
-
   }
 
   @Override
@@ -25,7 +21,7 @@ public class PasswordType implements SingleType {
 
   protected HTMLProducer getDefault() {
     return (pi) -> pi.getTheme().getRenderer().renderInput("password", pi,
-        decoration, "");
+        pi.getDecoration(), "");
   }
 
 

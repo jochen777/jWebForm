@@ -11,24 +11,34 @@ public class ElementContainer {
   public final Element element;
   public final Validator validator;
   public final List<Behaviour> behaviour;
+  public final Decoration decoration;
 
   private final static List<Behaviour> emptyList = new ArrayList<>();
+  private final static Decoration emptyDecoration = new Decoration("");
 
-  public ElementContainer(Element element, Validator validator, Behaviour behaviour) {
+  public ElementContainer(Element element, Validator validator, Behaviour behaviour,
+      Decoration decoration) {
     this.element = element;
     this.validator = validator;
     this.behaviour = buildListFromOneBehaviour(behaviour);
+    this.decoration = decoration;
   }
 
-  public ElementContainer(Element element, Validator validator, List<Behaviour> behaviour) {
+  public ElementContainer(Element element, Validator validator, List<Behaviour> behaviour,
+      Decoration decoration) {
     this.element = element;
     this.validator = validator;
     this.behaviour = behaviour;
+    this.decoration = decoration;
   }
 
 
   public ElementContainer(Element element, Validator validator) {
-    this(element, validator, emptyList);
+    this(element, validator, emptyList, emptyDecoration);
+  }
+
+  public ElementContainer(Element element, Validator validator, Decoration decoration) {
+    this(element, validator, emptyList, decoration);
   }
 
   public ElementContainer(Element element) {

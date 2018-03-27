@@ -13,4 +13,13 @@ public interface Element {
   default public ElementContainer of(Validator validator) {
     return new ElementContainer(this, validator);
   }
+
+  default public ElementContainer of(Validator validator, Decoration decoration) {
+    return new ElementContainer(this, validator, decoration);
+  }
+
+  default public ElementContainer of(Decoration decoration) {
+    return new ElementContainer(this, Validator.emptyValidator(), decoration);
+  }
+
 }

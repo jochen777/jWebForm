@@ -17,21 +17,33 @@ public class ProducerInfos {
   private final static List<ProducerInfos> NO_CHILDS = new ArrayList<>();
 
   private final ElementResult elementResult;
+  // TODO: Do we need the decoration here, as we alreday have the elementContainer??!
+  private final Decoration decoration;
+
 
   public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult,
-      ElementContainer elementContainer, List<ProducerInfos> childs) {
+      ElementContainer elementContainer, List<ProducerInfos> childs, Decoration decoration) {
     this.formId = formId;
     this.tabIndex = tabIndex;
     this.theme = theme;
     this.elementResult = elementResult;
     this.elementContainer = elementContainer;
     this.childs = childs;
+    this.decoration = decoration;
   }
 
   public ProducerInfos(String formId, int tabIndex, Theme theme, ElementResult elementResult,
-      ElementContainer elementContainer) {
-    this(formId, tabIndex, theme, elementResult, elementContainer, NO_CHILDS);
+      ElementContainer elementContainer, Decoration decoration) {
+    this.formId = formId;
+    this.tabIndex = tabIndex;
+    this.theme = theme;
+    this.elementResult = elementResult;
+    this.elementContainer = elementContainer;
+    this.childs = NO_CHILDS;
+    this.decoration = decoration;
   }
+
+
 
   public List<ProducerInfos> getChilds() {
     return childs;
@@ -83,6 +95,10 @@ public class ProducerInfos {
 
   public ElementContainer getElementContainer() {
     return elementContainer;
+  }
+
+  public Decoration getDecoration() {
+    return decoration;
   }
 
 

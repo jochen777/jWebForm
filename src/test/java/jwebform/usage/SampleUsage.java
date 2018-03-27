@@ -154,34 +154,38 @@ public class SampleUsage {
     };
 
     ElementContainer textInput = new ElementContainer(
-        new TextType("textInput", new Decoration("TextInputLabel"), "Peter\"Paul"),
-        new Validator(Criteria.required()), testBe);
+        new TextType("textInput", "Peter\"Paul"),
+        new Validator(Criteria.required()), testBe, new Decoration("TextInputLabel"));
 
-    TextDateType date = new TextDateType("dateInput",
-        new Decoration("Please insert date", "datehelptext"), LocalDate.of(2017, 7, 4));
+    ElementContainer date = new TextDateType("dateInput",
+        LocalDate.of(2017, 7, 4))
+            .of(new Validator(Criteria.required()),
+                new Decoration("Please insert date", "datehelptext"));
     ElementContainer textInput2 = new TextType("textInput2",
-        new Decoration("TextInputLabel2", "Help-Text", "Placeholder"), "Peter\"Paul")
-            .of(new Validator(Criteria.required()));
+        "Peter\"Paul").of(new Validator(Criteria.required()),
+            new Decoration("TextInputLabel2", "Help-Text", "Placeholder"));
     ElementContainer gender =
-        new ElementContainer(new SelectType("gender", new Decoration("Gender"), "",
-            new String[] {"m", "f"}, new String[] {"Male", "Female"}));
+        new ElementContainer(
+            new SelectType("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"}),
+            Validator.emptyValidator(), new Decoration("Gender"));
     ElementContainer chk = new ElementContainer(
-        new CheckBoxType("chk", new Decoration("chk-label", "chk_help"), true),
-        new Validator(Criteria.required()));
+        new CheckBoxType("chk", true),
+        new Validator(Criteria.required()), new Decoration("chk-label", "chk_help"));
     ElementContainer lbl = new LabelType("lbl").of();
     ElementContainer html = new HtmlType("<strong>HTML</strong>").of();
     ElementContainer hddn = new HiddenType("hddn", "hddn-value").of();
     ElementContainer area =
-        new TextAreaType("area", new Decoration("Area", "Area-Help", "Area-Placeholder"),
-            "Area-Prebuild").of(new Validator(Criteria.required()));
+        new TextAreaType("area", "Area-Prebuild").of(new Validator(Criteria.required()),
+            new Decoration("Area", "Area-Help", "Area-Placeholder"));
 
-    ElementContainer nmbr =
-        new NumberType("nbr", new Decoration("chk-label", "chk_help"), 5)
-            .of(new Validator(Criteria.required()));
-    ElementContainer pssword = new PasswordType("pssword", new Decoration("Password")).of();
-    ElementContainer upld = new UploadType("upld", new Decoration("Upload")).of();
-    ElementContainer radio = new RadioType("radio", new Decoration("Radio"), "1",
-        new String[] {"1", "2"}, new String[] {"yes", "no"}).of();
+    ElementContainer nmbr = new ElementContainer(new NumberType("nbr", 5),
+        new Validator(Criteria.required()), new Decoration("chk-label", "chk_help"));
+    ElementContainer pssword = new ElementContainer(new PasswordType("pssword"),
+        Validator.emptyValidator(), new Decoration("Password"));
+    ElementContainer upld = new UploadType("upld").of(new Decoration("Upload"));
+    ElementContainer radio = new ElementContainer(new RadioType("radio", "1",
+        new String[] {"1", "2"}, new String[] {"yes", "no"}), Validator.emptyValidator(),
+        new Decoration("Radio"));
 
     /*
      * radio, (OK)
@@ -209,7 +213,7 @@ public class SampleUsage {
 
       Form f = new Form(formId, formValidators, new ElementContainer(protection),
           new ElementContainer(new SimpleType()), textInput,
-          new ElementContainer(date, new Validator(Criteria.required())), textInput2, gender,
+          date, textInput2, gender,
           new SubmitType("Submit").of(), chk, lbl, html, hddn, area, nmbr, pssword, upld, radio);
 
       return f;

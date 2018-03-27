@@ -35,28 +35,26 @@ public class SelectDateType implements GroupType {
 
 
   final private LocalDate initialValue;
-  final public Decoration decoration;
 
   final private ElementContainer day;
   final private ElementContainer month;
   final private ElementContainer year;
 
-  public SelectDateType(String name, Decoration decoration, LocalDate initialValue, int yearStart,
+  public SelectDateType(String name, LocalDate initialValue, int yearStart,
       int yearEnd) {
     this.name = name;
     this.initialValue = initialValue;
-    this.decoration = decoration;
 
     Validator numberValidator = new Validator(Criteria.number());
-    this.day = new SelectType(name + "_day", new Decoration("Day"),
+    this.day = new SelectType(name + "_day",
         String.valueOf(initialValue.getDayOfMonth()), CommonSelects.build().buildDays())
-            .of(numberValidator);
-    this.month = new SelectType(name + "_month", new Decoration("Month"),
+            .of(numberValidator, new Decoration("Day"));
+    this.month = new SelectType(name + "_month",
         String.valueOf(initialValue.getMonthValue()), CommonSelects.build().buildMonths())
-            .of(numberValidator);;
-    this.year = new SelectType(name + "_year", new Decoration("Year"),
+            .of(numberValidator, new Decoration("Month"));
+    this.year = new SelectType(name + "_year", 
         String.valueOf(initialValue.getYear()), CommonSelects.build().getYears(yearStart, yearEnd))
-            .of(numberValidator);
+            .of(numberValidator, new Decoration("Year"));
 
   }
 
@@ -99,14 +97,16 @@ public class SelectDateType implements GroupType {
       ElementResult dayResult = childs.get(day);
       ElementResult monthResult = childs.get(month);
       ElementResult yearResult = childs.get(year);
-      String html = decoration.getLabel() + "<br/>" + errorMessage
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult, day)
+      String html = pi.getDecoration().getLabel() + "<br/>" + errorMessage
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult, day,
+              day.decoration)
               .getHtml()
           + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1, pi.getTheme(), monthResult,
-              month).getHtml()
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult, year)
+              month, month.decoration).getHtml()
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult, year,
+              year.decoration)
               .getHtml()
-          + "<br>" + decoration.getHelptext();
+          + "<br>" + pi.getDecoration().getHelptext();
       return html;
 
     };

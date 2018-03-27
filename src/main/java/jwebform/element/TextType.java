@@ -1,20 +1,17 @@
 package jwebform.element;
 
-import jwebform.element.structure.Decoration;
-import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneValueElementProcessor;
+import jwebform.element.structure.SingleType;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class TextType implements SingleType {
 
   final public OneValueElementProcessor oneValueElement;
-  public final Decoration decoration;
 
-  public TextType(String name, Decoration decoration, String initialValue) {
+  public TextType(String name, String initialValue) {
     this.oneValueElement = new OneValueElementProcessor(name, initialValue);
-    this.decoration = decoration;
   }
 
   @Override
@@ -24,7 +21,7 @@ public class TextType implements SingleType {
 
   // very simple version!
   protected HTMLProducer getDefault() {
-    return (pi) -> pi.getTheme().getRenderer().renderInput("text", pi, decoration,
+    return (pi) -> pi.getTheme().getRenderer().renderInput("text", pi, pi.getDecoration(),
         "");
   }
 

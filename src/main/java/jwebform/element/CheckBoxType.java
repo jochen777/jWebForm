@@ -1,9 +1,8 @@
 package jwebform.element;
 
-import jwebform.element.structure.Decoration;
-import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
+import jwebform.element.structure.SingleType;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.view.ElementRenderer;
@@ -15,13 +14,9 @@ public class CheckBoxType implements SingleType {
   final private boolean initialValue;
 
 
-  final public Decoration decoration;
-
-
-  public CheckBoxType(String name, Decoration decoration, boolean initialValue) {
+  public CheckBoxType(String name, boolean initialValue) {
     this.name = name;
     this.initialValue = initialValue;
-    this.decoration = decoration;
   }
 
   @Override
@@ -49,11 +44,11 @@ public class CheckBoxType implements SingleType {
   public HTMLProducer getDefault(boolean checked) {
     return (pi) -> {
       ElementRenderer renderer = pi.getTheme().getRenderer();
-      String aria = renderer.renderAriaDescribedBy(pi, decoration);
+      String aria = renderer.renderAriaDescribedBy(pi, pi.getDecoration());
       String val = renderer.renderValue(pi.getElementResult().getValue());
       String inputHtml = "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"checkbox\" name=\""
           + pi.getNameOfInput() + "\" value" + val + (checked ? " checked" : "") + aria + ">";
-      return renderer.renderInputFree(inputHtml, pi, decoration,
+      return renderer.renderInputFree(inputHtml, pi, pi.getDecoration(),
           ElementRenderer.InputVariant.checkbox);
     };
   }
