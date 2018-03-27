@@ -53,7 +53,7 @@ public final class View {
       ElementContainer container = entry.getKey();
       List<ProducerInfos> childs = createProducerInfoChilds(elementResult.getChilds(), tabIndex);
       pi = new ProducerInfos(formId, tabIndex, theme, elementResult, container,
-          childs, container.decoration);
+          childs);
       html.append(pi.getHtml());
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
@@ -68,7 +68,7 @@ public final class View {
     List<ProducerInfos> listOfPis = new ArrayList<>(); // RFE: only, if childs is not empty!
     // RFE: This allows only one depth! It would be cooler, if we can do infinite depth
     childs.forEach((container, result) -> listOfPis
-        .add(new ProducerInfos(formId, tabIndex, theme, result, container, container.decoration)));
+        .add(new ProducerInfos(formId, tabIndex, theme, result, container)));
     return listOfPis;
   }
 
@@ -98,8 +98,7 @@ public final class View {
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ProducerInfos pi = new ProducerInfos(formId, tabIndex, theme, elementResult,
-          entry.getKey(), createProducerInfoChilds(elementResult.getChilds(), tabIndex),
-          entry.getKey().decoration);
+          entry.getKey(), createProducerInfoChilds(elementResult.getChilds(), tabIndex));
       elements.add(pi);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
@@ -113,8 +112,7 @@ public final class View {
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ProducerInfos pi = new ProducerInfos(formId, tabIndex, theme, elementResult,
-          entry.getKey(), createProducerInfoChilds(elementResult.getChilds(), tabIndex),
-          entry.getKey().decoration);
+          entry.getKey(), createProducerInfoChilds(elementResult.getChilds(), tabIndex));
       elements.add(new DrawableElement(pi));
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
@@ -129,8 +127,7 @@ public final class View {
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ProducerInfos pi =
-          new ProducerInfos(formId, tabIndex, theme, elementResult, entry.getKey(),
-              entry.getKey().decoration);
+          new ProducerInfos(formId, tabIndex, theme, elementResult, entry.getKey());
       elements.put(elementResult.getStaticElementInfo().getName(), pi);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
@@ -145,8 +142,7 @@ public final class View {
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       ElementResult elementResult = entry.getValue();
       ProducerInfos pi =
-          new ProducerInfos(formId, tabIndex, theme, elementResult, entry.getKey(),
-              entry.getKey().decoration);
+          new ProducerInfos(formId, tabIndex, theme, elementResult, entry.getKey());
       elements.put(elementResult.getStaticElementInfo().getName(),
           new RenderedElement(pi.getHtml(), pi, elementResult));
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();

@@ -98,13 +98,11 @@ public class SelectDateType implements GroupType {
       ElementResult monthResult = childs.get(month);
       ElementResult yearResult = childs.get(year);
       String html = pi.getDecoration().getLabel() + "<br/>" + errorMessage
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult, day,
-              day.decoration)
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult, day)
               .getHtml()
           + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1, pi.getTheme(), monthResult,
-              month, month.decoration).getHtml()
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult, year,
-              year.decoration)
+              month).getHtml()
+          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult, year)
               .getHtml()
           + "<br>" + pi.getDecoration().getHelptext();
       return html;
