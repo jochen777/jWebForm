@@ -110,6 +110,8 @@
 * fix moving dropdown-box on example form (WTF?!) (OK)
 * fix nullpointer bei problem mit textDate (OK)
 * convert SelectDate to new GroupElement (OK)
+* Element und GroupElement müssen super-Typ haben. Davon können dann beide ableiten. (OK)
+* introduce simpler groups: Idee: Jede FormElement Liste ist eine Gruppe und wird von WF rekursiv genau wie die erste Liste behandelt (OK)
 #############################
  
  
@@ -117,7 +119,6 @@
 
  
  
-* introduce simpler groups: Idee: Jede FormElement Liste ist eine Gruppe und wird von WF rekursiv genau wie die erste Liste behandelt
 * how can we avoid sublcassing only to have a new renderer? (vielleicht über Renderer-Interface?): 
 				neues "Signature" Feld im FormResult einführen? Damit kann man die Ausgabe leichter steuern, ohne ständig ein neues Objejt zu benötigen
 				-> besser: Signature in Decoration einfuehren!
@@ -130,7 +131,7 @@ maxlen required??
 
 Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Logger(!), Request....
 
-* Element und GroupElement müssen super-Typ haben. Davon können dann beide ableiten.
+* Decoration muss Teil vom Container werden!
 
 * cleanup TextDate and SelectDate
 
