@@ -44,4 +44,9 @@ public class FormResult {
     return "FormResult" + formIsValid + "\n " + b.toString();
   }
 
+
+  public String getFormId() {
+    return formId;
+  }
+
 }
