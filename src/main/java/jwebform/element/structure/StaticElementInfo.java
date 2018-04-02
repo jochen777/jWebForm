@@ -11,6 +11,10 @@ public class StaticElementInfo {
     this.htmlProducer = htmlProducer;
     this.tabIndexIncrement = tabIndexIncrement;
   }
+  
+  public StaticElementInfo(String name, int tabIndexIncrement) {
+    this(name, HTMLProducer.emptyHtmlProducer(), tabIndexIncrement);
+  }
 
   public String getName() {
     return name;

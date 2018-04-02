@@ -4,4 +4,7 @@ package jwebform.element.structure;
 public interface HTMLProducer {
   String getHTML(ProducerInfos producerInfos);
 
+  public static HTMLProducer emptyHtmlProducer() {
+    return t -> "<!-- empty -->";
+  }
 }

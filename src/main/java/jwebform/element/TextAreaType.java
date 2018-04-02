@@ -1,9 +1,6 @@
 package jwebform.element;
 
-import com.coverity.security.Escape;
-
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.SingleType;
 import jwebform.env.Env.EnvWithSubmitInfo;
@@ -19,12 +16,7 @@ public class TextAreaType implements SingleType {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResult(env, getDefault());
-  }
-
-  public HTMLProducer getDefault() {
-    return (pi) -> pi.getTheme().getRenderer().renderInputComplex("textarea",
-        Escape.html(pi.getElementResult().getValue()), pi, pi.getDecoration());
+    return oneValueElement.calculateElementResult(env, t -> "<!-- textarea -->");
   }
 
   @Override

@@ -17,7 +17,7 @@ public class LabelType implements SingleType {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return new ElementResult(t -> "<label>" + label + "</label>");
+    return new ElementResult(t -> "<!-- label -->");
   }
 
 

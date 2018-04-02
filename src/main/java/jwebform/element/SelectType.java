@@ -2,9 +2,7 @@ package jwebform.element;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.SingleType;
 import jwebform.env.Env.EnvWithSubmitInfo;
@@ -15,11 +13,10 @@ public class SelectType implements SingleType {
 
   public final OneValueElementProcessor oneValueElement;
   public final List<SelectInputEntryGroup> groups;
-  private final static List<SelectInputEntryGroup> EMPTY_GROUPS = new ArrayList<>(); 
+  private final static List<SelectInputEntryGroup> EMPTY_GROUPS = new ArrayList<>();
 
 
-  public SelectType(String name, String initialValue, String keys[],
-      String values[]) {
+  public SelectType(String name, String initialValue, String keys[], String values[]) {
     this.oneValueElement = new OneValueElementProcessor(name, initialValue);
     this.entries = generateEntriesFromKeyValues(keys, values);
     this.groups = EMPTY_GROUPS;
@@ -30,18 +27,19 @@ public class SelectType implements SingleType {
     this.entries = entries;
     this.groups = EMPTY_GROUPS;
   }
-  
-  // somewhat fishy because groups and entries seems to be the same type, so we have to change the order of inputs
+
+  // somewhat fishy because groups and entries seems to be the same type, so we have to change the
+  // order of inputs
   public SelectType(String name, List<SelectInputEntryGroup> groups, String initialValue) {
     this.oneValueElement = new OneValueElementProcessor(name, initialValue);
     this.entries = new ArrayList<>();
     this.groups = groups;
   }
-  
-  
+
+
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResultWithInputCheck(env, getDefault(), 
+    return oneValueElement.calculateElementResultWithInputCheck(env, t -> "<!-- select -->",
         t -> ensureValueIsAllowed(t));
   }
 
@@ -92,44 +90,6 @@ public class SelectType implements SingleType {
   @Override
   public String toString() {
     return String.format("SelectInput. name=%s", oneValueElement.name);
-  }
-
-
-  // very simple version!
-  public HTMLProducer getDefault() {
-    return (pi) -> pi.getTheme().getRenderer().renderInputComplex("select",
-        buildEntries(pi.getElementResult().getValue(), entries, groups), pi, pi.getDecoration());
-  }
-
-
-  private String buildEntries(String value, List<SelectInputEntry> entries2, List<SelectInputEntryGroup> groups2) {
-    StringBuilder inputTag = new StringBuilder();
-    
-    if (!groups.isEmpty()) {
-      groups.forEach(group ->
-      {
-          inputTag.append("<optgroup label=\""+group.getLabel()+"\">");
-          buildEntries(inputTag, group.getEntries(), value);
-          inputTag.append("</optgroup>");
-      }
-      );
-    } else {
-      buildEntries(inputTag, entries, value);
-    }
-    return inputTag.toString();
-  }
-
-  
-  
-  private void buildEntries(StringBuilder inputTag, List<SelectInputEntry> entries2, String inputValue) {
-    entries2.forEach(entry -> {
-      String sel = "";
-      if (entry.key.equals(inputValue)) {
-        sel = " SELECTED ";
-      }
-      inputTag
-          .append("<option value=\"" + entry.key + "\"" + sel + ">" + entry.value + "</option>\n");
-    });
   }
 
 

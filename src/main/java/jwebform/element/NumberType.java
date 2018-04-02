@@ -1,7 +1,6 @@
 package jwebform.element;
 
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.SingleType;
 import jwebform.element.structure.StaticElementInfo;
@@ -37,15 +36,9 @@ public class NumberType implements SingleType {
     // ValidationResult vr = oneValueElement.validate(env, oneValueElement.validator, requestVal,
     // val);
     ElementResult result = new ElementResult(parsedNumberVal,
-        new StaticElementInfo(oneValueElement.name, getDefault(), 1), ElementResult.NOCHILDS,
+        new StaticElementInfo(oneValueElement.name, t -> "<!-- number -->", 1), ElementResult.NOCHILDS,
         parsedNumber);
     return result;
-  }
-
-  // very simple version!
-  protected HTMLProducer getDefault() {
-    return (pi) -> pi.getTheme().getRenderer().renderInput("number", pi, pi.getDecoration(),
-        "");
   }
 
 

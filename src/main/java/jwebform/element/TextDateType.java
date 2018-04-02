@@ -7,13 +7,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.GroupType;
-import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.FormValidator;
@@ -56,13 +53,8 @@ public class TextDateType implements GroupType {
 
 
 
-
-
   // May throw execption!!
-  private LocalDate setupValue(
-      LocalDate initialValue,
-      String dayStr,
-      String monthStr,
+  private LocalDate setupValue(LocalDate initialValue, String dayStr, String monthStr,
       String yearStr) {
     if (StringUtils.isEmpty(dayStr) && StringUtils.isEmpty(monthStr)
         && StringUtils.isEmpty(yearStr)) {
@@ -81,32 +73,6 @@ public class TextDateType implements GroupType {
   }
 
 
-  public HTMLProducer getDefault() {
-    return (pi) -> {
-      String errorMessage = "";
-
-      ValidationResult vr = pi.getElementResult().getValidationResult();
-
-      if (vr != ValidationResult.undefined() && !vr.isValid) {
-        errorMessage = "Problem: " + vr.getMessage() + "<br>";
-      }
-
-      Map<ElementContainer, ElementResult> childs = pi.getElementResult().getChilds();
-      ElementResult dayResult = childs.get(day);
-      ElementResult monthResult = childs.get(month);
-      ElementResult yearResult = childs.get(year);
-      String html = pi.getDecoration().getLabel() + "<br/>" + errorMessage
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult, day)
-              .getHtml()
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1, pi.getTheme(), monthResult,
-              month).getHtml()
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult, year)
-              .getHtml()
-          + "<br>" + pi.getDecoration().getHelptext();
-      return html;
-    };
-  }
-
 
   @Override
   public List<ElementContainer> getChilds() {
@@ -118,18 +84,18 @@ public class TextDateType implements GroupType {
   public List<FormValidator> getValidators(ElementContainer source) {
     return Arrays.asList((elements) -> {
       Map<ElementContainer, ValidationResult> validationResult = new HashMap<>();
-      
+
       ElementResult dayResult = elements.get(day);
       ElementResult monthResult = elements.get(month);
       ElementResult yearResult = elements.get(year);
-        try {
-        LocalDate dateValue = this.setupValue(this.initialValue, dayResult.getValue(),
-            monthResult.getValue(), yearResult.getValue());
-        } catch (DateTimeException | NumberFormatException e) {
+      try {
+        this.setupValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
+            yearResult.getValue());
+      } catch (DateTimeException | NumberFormatException e) {
         // validationResult.put(day, ValidationResult.fail("jformchecker.wrong_date_format"));
         // validationResult.put(month, ValidationResult.fail("jformchecker.wrong_date_format"));
         // validationResult.put(year, ValidationResult.fail("jformchecker.wrong_date_format"));
-        }
+      }
       return validationResult;
     });
 
@@ -155,7 +121,7 @@ public class TextDateType implements GroupType {
     }
 
     ElementResult result = new ElementResult(dateValStr,
-        new StaticElementInfo(name, getDefault(), 3), childs, dateValue);
+        new StaticElementInfo(name, t -> "<!-- text Date -->", 3), childs, dateValue);
 
     if (validationResult != ValidationResult.undefined()) {
       return result.cloneWithNewValidationResult(validationResult);

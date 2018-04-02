@@ -7,14 +7,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import jwebform.element.structure.CommonSelects;
 import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.GroupType;
-import jwebform.element.structure.HTMLProducer;
-import jwebform.element.structure.ProducerInfos;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.FormValidator;
@@ -40,31 +37,25 @@ public class SelectDateType implements GroupType {
   final private ElementContainer month;
   final private ElementContainer year;
 
-  public SelectDateType(String name, LocalDate initialValue, int yearStart,
-      int yearEnd) {
+  public SelectDateType(String name, LocalDate initialValue, int yearStart, int yearEnd) {
     this.name = name;
     this.initialValue = initialValue;
 
     Validator numberValidator = new Validator(Criteria.number());
-    this.day = new SelectType(name + "_day",
-        String.valueOf(initialValue.getDayOfMonth()), CommonSelects.build().buildDays())
-            .of(numberValidator, new Decoration("Day"));
-    this.month = new SelectType(name + "_month",
-        String.valueOf(initialValue.getMonthValue()), CommonSelects.build().buildMonths())
-            .of(numberValidator, new Decoration("Month"));
-    this.year = new SelectType(name + "_year", 
-        String.valueOf(initialValue.getYear()), CommonSelects.build().getYears(yearStart, yearEnd))
-            .of(numberValidator, new Decoration("Year"));
+    this.day = new SelectType(name + "_day", String.valueOf(initialValue.getDayOfMonth()),
+        CommonSelects.build().buildDays()).of(numberValidator, new Decoration("Day"));
+    this.month = new SelectType(name + "_month", String.valueOf(initialValue.getMonthValue()),
+        CommonSelects.build().buildMonths()).of(numberValidator, new Decoration("Month"));
+    this.year = new SelectType(name + "_year", String.valueOf(initialValue.getYear()),
+        CommonSelects.build().getYears(yearStart, yearEnd)).of(numberValidator,
+            new Decoration("Year"));
 
   }
 
 
 
   // May throw execption!!
-  private LocalDate setupValue(
-      LocalDate initialValue,
-      String dayStr,
-      String monthStr,
+  private LocalDate setupValue(LocalDate initialValue, String dayStr, String monthStr,
       String yearStr) {
     if (StringUtils.isEmpty(dayStr) && StringUtils.isEmpty(monthStr)
         && StringUtils.isEmpty(yearStr)) {
@@ -80,34 +71,6 @@ public class SelectDateType implements GroupType {
 
   private int getDefaultValueFromRequest(String input) {
     return Integer.parseInt(input);
-  }
-
-
-  private HTMLProducer getDefault() {
-    return (pi) -> {
-      String errorMessage = "";
-
-      ValidationResult vr = pi.getElementResult().getValidationResult();
-
-      if (vr != ValidationResult.undefined() && !vr.isValid) {
-        errorMessage = "Problem: " + vr.getMessage() + "<br>";
-      }
-
-      Map<ElementContainer, ElementResult> childs = pi.getElementResult().getChilds();
-      ElementResult dayResult = childs.get(day);
-      ElementResult monthResult = childs.get(month);
-      ElementResult yearResult = childs.get(year);
-      String html = pi.getDecoration().getLabel() + "<br/>" + errorMessage
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex(), pi.getTheme(), dayResult, day)
-              .getHtml()
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 1, pi.getTheme(), monthResult,
-              month).getHtml()
-          + new ProducerInfos(pi.getFormId(), pi.getTabIndex() + 2, pi.getTheme(), yearResult, year)
-              .getHtml()
-          + "<br>" + pi.getDecoration().getHelptext();
-      return html;
-
-    };
   }
 
 
@@ -134,7 +97,7 @@ public class SelectDateType implements GroupType {
     }
 
     ElementResult result = new ElementResult(dateValStr,
-        new StaticElementInfo(name, getDefault(), 3), childs, dateValue);
+        new StaticElementInfo(name, t -> "<!-- select date -->", 3), childs, dateValue);
 
     if (validationResult != ValidationResult.undefined()) {
       return result.cloneWithNewValidationResult(validationResult);
@@ -152,8 +115,8 @@ public class SelectDateType implements GroupType {
       ElementResult monthResult = elements.get(month);
       ElementResult yearResult = elements.get(year);
       try {
-        LocalDate dateValue = this.setupValue(this.initialValue, dayResult.getValue(),
-            monthResult.getValue(), yearResult.getValue());
+        this.setupValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
+            yearResult.getValue());
       } catch (DateTimeException | NumberFormatException e) {
         // validationResult.put(day, ValidationResult.fail("jformchecker.wrong_date_format"));
         // validationResult.put(month, ValidationResult.fail("jformchecker.wrong_date_format"));

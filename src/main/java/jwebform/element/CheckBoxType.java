@@ -36,22 +36,10 @@ public class CheckBoxType implements SingleType {
         checked = false;
       }
     }
-    return new ElementResult(value, new StaticElementInfo(name, getDefault(checked), 1),
+    return new ElementResult(value, new StaticElementInfo(name, t -> "<!-- checkbox -->", 1),
         ElementResult.NOCHILDS, Boolean.valueOf(checked));
   }
 
-
-  public HTMLProducer getDefault(boolean checked) {
-    return (pi) -> {
-      ElementRenderer renderer = pi.getTheme().getRenderer();
-      String aria = renderer.renderAriaDescribedBy(pi, pi.getDecoration());
-      String val = renderer.renderValue(pi.getElementResult().getValue());
-      String inputHtml = "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"checkbox\" name=\""
-          + pi.getNameOfInput() + "\" value" + val + (checked ? " checked" : "") + aria + ">";
-      return renderer.renderInputFree(inputHtml, pi, pi.getDecoration(),
-          ElementRenderer.InputVariant.checkbox);
-    };
-  }
 
   @Override
   public String toString() {

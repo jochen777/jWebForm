@@ -2,13 +2,10 @@ package jwebform.element;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.SingleType;
 import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.view.ElementRenderer;
 
 public class RadioType implements SingleType {
 
@@ -17,15 +14,14 @@ public class RadioType implements SingleType {
   public final OneValueElementProcessor oneValueElement;
 
   // RFE: Add groups too!
-  public RadioType(String name, String initialValue, String keys[],
-      String values[]) {
+  public RadioType(String name, String initialValue, String keys[], String values[]) {
     this.oneValueElement = new OneValueElementProcessor(name, initialValue);
     entries = generateEntriesFromKeyValues(keys, values);
   }
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResultWithInputCheck(env, getDefault(),
+    return oneValueElement.calculateElementResultWithInputCheck(env, t -> "<!-- checkbox -->",
         t -> ensureValueIsAllowed(t));
   }
 
@@ -64,17 +60,6 @@ public class RadioType implements SingleType {
   public String toString() {
     return String.format("RadioInput. name=%s", oneValueElement.name);
   }
-
-
-  // very simple version!
-  public HTMLProducer getDefault() {
-    return (pi) -> {
-      return pi.getTheme().getRenderer().renderInputFree(
-          pi.getTheme().getRadioRenderer().renderInputs(pi, entries), pi,
-          pi.getDecoration(), ElementRenderer.InputVariant.radio);
-    };
-  }
-
 
 
   // class that represents an entry in the selectInput
