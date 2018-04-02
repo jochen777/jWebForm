@@ -1,7 +1,6 @@
 package jwebform;
 
 import java.util.Map;
-
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.view.Theme;
@@ -39,8 +38,8 @@ public class FormResult {
 
   public final String debugOutput() {
     StringBuffer b = new StringBuffer();
-    elementResults.forEach(
-        (k, v) -> b.append("Value" + v.getValue() + "\n" + v.getValidationResult() + "\n"));
+    elementResults.forEach((k, v) -> b.append("Name:" + v.getStaticElementInfo().getName()
+        + ", Value" + v.getValue() + "\n" + v.getValidationResult() + "\n"));
     return "FormResult" + formIsValid + "\n " + b.toString();
   }
 
