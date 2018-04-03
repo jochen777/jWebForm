@@ -1,9 +1,9 @@
 package jwebform;
 
 import java.util.Map;
+
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
-import jwebform.view.Theme;
 
 public class FormResult {
 
@@ -25,10 +25,6 @@ public class FormResult {
 
   public View getView() {
     return new View(formId, elementResults);
-  }
-
-  public View getView(Theme theme) {
-    return new View(formId, elementResults, theme);
   }
 
 

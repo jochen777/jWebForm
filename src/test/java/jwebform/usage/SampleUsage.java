@@ -3,7 +3,6 @@ package jwebform.usage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,22 +31,18 @@ import jwebform.element.XSRFProtectionType;
 import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.behaviour.AbstractBehaviour;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
-import jwebform.view.Wrapper;
-import jwebform.view.theme.BootstrapTheme;
 
 public class SampleUsage {
 
   // TODO: Test if complete form is valid!!
   String formId = "fid";
 
-  SimpleTemplate template = new SimpleTemplate();
 
   @Test
   public void testnormalUsageFirstRun() {
@@ -68,7 +63,7 @@ public class SampleUsage {
     expRes.add(new ExpectedElementResult("chk", false, "true"));
     expRes.add(new ExpectedElementResult("", true, ""));
     expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("hddn", true, "hddn-value"));
+    expRes.add(new ExpectedElementResult("hddn", false, "hddn-value"));
     expRes.add(new ExpectedElementResult("area", false, "Area-Prebuild"));
     expRes.add(new ExpectedElementResult("nbr", false, "5"));
     expRes.add(new ExpectedElementResult("pssword", false, ""));
@@ -114,7 +109,7 @@ public class SampleUsage {
     expRes.add(new ExpectedElementResult("nbr", true, "1"));
     expRes.add(new ExpectedElementResult("pssword", true, "1"));
     expRes.add(new ExpectedElementResult("upld", true, "1"));
-    expRes.add(new ExpectedElementResult("radio", true, "1")); // ?
+    expRes.add(new ExpectedElementResult("radio", true, "1"));
     testExpectectedResults(result, expRes);
 
     assertTrue("The form should be true, because the inputs are ok", result.isOk());
@@ -126,14 +121,35 @@ public class SampleUsage {
       if (it.equals("WF_SUBMITTED")) {
         return "WF-fid";
       }
+      // everything is empty
       return "";
 
     }, // this simulates empty inputs
         t -> t, (k, v) -> {
         });
-    boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_error.html");
+    FormResult result = getFormResult(env);
+
+    List<ExpectedElementResult> expRes = new ArrayList<>();
+    expRes.add(new ExpectedElementResult("xsrf_protection", true, ""));
+    expRes.add(new ExpectedElementResult("", true, ""));
+    expRes.add(new ExpectedElementResult("textInput", false, ""));
+    expRes.add(new ExpectedElementResult("dateInput", true, "2017-07-04"));
+    expRes.add(new ExpectedElementResult("textInput2", false, ""));
+    expRes.add(new ExpectedElementResult("gender", true, ""));
+    expRes.add(new ExpectedElementResult("submit", true, ""));
+    expRes.add(new ExpectedElementResult("chk", false, ""));
+    expRes.add(new ExpectedElementResult("", true, ""));
+    expRes.add(new ExpectedElementResult("", true, ""));
+    expRes.add(new ExpectedElementResult("hddn", true, ""));
+    expRes.add(new ExpectedElementResult("area", false, ""));
+    expRes.add(new ExpectedElementResult("nbr", false, ""));
+    expRes.add(new ExpectedElementResult("pssword", true, ""));
+    expRes.add(new ExpectedElementResult("upld", true, ""));
+    expRes.add(new ExpectedElementResult("radio", true, ""));
+    testExpectectedResults(result, expRes);
+
     assertTrue("The form should be false, because some fields are required or reqire a number",
-        !result);
+        !result.isOk());
   }
 
 
@@ -150,9 +166,28 @@ public class SampleUsage {
 
     }, t -> t, (k, v) -> {
     });
-    boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_various.html");
+    FormResult result = getFormResult(env);
+
+    List<ExpectedElementResult> expRes = new ArrayList<>();
+    expRes.add(new ExpectedElementResult("xsrf_protection", true, ""));
+    expRes.add(new ExpectedElementResult("", true, ""));
+    expRes.add(new ExpectedElementResult("textInput", true, "1"));
+    expRes.add(new ExpectedElementResult("dateInput", true, "2017-07-04"));
+    expRes.add(new ExpectedElementResult("textInput2", false, ""));
+    expRes.add(new ExpectedElementResult("gender", true, ""));
+    expRes.add(new ExpectedElementResult("submit", true, ""));
+    expRes.add(new ExpectedElementResult("chk", false, ""));
+    expRes.add(new ExpectedElementResult("", true, ""));
+    expRes.add(new ExpectedElementResult("", true, ""));
+    expRes.add(new ExpectedElementResult("hddn", true, ""));
+    expRes.add(new ExpectedElementResult("area", false, ""));
+    expRes.add(new ExpectedElementResult("nbr", false, ""));
+    expRes.add(new ExpectedElementResult("pssword", true, ""));
+    expRes.add(new ExpectedElementResult("upld", true, ""));
+    expRes.add(new ExpectedElementResult("radio", true, ""));
+    testExpectectedResults(result, expRes);
     assertTrue("The form should be false, because some fields are required or reqire a number",
-        !result);
+        !result.isOk());
   }
 
   private FormResult getFormResult(Env env) {
@@ -160,24 +195,7 @@ public class SampleUsage {
   }
 
 
-  private boolean testFormAgainstRequest(Env env, String templateName) {
-    MyFormBuilder formBuilder = new MyFormBuilder();
-    Form f = formBuilder.buildForm();
-    FormResult result = f.run(env);
 
-    String filecontent;
-    try {
-      filecontent = this.template.loadAndProcessTempalte(templateName);
-      assertEquals(filecontent.trim(),
-          result.getView(BootstrapTheme.instance(msg -> msg)).getHtml().trim());
-      // System.err.println("Date: " + formBuilder.getDateValue(result));
-      return result.isOk();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    return !result.isOk();
-  }
 
   private class ExpectedElementResult {
     public ExpectedElementResult(String name, boolean vr, String value, Object valueObject) {
@@ -214,8 +232,10 @@ public class SampleUsage {
       ExpectedElementResult expectedResult = expectedResults.get(i);
       assertEquals(expectedResult.name, eResult.getStaticElementInfo().getName());
       System.err.println(eResult.getStaticElementInfo().getName());
-      assertTrue(eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " Result: "
-          + expectedResult.vr, eResult.getValidationResult().isValid == expectedResult.vr);
+      assertTrue(
+          eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " expResult: "
+              + expectedResult.vr + "/real:" + eResult.getValidationResult().isValid,
+          eResult.getValidationResult().isValid == expectedResult.vr);
 
       assertTrue(
           eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " Value: "
@@ -229,30 +249,11 @@ public class SampleUsage {
 
     XSRFProtectionType protection = new XSRFProtectionType(true); // no random values, so we can
                                                                   // expect
-    // constant html
-    AbstractBehaviour testBe = new AbstractBehaviour() {
-
-      @Override
-      public Wrapper getAllAround() {
-        return new Wrapper("BEFORE", "AFTER\n");
-      }
-
-      // @Override
-      // public Wrapper wrapLabel(ProducerInfos pi) {
-      // if (pi.getElementContainer().validator.containsCriterion(Criteria.required())) {
-      // return Wrapper.of("", " *");
-      // } else {
-      // return Wrapper.empty();
-      // }
-      // }
-      //
-
-    };
 
     Validator required = new Validator(Criteria.required());
 
     ElementContainer textInput = new ElementContainer(new TextType("textInput", "Peter\"Paul"),
-        required, testBe, new Decoration("TextInputLabel"));
+        required, new Decoration("TextInputLabel"));
 
     ElementContainer date = new TextDateType("dateInput", LocalDate.of(2017, 7, 4)).of(
         required, new Decoration("Please insert date", "datehelptext"));

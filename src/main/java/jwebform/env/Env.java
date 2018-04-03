@@ -1,7 +1,5 @@
 package jwebform.env;
 
-import jwebform.view.StartEndRenderer;
-
 // holds pointers to the web-env. (request, response, session, maybe headers...)
 public class Env {
   private final Request request;
@@ -11,6 +9,8 @@ public class Env {
   final static SessionGet EMPTY_SESSION_GET = t -> "";
   final static SessionSet EMPTY_SESSION_SET = (k, v) -> {
   };
+  public final static String SUBMIT_KEY = "WF_SUBMITTED";
+  public final static String SUBMIT_VALUE_PREFIX = "WF-";
 
   protected Env(Request request, SessionGet sessionGet, SessionSet sessionSet) {
     this.request = request;
@@ -101,8 +101,8 @@ public class Env {
 
     public EnvWithSubmitInfo(String formId, Env env) {
       this.env = env;
-      if ((StartEndRenderer.SUBMIT_VALUE_PREFIX + formId)
-          .equals(env.getRequest().getParameter(StartEndRenderer.SUBMIT_KEY))) {
+      if ((Env.SUBMIT_VALUE_PREFIX + formId)
+          .equals(env.getRequest().getParameter(Env.SUBMIT_KEY))) {
         this.submitted = true;
       } else {
         this.submitted = false;

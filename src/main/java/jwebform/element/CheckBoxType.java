@@ -1,11 +1,9 @@
 package jwebform.element;
 
 import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.SingleType;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.view.ElementRenderer;
 
 public class CheckBoxType implements SingleType {
 
