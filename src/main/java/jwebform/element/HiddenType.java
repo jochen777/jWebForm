@@ -1,25 +1,26 @@
 package jwebform.element;
 
-import com.coverity.security.Escape;
-
-import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.OneValueElementProcessor;
+import jwebform.element.structure.SingleType;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class HiddenType implements SingleType {
 
   public final String name;
   public final String value;
+  final public OneValueElementProcessor oneValueElement;
 
-  public HiddenType(String name, String value) {
+  public HiddenType(String name, String initialValue) {
     this.name = name;
-    this.value = value;
+    this.value = initialValue;
+    this.oneValueElement = new OneValueElementProcessor(name, initialValue);
+
   }
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return new ElementResult(name, (pi) -> "<input type=\"hidden\" name=\"" + name + "\" value=\""
-        + Escape.html(value) + "\">\n");
+    return oneValueElement.calculateElementResultNoTabIndexIncrement(env, t -> "<!-- hidden -->");
   }
 
 }

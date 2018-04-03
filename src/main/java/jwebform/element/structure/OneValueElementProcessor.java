@@ -1,6 +1,7 @@
 package jwebform.element.structure;
 
 import java.util.function.Predicate;
+
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -20,6 +21,14 @@ public class OneValueElementProcessor {
 
   public ElementResult calculateElementResultWithInputCheck(EnvWithSubmitInfo env,
       HTMLProducer htmlProducer, Predicate<String> validateInput) {
+    return calculateElementResultWithInputCheck(env, htmlProducer, validateInput, 1);
+  }
+
+  public ElementResult calculateElementResultWithInputCheck(
+      EnvWithSubmitInfo env,
+      HTMLProducer htmlProducer,
+      Predicate<String> validateInput,
+      int tabIndexIncr) {
 
     String requestVal = env.getEnv().getRequest().getParameter(name);
     String value = "";
@@ -28,13 +37,18 @@ public class OneValueElementProcessor {
       value = input;
     }
     // ValidationResult vr = validate(env, validator, requestVal, value);
-    return new ElementResult(value, new StaticElementInfo(name, htmlProducer, 1));
+    return new ElementResult(value, new StaticElementInfo(name, htmlProducer, tabIndexIncr));
   }
 
   public ElementResult calculateElementResult(EnvWithSubmitInfo env, HTMLProducer htmlProducer) {
     return calculateElementResultWithInputCheck(env, htmlProducer, alwaysFine);
   }
 
+  public ElementResult calculateElementResultNoTabIndexIncrement(
+      EnvWithSubmitInfo env,
+      HTMLProducer htmlProducer) {
+    return calculateElementResultWithInputCheck(env, htmlProducer, alwaysFine, 0);
+  }
 
 
   public ValidationResult validate(EnvWithSubmitInfo env, Validator validator, String requestVal,

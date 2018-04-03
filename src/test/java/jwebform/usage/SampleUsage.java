@@ -2,13 +2,16 @@ package jwebform.usage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.junit.Test;
+
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.element.CheckBoxType;
@@ -53,26 +56,26 @@ public class SampleUsage {
         t -> t, (k, v) -> {
         });
     FormResult result = getFormResult(env);
-    assertEquals(16, result.getElementResults().size());
 
-    List<ExpectedElementResult> expectedResults = new ArrayList<>();
-    expectedResults.add(new ExpectedElementResult("xsrf_protection", true, ""));
-    expectedResults.add(new ExpectedElementResult("", true, ""));
-    expectedResults.add(new ExpectedElementResult("textInput", false, "Peter\"Paul"));
-    expectedResults.add(new ExpectedElementResult("dateInput", false, ""));
-    expectedResults.add(new ExpectedElementResult("textInput2", false, "Peter\"Paul"));
-    expectedResults.add(new ExpectedElementResult("gender", false, ""));
-    expectedResults.add(new ExpectedElementResult("submit", false, ""));
-    expectedResults.add(new ExpectedElementResult("chk", false, "true"));
-    expectedResults.add(new ExpectedElementResult("", true, ""));
-    expectedResults.add(new ExpectedElementResult("", true, ""));
-    expectedResults.add(new ExpectedElementResult("hddn", true, ""));
-    expectedResults.add(new ExpectedElementResult("area", false, "Area-Prebuild"));
-    expectedResults.add(new ExpectedElementResult("nbr", false, "5"));
-    expectedResults.add(new ExpectedElementResult("pssword", false, ""));
-    expectedResults.add(new ExpectedElementResult("upld", false, ""));
-    expectedResults.add(new ExpectedElementResult("radio", false, "1"));
-    testExpectectedResults(result, expectedResults);
+    List<ExpectedElementResult> expRes = new ArrayList<>();
+    expRes.add(new ExpectedElementResult("xsrf_protection", true, ""));
+    expRes.add(new ExpectedElementResult("", true, ""));
+    expRes.add(new ExpectedElementResult("textInput", false, "Peter\"Paul"));
+    expRes.add(new ExpectedElementResult("dateInput", false, ""));
+    expRes.add(new ExpectedElementResult("textInput2", false, "Peter\"Paul"));
+    expRes.add(new ExpectedElementResult("gender", false, ""));
+    expRes.add(new ExpectedElementResult("submit", false, ""));
+    expRes.add(new ExpectedElementResult("chk", false, "true"));
+    expRes.add(new ExpectedElementResult("", true, ""));
+    expRes.add(new ExpectedElementResult("", true, ""));
+    expRes.add(new ExpectedElementResult("hddn", true, "hddn-value"));
+    expRes.add(new ExpectedElementResult("area", false, "Area-Prebuild"));
+    expRes.add(new ExpectedElementResult("nbr", false, "5"));
+    expRes.add(new ExpectedElementResult("pssword", false, ""));
+    expRes.add(new ExpectedElementResult("upld", false, ""));
+    expRes.add(new ExpectedElementResult("radio", false, "1"));
+
+    testExpectectedResults(result, expRes);
 
     assertTrue("The form should be not true, because it is the firstrun", !result.isOk());
   }
@@ -85,32 +88,34 @@ public class SampleUsage {
       if (it.equals("WF_SUBMITTED")) {
         return "WF-fid";
       }
+      if (it.equals("gender")) {
+        return "m";
+      }
       return "1";
 
     }, // this simulates the input of the names
         t -> t, (k, v) -> {
         });
     FormResult result = getFormResult(env);
-    assertEquals(16, result.getElementResults().size());
 
-    List<ExpectedElementResult> expectedResults = new ArrayList<>();
-    expectedResults.add(new ExpectedElementResult("xsrf_protection", true, ""));
-    expectedResults.add(new ExpectedElementResult("", true, ""));
-    expectedResults.add(new ExpectedElementResult("textInput", true, "1"));
-    expectedResults.add(new ExpectedElementResult("dateInput", true, "0001-01-01"));
-    expectedResults.add(new ExpectedElementResult("textInput2", true, "1"));
-    expectedResults.add(new ExpectedElementResult("gender", true, "")); // TODO ?
-    expectedResults.add(new ExpectedElementResult("submit", true, ""));
-    expectedResults.add(new ExpectedElementResult("chk", true, "true"));
-    expectedResults.add(new ExpectedElementResult("", true, ""));
-    expectedResults.add(new ExpectedElementResult("", true, ""));
-    expectedResults.add(new ExpectedElementResult("hddn", true, "")); // ?
-    expectedResults.add(new ExpectedElementResult("area", true, "1"));
-    expectedResults.add(new ExpectedElementResult("nbr", true, "1"));
-    expectedResults.add(new ExpectedElementResult("pssword", true, "1"));
-    expectedResults.add(new ExpectedElementResult("upld", true, "1"));
-    expectedResults.add(new ExpectedElementResult("radio", true, "1")); // ?
-    testExpectectedResults(result, expectedResults);
+    List<ExpectedElementResult> expRes = new ArrayList<>();
+    expRes.add(new ExpectedElementResult("xsrf_protection", true, ""));
+    expRes.add(new ExpectedElementResult("", true, ""));
+    expRes.add(new ExpectedElementResult("textInput", true, "1"));
+    expRes.add(new ExpectedElementResult("dateInput", true, "0001-01-01"));
+    expRes.add(new ExpectedElementResult("textInput2", true, "1"));
+    expRes.add(new ExpectedElementResult("gender", true, "m"));
+    expRes.add(new ExpectedElementResult("submit", true, ""));
+    expRes.add(new ExpectedElementResult("chk", true, "true"));
+    expRes.add(new ExpectedElementResult("", true, ""));
+    expRes.add(new ExpectedElementResult("", true, ""));
+    expRes.add(new ExpectedElementResult("hddn", true, "1"));
+    expRes.add(new ExpectedElementResult("area", true, "1"));
+    expRes.add(new ExpectedElementResult("nbr", true, "1"));
+    expRes.add(new ExpectedElementResult("pssword", true, "1"));
+    expRes.add(new ExpectedElementResult("upld", true, "1"));
+    expRes.add(new ExpectedElementResult("radio", true, "1")); // ?
+    testExpectectedResults(result, expRes);
 
     assertTrue("The form should be true, because the inputs are ok", result.isOk());
   }
@@ -200,6 +205,9 @@ public class SampleUsage {
 
   private void testExpectectedResults(FormResult result,
       List<ExpectedElementResult> expectedResults) {
+
+    assertEquals(expectedResults.size(), result.getElementResults().size());
+
     int i = 0;
     for (ElementContainer cont : result.getElementResults().keySet()) {
       ElementResult eResult = result.getElementResults().get(cont);
@@ -241,28 +249,30 @@ public class SampleUsage {
 
     };
 
+    Validator required = new Validator(Criteria.required());
+
     ElementContainer textInput = new ElementContainer(new TextType("textInput", "Peter\"Paul"),
-        new Validator(Criteria.required()), testBe, new Decoration("TextInputLabel"));
+        required, testBe, new Decoration("TextInputLabel"));
 
     ElementContainer date = new TextDateType("dateInput", LocalDate.of(2017, 7, 4)).of(
-        new Validator(Criteria.required()), new Decoration("Please insert date", "datehelptext"));
+        required, new Decoration("Please insert date", "datehelptext"));
     ElementContainer textInput2 =
-        new TextType("textInput2", "Peter\"Paul").of(new Validator(Criteria.required()),
+        new TextType("textInput2", "Peter\"Paul").of(required,
             new Decoration("TextInputLabel2", "Help-Text", "Placeholder"));
     ElementContainer gender = new ElementContainer(
         new SelectType("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"}),
         Validator.emptyValidator(), new Decoration("Gender"));
     ElementContainer chk = new ElementContainer(new CheckBoxType("chk", true),
-        new Validator(Criteria.required()), new Decoration("chk-label", "chk_help"));
+        required, new Decoration("chk-label", "chk_help"));
     ElementContainer lbl = new LabelType("lbl").of();
     ElementContainer html = new HtmlType("<strong>HTML</strong>").of();
     ElementContainer hddn = new HiddenType("hddn", "hddn-value").of();
     ElementContainer area =
-        new TextAreaType("area", "Area-Prebuild").of(new Validator(Criteria.required()),
+        new TextAreaType("area", "Area-Prebuild").of(required,
             new Decoration("Area", "Area-Help", "Area-Placeholder"));
 
     ElementContainer nmbr = new ElementContainer(new NumberType("nbr", 5),
-        new Validator(Criteria.required()), new Decoration("chk-label", "chk_help"));
+        required, new Decoration("chk-label", "chk_help"));
     ElementContainer pssword = new ElementContainer(new PasswordType("pssword"),
         Validator.emptyValidator(), new Decoration("Password"));
     ElementContainer upld = new UploadType("upld").of(new Decoration("Upload"));
