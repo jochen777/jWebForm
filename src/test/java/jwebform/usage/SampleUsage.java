@@ -52,25 +52,25 @@ public class SampleUsage {
         });
     FormResult result = getFormResult(env);
 
-    List<ExpectedElementResult> expRes = new ArrayList<>();
-    expRes.add(new ExpectedElementResult("xsrf_protection", true, ""));
-    expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("textInput", false, "Peter\"Paul"));
-    expRes.add(new ExpectedElementResult("dateInput", false, ""));
-    expRes.add(new ExpectedElementResult("textInput2", false, "Peter\"Paul"));
-    expRes.add(new ExpectedElementResult("gender", false, ""));
-    expRes.add(new ExpectedElementResult("submit", false, ""));
-    expRes.add(new ExpectedElementResult("chk", false, "true"));
-    expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("hddn", false, "hddn-value"));
-    expRes.add(new ExpectedElementResult("area", false, "Area-Prebuild"));
-    expRes.add(new ExpectedElementResult("nbr", false, "5"));
-    expRes.add(new ExpectedElementResult("pssword", false, ""));
-    expRes.add(new ExpectedElementResult("upld", false, ""));
-    expRes.add(new ExpectedElementResult("radio", false, "1"));
+    ExpectedResultList expRes = new ExpectedResultList();
+    expRes.add("xsrf_protection", true, "");
+    expRes.add("", true, "");
+    expRes.add("textInput", false, "Peter\"Paul");
+    expRes.add("dateInput", false, "");
+    expRes.add("textInput2", false, "Peter\"Paul");
+    expRes.add("gender", false, "");
+    expRes.add("submit", false, "");
+    expRes.add("chk", false, "true");
+    expRes.add("", true, "");
+    expRes.add("", true, "");
+    expRes.add("hddn", false, "hddn-value");
+    expRes.add("area", false, "Area-Prebuild");
+    expRes.add("nbr", false, "5");
+    expRes.add("pssword", false, "");
+    expRes.add("upld", false, "");
+    expRes.add("radio", false, "1");
 
-    testExpectectedResults(result, expRes);
+    testExpectectedResults(result, expRes.getList());
 
     assertTrue("The form should be not true, because it is the firstrun", !result.isOk());
   }
@@ -93,24 +93,24 @@ public class SampleUsage {
         });
     FormResult result = getFormResult(env);
 
-    List<ExpectedElementResult> expRes = new ArrayList<>();
-    expRes.add(new ExpectedElementResult("xsrf_protection", true, ""));
-    expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("textInput", true, "1"));
-    expRes.add(new ExpectedElementResult("dateInput", true, "0001-01-01"));
-    expRes.add(new ExpectedElementResult("textInput2", true, "1"));
-    expRes.add(new ExpectedElementResult("gender", true, "m"));
-    expRes.add(new ExpectedElementResult("submit", true, ""));
-    expRes.add(new ExpectedElementResult("chk", true, "true"));
-    expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("hddn", true, "1"));
-    expRes.add(new ExpectedElementResult("area", true, "1"));
-    expRes.add(new ExpectedElementResult("nbr", true, "1"));
-    expRes.add(new ExpectedElementResult("pssword", true, "1"));
-    expRes.add(new ExpectedElementResult("upld", true, "1"));
-    expRes.add(new ExpectedElementResult("radio", true, "1"));
-    testExpectectedResults(result, expRes);
+    ExpectedResultList expRes = new ExpectedResultList();
+    expRes.add("xsrf_protection", true, "");
+    expRes.add("", true, "");
+    expRes.add("textInput", true, "1");
+    expRes.add("dateInput", true, "0001-01-01");
+    expRes.add("textInput2", true, "1");
+    expRes.add("gender", true, "m");
+    expRes.add("submit", true, "");
+    expRes.add("chk", true, "true");
+    expRes.add("", true, "");
+    expRes.add("", true, "");
+    expRes.add("hddn", true, "1");
+    expRes.add("area", true, "1");
+    expRes.add("nbr", true, "1");
+    expRes.add("pssword", true, "1");
+    expRes.add("upld", true, "1");
+    expRes.add("radio", true, "1");
+    testExpectectedResults(result, expRes.getList());
 
     assertTrue("The form should be true, because the inputs are ok", result.isOk());
   }
@@ -129,24 +129,24 @@ public class SampleUsage {
         });
     FormResult result = getFormResult(env);
 
-    List<ExpectedElementResult> expRes = new ArrayList<>();
-    expRes.add(new ExpectedElementResult("xsrf_protection", true, ""));
-    expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("textInput", false, ""));
-    expRes.add(new ExpectedElementResult("dateInput", true, "2017-07-04"));
-    expRes.add(new ExpectedElementResult("textInput2", false, ""));
-    expRes.add(new ExpectedElementResult("gender", true, ""));
-    expRes.add(new ExpectedElementResult("submit", true, ""));
-    expRes.add(new ExpectedElementResult("chk", false, ""));
-    expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("hddn", true, ""));
-    expRes.add(new ExpectedElementResult("area", false, ""));
-    expRes.add(new ExpectedElementResult("nbr", false, ""));
-    expRes.add(new ExpectedElementResult("pssword", true, ""));
-    expRes.add(new ExpectedElementResult("upld", true, ""));
-    expRes.add(new ExpectedElementResult("radio", true, ""));
-    testExpectectedResults(result, expRes);
+    ExpectedResultList expRes = new ExpectedResultList();
+    expRes.add("xsrf_protection", true, "");
+    expRes.add("", true, "");
+    expRes.add("textInput", false, "");
+    expRes.add("dateInput", true, "2017-07-04");
+    expRes.add("textInput2", false, "");
+    expRes.add("gender", true, "");
+    expRes.add("submit", true, "");
+    expRes.add("chk", false, "");
+    expRes.add("", true, "");
+    expRes.add("", true, "");
+    expRes.add("hddn", true, "");
+    expRes.add("area", false, "");
+    expRes.add("nbr", false, "");
+    expRes.add("pssword", true, "");
+    expRes.add("upld", true, "");
+    expRes.add("radio", true, "");
+    testExpectectedResults(result, expRes.getList());
 
     assertTrue("The form should be false, because some fields are required or reqire a number",
         !result.isOk());
@@ -168,24 +168,24 @@ public class SampleUsage {
     });
     FormResult result = getFormResult(env);
 
-    List<ExpectedElementResult> expRes = new ArrayList<>();
-    expRes.add(new ExpectedElementResult("xsrf_protection", true, ""));
-    expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("textInput", true, "1"));
-    expRes.add(new ExpectedElementResult("dateInput", true, "2017-07-04"));
-    expRes.add(new ExpectedElementResult("textInput2", false, ""));
-    expRes.add(new ExpectedElementResult("gender", true, ""));
-    expRes.add(new ExpectedElementResult("submit", true, ""));
-    expRes.add(new ExpectedElementResult("chk", false, ""));
-    expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("", true, ""));
-    expRes.add(new ExpectedElementResult("hddn", true, ""));
-    expRes.add(new ExpectedElementResult("area", false, ""));
-    expRes.add(new ExpectedElementResult("nbr", false, ""));
-    expRes.add(new ExpectedElementResult("pssword", true, ""));
-    expRes.add(new ExpectedElementResult("upld", true, ""));
-    expRes.add(new ExpectedElementResult("radio", true, ""));
-    testExpectectedResults(result, expRes);
+    ExpectedResultList expRes = new ExpectedResultList();
+    expRes.add("xsrf_protection", true, "");
+    expRes.add("", true, "");
+    expRes.add("textInput", true, "1");
+    expRes.add("dateInput", true, "2017-07-04");
+    expRes.add("textInput2", false, "");
+    expRes.add("gender", true, "");
+    expRes.add("submit", true, "");
+    expRes.add("chk", false, "");
+    expRes.add("", true, "");
+    expRes.add("", true, "");
+    expRes.add("hddn", true, "");
+    expRes.add("area", false, "");
+    expRes.add("nbr", false, "");
+    expRes.add("pssword", true, "");
+    expRes.add("upld", true, "");
+    expRes.add("radio", true, "");
+    testExpectectedResults(result, expRes.getList());
     assertTrue("The form should be false, because some fields are required or reqire a number",
         !result.isOk());
   }
@@ -195,7 +195,17 @@ public class SampleUsage {
   }
 
 
+  private class ExpectedResultList {
+    List<ExpectedElementResult> expRes = new ArrayList<>();
 
+    public void add(String name, boolean validationREsult, String value) {
+      expRes.add(new ExpectedElementResult(name, validationREsult, value));
+    }
+
+    public List<ExpectedElementResult> getList() {
+      return expRes;
+    }
+  }
 
   private class ExpectedElementResult {
     public ExpectedElementResult(String name, boolean vr, String value, Object valueObject) {
