@@ -2,15 +2,12 @@ package jwebform.usage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.junit.Test;
-
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.element.CheckBoxType;
@@ -208,27 +205,15 @@ public class SampleUsage {
   }
 
   private class ExpectedElementResult {
-    public ExpectedElementResult(String name, boolean vr, String value, Object valueObject) {
-      this.name = name;
-      this.vr = vr;
-      this.value = value;
-      this.valueObject = valueObject;
-    }
-
     public ExpectedElementResult(String name, boolean vr, String value) {
       this.name = name;
       this.vr = vr;
       this.value = value;
-      this.valueObject = value;
     }
 
     final String name;
     final boolean vr;
     final String value;
-    final Object valueObject;
-
-
-
   }
 
   private void testExpectectedResults(FormResult result,
@@ -265,25 +250,23 @@ public class SampleUsage {
     ElementContainer textInput = new ElementContainer(new TextType("textInput", "Peter\"Paul"),
         required, new Decoration("TextInputLabel"));
 
-    ElementContainer date = new TextDateType("dateInput", LocalDate.of(2017, 7, 4)).of(
-        required, new Decoration("Please insert date", "datehelptext"));
-    ElementContainer textInput2 =
-        new TextType("textInput2", "Peter\"Paul").of(required,
-            new Decoration("TextInputLabel2", "Help-Text", "Placeholder"));
+    ElementContainer date = new TextDateType("dateInput", LocalDate.of(2017, 7, 4)).of(required,
+        new Decoration("Please insert date", "datehelptext"));
+    ElementContainer textInput2 = new TextType("textInput2", "Peter\"Paul").of(required,
+        new Decoration("TextInputLabel2", "Help-Text", "Placeholder"));
     ElementContainer gender = new ElementContainer(
         new SelectType("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"}),
         Validator.emptyValidator(), new Decoration("Gender"));
-    ElementContainer chk = new ElementContainer(new CheckBoxType("chk", true),
-        required, new Decoration("chk-label", "chk_help"));
+    ElementContainer chk = new ElementContainer(new CheckBoxType("chk", true), required,
+        new Decoration("chk-label", "chk_help"));
     ElementContainer lbl = new LabelType("lbl").of();
     ElementContainer html = new HtmlType("<strong>HTML</strong>").of();
     ElementContainer hddn = new HiddenType("hddn", "hddn-value").of();
-    ElementContainer area =
-        new TextAreaType("area", "Area-Prebuild").of(required,
-            new Decoration("Area", "Area-Help", "Area-Placeholder"));
+    ElementContainer area = new TextAreaType("area", "Area-Prebuild").of(required,
+        new Decoration("Area", "Area-Help", "Area-Placeholder"));
 
-    ElementContainer nmbr = new ElementContainer(new NumberType("nbr", 5),
-        required, new Decoration("chk-label", "chk_help"));
+    ElementContainer nmbr = new ElementContainer(new NumberType("nbr", 5), required,
+        new Decoration("chk-label", "chk_help"));
     ElementContainer pssword = new ElementContainer(new PasswordType("pssword"),
         Validator.emptyValidator(), new Decoration("Password"));
     ElementContainer upld = new UploadType("upld").of(new Decoration("Upload"));
@@ -314,9 +297,9 @@ public class SampleUsage {
 
       // test here field-apis
 
-      Form f = new Form(formId, formValidators, new ElementContainer(protection),
-          new ElementContainer(new SimpleType()), textInput, date, textInput2, gender,
-          new SubmitType("Submit").of(), chk, lbl, html, hddn, area, nmbr, pssword, upld, radio);
+      Form f = new Form(formId, formValidators, protection.of(), new SimpleType().of(), textInput,
+          date, textInput2, gender, new SubmitType("Submit").of(), chk, lbl, html, hddn, area, nmbr,
+          pssword, upld, radio);
 
       return f;
 
