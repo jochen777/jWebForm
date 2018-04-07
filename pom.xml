@@ -25,14 +25,6 @@
 		</dependency>
 
 
-
-		<dependency>
-			<groupId>com.coverity.security</groupId>
-			<artifactId>coverity-escapers</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-
-
 	</dependencies>
 	<build>
 		<finalName>jformchecker</finalName>

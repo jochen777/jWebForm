@@ -2,10 +2,9 @@ package jwebform.element;
 
 import java.security.SecureRandom;
 import java.util.Base64;
-import com.coverity.security.Escape;
-import jwebform.element.structure.SingleType;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
+import jwebform.element.structure.SingleType;
 import jwebform.env.Env;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
@@ -43,14 +42,14 @@ public class XSRFProtectionType implements SingleType {
 
     // ############ validation
 
-    String name = env.getRequest().getParameter(TOKENNAME);
     String xsrfVal = env.getRequest().getParameter(TOKENVAL);
 
     ValidationResult tempValidationResult;
 
     boolean isSubmitted = env.getRequest().isSubmitted(TOKENVAL);
-    boolean submittedValueEqualsSessionVal =
-        isSubmitted ? xsrfVal.equals(env.getSessionGet().getAttribute(name)) : false;
+    boolean submittedValueEqualsSessionVal = isSubmitted
+        ? xsrfVal.equals(env.getSessionGet().getAttribute(env.getRequest().getParameter(TOKENNAME)))
+        : false;
 
     if (isSubmitted && !submittedValueEqualsSessionVal
     // && !staticTokenName
@@ -61,9 +60,9 @@ public class XSRFProtectionType implements SingleType {
     }
 
 
-    name = "token-" + (staticTokenName ? "" : Math.random());
+    String newName = "token-" + (staticTokenName ? "" : Math.random());
     xsrfVal = (staticTokenName ? "static" : getRandomValue());
-    env.getSessionSet().setAttribute(name, xsrfVal);
+    env.getSessionSet().setAttribute(newName, xsrfVal);
 
     // ###############
 
@@ -72,7 +71,7 @@ public class XSRFProtectionType implements SingleType {
     // is firstrun - then generate a complete new token
 
     ElementResult result =
-        new ElementResult("xsrf_protection", getRenderer(name, xsrfVal), tempValidationResult);
+        new ElementResult("xsrf_protection", getRenderer(newName, xsrfVal), tempValidationResult);
 
     return result; // no representation
   }
@@ -81,10 +80,8 @@ public class XSRFProtectionType implements SingleType {
     return producerInfos -> {
       StringBuilder tags = new StringBuilder();
 
-      tags.append("<input type=\"hidden\" name=\"" + TOKENNAME + "\" value=\""
-          + Escape.htmlText(name) + "\">");
-      tags.append("<input type=\"hidden\" name=\"" + TOKENVAL + "\" value=\""
-          + Escape.htmlText(xsrfVal) + "\">\n");
+      tags.append("<input type=\"hidden\" name=\"" + TOKENNAME + "\" value=\"" + name + "\">");
+      tags.append("<input type=\"hidden\" name=\"" + TOKENVAL + "\" value=\"" + xsrfVal + "\">\n");
 
       String rendererdHtml = tags.toString();
 
