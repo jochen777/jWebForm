@@ -120,7 +120,8 @@
  
 
 
-* Simpler API for Theming 
+* Simpler API for Theming
+* Todo: More tests for View (Method, fileupload, htmlvalidation)
  
 * how can we avoid sublcassing only to have a new renderer? (vielleicht über Renderer-Interface?): 
 				neues "Signature" Feld im FormResult einführen? Damit kann man die Ausgabe leichter steuern, ohne ständig ein neues Objejt zu benötigen
@@ -177,4 +178,3 @@ Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Lo
 * Evtl. sind diese Behaviours interessant? https://ci.apache.org/projects/wicket/guide/6.x/guide/advanced.html
 
 
- 

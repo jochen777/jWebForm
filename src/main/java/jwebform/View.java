@@ -19,15 +19,32 @@ import jwebform.element.structure.ProducerInfos;
 public final class View {
 
   private final Map<ElementContainer, ElementResult> elementResults;
+
+
   private final String formId;
+  private final String method;
+  private final boolean html5Validaiton;
 
 
-  public View(String formId, Map<ElementContainer, ElementResult> elementResults) {
+
+  public View(
+      String formId,
+      Map<ElementContainer, ElementResult> elementResults,
+      String method,
+      boolean html5Validation) {
     this.formId = formId;
     this.elementResults = elementResults;
+    this.method = method;
+    this.html5Validaiton = html5Validation;
   }
 
+  public String getFormId() {
+    return formId;
+  }
 
+  public String getMethod() {
+    return method;
+  }
 
   private List<ProducerInfos> createProducerInfoChilds(
       Map<ElementContainer, ElementResult> childs,
@@ -48,6 +65,9 @@ public final class View {
     return false;
   }
 
+  public boolean isHtml5Validaiton() {
+    return html5Validaiton;
+  }
 
   ////////// For rendering within templates
 
