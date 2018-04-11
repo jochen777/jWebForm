@@ -56,7 +56,7 @@ public final class View {
     return listOfPis;
   }
 
-  private boolean determineUploadTypeAutomatically() {
+  public boolean isUploadEnctypeRequired() {
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       if (entry.getKey().element instanceof ForceFileuploadMethod) {
         return true;
