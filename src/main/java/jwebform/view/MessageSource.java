@@ -12,12 +12,11 @@ import jwebform.validation.ValidationResult;
 @FunctionalInterface
 public interface MessageSource {
 
-  public String getMessage(String key);
+  String getMessage(String key);
 
   public default String getSafeMessage(String key) {
     try {
-      String msg = this.getMessage(key);
-      return msg;
+      return this.getMessage(key);
     } catch (Exception e) {
       return "??" + key + "??";
     }

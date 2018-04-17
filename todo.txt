@@ -119,10 +119,11 @@
  
  
 
-
 * Simpler API for Theming
 * Todo: More tests for View (Method, fileupload, htmlvalidation)
- 
+
+* Consider Arrays instead of Lists
+
 * how can we avoid sublcassing only to have a new renderer? (vielleicht über Renderer-Interface?): 
 				neues "Signature" Feld im FormResult einführen? Damit kann man die Ausgabe leichter steuern, ohne ständig ein neues Objejt zu benötigen
 				-> besser: Signature in Decoration einfuehren!

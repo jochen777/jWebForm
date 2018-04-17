@@ -55,9 +55,8 @@ public class Env {
 
   // will deliver an Env, that cuts the input after some chars. Useful for security-reasons
   public Env cloneWithMaxLenInput(int maxLen) {
-    Env maxLenEnv = new Env((i) -> cutString(this.request.getParameter(i), maxLen), this.sessionGet,
+    return new Env((i) -> cutString(this.request.getParameter(i), maxLen), this.sessionGet,
         this.sessionSet);
-    return maxLenEnv;
   }
 
   public Env cloneWithNullCheck() {
@@ -101,12 +100,8 @@ public class Env {
 
     public EnvWithSubmitInfo(String formId, Env env) {
       this.env = env;
-      if ((Env.SUBMIT_VALUE_PREFIX + formId)
-          .equals(env.getRequest().getParameter(Env.SUBMIT_KEY))) {
-        this.submitted = true;
-      } else {
-        this.submitted = false;
-      }
+      this.submitted =
+        (Env.SUBMIT_VALUE_PREFIX + formId).equals(env.getRequest().getParameter(Env.SUBMIT_KEY));
     }
 
 

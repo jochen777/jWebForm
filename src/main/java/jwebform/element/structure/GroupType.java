@@ -13,11 +13,11 @@ import jwebform.validation.FormValidator;
  *
  */
 public interface GroupType extends Element {
-  public List<ElementContainer> getChilds();
+  List<ElementContainer> getChilds();
 
-  public ElementResult process(
+  ElementResult process(
       EnvWithSubmitInfo env,
       Map<ElementContainer, ElementResult> childResults);
 
-  public List<FormValidator> getValidators(ElementContainer source);
+  List<FormValidator> getValidators(ElementContainer source);
 }

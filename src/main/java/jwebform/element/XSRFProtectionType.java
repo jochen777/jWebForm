@@ -47,9 +47,8 @@ public class XSRFProtectionType implements SingleType {
     ValidationResult tempValidationResult;
 
     boolean isSubmitted = env.getRequest().isSubmitted(TOKENVAL);
-    boolean submittedValueEqualsSessionVal = isSubmitted
-        ? xsrfVal.equals(env.getSessionGet().getAttribute(env.getRequest().getParameter(TOKENNAME)))
-        : false;
+    boolean submittedValueEqualsSessionVal = isSubmitted && xsrfVal
+      .equals(env.getSessionGet().getAttribute(env.getRequest().getParameter(TOKENNAME)));
 
     if (isSubmitted && !submittedValueEqualsSessionVal
     // && !staticTokenName
@@ -70,10 +69,7 @@ public class XSRFProtectionType implements SingleType {
 
     // is firstrun - then generate a complete new token
 
-    ElementResult result =
-        new ElementResult("xsrf_protection", getRenderer(newName, xsrfVal), tempValidationResult);
-
-    return result; // no representation
+    return new ElementResult("xsrf_protection", getRenderer(newName, xsrfVal), tempValidationResult); // no representation
   }
 
   public HTMLProducer getRenderer(String name, String xsrfVal) {

@@ -35,10 +35,9 @@ public class NumberType implements SingleType {
     }
     // ValidationResult vr = oneValueElement.validate(env, oneValueElement.validator, requestVal,
     // val);
-    ElementResult result = new ElementResult(parsedNumberVal,
+    return new ElementResult(parsedNumberVal,
         new StaticElementInfo(oneValueElement.name, t -> "<!-- number -->", 1), ElementResult.NOCHILDS,
         parsedNumber);
-    return result;
   }
 
 

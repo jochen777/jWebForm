@@ -60,7 +60,7 @@ public final class View {
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
       if (entry.getKey().element instanceof ForceFileuploadMethod) {
         return true;
-      } ;
+      }
     }
     return false;
   }

@@ -297,11 +297,9 @@ public class SampleUsage {
 
       // test here field-apis
 
-      Form f = new Form(formId, formValidators, protection.of(), new SimpleType().of(), textInput,
+      return new Form(formId, formValidators, protection.of(), new SimpleType().of(), textInput,
           date, textInput2, gender, new SubmitType("Submit").of(), chk, lbl, html, hddn, area, nmbr,
           pssword, upld, radio);
-
-      return f;
 
     }
 

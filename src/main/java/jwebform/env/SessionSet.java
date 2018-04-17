@@ -8,5 +8,5 @@ package jwebform.env;
  */
 @FunctionalInterface
 public interface SessionSet {
-  public void setAttribute(String name, Object o);
+  void setAttribute(String name, Object o);
 }

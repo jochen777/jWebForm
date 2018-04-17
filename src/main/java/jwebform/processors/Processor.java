@@ -34,9 +34,7 @@ public class Processor {
         this.runFormValidations(elementResults, group.getValidators(group.of()));
 
     // if form-validators changed validaiton results, correct them on the elemtns
-    Map<ElementContainer, ElementResult> correctedElementResults =
-        this.correctElementResults(elementResults, overridenValidationResults);
-    return correctedElementResults;
+    return this.correctElementResults(elementResults, overridenValidationResults);
   }
 
 

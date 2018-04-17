@@ -6,7 +6,7 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 // "Function" (java.util.function.Function)
 @FunctionalInterface
 public interface SingleType extends Element{
-  public ElementResult apply(EnvWithSubmitInfo elementWithSubmitInfo);
+  ElementResult apply(EnvWithSubmitInfo elementWithSubmitInfo);
 
 
 

@@ -8,7 +8,7 @@ package jwebform.env;
  */
 @FunctionalInterface
 public interface Request {
-  public String getParameter(String name);
+  String getParameter(String name);
 
   default boolean isSubmitted(String name) {
     return getParameter(name) != null;
