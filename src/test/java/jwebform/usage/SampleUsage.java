@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import jwebform.View;
 import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormResult;
@@ -73,6 +75,23 @@ public class SampleUsage {
     assertTrue("The form should be not true, because it is the firstrun", !result.isOk());
   }
 
+
+  @Test
+  public void testUploadtype() {
+
+    Env env = new EnvBuilder().of(it -> null, // this simulates the first run (all values null)
+      t -> t, (k, v) -> {
+      });
+    FormResult result = getFormResult(env);
+    View v = result.getView(true);
+    assertEquals(true, v.isUploadEnctypeRequired());
+
+    FormResult resultWithoutUpload = getFormResultWithoutUpload(env);
+    View v2 = resultWithoutUpload.getView(true);
+    assertEquals(false, v2.isUploadEnctypeRequired());
+
+
+  }
 
 
   @Test
@@ -192,6 +211,9 @@ public class SampleUsage {
     return new MyFormBuilder().buildForm().run(env);
   }
 
+  private FormResult getFormResultWithoutUpload(Env env) {
+    return new MyFormBuilder().buildForm(false).run(env);
+  }
 
   private class ExpectedResultList {
     List<ExpectedElementResult> expRes = new ArrayList<>();
@@ -239,9 +261,22 @@ public class SampleUsage {
           eResult.getValue().equals(expectedResult.value));
       i++;
     }
-
-
     assertEquals(formId, result.getFormId());
+
+
+    View v = result.getView(true);
+    assertEquals("GET", v.getMethod());
+    assertEquals(true, v.isHtml5Validaiton());
+
+    View v2 = result.getView("GET");
+    assertEquals("GET", v2.getMethod());
+    assertEquals(true, v2.isHtml5Validaiton());
+
+    View v3 = result.getView(false, "POST");
+    assertEquals("POST", v3.getMethod());
+    assertEquals(false, v3.isHtml5Validaiton());
+
+
   }
 
   public class MyFormBuilder {
@@ -287,8 +322,10 @@ public class SampleUsage {
     public LocalDate getDateValue(FormResult formResult) {
       return (LocalDate) formResult.getElementResults().get(date).getValueObject();
     }
-
     public Form buildForm() {
+      return buildForm(true);
+    }
+    public Form buildForm(boolean withUpload) {
       List<FormValidator> formValidators = new ArrayList<>();
       formValidators.add(it -> {
         final Map<ElementContainer, ValidationResult> overridenValidationResults = new HashMap<>();
@@ -300,11 +337,16 @@ public class SampleUsage {
       });
 
       // test here field-apis
-
-      return new Form(formId, formValidators, protection.of(), new SimpleType().of(), textInput,
+      if (withUpload) {
+        return new Form(formId, formValidators, protection.of(), new SimpleType().of(), textInput,
           date, textInput2, gender, new SubmitType("Submit").of(), chk, lbl, html, hddn, area, nmbr,
           pssword, upld, radio);
+      } else {
+        return new Form(formId, formValidators, protection.of(), new SimpleType().of(), textInput,
+          date, textInput2, gender, new SubmitType("Submit").of(), chk, lbl, html, hddn, area, nmbr,
+          pssword, radio);
 
+      }
     }
 
 

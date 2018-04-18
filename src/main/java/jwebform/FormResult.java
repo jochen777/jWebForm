@@ -23,8 +23,16 @@ public class FormResult {
     return formIsValid;
   }
 
-  public View getView(String get, boolean html5Validation) {
+  public View getView(boolean html5Validation) {
     return new View(formId, elementResults, "GET", html5Validation);
+  }
+
+  public View getView(boolean html5Validation, String method) {
+    return new View(formId, elementResults, method, html5Validation);
+  }
+
+  public View getView(String method) {
+    return new View(formId, elementResults, method, true);
   }
 
 
@@ -44,7 +52,4 @@ public class FormResult {
     return formId;
   }
 
-  public View getView(String method) {
-    return new View(formId, elementResults, method, true);
-  }
 }
