@@ -60,17 +60,13 @@ public class Env {
   }
 
   public Env cloneWithNullCheck() {
-    Env maxLenEnv =
-        new Env((i) -> nullSave(this.request.getParameter(i)), this.sessionGet, this.sessionSet);
-    return maxLenEnv;
+    return new Env((i) -> nullSave(this.request.getParameter(i)), this.sessionGet, this.sessionSet);
   }
 
   // RFE: Maybe better to cut just the trailing spaces
   public Env cloneWithTrim() {
     // make sure, that you choose before the cloneWithNullCheck
-    Env trimmingEnv =
-        new Env((i) -> this.request.getParameter(i).trim(), this.sessionGet, this.sessionSet);
-    return trimmingEnv;
+    return new Env((i) -> this.request.getParameter(i).trim(), this.sessionGet, this.sessionSet);
   }
 
 

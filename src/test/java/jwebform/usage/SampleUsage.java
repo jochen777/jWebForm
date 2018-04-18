@@ -227,10 +227,10 @@ public class SampleUsage {
       ExpectedElementResult expectedResult = expectedResults.get(i);
       assertEquals(expectedResult.name, eResult.getStaticElementInfo().getName());
       //System.err.println(eResult.getStaticElementInfo().getName());
-      assertTrue(
-          eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " expResult: "
-              + expectedResult.vr + "/real:" + eResult.getValidationResult().isValid,
-          eResult.getValidationResult().isValid == expectedResult.vr);
+      assertEquals(
+        eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " expResult: "
+          + expectedResult.vr + "/real:" + eResult.getValidationResult().isValid,
+        eResult.getValidationResult().isValid, expectedResult.vr);
 
       assertTrue(
           eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " Value: "

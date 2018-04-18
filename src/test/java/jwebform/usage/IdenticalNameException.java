@@ -1,6 +1,8 @@
 package jwebform.usage;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 import jwebform.Form;
 import jwebform.element.HtmlType;
@@ -17,7 +19,7 @@ public class IdenticalNameException {
       Form f = new Form("id", new TextType("pete", "").of(new Decoration("Pete1")),
           new TextType("pete", "").of(new Decoration("Pete2")));
       f.run(new EnvBuilder().of(t -> t));
-      assertTrue("An exeption should be raised before!", false); // fail, because the run should
+      fail("An exeption should be raised before!"); // fail, because the run should
                                                                  // raise the exception
     } catch (Exception e) {
       // fine, an Exception should be thrown here, because we added two same fields.
@@ -32,8 +34,7 @@ public class IdenticalNameException {
       f.run(new EnvBuilder().of(t -> t));
       assertTrue("An exeption should not be raised before!", true);
     } catch (Exception e) {
-      assertTrue("An exeption should not be raised, because we have double SIMPLE elements!",
-          false);
+      fail("An exeption should not be raised, because we have double SIMPLE elements!");
     }
   }
 }

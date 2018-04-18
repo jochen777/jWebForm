@@ -14,7 +14,7 @@ public interface MessageSource {
 
   String getMessage(String key);
 
-  public default String getSafeMessage(String key) {
+  default String getSafeMessage(String key) {
     try {
       return this.getMessage(key);
     } catch (Exception e) {
@@ -23,7 +23,7 @@ public interface MessageSource {
   }
 
 
-  public default String getMessage(ValidationResult vr) {
+  default String getMessage(ValidationResult vr) {
     // give translated messages higher prio than message-keys
     if (vr.getTranslatedMessage() != null) {
       return vr.getTranslatedMessage();

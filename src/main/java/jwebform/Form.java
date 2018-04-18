@@ -83,8 +83,8 @@ public final class Form {
 
   private static List<ElementContainer> packElementsInContainer(SingleType... elements) {
     List<ElementContainer> ec = new ArrayList<>();
-    for (int i = 0; i < elements.length; i++) {
-      ec.add(new ElementContainer(elements[i]));
+    for (SingleType element : elements) {
+      ec.add(new ElementContainer(element));
     }
     return ec;
   }
