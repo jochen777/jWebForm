@@ -19,7 +19,7 @@ public final class ExactLength implements Criterion {
   public ValidationResult validate(String value) {
     boolean isValid = value.length() == length;
     if (!isValid) {
-      return ValidationResult.fail("jformchecker.exact_lenght", Integer.valueOf(length));
+      return ValidationResult.fail("jformchecker.exact_lenght", length);
     }
     return ValidationResult.ok();
   }

@@ -21,8 +21,7 @@ public final class Length implements Criterion {
   public ValidationResult validate(String value) {
     boolean isValid = value.length() <= max && value.length() >= min;
     if (!isValid) {
-      return ValidationResult.fail("jformchecker.length", Integer.valueOf(min),
-          Integer.valueOf(max));
+      return ValidationResult.fail("jformchecker.length", min, max);
     }
     return ValidationResult.ok();
 
