@@ -5,7 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import jwebform.element.structure.*;
+import jwebform.element.structure.CommonSelects;
+import jwebform.element.structure.DateTypeHelper;
+import jwebform.element.structure.Decoration;
+import jwebform.element.structure.ElementContainer;
+import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.GroupType;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.FormValidator;
 import jwebform.validation.Validator;
@@ -27,8 +32,6 @@ public class SelectDateType implements GroupType {
   final private DateTypeHelper helper;
 
   public SelectDateType(String name, LocalDate initialValue, int yearStart, int yearEnd) {
-    LocalDate initialValue1 = initialValue;
-
     Validator numberValidator = new Validator(Criteria.number());
     this.day = new SelectType(name + "_day", String.valueOf(initialValue.getDayOfMonth()),
         CommonSelects.build().buildDays()).of(numberValidator, new Decoration("Day"));

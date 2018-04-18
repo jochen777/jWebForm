@@ -143,9 +143,7 @@ public class Processor {
   
   private static List<ElementContainer> packElementContainerInList(ElementContainer... elements) {
     List<ElementContainer> ec = new ArrayList<>();
-    for (ElementContainer element : elements) {
-      ec.add(element);
-    }
+    Collections.addAll(ec, elements);
     return ec;
   }
 

@@ -1,6 +1,7 @@
 package jwebform.validation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import jwebform.validation.criteria.MaxLength;
@@ -18,9 +19,7 @@ public class Validator {
   private static final Validator EMPTY_VALIDATOR = new Validator();
 
   public Validator(Criterion... inputCriterium) {
-    for (Criterion cirterion : inputCriterium) {
-      criteria.add(cirterion);
-    }
+    Collections.addAll(criteria, inputCriterium);
   }
 
   public static Validator emptyValidator() {

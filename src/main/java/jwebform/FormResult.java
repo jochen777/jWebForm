@@ -42,8 +42,9 @@ public class FormResult {
 
   public final String debugOutput() {
     StringBuffer b = new StringBuffer();
-    elementResults.forEach((k, v) -> b.append("Name:" + v.getStaticElementInfo().getName()
-        + ", Value" + v.getValue() + "\n" + v.getValidationResult() + "\n"));
+    elementResults.forEach((k, v) -> b.append("Name:").append(v.getStaticElementInfo().getName())
+      .append(", Value").append(v.getValue()).append("\n").append(v.getValidationResult())
+      .append("\n"));
     return "FormResult" + formIsValid + "\n " + b.toString();
   }
 

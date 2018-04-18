@@ -5,7 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import jwebform.element.structure.*;
+import jwebform.element.structure.DateTypeHelper;
+import jwebform.element.structure.Decoration;
+import jwebform.element.structure.ElementContainer;
+import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.GroupType;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.FormValidator;
 import jwebform.validation.Validator;
@@ -29,8 +33,6 @@ public class TextDateType implements GroupType {
 
   public TextDateType(
     String name, LocalDate initialValue) {
-    LocalDate initialValue1 = initialValue;
-
     Validator numberValidator = new Validator(Criteria.number());
 
     this.day = new TextType(name + "_day", String.valueOf(initialValue.getDayOfMonth()))

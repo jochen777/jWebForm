@@ -76,7 +76,8 @@ public class XSRFProtectionType implements SingleType {
     return producerInfos -> {
       StringBuilder tags = new StringBuilder();
 
-      tags.append("<input type=\"hidden\" name=\"" + TOKENNAME + "\" value=\"" + name + "\">");
+      tags.append("<input type=\"hidden\" name=\"" + TOKENNAME + "\" value=\"").append(name)
+        .append("\">");
       tags.append("<input type=\"hidden\" name=\"" + TOKENVAL + "\" value=\"" + xsrfVal + "\">\n");
 
       String rendererdHtml = tags.toString();
