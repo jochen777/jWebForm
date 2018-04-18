@@ -9,7 +9,7 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class ExactLength implements Criterion {
-  private int length;
+  private final int length;
 
   ExactLength(int length) {
     this.length = length;

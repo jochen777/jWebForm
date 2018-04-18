@@ -9,7 +9,7 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public class Accept implements Criterion {
-  private String[] acceptableValues;
+  private final String[] acceptableValues;
 
   Accept(String... values) {
     this.acceptableValues = values;

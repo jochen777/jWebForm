@@ -344,7 +344,7 @@ public class SampleUsage {
       } else {
         return new Form(formId, formValidators, protection.of(), new SimpleType().of(), textInput,
           date, textInput2, gender, new SubmitType("Submit").of(), chk, lbl, html, hddn, area, nmbr,
-          pssword, radio);
+          pssword, /* NO UPLOAD HERE! */ radio);
 
       }
     }

@@ -12,7 +12,7 @@ import jwebform.validation.ValidationResult;
  */
 public class CaseInsensitiveRegex implements Criterion {
 
-  private Pattern pattern;
+  private final Pattern pattern;
   private String errorMsg = "jformchecker.regexp";
 
   public void setErrorMsg(String errorMsg) {
