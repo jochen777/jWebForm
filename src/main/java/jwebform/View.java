@@ -174,9 +174,7 @@ public final class View {
 
     public List<DrawableElement> getChilds() {
       List<DrawableElement> drawableChilds = new ArrayList<>();
-      producerInfos.getChilds().forEach((producerInfos) -> {
-        drawableChilds.add(new DrawableElement(producerInfos));
-      });
+      producerInfos.getChilds().forEach((producerInfos) -> drawableChilds.add(new DrawableElement(producerInfos)));
       return drawableChilds;
     }
 

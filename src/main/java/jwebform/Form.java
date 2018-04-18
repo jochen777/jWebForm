@@ -39,9 +39,7 @@ public final class Form {
   }
 
   public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators) {
-    this(id, elements, formValidators,
-        (formId, elementResults, formIsValid) -> new FormResult(formId, elementResults,
-            formIsValid));
+    this(id, elements, formValidators, FormResult::new);
   }
 
   public Form(String id, List<ElementContainer> elements) {

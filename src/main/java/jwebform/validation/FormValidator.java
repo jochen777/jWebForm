@@ -12,7 +12,6 @@ public interface FormValidator {
    * checks a complete form. If something is invalid, associate the validationResult to this element
    * in the resulting map
    * 
-   * @return
    */
   Map<ElementContainer, ValidationResult> validate(
       Map<ElementContainer, ElementResult> elements);

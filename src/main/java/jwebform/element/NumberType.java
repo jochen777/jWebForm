@@ -30,8 +30,6 @@ public class NumberType implements SingleType {
       parsedNumberVal = Integer.toString(parsedNumber);
     } catch (NumberFormatException e) {
       parsedNumber = 0;
-      // maybe better set a validaion problem here!
-      parsedNumberVal = "";
     }
     // ValidationResult vr = oneValueElement.validate(env, oneValueElement.validator, requestVal,
     // val);

@@ -28,7 +28,6 @@ public class CheckBoxType implements SingleType {
       checked = initialValue;
     } else {
       checked = true;
-      value = "true";
       if ("".equals(requestVal) || requestVal == null) {
         value = "";
         checked = false;

@@ -40,14 +40,12 @@ public class SelectType implements SingleType {
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
     return oneValueElement.calculateElementResultWithInputCheck(env, t -> "<!-- select -->",
-        t -> ensureValueIsAllowed(t));
+      this::ensureValueIsAllowed);
   }
 
   /**
    * This ensures, that only the keys will be allowed for valid values.
    * 
-   * @param fetchValue
-   * @return
    */
   private boolean ensureValueIsAllowed(String fetchValue) {
     if (!groups.isEmpty()) {
