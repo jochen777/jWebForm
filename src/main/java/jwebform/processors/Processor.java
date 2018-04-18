@@ -1,10 +1,6 @@
 package jwebform.processors;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
@@ -48,7 +44,7 @@ public class Processor {
 
 
   private List<PostProcessor> getPostProcessors() {
-    return Arrays.asList(new CheckDoubleElementsPostProcessor());
+    return Collections.singletonList(new CheckDoubleElementsPostProcessor());
   }
 
   private Map<ElementContainer, ElementResult> runPostProcessors(

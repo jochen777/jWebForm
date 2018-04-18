@@ -8,10 +8,7 @@ import jwebform.view.StringUtils;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 // Suppporting class for date handling types
 public class DateTypeHelper {
@@ -54,7 +51,7 @@ public class DateTypeHelper {
 
 
   public List<FormValidator> getValidators(ElementContainer source) {
-    return Arrays.asList((elements) -> {
+    return Collections.singletonList((elements) -> {
       Map<ElementContainer, ValidationResult> validationResult = new HashMap<>();
 
       ElementResult dayResult = elements.get(day);
