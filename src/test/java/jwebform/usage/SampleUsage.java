@@ -69,6 +69,7 @@ public class SampleUsage {
 
     testExpectectedResults(result, expRes.getList());
 
+
     assertTrue("The form should be not true, because it is the firstrun", !result.isOk());
   }
 
@@ -238,6 +239,9 @@ public class SampleUsage {
           eResult.getValue().equals(expectedResult.value));
       i++;
     }
+
+
+    assertEquals(formId, result.getFormId());
   }
 
   public class MyFormBuilder {
