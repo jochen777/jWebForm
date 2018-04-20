@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import jwebform.View;
 import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormResult;
+import jwebform.View;
 import jwebform.element.CheckBoxType;
 import jwebform.element.HiddenType;
 import jwebform.element.HtmlType;
@@ -80,8 +79,8 @@ public class SampleUsage {
   public void testUploadtype() {
 
     Env env = new EnvBuilder().of(it -> null, // this simulates the first run (all values null)
-      t -> t, (k, v) -> {
-      });
+        t -> t, (k, v) -> {
+        });
     FormResult result = getFormResult(env);
     View v = result.getView(true);
     assertEquals(true, v.isUploadEnctypeRequired());
@@ -249,11 +248,11 @@ public class SampleUsage {
       ElementResult eResult = result.getElementResults().get(cont);
       ExpectedElementResult expectedResult = expectedResults.get(i);
       assertEquals(expectedResult.name, eResult.getStaticElementInfo().getName());
-      //System.err.println(eResult.getStaticElementInfo().getName());
+      // System.err.println(eResult.getStaticElementInfo().getName());
       assertEquals(
-        eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " expResult: "
-          + expectedResult.vr + "/real:" + eResult.getValidationResult().isValid,
-        eResult.getValidationResult().isValid, expectedResult.vr);
+          eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " expResult: "
+              + expectedResult.vr + "/real:" + eResult.getValidationResult().isValid,
+          eResult.getValidationResult().isValid, expectedResult.vr);
 
       assertTrue(
           eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " Value: "
@@ -265,7 +264,7 @@ public class SampleUsage {
 
 
     View v = result.getView(true);
-    assertEquals("GET", v.getMethod());
+    assertEquals("POST", v.getMethod());
     assertEquals(true, v.isHtml5Validaiton());
 
     View v2 = result.getView("GET");
@@ -322,9 +321,11 @@ public class SampleUsage {
     public LocalDate getDateValue(FormResult formResult) {
       return (LocalDate) formResult.getElementResults().get(date).getValueObject();
     }
+
     public Form buildForm() {
       return buildForm(true);
     }
+
     public Form buildForm(boolean withUpload) {
       List<FormValidator> formValidators = new ArrayList<>();
       formValidators.add(it -> {
@@ -339,12 +340,12 @@ public class SampleUsage {
       // test here field-apis
       if (withUpload) {
         return new Form(formId, formValidators, protection.of(), new SimpleType().of(), textInput,
-          date, textInput2, gender, new SubmitType("Submit").of(), chk, lbl, html, hddn, area, nmbr,
-          pssword, upld, radio);
+            date, textInput2, gender, new SubmitType("Submit").of(), chk, lbl, html, hddn, area,
+            nmbr, pssword, upld, radio);
       } else {
         return new Form(formId, formValidators, protection.of(), new SimpleType().of(), textInput,
-          date, textInput2, gender, new SubmitType("Submit").of(), chk, lbl, html, hddn, area, nmbr,
-          pssword, /* NO UPLOAD HERE! */ radio);
+            date, textInput2, gender, new SubmitType("Submit").of(), chk, lbl, html, hddn, area,
+            nmbr, pssword, /* NO UPLOAD HERE! */ radio);
 
       }
     }

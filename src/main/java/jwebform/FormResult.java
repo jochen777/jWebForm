@@ -1,7 +1,6 @@
 package jwebform;
 
 import java.util.Map;
-
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 
@@ -24,7 +23,7 @@ public class FormResult {
   }
 
   public View getView(boolean html5Validation) {
-    return new View(formId, elementResults, "GET", html5Validation);
+    return new View(formId, elementResults, "POST", html5Validation);
   }
 
   public View getView(boolean html5Validation, String method) {
@@ -35,6 +34,10 @@ public class FormResult {
     return new View(formId, elementResults, method, true);
   }
 
+  public View getView() {
+    return new View(formId, elementResults, "POST", true);
+  }
+
 
   public final Map<ElementContainer, ElementResult> getElementResults() {
     return elementResults;
@@ -42,9 +45,9 @@ public class FormResult {
 
   public final String debugOutput() {
     StringBuffer b = new StringBuffer();
-    elementResults.forEach((k, v) -> b.append("Name:").append(v.getStaticElementInfo().getName())
-      .append(", Value").append(v.getValue()).append("\n").append(v.getValidationResult())
-      .append("\n"));
+    elementResults.forEach(
+        (k, v) -> b.append("Name:").append(v.getStaticElementInfo().getName()).append(", Value")
+            .append(v.getValue()).append("\n").append(v.getValidationResult()).append("\n"));
     return "FormResult" + formIsValid + "\n " + b.toString();
   }
 
