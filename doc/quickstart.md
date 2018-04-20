@@ -52,20 +52,7 @@ Write a controller, that uses this form: (Here Spring MVC)
     return "index"; // the template, that renders the form
   }
 
-@RequestMapping("/form")
-  public String demoJWebForm(HttpServletRequest request, Model model) {
-    var form = buildForm(); // See "Define a form"
-    var formResult = form.run((key) -> request.getParameter(key)); // pass the request-params via lambda 
-    
-    model.addAttribute("form", formResult.getView()); // add the view object to the model
-    
-    if (formResult.isOk()) {   // check if the form was submitted and is valid
-      log.debug("Valid firstname from form:"  + formResult.getStringValue("firstname"));   // if everything was okay, we can get the values from the form
-    }
-    
-    return "index"; // the template, that renders the form
-  }
-
+```
 
 ## Template
 
@@ -73,14 +60,14 @@ Output the form within your template. (index.html)
 
 
 ```html
-...
+
 <h1>The form</h1>
 
 <!-- start the form -->
-{{ renderForm(form) }} <!-- you have to create your own renderForm macro! Or you can use something from the jWebFormTheme project -->
+{{ renderForm(form) }} <!-- you have to create your own renderForm macro! -> see jWebFormTheme project -->
 <!-- end form -->
 
-...
+
 ```
 
 
