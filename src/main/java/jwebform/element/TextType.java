@@ -9,6 +9,10 @@ public class TextType implements SingleType {
 
   final public OneValueElementProcessor oneValueElement;
 
+  public TextType(String name) {
+    this.oneValueElement = new OneValueElementProcessor(name, "");
+  }
+
   public TextType(String name, String initialValue) {
     this.oneValueElement = new OneValueElementProcessor(name, initialValue);
   }

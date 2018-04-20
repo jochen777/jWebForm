@@ -43,6 +43,26 @@ public class FormResult {
     return elementResults;
   }
 
+  public final String getStringValue(String name) {
+    // RFE: avoid duplicate code here!
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
+      if (entry.getValue().getStaticElementInfo().getName().equals(name)) {
+        return entry.getValue().getValue();
+      }
+    }
+    throw new RuntimeException(String.format("The element named %s does not exist in form", name));
+  }
+
+  public final Object getObectValue(String name) {
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
+      if (entry.getValue().getStaticElementInfo().getName().equals(name)) {
+        return entry.getValue().getValueObject();
+      }
+    }
+    throw new RuntimeException(String.format("The element named %s does not exist in form", name));
+  }
+
+
   public final String debugOutput() {
     StringBuffer b = new StringBuffer();
     elementResults.forEach(

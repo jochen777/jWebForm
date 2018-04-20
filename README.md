@@ -17,21 +17,22 @@ What about jFormChecker? After some months in production, I realised some points
 The form-handling support in current java MVC frameworks is very basic. jWebForm tries to fill this gap by providing these features:
 
 * central form-definition for reuse and separation of concerns
+* avoiding a lot of boilerplate code
+* no dependencies
+* very compact output in sourcecode of template
+
 * handling the request-response loop for forms
-* handling error-messages and error-highlighting of the label
+* handling error-messages and error-highlighting of the labels
 * correct tab-order
 * pre-fillments of form-elements
 * automatically syntactical correct HTML (5) with label and "label-for"
 * pre-fillments of user-input after submit
-* max-lenght constraint on every element to avoid security issues
+* max-lenght constraint on every element to avoid security issues (X)
 * easy validation, easy custom validation
 * all standard form fields and more (date-input)
-* very compact output in sourcecode
-* prebuild Bootstrap Styles
-* prebuild ajax handling
-* avoiding a lot of boilerplate code
-* translateable error-messages.
-* minimal dependencies!
+* prebuild Bootstrap Styles via theme project
+* prebuild ajax handling via integration project
+* prepared for multilang-setups
 * automatically set correct transfer mode if fileupload elment is used
 * warn, if identical names are choosen
 
@@ -40,7 +41,9 @@ jWebForm is for java what Symfony-Forms is for PHP or Rose::HTML for Perl.
 
 See this project for integration into servlet-based frameworks:
 
-https://github.com/jochen777/jWebForm-integration (to be done)
+https://github.com/jochen777/jWebForm-integration 
+
+See this project for theme support (HTML Rendering with Java or via templates)
 
 
 
@@ -52,7 +55,7 @@ The concept is simple:
 
 2. "run" it
 
-3. use a simple tag in the template to generate the html
+3. pass the result to the template
 
 
 

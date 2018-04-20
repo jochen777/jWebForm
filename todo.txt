@@ -115,12 +115,16 @@
 * consider loosing the last dependency: Normally we use a template engine, that is doing the escaping... (OK)
 * Decoration muss Teil vom Container werden! (OK)
 * cleanup TextDate and SelectDate (OK)
+* Todo: More tests for View (Method, fileupload, htmlvalidation) (OK)
 #############################
  
  
 
+* Doku jWebForm!
+* ElementContainer umbenennen in FormElement?
+
 * Simpler API for Theming
-* Todo: More tests for View (Method, fileupload, htmlvalidation)
+
 
 * Consider Arrays instead of Lists
 
