@@ -1,14 +1,16 @@
 package jwebform.element.structure;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import jwebform.env.Env;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.view.StringUtils;
-
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
 
 // Suppporting class for date handling types
 public class DateTypeHelper {
@@ -19,12 +21,8 @@ public class DateTypeHelper {
   final private LocalDate initialValue;
   final private String name;
 
-  public DateTypeHelper(
-    ElementContainer day,
-    ElementContainer month,
-    ElementContainer year,
-    LocalDate initialValue,
-    String name) {
+  public DateTypeHelper(ElementContainer day, ElementContainer month, ElementContainer year,
+      LocalDate initialValue, String name) {
     this.day = day;
     this.month = month;
     this.year = year;
@@ -32,10 +30,10 @@ public class DateTypeHelper {
     this.name = name;
   }
 
-  public LocalDate setupDateValue(
-    LocalDate initialValue, String dayStr, String monthStr, String yearStr) {
+  public LocalDate setupDateValue(LocalDate initialValue, String dayStr, String monthStr,
+      String yearStr) {
     if (StringUtils.isEmpty(dayStr) && StringUtils.isEmpty(monthStr)
-      && StringUtils.isEmpty(yearStr)) {
+        && StringUtils.isEmpty(yearStr)) {
       return initialValue; // TODO: maybe this is wrong: if nothing is entered, it can't be the
       // initial value!
     }
@@ -59,7 +57,7 @@ public class DateTypeHelper {
       ElementResult yearResult = elements.get(year);
       try {
         setupDateValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
-          yearResult.getValue());
+            yearResult.getValue());
       } catch (DateTimeException | NumberFormatException e) {
         // validationResult.put(day, ValidationResult.fail("jformchecker.wrong_date_format"));
         // validationResult.put(month, ValidationResult.fail("jformchecker.wrong_date_format"));
@@ -69,15 +67,15 @@ public class DateTypeHelper {
     });
   }
 
-  public ElementResult processDateVal(
-    Env.EnvWithSubmitInfo env, Map<ElementContainer, ElementResult> childs, String fallbackTypename) {
+  public ElementResult processDateVal(Env.EnvWithSubmitInfo env,
+      Map<ElementContainer, ElementResult> childs, String fallbackTypename) {
     LocalDate dateValue = initialValue;
     ValidationResult validationResult = ValidationResult.undefined();
     String dateValStr = "";
     if (env.isSubmitted()) {
       try {
         dateValue = setupDateValue(this.initialValue, childs.get(day).getValue(),
-          childs.get(month).getValue(), childs.get(year).getValue());
+            childs.get(month).getValue(), childs.get(year).getValue());
         dateValStr = dateValue.format(DateTimeFormatter.ISO_DATE);
         validationResult = ValidationResult.ok();
       } catch (DateTimeException | NumberFormatException e) {
@@ -85,8 +83,10 @@ public class DateTypeHelper {
       }
     }
 
-    ElementResult result = new ElementResult(dateValStr,
-      new StaticElementInfo(name, t -> "<!-- "+fallbackTypename+" -->", 3), childs, dateValue);
+    ElementResult result = ElementResult.builder().withValue(dateValStr).withChilds(childs)
+        .withStaticElementInfo(
+            new StaticElementInfo(name, t -> "<!-- " + fallbackTypename + " -->", 3))
+        .withValueObject(dateValue).build();
 
     if (validationResult != ValidationResult.undefined()) {
       return result.cloneWithNewValidationResult(validationResult);

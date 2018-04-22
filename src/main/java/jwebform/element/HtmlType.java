@@ -1,6 +1,7 @@
 package jwebform.element;
 
 import jwebform.element.structure.SingleType;
+import jwebform.element.structure.StaticElementInfo;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
@@ -16,7 +17,8 @@ public class HtmlType implements SingleType {
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
     // Beware - no escaping!!
-    return new ElementResult(t -> html);
+    return ElementResult.builder().withStaticElementInfo(new StaticElementInfo("", t -> html, 0))
+        .build();
   }
 
 }

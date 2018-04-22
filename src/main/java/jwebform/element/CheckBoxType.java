@@ -33,8 +33,9 @@ public class CheckBoxType implements SingleType {
         checked = false;
       }
     }
-    return new ElementResult(value, new StaticElementInfo(name, t -> "<!-- checkbox -->", 1),
-        ElementResult.NOCHILDS, checked);
+    return ElementResult.builder().withValue(value)
+        .withStaticElementInfo(new StaticElementInfo(name, t -> "<!-- checkbox -->", 1))
+        .withValueObject(checked).build();
   }
 
 

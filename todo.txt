@@ -121,6 +121,7 @@
  
 
 * Doku jWebForm!
+* Introduce Builder for each element (jwebform.element.builder) with greatly simplified API
 * ElementContainer umbenennen in FormElement?
 
 * Simpler API for Theming

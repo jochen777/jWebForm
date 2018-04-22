@@ -38,9 +38,10 @@ Write a controller, that uses this form: (Here Spring MVC)
 
 ```Java
 
+  Form form = buildForm(); // See "Define a form"
+
   @RequestMapping("/form")
   public String demoJWebForm(HttpServletRequest request, Model model) {
-    Form form = buildForm(); // See "Define a form"
     FormResult formResult = form.run((key) -> request.getParameter(key)); // pass the request-params via lambda 
     
     model.addAttribute("form", formResult.getView()); // add the view object to the model

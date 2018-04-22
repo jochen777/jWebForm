@@ -2,7 +2,6 @@ package jwebform.element;
 
 import java.util.List;
 import java.util.Map;
-
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.GroupType;
@@ -22,7 +21,6 @@ public class SimpleGroup implements GroupType {
 
 
 
-
   @Override
   public List<ElementContainer> getChilds() {
     return childs;
@@ -35,9 +33,9 @@ public class SimpleGroup implements GroupType {
 
 
   @Override
-  public ElementResult process(EnvWithSubmitInfo env, Map<ElementContainer, ElementResult> childs)
-  {
-    return new ElementResult("", new StaticElementInfo("", t -> "", 0));
+  public ElementResult process(EnvWithSubmitInfo env, Map<ElementContainer, ElementResult> childs) {
+    return ElementResult.builder().withStaticElementInfo(new StaticElementInfo("", t -> "", 0))
+        .build();
   }
 
 }

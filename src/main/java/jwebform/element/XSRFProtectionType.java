@@ -5,6 +5,7 @@ import java.util.Base64;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.SingleType;
+import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
@@ -48,7 +49,7 @@ public class XSRFProtectionType implements SingleType {
 
     boolean isSubmitted = env.getRequest().isSubmitted(TOKENVAL);
     boolean submittedValueEqualsSessionVal = isSubmitted && xsrfVal
-      .equals(env.getSessionGet().getAttribute(env.getRequest().getParameter(TOKENNAME)));
+        .equals(env.getSessionGet().getAttribute(env.getRequest().getParameter(TOKENNAME)));
 
     if (isSubmitted && !submittedValueEqualsSessionVal
     // && !staticTokenName
@@ -69,16 +70,22 @@ public class XSRFProtectionType implements SingleType {
 
     // is firstrun - then generate a complete new token
 
-    return new ElementResult("xsrf_protection", getRenderer(newName, xsrfVal), tempValidationResult); // no representation
+    // return new ElementResult("xsrf_protection", getRenderer(newName, xsrfVal),
+    // tempValidationResult); // no representation
+    return ElementResult.builder().withValue("")
+        .withStaticElementInfo(
+            new StaticElementInfo("xsrf_protection", getRenderer(newName, xsrfVal), 1))
+        .withValidationResult(tempValidationResult).build();
   }
 
   public HTMLProducer getRenderer(String name, String xsrfVal) {
     return producerInfos -> {
       StringBuilder tags = new StringBuilder();
 
-      tags.append("<input type=\"hidden\" name=\"").append(TOKENNAME).append("\" value=\"").append(name)
-        .append("\">");
-      tags.append("<input type=\"hidden\" name=\"").append(TOKENVAL).append("\" value=\"").append(xsrfVal).append("\">\n");
+      tags.append("<input type=\"hidden\" name=\"").append(TOKENNAME).append("\" value=\"")
+          .append(name).append("\">");
+      tags.append("<input type=\"hidden\" name=\"").append(TOKENVAL).append("\" value=\"")
+          .append(xsrfVal).append("\">\n");
 
       String rendererdHtml = tags.toString();
 
