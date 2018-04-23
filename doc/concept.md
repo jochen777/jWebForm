@@ -1,15 +1,53 @@
-## Concept
+# Concept
 
-Implement your webforms with these ingredients:
+First you need to build the form itself. The form contains elements and form-validators.
+The elements ("ElementContainer") conists of a type ("FormType"), validators and a decoration.
 
-* A form with form elements
-* A controller with a Formchecker instance
-* An indidividual FormBuilder Class
-* A template with a formchecker-call
+## Form
 
-The FormCheckerForm-Class defines the form with the form-elements.
-There are a number of prebuild form-elements that should be enough to do the basic work.
-Each form-element can have validations. The form can have a form-validator too. 
+The form can be filled with ElementContainers and Validators.
+
+#### ElmentContainer
+
+The ElementContainer holds: a type, some validation-rules and a decoration.
+
+##### Type
+
+There a lots of predefined types in jWebform:
+* TextType (input type="text")
+* CheckBoxType (input type="checkbox") 
+* HiddenType (input type="hidden")
+* ...
+
+The build in types define all basic input-elements and some additional ones.
+
+You can define your own types. You can even define groups of types.
+
+##### Validations
+
+Each type can be validated with some validation-criteria. You can define 0..n validation-criteria.
+There a lots of validation - rules, for example:
+
+* Length
+* MinLenght
+* MaxLenght
+* Required
+* Email...
+
+You can define easily own validation critera.
+
+##### Decoration
+
+You can decorate each element with a "Decoration". This holds a Label, a Helptext and a Placeholder text.
+You can extend this decoration to add more elements.
+
+#### Validators
+
+Each form can be validated by FormValidators. You can have 0..n FormValidators.
+For example a registration form contains two Password - Elements. Now you can a apply
+a FormValidator that compares these two elements if they are equal.
+
+
 
 The FormCheckerForm is passed to the Formchecker. The formchecker prefills the form, triggers the validators and decides, if it is valid.
 

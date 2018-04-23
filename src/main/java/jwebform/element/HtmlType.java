@@ -4,6 +4,7 @@ import jwebform.element.structure.SingleType;
 import jwebform.element.structure.StaticElementInfo;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env.EnvWithSubmitInfo;
+import jwebform.validation.ValidationResult;
 
 public class HtmlType implements SingleType {
 
@@ -17,8 +18,9 @@ public class HtmlType implements SingleType {
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
     // Beware - no escaping!!
-    return ElementResult.builder().withStaticElementInfo(new StaticElementInfo("", t -> html, 0))
-        .build();
+    return ElementResult.builder().withStaticElementInfo(new StaticElementInfo("", t -> html, 0)).
+    withValidationResult(ValidationResult
+      .ok()).build();
   }
 
 }

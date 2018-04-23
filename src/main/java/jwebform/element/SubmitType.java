@@ -23,7 +23,7 @@ public class SubmitType implements SingleType {
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
     return ElementResult.builder()
-        .withStaticElementInfo(new StaticElementInfo("", t -> "<!-- submit -->", 1)).build();
+        .withStaticElementInfo(new StaticElementInfo(name, t -> "<!-- submit -->", 1)).build();
   }
 
 }

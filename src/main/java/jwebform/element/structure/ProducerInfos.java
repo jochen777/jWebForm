@@ -12,7 +12,18 @@ public class ProducerInfos {
 
   private final static List<ProducerInfos> NO_CHILDS = new ArrayList<>();
 
+  // TODO: We should remove ElementResult here! We just need: tabIndex, ValidationResult, name, Decoration, value, valueObject, childs
+  // now we have: formId(?), tabIndex, element(?), decoration, validaitonResult, value, valueObject, name, childs, child2 (?)
   private final ElementResult elementResult;
+
+  /*
+  private final ValidationResult validationResult; // not static
+  private final String value; // not static
+  private final Object valueObject;
+
+  private final StaticElementInfo staticElementInfo;
+  private final Map<ElementContainer, ElementResult> childs;
+   */
 
 
   public ProducerInfos(String formId, int tabIndex, ElementResult elementResult,
