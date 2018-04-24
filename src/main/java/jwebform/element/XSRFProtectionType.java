@@ -2,6 +2,7 @@ package jwebform.element;
 
 import java.security.SecureRandom;
 import java.util.Base64;
+
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.HTMLProducer;
 import jwebform.element.structure.SingleType;
@@ -74,7 +75,7 @@ public class XSRFProtectionType implements SingleType {
     // tempValidationResult); // no representation
     return ElementResult.builder().withValue("")
         .withStaticElementInfo(
-            new StaticElementInfo("xsrf_protection", getRenderer(newName, xsrfVal), 1))
+            new StaticElementInfo("xsrf_protection", getRenderer(newName, xsrfVal), 0))
         .withValidationResult(tempValidationResult).build();
   }
 
