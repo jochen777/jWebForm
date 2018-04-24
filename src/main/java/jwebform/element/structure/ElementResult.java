@@ -9,7 +9,6 @@ import jwebform.validation.ValidationResult;
 // that wat is coming out of a "run" method of an element
 public final class ElementResult {
 
-  // RFE: group this to reduce number of fields.
   private final ValidationResult validationResult; // not static
   private final String value; // not static
   private final Object valueObject;
@@ -29,9 +28,6 @@ public final class ElementResult {
     this.staticElementInfo = builder.staticElementInfo;
     this.childs = builder.childs;
   }
-
-  // RFE: Builder, der checkt, ob Themable element übergeben wird. wenn ja,
-  // muss kein producer angegeben werden. ansonsten ist nur name mandatory
 
   // TODO: Remove validationResult entirely here! This can move to producerInfos
 

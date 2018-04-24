@@ -14,7 +14,7 @@ import jwebform.element.TextType;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.ForceFileuploadMethod;
-import jwebform.element.structure.ProducerInfos;
+import jwebform.view.ProducerInfos;
 
 public final class View {
 

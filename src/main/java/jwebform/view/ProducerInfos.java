@@ -1,4 +1,9 @@
-package jwebform.element.structure;
+package jwebform.view;
+
+import jwebform.element.structure.Decoration;
+import jwebform.element.structure.Element;
+import jwebform.element.structure.ElementContainer;
+import jwebform.element.structure.ElementResult;
 
 import java.util.ArrayList;
 import java.util.List;
