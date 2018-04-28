@@ -141,7 +141,7 @@ maxlen required??
 
 Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Logger(!), Request....
 
-
+Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. debug-infos
 
 
 

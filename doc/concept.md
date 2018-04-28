@@ -43,123 +43,36 @@ You can extend this decoration to add more elements.
 
 #### Validators
 
-Each form can be validated by FormValidators. You can have 0..n FormValidators.
-For example a registration form contains two Password - Elements. Now you can a apply
-a FormValidator that compares these two elements if they are equal.
+A form can be validated by FormValidators. You can have 0..n FormValidators.
+For example a registration form contains two Password - Elements. With a form validator 
+you can compare these two elements if they are equal.
 
+##FormResult
 
+Now you have filled the form with elements. Call the run function of the form and pass 
+the Env object and you will get a FormResult.
 
-The FormCheckerForm is passed to the Formchecker. The formchecker prefills the form, triggers the validators and decides, if it is valid.
+###Env
 
-The Formbuilder renders the form to html. 
+The Env objects holds the parameters from the request. Additionally you can pass information 
+about the session, if you need XSRF protection.
 
-The template just makes a call to the formbuilder which returns the html for the form.
+The cool thing: via this Env-Lambda you can abstract your webframework away and avoid dependencies.
 
+###FormResult
+
+The FormResult holds the results of the elements. The result of earch element contains: 
+* the value, that was entered
+* the validation-result
+* the name of the value
+* the decoration 
+
+##View
+
+The FormResult can deliver a "View" Object, that has some convenience methods for a typical 
+view component in a MVC framework. Typically, you pass the view to the template.
+
+Within the template you loop over the elements and render each element for its onw.
 
 ![Overview](overview.png "Overview jFormchecker")
 
-
-## The Form
-
-The Form is a class of type FormCheckerForm. Fill this class within the "init" method with the form-elements. This class holds every "moving" data.
-
-Typical usage:
-
-```Java
-
-public class MyForm extends FormCheckerForm {
-
-  public void init() {
-  	 // Add a Textinputfield where you can enter your firstname
-     add(TextInput.build("firstname").
-     	setDescription("Your Firstname"));
-
-  	 // Add a Textinputfield where you can enter your lastname
-    add(TextInput.build("lastname").
-    	setDescription("Your lastname:"));
-	}
-}
-```
-
-
-## The Formelements
-
-The Formelements represent the input-fields for your form.
-
-There is a large number of prebuild Formelements:
-
-* Text
-
-* Textfield
-
-* Radio
-
-* Checkbox
-
-* FileUpload
-
-* Password
-
-* Select
-
-* Date-Input (complex input that makes sure, that you get a valid date)
-
-You can build your own Formelements, by extending from  AbstractInput and implementing FormCheckerElement.
-
-Most important methods to overload:
-
-```Java
-
-public ExampleInput extends AbstractInput<ExampleInput> implements FormCheckerElement {
-
-	public static ExampleInput build(String name, String moreParams) {
-		ExampleInput e = new ExampleInput();
-		e.setParam(moreParams);
-		return e;
-	}
-
-	@Override
-	public String getInputTag(Map<String, String> attributes) {
-		return  "<example Input>";
-
-	}
-	
-	@Override
-	public void init(Request request, boolean firstRun, Validator validator) {
-		...
-	}
-	// ...
-
-} 
-
-
-```
-
-## The Formbuilder
-
-The FormBuilder (GenericFormBuilder or your own subclasses) renders the form-elements and their structure to html. It keeps your forms consistence and avoids boilerplate in templates.
-
-For example the FormBuilder renders the <form ...> </form> tags, the structure of an input element (help-text above or under a form-element, a special css-class ...).
-
-It's a good idea to write a tailored FormBuilder for your site. You can have even multiple FormBuilder, for example one for the desktop-version and one for the mobile version.
-
-There are some prebuild Formbuilders which you can use without coding them yourself:
-
-"BasicBoostrapFormBuilder" -> for usage in Boostrap layouts
-
-"TwoColumnBoostrapFormBuilder" -> for Bootstrap layouts too, but in a two column layout
-
-"BasicMaterialLightFormBuilder" -> for MaterialLight (https://getmdl.io/components/index.html#textfields-section)
-
-If you don't specify a FormBuilder, the BasicFormBuilder is used.
-
-You can configure it like that
-
- ```Java
-
-	// in your controller or configuration code
-	FormChecker fc = new FormChecker("id4", (k) -> params.get(k));
-	fc.setFormBuilder(new BasicBootstrapFormBuilder());
-	
-
-```
