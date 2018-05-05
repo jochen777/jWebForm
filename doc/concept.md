@@ -5,7 +5,8 @@ The elements ("ElementContainer") conists of a type ("FormType"), validators and
 
 ## Form
 
-The form can be filled with ElementContainers and Validators.
+The form must be filled with ElementContainers and Validators.
+Optionally you can specifiy an "id", if you have more than one form on the page.
 
 #### ElmentContainer
 

@@ -6,9 +6,7 @@ Check out, how to use jFormchecker in your projects.
 
 [Concept](concept.md)
 
-[See building individual html whithin the template](individual_html.md)
-
-[Features](features.md)
+[Hints for rendering the form within the template](template.md)
 
 [Remember the old days without formchecker](without_formchecker.md)
 
