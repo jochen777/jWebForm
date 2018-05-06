@@ -10,13 +10,20 @@ import jwebform.validation.ValidationResult;
  */
 public class Accept implements Criterion {
   private final String[] acceptableValues;
+  private boolean caseSensitive = true;
+
 
   Accept(String... values) {
     this.acceptableValues = values;
   }
 
   protected boolean areEqual(String v1, String v2) {
-    return v1.equals(v2);
+    if (caseSensitive) {
+      return v1.equals(v2);
+    } else {
+      return v1.equalsIgnoreCase(v2);
+    }
+
   }
 
   @Override
@@ -31,5 +38,11 @@ public class Accept implements Criterion {
     }
     return ValidationResult.ok();
   }
+
+  public Criterion ignoreCase() {
+    caseSensitive = false;
+    return this;
+  }
+
 
 }

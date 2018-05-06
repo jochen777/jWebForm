@@ -6,6 +6,8 @@ Check out, how to use jFormchecker in your projects.
 
 [Concept](concept.md)
 
+[Validators](validators.md)
+
 [See building individual html whithin the template](individual_html.md)
 
 [Features](features.md)

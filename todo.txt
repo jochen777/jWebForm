@@ -143,7 +143,7 @@ Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Lo
 
 Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. debug-infos
 
-
+* Checkout django forms (https://docs.djangoproject.com/en/2.0/topics/forms/)
 
  
 ######################## V 0.1
