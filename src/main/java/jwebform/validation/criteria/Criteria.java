@@ -28,10 +28,6 @@ public class Criteria {
     return new Accept(values);
   }
 
-  public static AcceptString acceptString(String... values) {
-    return new AcceptString(values);
-  }
-
   public static Criterion min(int min) {
     return new Min(min);
   }
