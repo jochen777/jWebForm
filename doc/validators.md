@@ -1,4 +1,4 @@
-# Available build in validators
+# Build in validators
 
 Here is a list of all Validators that are build in.
 
@@ -27,14 +27,24 @@ Or if you want to ignore the case:
 
 Valid input:
 
+```HTML
 "New York"
-
+```
 
 Validation-Fail:
 
 If the validation fails, the following translation-key will be used:
-jformchecker.allowed_values
 
-Example Output for english: 
+```HTML
+jformchecker.allowed_values
+```
+
+
+Example Output for english:
+ 
+```HTML
 Please enter one of the allowed values: 'New York', 'Las Vegas'
+```
+
+
 
