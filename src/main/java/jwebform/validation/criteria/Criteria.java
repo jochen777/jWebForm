@@ -28,6 +28,10 @@ public class Criteria {
     return new Accept(values);
   }
 
+  public static Criterion acceptIgnoreCase(String... values) {
+    return new Accept(values).ignoreCase();
+  }
+
   public static Criterion min(int min) {
     return new Min(min);
   }
