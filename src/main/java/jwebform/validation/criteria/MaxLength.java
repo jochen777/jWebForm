@@ -9,7 +9,7 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class MaxLength implements Criterion {
-  private int maxLength;
+  private final int maxLength;
 
   MaxLength(int maxLength) {
     this.maxLength = maxLength;

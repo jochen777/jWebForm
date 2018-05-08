@@ -9,7 +9,7 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class And implements Criterion {
-  private Criterion[] criteria;
+  private final Criterion[] criteria;
 
   And(Criterion... criteria) {
     if (criteria.length < 2)

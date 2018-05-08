@@ -10,10 +10,16 @@ import jwebform.validation.ValidationResult;
  */
 public class Accept implements Criterion {
   private final String[] acceptableValues;
-  private boolean caseSensitive = true;
+  private final boolean caseSensitive;
 
 
   Accept(String... values) {
+    this.acceptableValues = values;
+    this.caseSensitive = true;
+  }
+
+  private Accept(boolean caseSensitive, String... values) {
+    this.caseSensitive = caseSensitive;
     this.acceptableValues = values;
   }
 
@@ -40,8 +46,7 @@ public class Accept implements Criterion {
   }
 
   public Criterion ignoreCase() {
-    caseSensitive = false;
-    return this;
+    return new Accept(false, acceptableValues);
   }
 
 

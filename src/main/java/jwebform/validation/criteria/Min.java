@@ -8,7 +8,7 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class Min extends AbstractNumberComparingCriterion {
-  private int min;
+  private final int min;
 
   Min(int min) {
     this.min = min;

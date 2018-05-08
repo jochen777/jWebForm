@@ -8,7 +8,7 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class Max extends AbstractNumberComparingCriterion {
-  private int max;
+  private final int max;
 
   Max(int max) {
     this.max = max;

@@ -9,7 +9,7 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class StartsWith implements Criterion {
-  private String[] prefixes;
+  private final String[] prefixes;
 
   StartsWith(String... prefixes) {
     this.prefixes = prefixes;

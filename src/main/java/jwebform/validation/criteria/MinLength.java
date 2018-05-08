@@ -9,7 +9,7 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class MinLength implements Criterion {
-  private int minLength;
+  private final int minLength;
 
   MinLength(int minLength) {
     this.minLength = minLength;

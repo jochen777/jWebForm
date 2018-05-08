@@ -9,8 +9,8 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class Length implements Criterion {
-  private int min;
-  private int max;
+  private final int min;
+  private final int max;
 
   Length(int min, int max) {
     this.min = min;
