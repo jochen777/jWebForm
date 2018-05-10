@@ -1,7 +1,6 @@
 package jwebform.validation.criteria;
 
 import java.util.regex.Pattern;
-
 import jwebform.validation.Criterion;
 import jwebform.validation.ValidationResult;
 
@@ -12,14 +11,28 @@ import jwebform.validation.ValidationResult;
  */
 public class Regex implements Criterion {
   private final Pattern pattern;
+  private final String stringPattern;
   private String errorMsg = "jformchecker.regexp";
 
   public void setErrorMsg(String errorMsg) {
     this.errorMsg = errorMsg;
   }
 
+  protected Regex(String pattern, boolean considerCase) {
+    this.stringPattern = pattern;
+    if (!considerCase) {
+      this.pattern = Pattern.compile(pattern);
+    } else {
+      this.pattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+    }
+  }
+
   Regex(String pattern) {
-    this.pattern = Pattern.compile(pattern);
+    this(pattern, true);
+  }
+
+  public Regex ignoreCose() {
+    return new Regex(stringPattern, false);
   }
 
   @Override

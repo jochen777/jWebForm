@@ -68,11 +68,16 @@ public class Criteria {
     return new Regex(pattern);
   }
 
+  public static Criterion regexIgnoreCase(String pattern) {
+    return new Regex(pattern).ignoreCose();
+  }
+
+
   public static Criterion startsWith(String... prefix) {
     return new StartsWith(prefix);
   }
 
-  public static Criterion emailAddress() {
+  public static Criterion email() {
     return email;
   }
 

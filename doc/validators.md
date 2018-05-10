@@ -46,5 +46,50 @@ Example Output for english:
 Please enter one of the allowed values: 'New York', 'Las Vegas'
 ```
 
+#### And
+
+Can connect several Criteria
+
+Usage
+
+```Java
+        new TextType("cityUsa").of(new Validator(Criteria.And(Criteria.Accept("New York", "Las Vegas"), Criteria.Required)),
+          new Decoration("EnterBig City in USA"));
+          
+
+```
+
+#### Email
+
+Check if the value has the format of an email.
+
+Usage:
+
+```Java
+        new TextType("email").of(new Validator(Criteria.email()),
+          new Decoration("Your Email"));
+          
+
+```
 
 
+Valid input:
+
+```HTML
+"max.mustermann@somedomain.com"
+```
+
+Validation-Fail:
+
+If the validation fails, the following translation-key will be used:
+
+```HTML
+jformchecker.valid_email
+```
+
+
+Example Output for english:
+ 
+```HTML
+Please enter a valid email address
+```
