@@ -93,3 +93,39 @@ Example Output for english:
 ```HTML
 Please enter a valid email address
 ```
+
+
+#### ExactLenght
+
+Check if the value the exact lenght that you require
+
+Usage:
+
+```Java
+        new TextType("lotterie").of(new Validator(Criteria.ExactLenght(6)),
+          new Decoration("Guess Lotterie"));
+          
+
+```
+
+
+Valid input:
+
+```HTML
+"123456"
+```
+
+Validation-Fail:
+
+If the validation fails, the following translation-key will be used:
+
+```HTML
+jformchecker.exact_lenght
+```
+
+
+Example Output for english:
+ 
+```HTML
+The value must be 6 characters long
+```
