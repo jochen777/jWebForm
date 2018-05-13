@@ -15,6 +15,6 @@ Here is a list of all criteria that can be used to fill Validators.
 | MaxLenght          | Input must be shorter than max | `Criteria.maxLength(3)` | `ab` | *.max_len |
 | MinLenght          | Input must be longer than min | `Criteria.minLength(5)` | `abcdcd3` | *.min_len |
 | Number          | Input must be a number (integer) | `Criteria.number()` | `234234` | *.not_a_number |
-| Or          | Connect several criteria with or | `Criteria.or(Criteria.min(2),Criteria.accept("b")` | - | - |
+| Or          | Connect several criteria with or | `Criteria.or(Criteria.min(2), Criteria.accept("b")` | - | - |
 | PostcodeCA          | Input must be a canadian postalcode | `Criteria.postcodeCA()` | `A0A 0A0` | *.postalcode |
 
