@@ -17,4 +17,9 @@ Here is a list of all criteria that can be used to fill Validators.
 | Number          | Input must be a number (integer) | `Criteria.number()` | `234234` | *.not_a_number |
 | Or          | Connect several criteria with or | `Criteria.or(Criteria.min(2), Criteria.accept("b")` | - | - |
 | PostcodeCA          | Input must be a canadian postalcode | `Criteria.postcodeCA()` | `A0A 0A0` | *.postalcode |
-
+| Range          | Input must be number and within the given range | `Criteria.range(10,50)` | `30` | *.range |
+| Regex          | Input must match a regxep | `Criteria.regex("\\d+")` | `30` | *.regexp |
+| Required          | Input is required | `Criteria.required()` | `asfwe` | *.required |
+| StartsWith          | Input must start with | `Criteria.startsWith("bla")` | `blabbla` | *.starts_with |
+| StrongPassword          | Input must be a strong password | `Criteria.strongPassword(5)` | `xT6!_sdfkwle.ZT` | *.strong_password|
+| ZipCode          | Input must be a zipcode | `Criteria.zipcode()` | `12345-1234` | *.zip |
