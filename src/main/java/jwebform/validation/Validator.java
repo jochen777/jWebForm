@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import jwebform.validation.criteria.Criteria;
 import jwebform.validation.criteria.MaxLength;
-import jwebform.validation.criteria.Required;
 
 /**
  * Validator, that checks a form-element
@@ -25,9 +25,9 @@ public class Validator {
   public static Validator emptyValidator() {
     return EMPTY_VALIDATOR;
   }
-  
+
   // this will not work for criteria, that are not constant! Use a loop with "instantof"
-  @Deprecated 
+  @Deprecated
   public boolean containsExactCriterion(Criterion criterionToSearch) {
     for (Criterion criterion : criteria) {
       if (criterionToSearch == criterion) {
@@ -39,14 +39,14 @@ public class Validator {
 
   public boolean isRequired() {
     for (Criterion criterion : criteria) {
-      if (criterion instanceof Required) { // this
+      if (criterion == Criteria.required()) { // this is ok, because it uses a sigelton
         return true;
       }
     }
     return false;
   }
 
-  
+
   public Optional<MaxLength> getMaxLen() {
     for (Criterion criterion : criteria) {
       if (criterion instanceof MaxLength) { // this
