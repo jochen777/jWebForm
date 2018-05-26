@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import jwebform.element.builder.Type;
 import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormResult;
@@ -287,6 +289,12 @@ public class SampleUsage {
 
     ElementContainer textInput = new ElementContainer(new TextType("textInput", "Peter\"Paul"),
         required, new Decoration("TextInputLabel"));
+
+    ElementContainer textInput3 = Type.text("textInput").
+      withInitialValue("Peter\"Paul").
+      withDecoration(Decoration.builder().withLabel("TextInputLabel").build()).
+      withCriteria(Criteria.required())
+      .build();
 
     ElementContainer date = new TextDateType("dateInput", LocalDate.of(2017, 7, 4)).of(required,
         new Decoration("Please insert date", "datehelptext"));
