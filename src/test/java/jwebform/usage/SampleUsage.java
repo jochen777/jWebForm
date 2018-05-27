@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import jwebform.element.builder.Type;
 import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormResult;
@@ -28,11 +26,14 @@ import jwebform.element.TextDateType;
 import jwebform.element.TextType;
 import jwebform.element.UploadType;
 import jwebform.element.XSRFProtectionType;
+import jwebform.element.builder.Type;
+import jwebform.element.builder.TypeBuilder;
 import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
+import jwebform.validation.Criterion;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
@@ -251,9 +252,9 @@ public class SampleUsage {
       ExpectedElementResult expectedResult = expectedResults.get(i);
       assertEquals(expectedResult.name, eResult.getStaticElementInfo().getName());
       // System.err.println(eResult.getStaticElementInfo().getName());
-      assertEquals("Type:" + cont.element.getClass().getName() + ": " +
-          eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " expResult: "
-              + expectedResult.vr + "/real:" + eResult.getValidationResult().isValid,
+      assertEquals("Type:" + cont.element.getClass().getName() + ": "
+          + eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " expResult: "
+          + expectedResult.vr + "/real:" + eResult.getValidationResult().isValid,
           eResult.getValidationResult().isValid, expectedResult.vr);
 
       assertTrue(
@@ -286,15 +287,13 @@ public class SampleUsage {
                                                                   // expect
 
     Validator required = new Validator(Criteria.required());
+    Criterion req = Criteria.required();
 
     ElementContainer textInput = new ElementContainer(new TextType("textInput", "Peter\"Paul"),
         required, new Decoration("TextInputLabel"));
 
-    ElementContainer textInput3 = Type.text("textInput").
-      withInitialValue("Peter\"Paul").
-      withDecoration(Decoration.builder().withLabel("TextInputLabel").build()).
-      withCriteria(Criteria.required())
-      .build();
+    TypeBuilder textInput3 =
+        Type.text("textInput", "Peter\"Paul").withLabel("TextInputLabel").withCriteria(req);
 
     ElementContainer date = new TextDateType("dateInput", LocalDate.of(2017, 7, 4)).of(required,
         new Decoration("Please insert date", "datehelptext"));
@@ -306,6 +305,7 @@ public class SampleUsage {
     ElementContainer chk = new ElementContainer(new CheckBoxType("chk", true), required,
         new Decoration("chk-label", "chk_help"));
     ElementContainer lbl = new LabelType("lbl").of();
+
     ElementContainer html = new HtmlType("<strong>HTML</strong>").of();
     ElementContainer hddn = new HiddenType("hddn", "hddn-value").of();
     ElementContainer area = new TextAreaType("area", "Area-Prebuild").of(required,

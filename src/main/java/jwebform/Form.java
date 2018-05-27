@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
 import jwebform.element.SimpleGroup;
-import jwebform.element.structure.SingleType;
+import jwebform.element.builder.TypeBuilder;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.GroupType;
+import jwebform.element.structure.SingleType;
 import jwebform.env.Env;
 import jwebform.processors.FormResultBuilder;
 import jwebform.processors.Processor;
@@ -32,7 +32,6 @@ public final class Form {
     this.group = group;
   }
 
-
   public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators,
       FormResultBuilder formResultBuilder) {
     this(id, new SimpleGroup(elements, formValidators), formResultBuilder);
@@ -49,6 +48,19 @@ public final class Form {
 
   public Form(String id, ElementContainer... elements) {
     this(id, new ArrayList<>(), elements);
+  }
+
+  public Form(String id, TypeBuilder... elements) {
+    this(id, new ArrayList<>(), buildElementContainers(elements));
+  }
+
+
+  private static ElementContainer[] buildElementContainers(TypeBuilder[] elements) {
+    ElementContainer[] elList = new ElementContainer[elements.length];
+    for (int i = 0; i < elements.length; i++) {
+      elList[i] = elements[i].build();
+    }
+    return elList;
   }
 
   public Form(ElementContainer... elements) {
@@ -96,6 +108,6 @@ public final class Form {
     return id;
   }
 
- 
+
 
 }

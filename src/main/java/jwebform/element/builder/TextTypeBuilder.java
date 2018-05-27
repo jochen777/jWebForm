@@ -1,73 +1,55 @@
 package jwebform.element.builder;
 
-import javax.annotation.Generated;
-
-import jwebform.element.TextType;
+import java.util.function.Supplier;
 import jwebform.element.structure.Decoration;
+import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
 import jwebform.validation.Criterion;
 import jwebform.validation.Validator;
 
-public class TextTypeBuilder {
-  String name;
-  String initialValue;
-  Criterion[] criteria;
-  Decoration decoration;
+public class TextTypeBuilder extends TypeBuilder {
 
-  @Generated("SparkTools")
-  private TextTypeBuilder(Builder builder) {
-    this.name = builder.name;
-    this.initialValue = builder.initialValue;
-    this.criteria = builder.criteria;
-    this.decoration = builder.decoration;
+  private String label;
+  private String helptext;
+  private String placeholder;
+  private Criterion[] criteria;
+
+  private Supplier<Element> typeSupplier;
+
+
+  public TextTypeBuilder withTypeSupplier(Supplier<Element> typeSupplier) {
+    this.typeSupplier = typeSupplier;
+    return this;
   }
 
-  /**
-   * Creates builder to build {@link TextTypeBuilder}.
-   * 
-   * @return created builder
-   */
-  @Generated("SparkTools")
-  public static Builder builder() {
-    return new Builder();
+  public TextTypeBuilder withLabel(String label) {
+    this.label = label;
+    return this;
   }
 
-  /**
-   * Builder to build {@link TextTypeBuilder}.
-   */
-  @Generated("SparkTools")
-  public static final class Builder {
-    private String name;
-    private String initialValue;
-    private Criterion[] criteria;
-    private Decoration decoration;
-
-    private Builder() {}
-
-    public Builder withName(String name) {
-      this.name = name;
-      return this;
-    }
-
-    public Builder withInitialValue(String initialValue) {
-      this.initialValue = initialValue;
-      return this;
-    }
-
-    public Builder withCriteria(Criterion... criterias) {
-      this.criteria = criterias;
-      return this;
-    }
-
-    public Builder withDecoration(Decoration decoration) {
-      this.decoration = decoration;
-      return this;
-    }
-
-    public ElementContainer build() {
-      return new ElementContainer(new TextType(name, initialValue), new Validator(criteria),
-          decoration);
-    }
+  public TextTypeBuilder withHelptext(String helptext) {
+    this.helptext = helptext;
+    return this;
   }
+
+  public TextTypeBuilder withPlaceholder(String placeholder) {
+    this.placeholder = placeholder;
+    return this;
+  }
+
+
+  public TextTypeBuilder withCriteria(Criterion... criteria) {
+    this.criteria = criteria;
+    return this;
+  }
+
+
+  @Override
+  public ElementContainer build() {
+    return new ElementContainer(typeSupplier.get(), new Validator(criteria),
+        new Decoration(label, helptext, placeholder));
+  }
+
+
 
 }
