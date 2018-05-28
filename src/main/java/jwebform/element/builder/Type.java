@@ -6,6 +6,7 @@ import jwebform.element.HtmlType;
 import jwebform.element.LabelType;
 import jwebform.element.NumberType;
 import jwebform.element.PasswordType;
+import jwebform.element.RadioType;
 import jwebform.element.TextType;
 
 public class Type {
@@ -35,6 +36,12 @@ public class Type {
 
   public static TextTypeBuilder password(String name) {
     return new TextTypeBuilder().withTypeSupplier(() -> new PasswordType(name));
+  }
+
+  public static TextTypeBuilder radio(String name, String initialValue, String keys[],
+      String values[]) {
+    return new TextTypeBuilder()
+        .withTypeSupplier(() -> new RadioType(name, initialValue, keys, values));
   }
 
 }
