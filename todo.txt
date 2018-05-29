@@ -116,12 +116,15 @@
 * Decoration muss Teil vom Container werden! (OK)
 * cleanup TextDate and SelectDate (OK)
 * Todo: More tests for View (Method, fileupload, htmlvalidation) (OK)
+* Introduce Builder for each element (jwebform.element.builder) with greatly simplified API (OK)
 #############################
  
  
+* Introduce FormBuilder for greatly simplyfied API
+* formValidator soll keine Map bekommen, sondern ein neues Objekt (was eine Map enthält)
 
 * Doku jWebForm!
-* Introduce Builder for each element (jwebform.element.builder) with greatly simplified API
+
 * ElementContainer umbenennen in FormElement?
 
 * Simpler API for Theming

@@ -27,60 +27,67 @@ public class MyFormBuilder {
     this.formId = id;
   }
 
-  XSRFProtectionType protection = new XSRFProtectionType(true); // no random values, so we can
-  // expect
 
-  Validator required = new Validator(Criteria.required());
-  Criterion req = Criteria.required();
 
-  ElementContainer textInput = new ElementContainer(new TextType("textInput", "Peter\"Paul"),
-    required, new Decoration("TextInputLabel"));
+  private TypeBuilder [] getAllTypeBuilders(boolean addUpload) {
+    Criterion req = Criteria.required();
 
-  TypeBuilder textInput3 =
-    Type.text("textInput", "Peter\"Paul").withLabel("TextInputLabel").withCriteria(req);
 
-  ElementContainer date = new TextDateType("dateInput", LocalDate.of(2017, 7, 4)).of(required,
-    new Decoration("Please insert date", "datehelptext"));
-  ElementContainer textInput2 = new TextType("textInput2", "Peter\"Paul").of(required,
-    new Decoration("TextInputLabel2", "Help-Text", "Placeholder"));
-  ElementContainer gender = new ElementContainer(
-    new SelectType("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"}),
-    Validator.emptyValidator(), new Decoration("Gender"));
-  ElementContainer chk = new ElementContainer(new CheckBoxType("chk", true), required,
-    new Decoration("chk-label", "chk_help"));
-  ElementContainer lbl = new LabelType("lbl").of();
+    List<TypeBuilder> els = new ArrayList<>();
+    els.add(Type.xsrfProtectionForTesting()); // no random values
+    els.add(Type.simple());
+    els.add(Type.text("textInput", "Peter\"Paul").withCriteria(req).withLabel("TextInputLabel"));
+    els.add(Type.textDate("dateInput", LocalDate.of(2017, 7, 4)).withCriteria(req).
+      withLabel("Plase insert date").withHelptext("datehelptext"));
+    els.add(Type.text("textInput2", "Peter\"Paul").withCriteria(req).withLabel("TextInputLabel2")
+      .withHelptext("Help-Text").withPlaceholder("Placeholder"));
+    els.add(Type.select("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"})
+      .withLabel("Gender"));
+    els.add(Type.submit());
+    els.add(Type.checkbox("chk", true).withCriteria(req).withLabel("chk-label").withHelptext("chk_help"));
+    els.add(Type.label("lbl"));
+    els.add(Type.html("<strong>HTML</strong>"));
+    els.add(Type.hidden("hddn", "hddn-value"));
+    els.add(Type.text("area", "Area-Prebuild").withCriteria(req).withLabel("Area").
+      withHelptext("Area-Help").withPlaceholder("Area-Placeholder"));
+    els.add(Type.number("nbr", 5).withCriteria(req).withLabel("nbr-label").
+      withHelptext("nrb-help"));
+    els.add(Type.password("pssword").withLabel("Password"));
+    if (addUpload) {
+      els.add(Type.upload("upld").withLabel("Upload"));
+    }
+    els.add(Type.radio("radio", "1", new String[] {"1", "2"}, new String[] {"yes", "no"}).withLabel("Radio"));
 
-  ElementContainer html = new HtmlType("<strong>HTML</strong>").of();
-  ElementContainer hddn = new HiddenType("hddn", "hddn-value").of();
-  ElementContainer area = new TextAreaType("area", "Area-Prebuild").of(required,
-    new Decoration("Area", "Area-Help", "Area-Placeholder"));
 
-  ElementContainer nmbr = new ElementContainer(new NumberType("nbr", 5), required,
-    new Decoration("chk-label", "chk_help"));
-  ElementContainer pssword = new ElementContainer(new PasswordType("pssword"),
-    Validator.emptyValidator(), new Decoration("Password"));
-  ElementContainer upld = new UploadType("upld").of(new Decoration("Upload"));
-  ElementContainer radio = new ElementContainer(
-    new RadioType("radio", "1", new String[] {"1", "2"}, new String[] {"yes", "no"}),
-    Validator.emptyValidator(), new Decoration("Radio"));
-
-  /*
-   * radio, (OK)
-   */
-
-  public MyFormBuilder() {}
-
-  public LocalDate getDateValue(FormResult formResult) {
-    return (LocalDate) formResult.getElementResults().get(date).getValueObject();
+    return els.toArray(new TypeBuilder[0]);
   }
 
-  public Form buildForm() {
+
+  public LocalDate getDateValue(FormResult formResult) {
+    return (LocalDate) formResult.getObectValue("dateInput");
+  }
+
+  public Form buildFormWithoutUpload() {
+    return buildForm(false);
+  }
+  public Form buildFormWithUpload() {
     return buildForm(true);
   }
 
-  public Form buildForm(boolean withUpload) {
+  private Form buildForm(boolean withUpload) {
     List<FormValidator> formValidators = new ArrayList<>();
     formValidators.add(it -> {
+      // Umständlich. besser hier ein "schönes" Object reingereicht bekommen!
+      ElementContainer textInput = new ElementContainer(new SimpleType());
+     for(ElementContainer e: it.keySet()) {
+       System.err.println("::" + e);
+       // RFE: Avoid null!
+       if (it.get(e).getStaticElementInfo() != null &&
+         "textInput".equals(it.get(e).getStaticElementInfo().getName())){
+         textInput = e;
+       }
+     }
+
       final Map<ElementContainer, ValidationResult> overridenValidationResults = new HashMap<>();
       String valueOfTextInput = it.get(textInput).getValue();
       if (valueOfTextInput.length() > 3) {
@@ -89,15 +96,13 @@ public class MyFormBuilder {
       return overridenValidationResults;
     });
 
-    // test here field-apis
+
+    TypeBuilder[] fields = getAllTypeBuilders(true);
     if (withUpload) {
-      return new Form(formId, formValidators, protection.of(), new SimpleType().of(), textInput,
-        date, textInput2, gender, new SubmitType("Submit").of(), chk, lbl, html, hddn, area,
-        nmbr, pssword, upld, radio);
+      return new Form(formId, formValidators, getAllTypeBuilders(true));
     } else {
-      return new Form(formId, formValidators, protection.of(), new SimpleType().of(), textInput,
-        date, textInput2, gender, new SubmitType("Submit").of(), chk, lbl, html, hddn, area,
-        nmbr, pssword, /* NO UPLOAD HERE! */ radio);
+
+      return new Form(formId, formValidators, getAllTypeBuilders(false));
 
     }
   }

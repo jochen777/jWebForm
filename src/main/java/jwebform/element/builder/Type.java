@@ -15,6 +15,10 @@ public class Type {
     return text(name, "");
   }
 
+  public static TextTypeBuilder simple() {
+    return new TextTypeBuilder().withTypeSupplier(() -> new SimpleType());
+  }
+
 
   public static TextTypeBuilder checkbox(String name, boolean initialValue) {
     return new TextTypeBuilder().withTypeSupplier(() -> new CheckBoxType(name, initialValue));
@@ -81,6 +85,10 @@ public class Type {
     return new TextTypeBuilder().withTypeSupplier(() -> new XSRFProtectionType());
   }
 
+  public static TextTypeBuilder xsrfProtectionForTesting(){
+    return new TextTypeBuilder().withTypeSupplier(() -> new XSRFProtectionType(true));
+  }
+
   // more complex ones
 
   public static TextTypeBuilder select(String name, List<SelectType.SelectInputEntryGroup> groups, String initialValue){
@@ -100,7 +108,7 @@ public class Type {
     return new TextTypeBuilder().withTypeSupplier(() -> new SelectDateType(name,  initialValue, yearStart, yearEnd));
   }
 
-  public static TextTypeBuilder selectDate(String name, LocalDate initialValue){
+  public static TextTypeBuilder textDate(String name, LocalDate initialValue){
     return new TextTypeBuilder().withTypeSupplier(() -> new TextDateType(name,  initialValue));
   }
 

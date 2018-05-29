@@ -9,10 +9,10 @@ import jwebform.validation.Validator;
 
 public class TextTypeBuilder extends TypeBuilder {
 
-  private String label;
-  private String helptext;
-  private String placeholder;
-  private Criterion[] criteria;
+  private String label = "";
+  private String helptext = "";
+  private String placeholder = "";
+  private Criterion[] criteria = new Criterion[0];
 
   private Supplier<Element> typeSupplier;
 

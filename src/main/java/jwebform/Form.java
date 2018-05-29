@@ -54,6 +54,11 @@ public final class Form {
     this(id, new ArrayList<>(), buildElementContainers(elements));
   }
 
+  public Form(String id, List<FormValidator> formValidators, TypeBuilder... elements) {
+    this(id, formValidators, buildElementContainers(elements));
+  }
+
+
 
   private static ElementContainer[] buildElementContainers(TypeBuilder[] elements) {
     ElementContainer[] elList = new ElementContainer[elements.length];
