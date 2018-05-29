@@ -13,7 +13,7 @@ public class RadioType implements SingleType {
 
   public final OneValueElementProcessor oneValueElement;
 
-  // RFE: Add groups too!
+  // RFE: Add groups too, allow nothing as initial value
   public RadioType(String name, String initialValue, String keys[], String values[]) {
     this.oneValueElement = new OneValueElementProcessor(name, initialValue);
     entries = generateEntriesFromKeyValues(keys, values);

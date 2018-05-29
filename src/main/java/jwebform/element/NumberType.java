@@ -12,6 +12,7 @@ public class NumberType implements SingleType {
 
   public final OneValueElementProcessor oneValueElement;
 
+  // RFE: Maybe we need here an Optional<Integer> to allow nothing on the first place.
   public NumberType(String name, int initialValue) {
     this.oneValueElement = new OneValueElementProcessor(name, Integer.toString(initialValue));
     initialNumber = initialValue;

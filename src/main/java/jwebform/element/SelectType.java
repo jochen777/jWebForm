@@ -16,6 +16,7 @@ public class SelectType implements SingleType {
   private final static List<SelectInputEntryGroup> EMPTY_GROUPS = new ArrayList<>();
 
 
+  // TOOD: Move multiple Constructors to Type.java. Just allow groups. If there is only one group, skip dipslaying group-info
   public SelectType(String name, String initialValue, String keys[], String values[]) {
     this.oneValueElement = new OneValueElementProcessor(name, initialValue);
     this.entries = generateEntriesFromKeyValues(keys, values);

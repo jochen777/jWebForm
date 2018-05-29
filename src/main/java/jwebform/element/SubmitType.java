@@ -7,6 +7,7 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class SubmitType implements SingleType {
 
+  // TODO: Remove label. Should be taken from decoration
   public final String label;
   public final String name;
 
