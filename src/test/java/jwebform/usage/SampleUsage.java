@@ -2,42 +2,15 @@ package jwebform.usage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.junit.Test;
-import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.View;
-import jwebform.element.CheckBoxType;
-import jwebform.element.HiddenType;
-import jwebform.element.HtmlType;
-import jwebform.element.LabelType;
-import jwebform.element.NumberType;
-import jwebform.element.PasswordType;
-import jwebform.element.RadioType;
-import jwebform.element.SelectType;
-import jwebform.element.SimpleType;
-import jwebform.element.SubmitType;
-import jwebform.element.TextAreaType;
-import jwebform.element.TextDateType;
-import jwebform.element.TextType;
-import jwebform.element.UploadType;
-import jwebform.element.XSRFProtectionType;
-import jwebform.element.builder.Type;
-import jwebform.element.builder.TypeBuilder;
-import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
-import jwebform.validation.Criterion;
-import jwebform.validation.FormValidator;
-import jwebform.validation.ValidationResult;
-import jwebform.validation.Validator;
-import jwebform.validation.criteria.Criteria;
 
 public class SampleUsage {
 

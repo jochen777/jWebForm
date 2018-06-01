@@ -151,7 +151,6 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
  
 ######################## V 0.1
  
-* Warning, if no element is required. (This will not make sense!)
 * Speed-Optimierung: Wrap should work with StringBuilder
  * evtl. einen EmailType einführen? Wie ist die Browserkompatibiltät?
  * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert
