@@ -6,10 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jwebform.Form;
+import jwebform.FormBuilder;
 import jwebform.FormResult;
 import jwebform.element.SimpleType;
-import jwebform.element.builder.TypeBuilder;
 import jwebform.element.builder.Type;
+import jwebform.element.builder.TypeBuilder;
 import jwebform.element.structure.ElementContainer;
 import jwebform.validation.Criterion;
 import jwebform.validation.FormValidator;
@@ -75,8 +76,7 @@ public class MyFormBuilder {
   }
 
   private Form buildForm(boolean withUpload) {
-    List<FormValidator> formValidators = new ArrayList<>();
-    formValidators.add(it -> {
+    FormValidator validator = it -> {
       // Umständlich. besser hier ein "schönes" Object reingereicht bekommen!
       ElementContainer textInput = new ElementContainer(new SimpleType());
       for (ElementContainer e : it.keySet()) {
@@ -94,17 +94,12 @@ public class MyFormBuilder {
         overridenValidationResults.put(textInput, ValidationResult.fail("not_ok"));
       }
       return overridenValidationResults;
-    });
+    };
 
 
-    TypeBuilder[] fields = getAllTypeBuilders(true);
-    if (withUpload) {
-      return new Form(formId, formValidators, getAllTypeBuilders(true));
-    } else {
+    return FormBuilder.withId(formId).validation(validator)
+        .typeBuilder(getAllTypeBuilders(withUpload)).build();
 
-      return new Form(formId, formValidators, getAllTypeBuilders(false));
-
-    }
   }
 
 

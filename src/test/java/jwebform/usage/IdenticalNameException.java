@@ -2,9 +2,9 @@ package jwebform.usage;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
 import org.junit.Test;
 import jwebform.Form;
+import jwebform.FormBuilder;
 import jwebform.element.HtmlType;
 import jwebform.element.SimpleType;
 import jwebform.element.TextType;
@@ -16,11 +16,13 @@ public class IdenticalNameException {
   @Test
   public void testIdenticalName() {
     try {
-      Form f = new Form("id", new TextType("pete", "").of(new Decoration("Pete1")),
-          new TextType("pete", "").of(new Decoration("Pete2")));
+      Form f = FormBuilder.simple()
+          .elementContainer(new TextType("pete", "").of(new Decoration("Pete1")),
+              new TextType("pete", "").of(new Decoration("Pete2")))
+          .build();
       f.run(new EnvBuilder().of(t -> t));
       fail("An exeption should be raised before!"); // fail, because the run should
-                                                                 // raise the exception
+                                                    // raise the exception
     } catch (Exception e) {
       // fine, an Exception should be thrown here, because we added two same fields.
     }
@@ -29,8 +31,8 @@ public class IdenticalNameException {
   @Test
   public void testDoubleSimpleElements() {
     try {
-      Form f = new Form("id", new SimpleType(), new SimpleType(), new HtmlType("Hello"),
-          new HtmlType("world"));
+      Form f = FormBuilder.simple().singleTypes(new SimpleType(), new SimpleType(),
+          new HtmlType("Hello"), new HtmlType("world")).build();
       f.run(new EnvBuilder().of(t -> t));
       assertTrue("An exeption should not be raised before!", true);
     } catch (Exception e) {
