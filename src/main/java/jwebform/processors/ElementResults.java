@@ -21,8 +21,8 @@ public class ElementResults implements Iterable<Map.Entry<ElementContainer, Elem
   }
 
   public void put(ElementContainer container, ElementResult result) {
+    // RFE: Not really final here!! :( We need something like vavr here to solve this efficiently
     elementResults.put(container, result);
-
   }
 
   public boolean containsElement(ElementContainer container) {
