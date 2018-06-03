@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Map.Entry;
 import jwebform.element.NumberType;
 import jwebform.element.PasswordType;
 import jwebform.element.RadioType;
@@ -14,11 +14,12 @@ import jwebform.element.TextType;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.ForceFileuploadMethod;
+import jwebform.processors.ElementResults;
 import jwebform.view.ProducerInfos;
 
 public final class View {
 
-  private final Map<ElementContainer, ElementResult> elementResults;
+  private final ElementResults elementResults;
 
 
   private final String formId;
@@ -27,10 +28,7 @@ public final class View {
 
 
 
-  public View(
-      String formId,
-      Map<ElementContainer, ElementResult> elementResults,
-      String method,
+  public View(String formId, ElementResults elementResults, String method,
       boolean html5Validation) {
     this.formId = formId;
     this.elementResults = elementResults;
@@ -46,18 +44,17 @@ public final class View {
     return method;
   }
 
-  private List<ProducerInfos> createProducerInfoChilds(
-      Map<ElementContainer, ElementResult> childs,
-      int tabIndex) {
+  private List<ProducerInfos> createProducerInfoChilds(ElementResults childs, int tabIndex) {
     List<ProducerInfos> listOfPis = new ArrayList<>(); // RFE: only, if childs is not empty!
     // RFE: This allows only one depth! It would be cooler, if we can do infinite depth
-    childs.forEach((container, result) -> listOfPis
-        .add(new ProducerInfos(formId, tabIndex, result, container)));
+    for (Entry<ElementContainer, ElementResult> elem : childs) {
+      listOfPis.add(new ProducerInfos(formId, tabIndex, elem.getValue(), elem.getKey()));
+    }
     return listOfPis;
   }
 
   public boolean isUploadEnctypeRequired() {
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
       if (entry.getKey().element instanceof ForceFileuploadMethod) {
         return true;
       }
@@ -75,17 +72,19 @@ public final class View {
 
   public List<String> getElementNames() {
     List<String> names = new ArrayList<>();
-    elementResults.forEach((k, v) -> names.add(v.getStaticElementInfo().getName()));
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
+      names.add(entry.getValue().getStaticElementInfo().getName());
+    }
     return names;
   }
 
   public List<ProducerInfos> getUnrenderedElements() {
     List<ProducerInfos> elements = new ArrayList<>();
     int tabIndex = 1;
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
       ElementResult elementResult = entry.getValue();
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult,
-          entry.getKey(), createProducerInfoChilds(elementResult.getChilds(), tabIndex));
+      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, entry.getKey(),
+          createProducerInfoChilds(elementResult.getChilds(), tabIndex));
       elements.add(pi);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
@@ -96,10 +95,10 @@ public final class View {
   public List<DrawableElement> getDrawableElements() {
     List<DrawableElement> elements = new ArrayList<>();
     int tabIndex = 1;
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
       ElementResult elementResult = entry.getValue();
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult,
-          entry.getKey(), createProducerInfoChilds(elementResult.getChilds(), tabIndex));
+      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, entry.getKey(),
+          createProducerInfoChilds(elementResult.getChilds(), tabIndex));
       elements.add(new DrawableElement(pi));
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
@@ -111,10 +110,9 @@ public final class View {
   public Map<String, ProducerInfos> getAllUnrenderedElements() {
     Map<String, ProducerInfos> elements = new LinkedHashMap<>();
     int tabIndex = 1;
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
       ElementResult elementResult = entry.getValue();
-      ProducerInfos pi =
-          new ProducerInfos(formId, tabIndex, elementResult, entry.getKey());
+      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, entry.getKey());
       elements.put(elementResult.getStaticElementInfo().getName(), pi);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
@@ -126,10 +124,9 @@ public final class View {
   public Map<String, RenderedElement> getElements() {
     Map<String, RenderedElement> elements = new LinkedHashMap<>();
     int tabIndex = 1;
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
       ElementResult elementResult = entry.getValue();
-      ProducerInfos pi =
-          new ProducerInfos(formId, tabIndex, elementResult, entry.getKey());
+      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, entry.getKey());
       elements.put(elementResult.getStaticElementInfo().getName(),
           new RenderedElement(pi.getHtml(), pi, elementResult));
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
@@ -174,7 +171,8 @@ public final class View {
 
     public List<DrawableElement> getChilds() {
       List<DrawableElement> drawableChilds = new ArrayList<>();
-      producerInfos.getChilds().forEach((producerInfos) -> drawableChilds.add(new DrawableElement(producerInfos)));
+      producerInfos.getChilds()
+          .forEach((producerInfos) -> drawableChilds.add(new DrawableElement(producerInfos)));
       return drawableChilds;
     }
 

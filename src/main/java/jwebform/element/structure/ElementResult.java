@@ -1,9 +1,7 @@
 package jwebform.element.structure;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import javax.annotation.Generated;
+import jwebform.processors.ElementResults;
 import jwebform.validation.ValidationResult;
 
 // that wat is coming out of a "run" method of an element
@@ -14,11 +12,11 @@ public final class ElementResult {
   private final Object valueObject;
 
   private final StaticElementInfo staticElementInfo;
-  private final Map<ElementContainer, ElementResult> childs;
+  private final ElementResults childs;
 
   public static final String EMPTY_STRING = "";
   public static final String NO_NAME = "";
-  public static final Map<ElementContainer, ElementResult> NOCHILDS = new HashMap<>();
+  public static final ElementResults NOCHILDS = new ElementResults();
 
   @Generated("SparkTools")
   private ElementResult(Builder builder) {
@@ -38,7 +36,7 @@ public final class ElementResult {
         .withValidationResult(vr).withValue(value).withValueObject(valueObject).build();
   }
 
-  public ElementResult cloneWithChilds(Map<ElementContainer, ElementResult> childs) {
+  public ElementResult cloneWithChilds(ElementResults childs) {
     return ElementResult.builder().withChilds(childs).withStaticElementInfo(staticElementInfo)
         .withValidationResult(validationResult).withValue(value).withValueObject(valueObject)
         .build();
@@ -59,7 +57,7 @@ public final class ElementResult {
     return value;
   }
 
-  public Map<ElementContainer, ElementResult> getChilds() {
+  public ElementResults getChilds() {
     return childs;
   }
 
@@ -97,7 +95,7 @@ public final class ElementResult {
     private String value = EMPTY_STRING;
     private Object valueObject = EMPTY_STRING;
     private StaticElementInfo staticElementInfo;
-    private Map<ElementContainer, ElementResult> childs = Collections.emptyMap();
+    private ElementResults childs = new ElementResults();
 
     private Builder() {}
 
@@ -121,7 +119,7 @@ public final class ElementResult {
       return this;
     }
 
-    public Builder withChilds(Map<ElementContainer, ElementResult> childs) {
+    public Builder withChilds(ElementResults childs) {
       this.childs = childs;
       return this;
     }

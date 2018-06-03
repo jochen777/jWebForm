@@ -1,11 +1,10 @@
 package jwebform;
 
 import java.util.List;
-import java.util.Map;
 import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.GroupType;
 import jwebform.env.Env;
+import jwebform.processors.ElementResults;
 import jwebform.processors.FormResultBuilder;
 import jwebform.processors.Processor;
 
@@ -27,7 +26,7 @@ public final class Form {
   // process each element, run validations
   public final FormResult run(Env env) {
     Processor p = new Processor();
-    Map<ElementContainer, ElementResult> result = p.run(env.getEnvWithSumitInfo(id), group);
+    ElementResults result = p.run(env.getEnvWithSumitInfo(id), group);
     return formResultBuilder.build(id, result, p.checkAllValidationResults(result));
   }
 

@@ -121,39 +121,5 @@ public class FormBuilder {
   }
 
 
-  /*
-   * 
-   * public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators,
-   * FormResultBuilder formResultBuilder) { this(id, new SimpleGroup(elements, formValidators),
-   * formResultBuilder); }
-   * 
-   * public Form(String id, List<ElementContainer> elements, List<FormValidator> formValidators) {
-   * this(id, elements, formValidators, FormResult::new); }
-   * 
-   * public Form(String id, List<ElementContainer> elements) { this(id, elements, new
-   * ArrayList<>()); }
-   * 
-   * 
-   * public Form(String id, ElementContainer... elements) { this(id, new ArrayList<>(), elements); }
-   * 
-   * public Form(String id, TypeBuilder... elements) { this(id, new ArrayList<>(),
-   * buildElementContainers(elements)); }
-   * 
-   * public Form(String id, List<FormValidator> formValidators, TypeBuilder... elements) { this(id,
-   * formValidators, buildElementContainers(elements)); }
-   * 
-   * public Form(ElementContainer... elements) { this("id", new ArrayList<>(), elements); }
-   * 
-   * 
-   * public Form(String id, SingleType... elements) { this(id, packElementsInContainer(elements),
-   * new ArrayList<>()); }
-   * 
-   * 
-   * public Form(String id, List<FormValidator> formValidators, ElementContainer... elements) {
-   * this(id, Arrays.asList(elements), formValidators); }
-   * 
-   * public Form(String id, List<FormValidator> formValidators, SingleType... elements) { this(id,
-   * packElementsInContainer(elements), formValidators); }
-   * 
-   */
+
 }

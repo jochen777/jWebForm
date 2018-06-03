@@ -1,17 +1,17 @@
 package jwebform;
 
-import java.util.Map;
+import java.util.Map.Entry;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
+import jwebform.processors.ElementResults;
 
 public class FormResult {
 
   private final String formId;
-  private final Map<ElementContainer, ElementResult> elementResults;
+  private final ElementResults elementResults;
   private final boolean formIsValid;
 
-  public FormResult(String formId, Map<ElementContainer, ElementResult> elementResults,
-      boolean formIsValid) {
+  public FormResult(String formId, ElementResults elementResults, boolean formIsValid) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.elementResults = elementResults;
@@ -39,35 +39,26 @@ public class FormResult {
   }
 
 
-  public final Map<ElementContainer, ElementResult> getElementResults() {
+  public final ElementResults getElementResults() {
     return elementResults;
   }
 
   public final String getStringValue(String name) {
-    // RFE: avoid duplicate code here!
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
-      if (entry.getValue().getStaticElementInfo().getName().equals(name)) {
-        return entry.getValue().getValue();
-      }
-    }
-    throw new RuntimeException(String.format("The element named %s does not exist in form", name));
+    return elementResults.getElementStringValue(name);
   }
 
   public final Object getObectValue(String name) {
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
-      if (entry.getValue().getStaticElementInfo().getName().equals(name)) {
-        return entry.getValue().getValueObject();
-      }
-    }
-    throw new RuntimeException(String.format("The element named %s does not exist in form", name));
+    return elementResults.getObectValue(name);
   }
 
 
   public final String debugOutput() {
     StringBuffer b = new StringBuffer();
-    elementResults.forEach(
-        (k, v) -> b.append("Name:").append(v.getStaticElementInfo().getName()).append(", Value")
-            .append(v.getValue()).append("\n").append(v.getValidationResult()).append("\n"));
+    for (Entry<ElementContainer, ElementResult> elem : elementResults) {
+      b.append("Name:").append(elem.getValue().getStaticElementInfo().getName()).append(", Value")
+          .append(elem.getValue().getValue()).append("\n")
+          .append(elem.getValue().getValidationResult()).append("\n");
+    }
     return "FormResult" + formIsValid + "\n " + b.toString();
   }
 

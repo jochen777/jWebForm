@@ -3,8 +3,6 @@ package jwebform.element;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
 import jwebform.element.structure.CommonSelects;
 import jwebform.element.structure.DateTypeHelper;
 import jwebform.element.structure.Decoration;
@@ -12,6 +10,7 @@ import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.GroupType;
 import jwebform.env.Env.EnvWithSubmitInfo;
+import jwebform.processors.ElementResults;
 import jwebform.validation.FormValidator;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
@@ -52,7 +51,7 @@ public class SelectDateType implements GroupType {
 
 
   @Override
-  public ElementResult process(EnvWithSubmitInfo env, Map<ElementContainer, ElementResult> childs) {
+  public ElementResult process(EnvWithSubmitInfo env, ElementResults childs) {
     return helper.processDateVal(env, childs, "select date");
   }
 

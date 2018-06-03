@@ -1,10 +1,6 @@
 package jwebform.processors;
 
-import java.util.Map;
-
 import jwebform.FormResult;
-import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.ElementResult;
 
 /**
  * builds formResults. Allows to create subclassed FormResults by implementing this
@@ -20,9 +16,6 @@ import jwebform.element.structure.ElementResult;
 @FunctionalInterface
 public interface FormResultBuilder {
 
-  FormResult build(
-      String formId,
-      Map<ElementContainer, ElementResult> elementResults,
-      boolean formIsValid);
+  FormResult build(String formId, ElementResults elementResults, boolean formIsValid);
 
 }

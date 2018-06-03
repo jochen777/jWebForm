@@ -8,7 +8,6 @@ import java.util.Map;
 import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormResult;
-import jwebform.element.SimpleType;
 import jwebform.element.builder.Type;
 import jwebform.element.builder.TypeBuilder;
 import jwebform.element.structure.ElementContainer;
@@ -77,16 +76,7 @@ public class MyFormBuilder {
 
   private Form buildForm(boolean withUpload) {
     FormValidator validator = it -> {
-      // Umständlich. besser hier ein "schönes" Object reingereicht bekommen!
-      ElementContainer textInput = new ElementContainer(new SimpleType());
-      for (ElementContainer e : it.keySet()) {
-        System.err.println("::" + e);
-        // RFE: Avoid null!
-        if (it.get(e).getStaticElementInfo() != null
-            && "textInput".equals(it.get(e).getStaticElementInfo().getName())) {
-          textInput = e;
-        }
-      }
+      ElementContainer textInput = it.getElement("textInput");
 
       final Map<ElementContainer, ValidationResult> overridenValidationResults = new HashMap<>();
       String valueOfTextInput = it.get(textInput).getValue();

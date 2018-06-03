@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jwebform.env.Env;
+import jwebform.processors.ElementResults;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.view.StringUtils;
@@ -67,8 +68,8 @@ public class DateTypeHelper {
     });
   }
 
-  public ElementResult processDateVal(Env.EnvWithSubmitInfo env,
-      Map<ElementContainer, ElementResult> childs, String fallbackTypename) {
+  public ElementResult processDateVal(Env.EnvWithSubmitInfo env, ElementResults childs,
+      String fallbackTypename) {
     LocalDate dateValue = initialValue;
     ValidationResult validationResult = ValidationResult.undefined();
     String dateValStr = "";

@@ -219,7 +219,7 @@ public class SampleUsage {
     assertEquals(expectedResults.size(), result.getElementResults().size());
 
     int i = 0;
-    for (ElementContainer cont : result.getElementResults().keySet()) {
+    for (ElementContainer cont : result.getElementResults().getContainers()) {
       ElementResult eResult = result.getElementResults().get(cont);
       ExpectedElementResult expectedResult = expectedResults.get(i);
       assertEquals(expectedResult.name, eResult.getStaticElementInfo().getName());

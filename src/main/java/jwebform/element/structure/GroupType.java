@@ -1,9 +1,8 @@
 package jwebform.element.structure;
 
 import java.util.List;
-import java.util.Map;
-
 import jwebform.env.Env.EnvWithSubmitInfo;
+import jwebform.processors.ElementResults;
 import jwebform.validation.FormValidator;
 
 // a group of elements. this is basically a form.
@@ -15,9 +14,7 @@ import jwebform.validation.FormValidator;
 public interface GroupType extends Element {
   List<ElementContainer> getChilds();
 
-  ElementResult process(
-      EnvWithSubmitInfo env,
-      Map<ElementContainer, ElementResult> childResults);
+  ElementResult process(EnvWithSubmitInfo env, ElementResults childResults);
 
   List<FormValidator> getValidators(ElementContainer source);
 }
