@@ -11,6 +11,7 @@ import jwebform.FormResult;
 import jwebform.element.builder.Type;
 import jwebform.element.builder.TypeBuilder;
 import jwebform.element.structure.ElementContainer;
+import jwebform.processors.ElementValdationResults;
 import jwebform.validation.Criterion;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -78,12 +79,11 @@ public class MyFormBuilder {
     FormValidator validator = it -> {
       ElementContainer textInput = it.getElement("textInput");
 
-      final Map<ElementContainer, ValidationResult> overridenValidationResults = new HashMap<>();
       String valueOfTextInput = it.get(textInput).getValue();
       if (valueOfTextInput.length() > 3) {
-        overridenValidationResults.put(textInput, ValidationResult.fail("not_ok"));
+        return ElementValdationResults.of(textInput, ValidationResult.fail("not_ok"));
       }
-      return overridenValidationResults;
+      return ElementValdationResults.empty();
     };
 
 

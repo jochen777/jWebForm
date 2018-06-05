@@ -3,6 +3,7 @@ package jwebform.validation;
 import java.util.Map;
 import jwebform.element.structure.ElementContainer;
 import jwebform.processors.ElementResults;
+import jwebform.processors.ElementValdationResults;
 
 // Validates a complete Form
 @FunctionalInterface
@@ -12,5 +13,5 @@ public interface FormValidator {
    * in the resulting map
    * 
    */
-  Map<ElementContainer, ValidationResult> validate(ElementResults elements);
+  ElementValdationResults validate(ElementResults elements);
 }

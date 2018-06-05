@@ -27,7 +27,7 @@ public class Processor {
     elementResults = this.runPostProcessors(elementResults);
 
     // run the form validators
-    Map<ElementContainer, ValidationResult> overridenValidationResults =
+    ElementValdationResults overridenValidationResults =
         this.runFormValidations(elementResults, group.getValidators(group.of()));
 
     // if form-validators changed validaiton results, correct them on the elemtns
@@ -93,14 +93,14 @@ public class Processor {
     return elementResults;
   }
 
-  private Map<ElementContainer, ValidationResult> runFormValidations(ElementResults elementResults,
+  private ElementValdationResults runFormValidations(ElementResults elementResults,
       List<FormValidator> formValidators) {
 
 
     // run the form-validators
-    Map<ElementContainer, ValidationResult> overridenValidationResults = new LinkedHashMap<>();
+    ElementValdationResults overridenValidationResults = new ElementValdationResults();
     for (FormValidator formValidator : formValidators) {
-      overridenValidationResults.putAll(formValidator.validate(elementResults));
+      overridenValidationResults.merge(formValidator.validate(elementResults));
     }
     return overridenValidationResults;
   }
@@ -119,8 +119,8 @@ public class Processor {
 
 
   private ElementResults correctElementResults(ElementResults elementResults,
-      Map<ElementContainer, ValidationResult> overridenValidationResults) {
-    overridenValidationResults.forEach((element, overridenValidationResult) -> {
+    ElementValdationResults overridenValidationResults) {
+    overridenValidationResults.getResutls().forEach((element, overridenValidationResult) -> {
       ElementResult re = elementResults.get(element);
       elementResults.put(element, re.cloneWithNewValidationResult(overridenValidationResult));
     });

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import jwebform.env.Env;
 import jwebform.processors.ElementResults;
+import jwebform.processors.ElementValdationResults;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.view.StringUtils;
@@ -51,7 +52,7 @@ public class DateTypeHelper {
 
   public List<FormValidator> getValidators(ElementContainer source) {
     return Collections.singletonList((elements) -> {
-      Map<ElementContainer, ValidationResult> validationResult = new HashMap<>();
+      ElementValdationResults validationResult = new ElementValdationResults();
 
       ElementResult dayResult = elements.get(day);
       ElementResult monthResult = elements.get(month);
