@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+// represents some Element-containers with their ValidationResults. Normally a result of a validator
 public class ElementValdationResults {
   final Map<ElementContainer, ValidationResult> resutls ;
 

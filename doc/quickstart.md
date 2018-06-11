@@ -9,7 +9,7 @@ Add this dependency to your project:
 ...
 <dependency>
     <groupId>de.cyclon-softworx</groupId>
-    <artifactId>xxx</artifactId>
+    <artifactId>jwebform</artifactId>
     <version>xxx</version> <!-- Please check for the latest version on maven central or in the changelog! -->
 </dependency>
 ...
@@ -21,14 +21,16 @@ Fill a Form object with your Form-Elements:
 
 
 ```Java
-    private Form buildForm()
-      return new Form(
-        new TextType("firstname").of(
-          new Decoration("Firstname")),
-        new TextType("email").of(
-          new Validator(Criteria.required(), Criteria.emailAddress()),
-          new Decoration("Email")));
+    private Form buildForm() {
+      return FormBuilder.simple().typeBuilder(
+        Type.text("firstname").
+          withLabel("Firstname"), 
+        Type.text("email").
+          withLabel("Email").
+          withCriteria(Criteria.required(), Criteria.email())
+        ).build();
     }
+    
 ```
 
 
@@ -42,7 +44,7 @@ Write a controller, that uses this form: (Here Spring MVC)
 
   @RequestMapping("/form")
   public String demoJWebForm(HttpServletRequest request, Model model) {
-    FormResult formResult = form.run((key) -> request.getParameter(key)); // pass the request-params via lambda 
+    FormResult formResult = buildForm().run((key) -> request.getParameter(key)); // pass the request-params via lambda 
     
     model.addAttribute("form", formResult.getView()); // add the view object to the model
     

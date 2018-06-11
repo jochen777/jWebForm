@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
+import jwebform.validation.ValidationResult;
 
 // Holds the elementResults and the elements itself
 public class ElementResults implements Iterable<Map.Entry<ElementContainer, ElementResult>> {
@@ -58,6 +59,9 @@ public class ElementResults implements Iterable<Map.Entry<ElementContainer, Elem
         String.format("The element named %s does not exist in form", elementName));
   }
 
+  public final ElementValdationResults computeSingleElementValidation(String elementName, ValidationResult vr) {
+    return ElementValdationResults.of(getElement(elementName), vr);
+  }
 
   public ElementContainer getElement(String elementName) {
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {

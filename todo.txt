@@ -118,11 +118,12 @@
 * Todo: More tests for View (Method, fileupload, htmlvalidation) (OK)
 * Introduce Builder for each element (jwebform.element.builder) with greatly simplified API (OK)
 * Introduce FormBuilder for greatly simplyfied API (OK)
+* formValidator soll keine Map bekommen, sondern ein neues Objekt (was eine Map enthält) (OK)
 #############################
  
  
 
-* formValidator soll keine Map bekommen, sondern ein neues Objekt (was eine Map enthält)
+* MyFormBuilder sollte Static-Imports haben, damit Type.XXX entfallen kann.
 
 * Doku jWebForm!
 
