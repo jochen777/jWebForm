@@ -22,11 +22,12 @@ There a lots of predefined types in jWebform:
 * ...
 
 See types.md for complete list of build-in types.
-[Complete list of build-in types.](types.md)
+[See complete list of build-in types.](types.md)
 
 The build in types define all basic input-elements and some additional ones.
 
-You can define your own types. You can even define groups of types.
+You can define your own types. 
+You can even define groups of types for more complex situations.
 
 ##### Validations
 
@@ -39,16 +40,16 @@ There a lots of validation - rules, for example:
 * Required
 * Email...
 
-[Complete list of build-in criteria.](validators.md)
+[See complete list of build-in criteria.](validators.md)
 
 You can define easily own validation critera.
 
 ##### Decoration
 
 You can decorate each element with a "Decoration". This holds a Label, a Helptext and a Placeholder text.
-You can extend this decoration to add more elements.
+You can extend this decoration to add more attributes to your input type.
 
-#### Validators
+#### Form-Validators
 
 A form can be validated by FormValidators. You can have 0..n FormValidators.
 For example a registration form contains two Password - Elements. With a form validator 
@@ -56,8 +57,12 @@ you can compare these two elements if they are equal.
 
 ##FormResult
 
-Now you have filled the form with elements. Call the run function of the form and pass 
+After you have filled the form with FormElments, call the run function of the form and pass 
 the Env object and you will get a FormResult.
+
+```Java
+   FormResult result = form.run(env);
+```
 
 ###Env
 
@@ -79,7 +84,7 @@ The FormResult holds the results of the elements. The result of earch element co
 The FormResult can deliver a "View" Object, that has some convenience methods for a typical 
 view component in a MVC framework. Typically, you pass the view to the template.
 
-Within the template you loop over the elements and render each element for its onw.
+Within the template you loop over the elements and render each element for its own.
 
 ![Overview](overview.png "Overview jFormchecker")
 
