@@ -1,7 +1,8 @@
 # Concept
 
-First you need to build the form itself. The form contains elements and form-validators.
-The elements ("ElementContainer") conists of a type ("FormType"), validators and a decoration.
+First you need to build the form itself. The form contains elements and optional form-validators.
+The elements ("ElementContainer") consists of a type ("FormType"), validator (with "Criteria") 
+and a decoration ("Decoration").
 
 ## Form
 
@@ -20,6 +21,9 @@ There a lots of predefined types in jWebform:
 * HiddenType (input type="hidden")
 * ...
 
+See types.md for complete list of build-in types.
+[Complete list of build-in types.](types.md)
+
 The build in types define all basic input-elements and some additional ones.
 
 You can define your own types. You can even define groups of types.
@@ -34,6 +38,8 @@ There a lots of validation - rules, for example:
 * MaxLenght
 * Required
 * Email...
+
+[Complete list of build-in criteria.](validators.md)
 
 You can define easily own validation critera.
 

@@ -76,7 +76,7 @@ public class MyFormBuilder {
       Type.hidden("hddn", "hddn-value")
     );
     els.add(
-      Type.text("area", "Area-Prebuild").
+      Type.textArea("area", "Area-Prebuild").
         withCriteria(req).withLabel("Area").
         withHelptext("Area-Help").
         withPlaceholder("Area-Placeholder")
