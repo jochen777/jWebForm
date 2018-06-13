@@ -23,12 +23,12 @@ public final class View {
 
 
   private final String formId;
-  private final String method;
+  private final Method method;
   private final boolean html5Validaiton;
 
 
 
-  public View(String formId, ElementResults elementResults, String method,
+  public View(String formId, ElementResults elementResults, Method method,
       boolean html5Validation) {
     this.formId = formId;
     this.elementResults = elementResults;
@@ -41,7 +41,7 @@ public final class View {
   }
 
   public String getMethod() {
-    return method;
+    return method.name();
   }
 
   private List<ProducerInfos> createProducerInfoChilds(ElementResults childs, int tabIndex) {
@@ -207,6 +207,10 @@ public final class View {
       return elementResult;
     }
 
+  }
+
+  public static enum Method {
+    POST, GET
   }
 
 

@@ -78,4 +78,9 @@ Example-Definition of a form in html (spring-forms)
 
 ```
 
-As you can see, especially on the template side, you have to enter a lot of stuff for basic highlighting errors. And this stuff within the template must be repeated for every form and can not be easily used in a generic way. In contrast to that, jWebform can define Forms completly in code and let the template render the form in a generic way.
+As you can see, especially on the template side, you have to enter a lot of (redundant) 
+stuff for basic highlighting errors. 
+And this stuff within the template must be repeated for every form 
+and can not be easily used in a generic way. 
+In contrast to that, jWebform can define Forms completly in code and 
+let the template render the form in a generic way.

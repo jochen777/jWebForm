@@ -23,19 +23,19 @@ public class FormResult {
   }
 
   public View getView(boolean html5Validation) {
-    return new View(formId, elementResults, "POST", html5Validation);
+    return new View(formId, elementResults, View.Method.POST, html5Validation);
   }
 
-  public View getView(boolean html5Validation, String method) {
+  public View getView(boolean html5Validation, View.Method method) {
     return new View(formId, elementResults, method, html5Validation);
   }
 
-  public View getView(String method) {
+  public View getView(View.Method method) {
     return new View(formId, elementResults, method, true);
   }
 
   public View getView() {
-    return new View(formId, elementResults, "POST", true);
+    return new View(formId, elementResults, View.Method.POST, true);
   }
 
 
@@ -66,5 +66,6 @@ public class FormResult {
   public String getFormId() {
     return formId;
   }
+
 
 }

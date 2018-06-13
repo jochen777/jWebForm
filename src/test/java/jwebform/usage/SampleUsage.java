@@ -242,11 +242,11 @@ public class SampleUsage {
     assertEquals("POST", v.getMethod());
     assertEquals(true, v.isHtml5Validaiton());
 
-    View v2 = result.getView("GET");
+    View v2 = result.getView(View.Method.GET);
     assertEquals("GET", v2.getMethod());
     assertEquals(true, v2.isHtml5Validaiton());
 
-    View v3 = result.getView(false, "POST");
+    View v3 = result.getView(false, View.Method.POST);
     assertEquals("POST", v3.getMethod());
     assertEquals(false, v3.isHtml5Validaiton());
 

@@ -125,7 +125,11 @@
 
 * MyFormBuilder sollte Static-Imports haben, damit Type.XXX entfallen kann.
 
-* Doku jWebForm!
+* Doku jWebForm: template.md
+
+* Doku: build your own type
+* doku: build your own validator
+
 
 * ElementContainer umbenennen in FormElement?
 
