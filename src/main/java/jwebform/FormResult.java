@@ -1,6 +1,7 @@
 package jwebform;
 
 import java.util.Map.Entry;
+import jwebform.View.Html5Validation;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.processors.ElementResults;
@@ -22,20 +23,20 @@ public class FormResult {
     return formIsValid;
   }
 
-  public View getView(boolean html5Validation) {
+  public View getView(Html5Validation html5Validation) {
     return new View(formId, elementResults, View.Method.POST, html5Validation);
   }
 
-  public View getView(boolean html5Validation, View.Method method) {
+  public View getView(Html5Validation html5Validation, View.Method method) {
     return new View(formId, elementResults, method, html5Validation);
   }
 
   public View getView(View.Method method) {
-    return new View(formId, elementResults, method, true);
+    return new View(formId, elementResults, method, Html5Validation.on);
   }
 
   public View getView() {
-    return new View(formId, elementResults, View.Method.POST, true);
+    return new View(formId, elementResults, View.Method.POST, Html5Validation.on);
   }
 
 

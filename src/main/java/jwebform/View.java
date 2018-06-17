@@ -24,12 +24,12 @@ public final class View {
 
   private final String formId;
   private final Method method;
-  private final boolean html5Validaiton;
+  private final Html5Validation html5Validaiton;
 
 
 
   public View(String formId, ElementResults elementResults, Method method,
-      boolean html5Validation) {
+      Html5Validation html5Validation) {
     this.formId = formId;
     this.elementResults = elementResults;
     this.method = method;
@@ -62,7 +62,7 @@ public final class View {
     return false;
   }
 
-  public boolean isHtml5Validaiton() {
+  public Html5Validation isHtml5Validaiton() {
     return html5Validaiton;
   }
 
@@ -214,4 +214,9 @@ public final class View {
   }
 
 
+  public static enum Html5Validation {
+    on, off
+  }
 }
+
+
