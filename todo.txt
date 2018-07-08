@@ -123,10 +123,11 @@
 * Enum for html5Validaiton in View (Remmber: no boolean arguments!) (OK)
 * make StringUtils Package private (OK)
 * Rebuild test-cases. Isolate upload case from other cases. Make tests smaller (OK)
+* check if we can have less public
 #############################
  
 
-* check if we can have less public
+
 
 
 * Doku jWebForm: template.md
@@ -136,6 +137,7 @@
 
 
 * ElementContainer umbenennen in FormElement?
+-> Django: Field, Symfony: Type, .net: type/nichts
 
 * Simpler API for Theming
 
@@ -156,7 +158,7 @@ Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Lo
 
 Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. debug-infos
 
-*renderer: form_as_p, form_as_table, form_as_li
+* renderer: form_as_p, form_as_table, form_as_li
 
 * Checkout django forms (https://docs.djangoproject.com/en/2.0/topics/forms/)
 * Move to junit5 (class: ...Should - methods "return empty array if ..."

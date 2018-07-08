@@ -27,7 +27,7 @@ public class MyFormBuilder {
   private TypeBuilder[] getTypeBuildersForSampleForm() {
     Criterion req = Criteria.required();
 
-    TypeBuilder [] elAr = array(
+    TypeBuilder [] elAr = FormBuilder.array(
       xsrfProtectionForTesting(),
       simple(),
       text("textInput", "Peter\"Paul").
@@ -96,7 +96,7 @@ public class MyFormBuilder {
   }
 
   private TypeBuilder[] getTypeBuildersWithoutUploadForm() {
-    return array(
+    return FormBuilder.array(
       textArea("area", "Area-Prebuild").withLabel("Area").
         withHelptext("Area-Help").
         withPlaceholder("Area-Placeholder"),
@@ -107,7 +107,5 @@ public class MyFormBuilder {
   }
 
 
-  public
-  static <T> T[] array(T... values) { return values; }
 
 }

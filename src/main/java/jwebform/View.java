@@ -44,14 +44,6 @@ public final class View {
     return method.name();
   }
 
-  private List<ProducerInfos> createProducerInfoChilds(ElementResults childs, int tabIndex) {
-    List<ProducerInfos> listOfPis = new ArrayList<>(); // RFE: only, if childs is not empty!
-    // RFE: This allows only one depth! It would be cooler, if we can do infinite depth
-    for (Entry<ElementContainer, ElementResult> elem : childs) {
-      listOfPis.add(new ProducerInfos(formId, tabIndex, elem.getValue(), elem.getKey()));
-    }
-    return listOfPis;
-  }
 
   public boolean isUploadEnctypeRequired() {
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
@@ -134,6 +126,14 @@ public final class View {
     return elements;
   }
 
+  private List<ProducerInfos> createProducerInfoChilds(ElementResults childs, int tabIndex) {
+    List<ProducerInfos> listOfPis = new ArrayList<>(); // RFE: only, if childs is not empty!
+    // RFE: This allows only one depth! It would be cooler, if we can do infinite depth
+    for (Entry<ElementContainer, ElementResult> elem : childs) {
+      listOfPis.add(new ProducerInfos(formId, tabIndex, elem.getValue(), elem.getKey()));
+    }
+    return listOfPis;
+  }
 
 
   // this is for simple template-engines like mustache

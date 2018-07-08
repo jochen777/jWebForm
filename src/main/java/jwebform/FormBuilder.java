@@ -126,6 +126,9 @@ public class FormBuilder {
     return this;
   }
 
+  // helps to build easyly an array
+  public
+  static <T> T[] array(T... values) { return values; }
 
 
 }
