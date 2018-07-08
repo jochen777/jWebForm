@@ -122,14 +122,10 @@
 * MyFormBuilder sollte Static-Imports haben, damit Type.XXX entfallen kann. (OK)
 * Enum for html5Validaiton in View (Remmber: no boolean arguments!) (OK)
 * make StringUtils Package private (OK)
+* Rebuild test-cases. Isolate upload case from other cases. Make tests smaller (OK)
 #############################
  
- 
 
-* Allow array for elements in form. This allows even more compact form generation
-* Rebuild test-cases. Isolate upload case from other cases. Make tests smaller
-
-* Move to junit5 (class: ...Should - methods "return empty array if ..."
 * check if we can have less public
 
 
@@ -163,6 +159,7 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
 *renderer: form_as_p, form_as_table, form_as_li
 
 * Checkout django forms (https://docs.djangoproject.com/en/2.0/topics/forms/)
+* Move to junit5 (class: ...Should - methods "return empty array if ..."
 
  
 ######################## V 0.1

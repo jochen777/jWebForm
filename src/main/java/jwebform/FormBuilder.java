@@ -23,6 +23,11 @@ public class FormBuilder {
   private List<TypeBuilder> typeBuilders = new ArrayList<>();
   private List<SingleType> singleTypes = new ArrayList<>();
 
+  // arrays
+  private SingleType [] singleTypeArray;
+  private TypeBuilder [] typeBuilderArray;
+  private ElementContainer [] elementContainerArray;
+
 
   private FormBuilder(String id, FormResultBuilder formResultBuilder) {
     this.id = id;
@@ -89,6 +94,7 @@ public class FormBuilder {
     elementContainers.addAll(new ArrayList<>(Arrays.asList(elList)));
     return this;
   }
+
 
   public FormBuilder typeBuilder(List<TypeBuilder> typeBuilders) {
     this.typeBuilders.addAll(typeBuilders);

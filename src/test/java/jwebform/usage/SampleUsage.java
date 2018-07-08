@@ -183,11 +183,11 @@ public class SampleUsage {
   }
 
   private FormResult getFormResult(Env env) {
-    return new MyFormBuilder(formId).buildFormWithUpload().run(env);
+    return new MyFormBuilder(formId).buildForm().run(env);
   }
 
   private FormResult getFormResultWithoutUpload(Env env) {
-    return new MyFormBuilder(formId).buildFormWithoutUpload().run(env);
+    return new MyFormBuilder(formId).buildWithoutUploadForm().run(env);
   }
 
   private class ExpectedResultList {
