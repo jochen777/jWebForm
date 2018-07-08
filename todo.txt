@@ -119,11 +119,19 @@
 * Introduce Builder for each element (jwebform.element.builder) with greatly simplified API (OK)
 * Introduce FormBuilder for greatly simplyfied API (OK)
 * formValidator soll keine Map bekommen, sondern ein neues Objekt (was eine Map enthält) (OK)
+* MyFormBuilder sollte Static-Imports haben, damit Type.XXX entfallen kann. (OK)
+* Enum for html5Validaiton in View (Remmber: no boolean arguments!) (OK)
+* make StringUtils Package private (OK)
 #############################
  
  
 
-* MyFormBuilder sollte Static-Imports haben, damit Type.XXX entfallen kann.
+* Allow array for elements in form. This allows even more compact form generation
+* Rebuild test-cases. Isolate upload case from other cases. Make tests smaller
+
+* Move to junit5 (class: ...Should - methods "return empty array if ..."
+* check if we can have less public
+
 
 * Doku jWebForm: template.md
 
@@ -151,6 +159,8 @@ maxlen required??
 Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Logger(!), Request....
 
 Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. debug-infos
+
+*renderer: form_as_p, form_as_table, form_as_li
 
 * Checkout django forms (https://docs.djangoproject.com/en/2.0/topics/forms/)
 

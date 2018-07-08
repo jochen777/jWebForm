@@ -1,21 +1,22 @@
-package jwebform.element.structure;
+package jwebform.element;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import jwebform.element.structure.ElementContainer;
+import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env;
 import jwebform.processors.ElementResults;
 import jwebform.processors.ElementValdationResults;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
-import jwebform.view.StringUtils;
 
 // Suppporting class for date handling types
-public class DateTypeHelper {
+class DateTypeHelper {
 
   final private ElementContainer day;
   final private ElementContainer month;
@@ -34,8 +35,8 @@ public class DateTypeHelper {
 
   public LocalDate setupDateValue(LocalDate initialValue, String dayStr, String monthStr,
       String yearStr) {
-    if (StringUtils.isEmpty(dayStr) && StringUtils.isEmpty(monthStr)
-        && StringUtils.isEmpty(yearStr)) {
+    if (isEmpty(dayStr) && isEmpty(monthStr)
+        && isEmpty(yearStr)) {
       return initialValue; // TODO: maybe this is wrong: if nothing is entered, it can't be the
       // initial value!
     }
@@ -95,4 +96,9 @@ public class DateTypeHelper {
     }
     return result;
   }
+
+  public boolean isEmpty(final CharSequence cs) {
+    return cs == null || cs.length() == 0;
+  }
+
 }

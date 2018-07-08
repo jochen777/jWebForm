@@ -3,6 +3,8 @@ package jwebform.usage;
 import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormResult;
+import static jwebform.element.builder.Type.*;
+
 import jwebform.element.builder.Type;
 import jwebform.element.builder.TypeBuilder;
 import jwebform.processors.ElementValdationResults;
@@ -28,77 +30,90 @@ public class MyFormBuilder {
   private TypeBuilder[] getAllTypeBuilders(boolean addUpload) {
     Criterion req = Criteria.required();
 
+    TypeBuilder [] elAr = array(
+      xsrfProtectionForTesting(),
+      simple(),
+      text("textInput", "Peter\"Paul").
+        withCriteria(req).
+        withLabel("TextInputLabel"),
+      textDate("dateInput", LocalDate.of(2017, 7, 4)).
+        withCriteria(req).
+        withLabel("Plase insert date").
+        withHelptext("datehelptext"),
+      hidden("sdf", "")
+
+    );
 
     List<TypeBuilder> els = new ArrayList<>();
     els.add(
-        Type.xsrfProtectionForTesting()
+        xsrfProtectionForTesting()
     ); // no random values
     els.add(
-        Type.simple()
+        simple()
     );
     els.add(
-      Type.text("textInput", "Peter\"Paul").
+      text("textInput", "Peter\"Paul").
         withCriteria(req).
         withLabel("TextInputLabel")
     );
     els.add(
-      Type.textDate("dateInput", LocalDate.of(2017, 7, 4)).
+      textDate("dateInput", LocalDate.of(2017, 7, 4)).
         withCriteria(req).
         withLabel("Plase insert date").
         withHelptext("datehelptext")
     );
     els.add(
-      Type.text("textInput2", "Peter\"Paul").
+      text("textInput2", "Peter\"Paul").
         withCriteria(req).
         withLabel("TextInputLabel2").
         withHelptext("Help-Text").
         withPlaceholder("Placeholder")
     );
     els.add(
-      Type.select("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"})
+      select("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"})
         .withLabel("Gender")
     );
     els.add(
-      Type.submit()
+      submit()
     );
     els.add(
-      Type.checkbox("chk", true).
+      checkbox("chk", true).
         withCriteria(req).withLabel("chk-label").
         withHelptext("chk_help")
     );
     els.add(
-      Type.label("lbl")
+      label("lbl")
     );
     els.add(
-      Type.html("<strong>HTML</strong>")
+      html("<strong>HTML</strong>")
     );
     els.add(
-      Type.hidden("hddn", "hddn-value")
+      hidden("hddn", "hddn-value")
     );
     els.add(
-      Type.textArea("area", "Area-Prebuild").
+      textArea("area", "Area-Prebuild").
         withCriteria(req).withLabel("Area").
         withHelptext("Area-Help").
         withPlaceholder("Area-Placeholder")
     );
     els.add(
-        Type.number("nbr", 5).
-          withCriteria(req).
-          withLabel("nbr-label").
-          withHelptext("nrb-help")
+      number("nbr", 5).
+        withCriteria(req).
+        withLabel("nbr-label").
+        withHelptext("nrb-help")
     );
     els.add(
-      Type.password("pssword").
+      password("pssword").
         withLabel("Password")
     );
     if (addUpload) {
       els.add(
-        Type.upload("upld").
+        upload("upld").
           withLabel("Upload")
       );
     }
     els.add(
-      Type.radio("radio", "1", new String[] {"1", "2"}, new String[] {"yes", "no"})
+      radio("radio", "1", new String[] {"1", "2"}, new String[] {"yes", "no"})
         .withLabel("Radio")
     );
 
@@ -133,5 +148,7 @@ public class MyFormBuilder {
 
   }
 
+  public
+  static <T> T[] array(T... values) { return values; }
 
 }

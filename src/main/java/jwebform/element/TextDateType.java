@@ -3,7 +3,6 @@ package jwebform.element;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import jwebform.element.structure.DateTypeHelper;
 import jwebform.element.structure.Decoration;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
