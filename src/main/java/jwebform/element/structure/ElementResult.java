@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import jwebform.processors.ElementResults;
 import jwebform.validation.ValidationResult;
 
-// that wat is coming out of a "run" method of an element
+// that what is coming out of a "run" method of an element
 public final class ElementResult {
 
   private final ValidationResult validationResult; // not static

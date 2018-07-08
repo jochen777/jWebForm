@@ -31,15 +31,15 @@ isUploadEnctypeRequired: Indicates, if a special upload type is required (enctyp
 
 isHtml5Validaiton: If the form should be validated with html 5
 
-drawableElements: List of DrawableElement Objects. They are used for low-capable template engines like mustache
+drawableElements: List of *DrawableElement* Objects. They are used for low-capable template engines like mustache
 
 elementNames: List of the names of all elements from the form
 
-unrenderedElements: List of Producer-Infos for each Element.
+unrenderedElements: List of *Producer-Infos* for each Element.
 
-allUnrenderedElements: Map of <elementName> and ProducerInfos
+allUnrenderedElements: Map of <elementName> and *ProducerInfos*
 
-elements: Map of <elementName> and RenderedElement
+elements: Map of <elementName> and *RenderedElement*
 
 
 
@@ -48,7 +48,7 @@ elements: Map of <elementName> and RenderedElement
 
 elementNameInfo: Map of Type-Name and Boolean True (so you can ask: {% if element.elementTypeInfo.TextType %})... and a type-definition ("text", "number", "password"...)
 
-producerInfos: ProducerInfo - Object
+producerInfos: *ProducerInfo* - Object
 
 childs: all childs, if we have a group element
 
@@ -56,23 +56,64 @@ childs: all childs, if we have a group element
 ## Available data within the RenderedElement
 
 html: the rendered html.
-producerInfos: ProducerInfo Object
-elementResult: ElementResult Object
+producerInfos: *ProducerInfo* Object
+elementResult: *ElementResult* Object
 
 ## Available data within the ProducerInfo
-
-
 
 formId: the formId
 
 tabIndex: The tabIndex
 
-elementContainer: all static Informations about the element
+elementContainer: *ElementContainer* all static Informations about the element
 
 childs: all childs if the element is a group.
 
-elementResult: the result including validationResult
+elementResult: the result including validationResult (*ElementResult*)
 
 
 ## Available data within the ElementResult
+
+validationResult: *ValidationResult* Object
+
+value: Value as a String of that element
+
+valueObject: Value as original Object (example: Checkbox -> Boolean)
+
+staticElementInfo: *StaticElementInfo* Object
+
+childs: Children as *ElementResult* Objects
+
+
+## Available data within the ElementContainer
+
+element: The type object itself (TextType, PasswordType...)
+
+decoration: The *Decoration* object
+
+validator: The avail decorator with all Validation-criteria
+
+## Available data within the StaticElementInfo
+
+name: the name of the element
+
+htmlProducer: the HtmlProducer that can be asked for rendered HTML
+
+tabIndexIncrement: Not important for output
+
+
+## Available data within the ValidationResult
+
+isValid: if the element is valid
+
+message: Message that describes the problem, if not valid
+
+errorVals: values, that can describe the error-message. Example: min/max values
+
+## Available data within the Decoration
+
+label: the label of the element
+helptext: the helptext of the element
+placeholder: the placeholder (if element supports this )
+
 
