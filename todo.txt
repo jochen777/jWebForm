@@ -129,6 +129,18 @@
 
 
 
+* Allow for view only Drawable Element that combines all other types.
+ - name
+ - html
+ - decoration
+ - value
+ - valueObject
+ - validation
+ - childs
+ - tabindex
+ - element
+
+harmonize styleguide filenames in example project (camelcase and asdf_msdf mixed)
 
 * Doku jWebForm: template.md
 

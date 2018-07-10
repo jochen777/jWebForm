@@ -11,10 +11,10 @@ import jwebform.element.PasswordType;
 import jwebform.element.RadioType;
 import jwebform.element.SelectType;
 import jwebform.element.TextType;
-import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.ForceFileuploadMethod;
+import jwebform.element.structure.*;
 import jwebform.processors.ElementResults;
+import jwebform.validation.ValidationResult;
+import jwebform.validation.Validator;
 import jwebform.view.ProducerInfos;
 
 public final class View {
@@ -135,6 +135,100 @@ public final class View {
     return listOfPis;
   }
 
+  public ViewElementContainer getViewElements() {
+    return getViewElements(false);
+  }
+
+  public ViewElementContainer getViewElements(boolean renderHtml) {
+    Map<String, ViewElement> elements = new LinkedHashMap<>();
+    List<ViewElement> elementList = new ArrayList<>();
+    int tabIndex = 1;
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
+      ElementResult elementResult = entry.getValue();
+      ViewElement ve = new ViewElement(entry.getKey(), entry.getValue(), renderHtml, tabIndex);
+      elements.put(ve.name, ve);
+      elementList.add(ve);
+      tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
+    }
+    return new ViewElementContainer(elements, elementList);
+  }
+
+  public class ViewElementContainer {
+    public Map<String, ViewElement> elementMap;
+    public List<ViewElement> elementList;
+
+    public ViewElementContainer(
+      Map<String, ViewElement> elementMap, List<ViewElement> elementList) {
+      this.elementMap = elementMap;
+      this.elementList = elementList;
+    }
+  }
+
+  public class ViewElement {
+
+    public ViewElement(ElementContainer elementContainer, ElementResult elementResult, boolean renderHtml, int tabIndex) {
+      name = elementResult.getStaticElementInfo().getName();
+      if (renderHtml) {
+        ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, elementContainer);
+        this.html = pi.getHtml();
+      }
+      this.elementContainer = elementContainer;
+      this.value = elementResult.getValue();
+      System.err.println("VALUE:" + value);
+      this.valueObject = elementResult.getValueObject();
+      this.validationResult = elementResult.getValidationResult();
+      this.tabIndex = tabIndex;
+      this.elementNameInfo = fillElementNameInfo(elementContainer.element, elementResult);
+
+      childs = new ArrayList<>();
+      elementResult.getChilds().forEach((elemRes) -> {
+        elemRes.getValue().getChilds();
+        childs.add(new ViewElement(elemRes.getKey(), elemRes.getValue(), renderHtml, tabIndex));
+      });
+      this.nameOfInput = getTypeName(elementContainer.element);
+
+    }
+
+
+    public ElementContainer elementContainer;
+    public String name;
+    public String html="";
+    public String value;
+    public Object valueObject;
+    public ValidationResult validationResult;
+    public List<ViewElement> childs;
+    public int tabIndex;
+    public String nameOfInput;
+    public Map<String, Object> elementNameInfo;
+  }
+
+  private Map<String, Object> fillElementNameInfo(Element element, ElementResult elementResult) {
+    Map<String, Object> elementNameInfo = new HashMap<>();
+    elementNameInfo.put(getTypeName(element), Boolean.TRUE);
+    if (element instanceof TextType) {
+      elementNameInfo.put("type", "text");
+    } else if (element instanceof NumberType) {
+      elementNameInfo.put("type", "number");
+    } else if (element instanceof PasswordType) {
+      elementNameInfo.put("type", "password");
+    }
+    if (element instanceof SelectType) {
+      SelectType select = (SelectType) element;
+      elementNameInfo.put("selected",
+        select.getSelectListWithSelected(elementResult.getValue()));
+    }
+    if (element instanceof RadioType) {
+      RadioType radio = (RadioType) element;
+      elementNameInfo.put("radioElements",
+        radio.getEntryListWithSelected(elementResult.getValue()));
+    }
+    return elementNameInfo;
+  }
+
+  private String getTypeName(Element element) {
+    return element.getClass().getName().replaceAll("jwebform\\.element\\.", "");
+  }
+
 
   // this is for simple template-engines like mustache
   public class DrawableElement {
@@ -147,27 +241,9 @@ public final class View {
 
     public DrawableElement(ProducerInfos producerInfos) {
       this.producerInfos = producerInfos;
-      elementNameInfo = new HashMap<>();
-      elementNameInfo.put(
-          producerInfos.getElementTypeName().replaceAll("jwebform\\.element\\.", ""), Boolean.TRUE);
-      if (producerInfos.getElement() instanceof TextType) {
-        elementNameInfo.put("type", "text");
-      } else if (producerInfos.getElement() instanceof NumberType) {
-        elementNameInfo.put("type", "number");
-      } else if (producerInfos.getElement() instanceof PasswordType) {
-        elementNameInfo.put("type", "password");
-      }
-      if (producerInfos.getElement() instanceof SelectType) {
-        SelectType select = (SelectType) producerInfos.getElement();
-        elementNameInfo.put("selected",
-            select.getSelectListWithSelected(producerInfos.getElementResult().getValue()));
-      }
-      if (producerInfos.getElement() instanceof RadioType) {
-        RadioType radio = (RadioType) producerInfos.getElement();
-        elementNameInfo.put("radioElements",
-            radio.getEntryListWithSelected(producerInfos.getElementResult().getValue()));
-      }
+      elementNameInfo = fillElementNameInfo(producerInfos.getElement(), producerInfos.getElementResult());
     }
+
 
     public List<DrawableElement> getChilds() {
       List<DrawableElement> drawableChilds = new ArrayList<>();
