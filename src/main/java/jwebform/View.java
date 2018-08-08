@@ -54,8 +54,8 @@ public final class View {
     return false;
   }
 
-  public Html5Validation isHtml5Validaiton() {
-    return html5Validaiton;
+  public boolean isHtml5Validaiton() {
+    return html5Validaiton == Html5Validation.on;
   }
 
   ////////// For rendering within templates
@@ -174,7 +174,6 @@ public final class View {
       }
       this.elementContainer = elementContainer;
       this.value = elementResult.getValue();
-      System.err.println("VALUE:" + value);
       this.valueObject = elementResult.getValueObject();
       this.validationResult = elementResult.getValidationResult();
       this.tabIndex = tabIndex;
