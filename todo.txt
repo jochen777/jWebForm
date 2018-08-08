@@ -140,6 +140,8 @@
  - tabindex
  - element
 
+* in pebble: dynamiccally include view elements (avoid long if/else)
+
 harmonize styleguide filenames in example project (camelcase and asdf_msdf mixed)
 
 * Doku jWebForm: template.md

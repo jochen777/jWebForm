@@ -136,16 +136,12 @@ public final class View {
   }
 
   public ViewElementContainer getViewElements() {
-    return getViewElements(false);
-  }
-
-  public ViewElementContainer getViewElements(boolean renderHtml) {
     Map<String, ViewElement> elements = new LinkedHashMap<>();
     List<ViewElement> elementList = new ArrayList<>();
     int tabIndex = 1;
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
       ElementResult elementResult = entry.getValue();
-      ViewElement ve = new ViewElement(entry.getKey(), entry.getValue(), renderHtml, tabIndex);
+      ViewElement ve = new ViewElement(entry.getKey(), entry.getValue(), tabIndex);
       elements.put(ve.name, ve);
       elementList.add(ve);
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
@@ -166,12 +162,9 @@ public final class View {
 
   public class ViewElement {
 
-    public ViewElement(ElementContainer elementContainer, ElementResult elementResult, boolean renderHtml, int tabIndex) {
+    public ViewElement(ElementContainer elementContainer, ElementResult elementResult, int tabIndex) {
       name = elementResult.getStaticElementInfo().getName();
-      if (renderHtml) {
-        ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, elementContainer);
-        this.html = pi.getHtml();
-      }
+      this.elementResult = elementResult;
       this.elementContainer = elementContainer;
       this.value = elementResult.getValue();
       this.valueObject = elementResult.getValueObject();
@@ -182,7 +175,7 @@ public final class View {
       childs = new ArrayList<>();
       elementResult.getChilds().forEach((elemRes) -> {
         elemRes.getValue().getChilds();
-        childs.add(new ViewElement(elemRes.getKey(), elemRes.getValue(), renderHtml, tabIndex));
+        childs.add(new ViewElement(elemRes.getKey(), elemRes.getValue(), tabIndex));
       });
       this.nameOfInput = getTypeName(elementContainer.element);
 
@@ -190,8 +183,14 @@ public final class View {
 
 
     public ElementContainer elementContainer;
+    public ElementResult elementResult;
     public String name;
-    public String html="";
+
+    public String getHtml() {
+      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, elementContainer);
+      return pi.getHtml();
+    }
+
     public String value;
     public Object valueObject;
     public ValidationResult validationResult;
