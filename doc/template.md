@@ -54,9 +54,14 @@ valueObject: the value as native object (for example the date or a boolean)
 validationResult: the validation result
 childs: childs as *ViewElement* if this is a complex element like date
 tabIndex: the tabIndex
-nameOfInput: The type-name (?)
-elementNameInfo: a map that describes the element (?)
+nameOfInput: The type-name (for example "SelectInput", "TextInput"...)
 
+elementNameInfo: a map that describes the element:
+
+* "NameOfElement": true -> Holds a boolean "true" for this name. Allows in template engins "if elementNameInfo.XSRFProtectionType ..." 
+* "type" -> {text|number|password|} (optional)
+* "selected" -> List of select items, if type is select
+* "radioElements" -> List of radio-elements if type is radio
 
 ## Available data within the ValidationResult
 

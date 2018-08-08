@@ -185,12 +185,6 @@ public final class View {
     public ElementContainer elementContainer;
     public ElementResult elementResult;
     public String name;
-
-    public String getHtml() {
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, elementContainer);
-      return pi.getHtml();
-    }
-
     public String value;
     public Object valueObject;
     public ValidationResult validationResult;
@@ -198,6 +192,13 @@ public final class View {
     public int tabIndex;
     public String nameOfInput;
     public Map<String, Object> elementNameInfo;
+
+
+    public String getHtml() {
+      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, elementContainer);
+      return pi.getHtml();
+    }
+
   }
 
   private Map<String, Object> fillElementNameInfo(Element element, ElementResult elementResult) {
