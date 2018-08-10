@@ -125,8 +125,14 @@
 * Rebuild test-cases. Isolate upload case from other cases. Make tests smaller (OK)
 * check if we can have less public
 #############################
- 
 
+* clean up producerInfo. Dismiss redundandent View Objects
+
+* Important good apis:
+    * Declaring Elements (fine!)
+    * Form-Usage (fine!)
+    * Define your own elements (fine!)
+    * output elements in template
 
 
 * Allow for view only Drawable Element that combines all other types.

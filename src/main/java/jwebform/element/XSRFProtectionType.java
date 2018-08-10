@@ -91,7 +91,7 @@ public class XSRFProtectionType implements SingleType {
       String rendererdHtml = tags.toString();
 
       String problemDescription = "";
-      if (!producerInfos.getElementResult().getValidationResult().isValid) {
+      if (!producerInfos.getValidationResult().isValid) {
         problemDescription = "XSRF Problem!<br>"; // RFE: MAke this
                                                   // nicer/configurable!
       }

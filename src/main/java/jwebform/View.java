@@ -14,7 +14,6 @@ import jwebform.element.TextType;
 import jwebform.element.structure.*;
 import jwebform.processors.ElementResults;
 import jwebform.validation.ValidationResult;
-import jwebform.validation.Validator;
 import jwebform.view.ProducerInfos;
 
 public final class View {
@@ -61,69 +60,35 @@ public final class View {
   ////////// For rendering within templates
 
 
-
-  public List<String> getElementNames() {
+  public ProducerInfosContainer getProducerInfosContainer() {
+    List<ProducerInfos> elementList = new ArrayList<>();
+    Map<String, ProducerInfos> elementMap = new LinkedHashMap<>();
     List<String> names = new ArrayList<>();
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
-      names.add(entry.getValue().getStaticElementInfo().getName());
-    }
-    return names;
-  }
-
-  public List<ProducerInfos> getUnrenderedElements() {
-    List<ProducerInfos> elements = new ArrayList<>();
     int tabIndex = 1;
     for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
       ElementResult elementResult = entry.getValue();
       ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, entry.getKey(),
-          createProducerInfoChilds(elementResult.getChilds(), tabIndex));
-      elements.add(pi);
+        createProducerInfoChilds(elementResult.getChilds(), tabIndex));
+      elementList.add(pi);
+      elementMap.put(elementResult.getStaticElementInfo().getName(), pi);
+      names.add(elementResult.getStaticElementInfo().getName());
       tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
     }
-    return elements;
+    return new ProducerInfosContainer(elementMap, elementList, names);
+
   }
 
-  // for using with low capable template engines like mustache
-  public List<DrawableElement> getDrawableElements() {
-    List<DrawableElement> elements = new ArrayList<>();
-    int tabIndex = 1;
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
-      ElementResult elementResult = entry.getValue();
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, entry.getKey(),
-          createProducerInfoChilds(elementResult.getChilds(), tabIndex));
-      elements.add(new DrawableElement(pi));
-      tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
+  public class ProducerInfosContainer {
+    public final Map<String, ProducerInfos> piMap;
+    public final List<ProducerInfos> piList;
+    public final List<String> names;
+
+    public ProducerInfosContainer(
+      Map<String, ProducerInfos> piMap, List<ProducerInfos> piList, List<String> names) {
+      this.piMap = piMap;
+      this.piList = piList;
+      this.names = names;
     }
-    return elements;
-  }
-
-
-
-  public Map<String, ProducerInfos> getAllUnrenderedElements() {
-    Map<String, ProducerInfos> elements = new LinkedHashMap<>();
-    int tabIndex = 1;
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
-      ElementResult elementResult = entry.getValue();
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, entry.getKey());
-      elements.put(elementResult.getStaticElementInfo().getName(), pi);
-      tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
-    }
-    return elements;
-  }
-
-
-
-  public Map<String, RenderedElement> getElements() {
-    Map<String, RenderedElement> elements = new LinkedHashMap<>();
-    int tabIndex = 1;
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
-      ElementResult elementResult = entry.getValue();
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, entry.getKey());
-      elements.put(elementResult.getStaticElementInfo().getName(),
-          new RenderedElement(pi.getHtml(), pi, elementResult));
-      tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
-    }
-    return elements;
   }
 
   private List<ProducerInfos> createProducerInfoChilds(ElementResults childs, int tabIndex) {
@@ -135,154 +100,8 @@ public final class View {
     return listOfPis;
   }
 
-  public ViewElementContainer getViewElements() {
-    Map<String, ViewElement> elements = new LinkedHashMap<>();
-    List<ViewElement> elementList = new ArrayList<>();
-    int tabIndex = 1;
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
-      ElementResult elementResult = entry.getValue();
-      ViewElement ve = new ViewElement(entry.getKey(), entry.getValue(), tabIndex);
-      elements.put(ve.name, ve);
-      elementList.add(ve);
-      tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
-    }
-    return new ViewElementContainer(elements, elementList);
-  }
 
-  public class ViewElementContainer {
-    public Map<String, ViewElement> elementMap;
-    public List<ViewElement> elementList;
-
-    public ViewElementContainer(
-      Map<String, ViewElement> elementMap, List<ViewElement> elementList) {
-      this.elementMap = elementMap;
-      this.elementList = elementList;
-    }
-  }
-
-  public class ViewElement {
-
-    public ViewElement(ElementContainer elementContainer, ElementResult elementResult, int tabIndex) {
-      name = elementResult.getStaticElementInfo().getName();
-      this.elementResult = elementResult;
-      this.elementContainer = elementContainer;
-      this.value = elementResult.getValue();
-      this.valueObject = elementResult.getValueObject();
-      this.validationResult = elementResult.getValidationResult();
-      this.tabIndex = tabIndex;
-      this.elementNameInfo = fillElementNameInfo(elementContainer.element, elementResult);
-
-      childs = new ArrayList<>();
-      elementResult.getChilds().forEach((elemRes) -> {
-        elemRes.getValue().getChilds();
-        childs.add(new ViewElement(elemRes.getKey(), elemRes.getValue(), tabIndex));
-      });
-      this.nameOfInput = getTypeName(elementContainer.element);
-
-    }
-
-
-    public ElementContainer elementContainer;
-    public ElementResult elementResult;
-    public String name;
-    public String value;
-    public Object valueObject;
-    public ValidationResult validationResult;
-    public List<ViewElement> childs;
-    public int tabIndex;
-    public String nameOfInput;
-    public Map<String, Object> elementNameInfo;
-
-
-    public String getHtml() {
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, elementContainer);
-      return pi.getHtml();
-    }
-
-  }
-
-  private Map<String, Object> fillElementNameInfo(Element element, ElementResult elementResult) {
-    Map<String, Object> elementNameInfo = new HashMap<>();
-    elementNameInfo.put(getTypeName(element), Boolean.TRUE);
-    if (element instanceof TextType) {
-      elementNameInfo.put("type", "text");
-    } else if (element instanceof NumberType) {
-      elementNameInfo.put("type", "number");
-    } else if (element instanceof PasswordType) {
-      elementNameInfo.put("type", "password");
-    }
-    if (element instanceof SelectType) {
-      SelectType select = (SelectType) element;
-      elementNameInfo.put("selected",
-        select.getSelectListWithSelected(elementResult.getValue()));
-    }
-    if (element instanceof RadioType) {
-      RadioType radio = (RadioType) element;
-      elementNameInfo.put("radioElements",
-        radio.getEntryListWithSelected(elementResult.getValue()));
-    }
-    return elementNameInfo;
-  }
-
-  private String getTypeName(Element element) {
-    return element.getClass().getName().replaceAll("jwebform\\.element\\.", "");
-  }
-
-
-  // this is for simple template-engines like mustache
-  public class DrawableElement {
-    private final ProducerInfos producerInfos;
-    private final Map<String, Object> elementNameInfo;
-
-    public Map<String, Object> getElementNameInfo() {
-      return elementNameInfo;
-    }
-
-    public DrawableElement(ProducerInfos producerInfos) {
-      this.producerInfos = producerInfos;
-      elementNameInfo = fillElementNameInfo(producerInfos.getElement(), producerInfos.getElementResult());
-    }
-
-
-    public List<DrawableElement> getChilds() {
-      List<DrawableElement> drawableChilds = new ArrayList<>();
-      producerInfos.getChilds()
-          .forEach((producerInfos) -> drawableChilds.add(new DrawableElement(producerInfos)));
-      return drawableChilds;
-    }
-
-
-
-    public ProducerInfos getProducerInfos() {
-      return producerInfos;
-    }
-
-  }
-
-  public class RenderedElement {
-    private final String html;
-    private final ProducerInfos producerInfos;
-    private final ElementResult elementResult;
-
-    public RenderedElement(String html, ProducerInfos producerInfos, ElementResult elementResult) {
-      this.html = html;
-      this.producerInfos = producerInfos;
-      this.elementResult = elementResult;
-    }
-
-    public String getHtml() {
-      return html;
-    }
-
-    public ProducerInfos getProducerInfos() {
-      return producerInfos;
-    }
-
-    public ElementResult getElementResult() {
-      return elementResult;
-    }
-
-  }
+  /////////////////////////////////////////////------------------
 
   public static enum Method {
     POST, GET
