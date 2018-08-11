@@ -1,6 +1,6 @@
-## Remember: Standard form handling WITHOUT jFormChecker
+## Remember: Standard form handling WITHOUT jWebform
 
-Without jFormChecker, html forms must be constructed manually in the template.
+Without jWebform, html forms must be constructed manually in the template.
 
 Example-Definition of a form in spring-mvc:
 ```java
@@ -82,5 +82,5 @@ As you can see, especially on the template side, you have to enter a lot of (red
 stuff for basic highlighting errors. 
 And this stuff within the template must be repeated for every form 
 and can not be easily used in a generic way. 
-In contrast to that, jWebform can define Forms completly in code and 
+In contrast to that, jWebform can define forms completly in code and 
 let the template render the form in a generic way.

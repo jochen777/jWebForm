@@ -21,7 +21,7 @@ model.addAttribute("form", formResult.getView(View.Html5Validation.off, View.Met
 
 ## Available data within the view
 
-The view object provides these variables:
+The view object provides these methods (always with prefix "get"):
 
 formId : ID of the form (important, if you have more than one form on your page)
 
@@ -31,32 +31,50 @@ isUploadEnctypeRequired: Indicates, if a special upload type is required (enctyp
 
 isHtml5Validaiton: If the form should be validated with html 5
 
-viewElements:  *ViewElementContainer* Object. 
+producerInfosContainer:  *ProducerInfosContainer* Object. 
 
 
 
 
-## Available data within the ViewElementContainer
+## Available data within the ProducerInfosContainer
 
 
-elementList: List of *ViewElement* Object
+piList: List of *ProducerInfos* Object
 
-elementMap: Map of <Name, *ViewElement*>. For "manually" accessing the elements
+piNao: Map of <Name, *ProducerInfos*>. For "manually" accessing the elements
+
+names: List of the names of the elements
 
 
-## Available data within the ViewElement
+## Available data within the ProducerInfos
 
-elementContainer: holds the element, the decoration and the validaton
 name: name of the element
+
 html: rendered html
+
+formId: Id of the form
+
 value: the value as string
+
 valueObject: the value as native object (for example the date or a boolean)
+
 validationResult: the validation result
-childs: childs as *ViewElement* if this is a complex element like date
+
+childs: childs as *ProducerInfos* if this is a complex element like date
+
 tabIndex: the tabIndex
+
 nameOfInput: The type-name (for example "SelectInput", "TextInput"...)
 
-elementNameInfo: a map that describes the element:
+element: The element (type)
+
+elementTypeName: fully classiefied class-name
+
+decoration: The Decoration
+
+validator: The validator object
+
+elementNameInfoMap: a map that describes the element:
 
 * "NameOfElement": true -> Holds a boolean "true" for this name. Allows in template engins "if elementNameInfo.XSRFProtectionType ..." 
 * "type" -> {text|number|password|} (optional)

@@ -10,7 +10,9 @@ Check out, how to use jFormchecker in your projects.
 
 [Validators](validators.md)
 
-[See building individual html whithin the template](individual_html.md)
+[Building individual html whithin the template](individual_html.md)
+
+[Individual Input Types](input_types.md)
 
 [Features](features.md)
 

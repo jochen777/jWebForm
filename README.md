@@ -10,7 +10,9 @@ HTML Forms in Java made easy. (currently in experimental stage!!)
 
 [![Build Status](https://travis-ci.org/jochen777/jFormchecker.svg?branch=master)](https://travis-ci.org/jochen777/jFormchecker)
 
-What about jFormChecker? After some months in production, I realised some points to improve, so I just rewrote it. So jWebForm is "jFormchecker 2". 
+What about jFormChecker? After a few months in production, 
+I realised some points to improve and wanted to change the name,  
+so I just rewrote it. jWebForm is jFormchecker2. 
 
 ## Overview
 
@@ -18,7 +20,6 @@ The form-handling support in current java MVC frameworks is very basic. jWebForm
 
 * central form-definition for reuse and separation of concerns
 * avoiding a lot of boilerplate code
-* no dependencies
 * very compact output in sourcecode of template
 
 * handling the request-response loop for forms
@@ -27,14 +28,17 @@ The form-handling support in current java MVC frameworks is very basic. jWebForm
 * pre-fillments of form-elements
 * automatically syntactical correct HTML (5) with label and "label-for"
 * pre-fillments of user-input after submit
-* max-lenght constraint on every element to avoid security issues (X)
-* easy validation, easy custom validation
+* max-lenght constraint on every element to avoid security issues (TBD)
+* easy prebuild validation variants, easy custom validation
 * all standard form fields and more (date-input)
+* prepared for multilang-setups
+* warn, if identical names are choosen
+* automatically set correct transfer mode if fileupload elment is used
 * prebuild Bootstrap Styles via theme project
 * prebuild ajax handling via integration project
-* prepared for multilang-setups
-* automatically set correct transfer mode if fileupload elment is used
-* warn, if identical names are choosen
+
+
+* no dependencies
 
 
 jWebForm is for java what Symfony-Forms is for PHP or Rose::HTML for Perl.
@@ -71,11 +75,6 @@ The concept is simple:
 ...
 ```
 
-## Sourcecode formatting
-
-Please use the sourcecodeformatting from google for java:
-
-https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml
 
 ## Thanks
 
