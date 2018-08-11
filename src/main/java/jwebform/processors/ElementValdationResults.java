@@ -9,7 +9,7 @@ import java.util.Map;
 
 // represents some Element-containers with their ValidationResults. Normally a result of a validator
 public class ElementValdationResults {
-  final Map<ElementContainer, ValidationResult> resutls ;
+  private final Map<ElementContainer, ValidationResult> resutls ;
 
   public static ElementValdationResults of (ElementContainer container, ValidationResult validationResult){
     ElementValdationResults r = new ElementValdationResults();

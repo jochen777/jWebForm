@@ -9,7 +9,7 @@ public class Env {
   final static SessionGet EMPTY_SESSION_GET = t -> "";
   final static SessionSet EMPTY_SESSION_SET = (k, v) -> {
   };
-  public final static String SUBMIT_KEY = "WF_SUBMITTED";
+  private final static String SUBMIT_KEY = "WF_SUBMITTED";
   public final static String SUBMIT_VALUE_PREFIX = "WF-";
 
   protected Env(Request request, SessionGet sessionGet, SessionSet sessionSet) {

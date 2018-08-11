@@ -103,12 +103,12 @@ public final class View {
 
   /////////////////////////////////////////////------------------
 
-  public static enum Method {
+  public enum Method {
     POST, GET
   }
 
 
-  public static enum Html5Validation {
+  public enum Html5Validation {
     on, off
   }
 }

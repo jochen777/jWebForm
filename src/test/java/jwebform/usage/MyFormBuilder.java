@@ -27,7 +27,7 @@ public class MyFormBuilder {
   private TypeBuilder[] getTypeBuildersForSampleForm() {
     Criterion req = Criteria.required();
 
-    TypeBuilder [] elAr = FormBuilder.array(
+    return FormBuilder.array(
       xsrfProtectionForTesting(),
       simple(),
       text("textInput", "Peter\"Paul").
@@ -66,8 +66,6 @@ public class MyFormBuilder {
       radio("radio", "1", new String[] {"1", "2"}, new String[] {"yes", "no"})
         .withLabel("Radio")
     );
-
-    return elAr;
   }
 
 

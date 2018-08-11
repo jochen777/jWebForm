@@ -18,7 +18,7 @@ public class CommonSelects {
 		return new CommonSelects();
 	}
 
-	static final String[] months  = {"january", "february", "march", "april", "may", "june", "july"
+	private static final String[] months  = {"january", "february", "march", "april", "may", "june", "july"
 			, "august", "september", "october", "november", "december"};
 
 	

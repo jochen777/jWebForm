@@ -33,8 +33,8 @@ class DateTypeHelper {
     this.name = name;
   }
 
-  public LocalDate setupDateValue(LocalDate initialValue, String dayStr, String monthStr,
-      String yearStr) {
+  private LocalDate setupDateValue(
+    LocalDate initialValue, String dayStr, String monthStr, String yearStr) {
     if (isEmpty(dayStr) && isEmpty(monthStr)
         && isEmpty(yearStr)) {
       return initialValue; // TODO: maybe this is wrong: if nothing is entered, it can't be the
@@ -97,7 +97,7 @@ class DateTypeHelper {
     return result;
   }
 
-  public boolean isEmpty(final CharSequence cs) {
+  private boolean isEmpty(final CharSequence cs) {
     return cs == null || cs.length() == 0;
   }
 

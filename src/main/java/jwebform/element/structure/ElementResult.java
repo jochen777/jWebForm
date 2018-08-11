@@ -14,7 +14,7 @@ public final class ElementResult {
   private final StaticElementInfo staticElementInfo;
   private final ElementResults childs;
 
-  public static final String EMPTY_STRING = "";
+  private static final String EMPTY_STRING = "";
   public static final String NO_NAME = "";
   public static final ElementResults NOCHILDS = new ElementResults();
 
