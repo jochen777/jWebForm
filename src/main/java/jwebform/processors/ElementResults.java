@@ -85,6 +85,7 @@ public class ElementResults implements Iterable<Map.Entry<ElementContainer, Elem
   public class ElementNotFoundException extends RuntimeException {
     private final String elementName;
     public ElementNotFoundException(String msg, String elementName) {
+      super(msg);
       this.elementName = elementName;
     }
 
