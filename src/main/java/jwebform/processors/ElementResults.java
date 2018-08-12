@@ -56,8 +56,8 @@ public class ElementResults implements Iterable<Map.Entry<ElementContainer, Elem
         return i.getValueObject();
       }
     }
-    throw new RuntimeException(
-        String.format("The element named %s does not exist in form", elementName));
+    throw new ElementNotFoundException(
+        "This element does not exist in form", elementName);
   }
 
   public final ElementValdationResults computeSingleElementValidation(String elementName, ValidationResult vr) {
@@ -82,5 +82,15 @@ public class ElementResults implements Iterable<Map.Entry<ElementContainer, Elem
     return elementResultMap.keySet();
   }
 
+  public class ElementNotFoundException extends RuntimeException {
+    private final String elementName;
+    public ElementNotFoundException(String msg, String elementName) {
+      this.elementName = elementName;
+    }
+
+    public String getElementName() {
+      return elementName;
+    }
+  }
 
 }
