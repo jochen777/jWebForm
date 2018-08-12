@@ -1,10 +1,11 @@
 package jwebform;
 
-import java.util.Map.Entry;
 import jwebform.View.Html5Validation;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.processors.ElementResults;
+
+import java.util.Map.Entry;
 
 public class FormResult {
 
@@ -32,11 +33,11 @@ public class FormResult {
   }
 
   public View getView(View.Method method) {
-    return new View(formId, elementResults, method, Html5Validation.on);
+    return new View(formId, elementResults, method, Html5Validation.ON);
   }
 
   public View getView() {
-    return new View(formId, elementResults, View.Method.POST, Html5Validation.on);
+    return new View(formId, elementResults, View.Method.POST, Html5Validation.ON);
   }
 
 
@@ -54,7 +55,7 @@ public class FormResult {
 
 
   public final String debugOutput() {
-    StringBuffer b = new StringBuffer();
+    StringBuilder b = new StringBuilder();
     for (Entry<ElementContainer, ElementResult> elem : elementResults) {
       b.append("Name:").append(elem.getValue().getStaticElementInfo().getName()).append(", Value")
           .append(elem.getValue().getValue()).append("\n")

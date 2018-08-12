@@ -1,8 +1,5 @@
 package jwebform.usage;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.element.HtmlType;
@@ -10,6 +7,10 @@ import jwebform.element.SimpleType;
 import jwebform.element.TextType;
 import jwebform.element.structure.Decoration;
 import jwebform.env.EnvBuilder;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class IdenticalNameException {
 

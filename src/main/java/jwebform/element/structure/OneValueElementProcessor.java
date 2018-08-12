@@ -1,9 +1,10 @@
 package jwebform.element.structure;
 
-import java.util.function.Predicate;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
+
+import java.util.function.Predicate;
 
 // Generic class that deals with processing and rendering of standard one field elements
 public class OneValueElementProcessor {

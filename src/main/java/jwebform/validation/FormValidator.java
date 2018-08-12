@@ -1,7 +1,5 @@
 package jwebform.validation;
 
-import java.util.Map;
-import jwebform.element.structure.ElementContainer;
 import jwebform.processors.ElementResults;
 import jwebform.processors.ElementValdationResults;
 

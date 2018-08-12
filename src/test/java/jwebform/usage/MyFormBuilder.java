@@ -3,8 +3,6 @@ package jwebform.usage;
 import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormResult;
-import static jwebform.element.builder.Type.*;
-
 import jwebform.element.builder.TypeBuilder;
 import jwebform.processors.ElementValdationResults;
 import jwebform.validation.Criterion;
@@ -13,6 +11,8 @@ import jwebform.validation.ValidationResult;
 import jwebform.validation.criteria.Criteria;
 
 import java.time.LocalDate;
+
+import static jwebform.element.builder.Type.*;
 
 public class MyFormBuilder {
 

@@ -35,3 +35,4 @@ List of features:
 * mostly immutable objects
 * functional interfaces, lambdas
 * clean code
+* AAA rating in sonoarqube 

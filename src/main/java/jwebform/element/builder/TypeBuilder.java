@@ -1,11 +1,12 @@
 package jwebform.element.builder;
 
-import java.util.function.Supplier;
 import jwebform.element.structure.Decoration;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
 import jwebform.validation.Criterion;
 import jwebform.validation.Validator;
+
+import java.util.function.Supplier;
 
 public class TypeBuilder {
 

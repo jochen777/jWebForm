@@ -1,11 +1,12 @@
 package jwebform.validation;
 
+import jwebform.validation.criteria.Criteria;
+import jwebform.validation.criteria.MaxLength;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import jwebform.validation.criteria.Criteria;
-import jwebform.validation.criteria.MaxLength;
 
 /**
  * Validator, that checks a form-element

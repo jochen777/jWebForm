@@ -1,18 +1,15 @@
 package jwebform.element;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import jwebform.element.structure.CommonSelects;
-import jwebform.element.structure.Decoration;
-import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.GroupType;
+import jwebform.element.structure.*;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.processors.ElementResults;
 import jwebform.validation.FormValidator;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.Criteria;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Date-Input with dropdown selects
@@ -57,7 +54,7 @@ public class SelectDateType implements GroupType {
 
   @Override
   public List<FormValidator> getValidators(ElementContainer source) {
-    return helper.getValidators(source);
+    return helper.getValidators();
   }
 
 

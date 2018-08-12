@@ -1,10 +1,11 @@
 package jwebform.processors;
 
+import jwebform.element.structure.ElementContainer;
+import jwebform.element.structure.ElementResult;
+
 import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
-import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.ElementResult;
 
 
 public class CheckDoubleElementsPostProcessor implements PostProcessor {

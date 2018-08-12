@@ -1,17 +1,18 @@
 package jwebform.processors;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.GroupType;
 import jwebform.element.structure.SingleType;
+import jwebform.env.Env;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 // this is doing the "hard work": Let each element do the apply function, run validations, run
 // form-validations
@@ -58,39 +59,47 @@ public class Processor {
   private ElementResults processElements(EnvWithSubmitInfo env, List<ElementContainer> elements) {
     ElementResults elementResults = new ElementResults();
     for (ElementContainer container : elements) {
-
-
       if (container.element instanceof GroupType) {
-        ElementResults groupElementResults = this.run(env, (GroupType) container.element);
-        ElementResult groupResult =
-            ((GroupType) container.element).process(env, groupElementResults);
-        elementResults.put(container, groupResult.cloneWithChilds(groupElementResults));
-
-        // TODO: das eigentliche element (groupElement) brauch auch ein Value. Wie kommt es da dran?
-        // Dürfte es auch HTML und ein input-element ausgeben?
-        // evtl. ein neues "Ober" Element einführen? Also z.B. Element -> Input, Group
+        processGroup(env, elementResults, container);
       } else {
-        // here is where the magic happens! The "apply" method of the elements is called.
-        ElementResult result = ((SingleType) container.element).apply(env);
-        if (env.isSubmitted()) {
-          if (result.getValidationResult() != ValidationResult.undefined()) {
-            // element has set the validation itself. This might happen in complex elements. And
-            // will
-            // override the following validation
-            // --- do nothing
-          } else {
-            result = result.ofValidationResult(container.validator.validate(result.getValue()));
-          }
-        } else {
-          // do nothing
-        }
-        if (elementResults.containsElement(container)) {
-          throw new IdenticalElementException(container);
-        }
-        elementResults.put(container, result);
+        proessSingleElement(env, elementResults, container);
       }
     }
     return elementResults;
+  }
+
+  private void proessSingleElement(
+    EnvWithSubmitInfo env, ElementResults elementResults, ElementContainer container) {
+    // here is where the magic happens! The "apply" method of the elements is called.
+    ElementResult result = ((SingleType) container.element).apply(env);
+    if (env.isSubmitted()) {
+      if (result.getValidationResult() != ValidationResult.undefined()) {
+        // element has set the validation itself. This might happen in complex elements. And
+        // will
+        // override the following validation
+        // --- do nothing
+      } else {
+        result = result.ofValidationResult(container.validator.validate(result.getValue()));
+      }
+    } else {
+      // do nothing
+    }
+    if (elementResults.containsElement(container)) {
+      throw new IdenticalElementException(container);
+    }
+    elementResults.put(container, result);
+  }
+
+  private void processGroup(
+    EnvWithSubmitInfo env, ElementResults elementResults, ElementContainer container) {
+    ElementResults groupElementResults = this.run(env, (GroupType) container.element);
+    ElementResult groupResult =
+        ((GroupType) container.element).process(env, groupElementResults);
+    elementResults.put(container, groupResult.cloneWithChilds(groupElementResults));
+
+    // TODO: das eigentliche element (groupElement) brauch auch ein Value. Wie kommt es da dran?
+    // Dürfte es auch HTML und ein input-element ausgeben?
+    // evtl. ein neues "Ober" Element einführen? Also z.B. Element -> Input, Group
   }
 
   private ElementValdationResults runFormValidations(ElementResults elementResults,

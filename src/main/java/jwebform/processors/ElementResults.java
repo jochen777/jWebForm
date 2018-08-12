@@ -1,13 +1,14 @@
 package jwebform.processors;
 
+import jwebform.element.structure.ElementContainer;
+import jwebform.element.structure.ElementResult;
+import jwebform.validation.ValidationResult;
+
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.ElementResult;
-import jwebform.validation.ValidationResult;
 
 // Holds the elementResults and the elements itself
 public class ElementResults implements Iterable<Map.Entry<ElementContainer, ElementResult>> {

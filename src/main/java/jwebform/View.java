@@ -1,20 +1,16 @@
 package jwebform;
 
+import jwebform.element.structure.ElementContainer;
+import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.ForceFileuploadMethod;
+import jwebform.processors.ElementResults;
+import jwebform.view.ProducerInfos;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import jwebform.element.NumberType;
-import jwebform.element.PasswordType;
-import jwebform.element.RadioType;
-import jwebform.element.SelectType;
-import jwebform.element.TextType;
-import jwebform.element.structure.*;
-import jwebform.processors.ElementResults;
-import jwebform.validation.ValidationResult;
-import jwebform.view.ProducerInfos;
 
 public final class View {
 
@@ -54,7 +50,7 @@ public final class View {
   }
 
   public boolean isHtml5Validaiton() {
-    return html5Validaiton == Html5Validation.on;
+    return html5Validaiton == Html5Validation.ON;
   }
 
   ////////// For rendering within templates
@@ -109,7 +105,7 @@ public final class View {
 
 
   public enum Html5Validation {
-    on, off
+    ON, OFF
   }
 }
 

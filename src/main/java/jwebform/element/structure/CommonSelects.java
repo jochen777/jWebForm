@@ -1,9 +1,9 @@
 package jwebform.element.structure;
 
+import jwebform.element.SelectType;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import jwebform.element.SelectType;
 
 /**
  * Common selects. Like gender, months...

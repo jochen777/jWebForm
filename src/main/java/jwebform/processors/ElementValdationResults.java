@@ -3,7 +3,6 @@ package jwebform.processors;
 import jwebform.element.structure.ElementContainer;
 import jwebform.validation.ValidationResult;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

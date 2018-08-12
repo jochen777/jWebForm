@@ -1,9 +1,5 @@
 package jwebform;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import jwebform.element.SimpleGroup;
 import jwebform.element.builder.TypeBuilder;
 import jwebform.element.structure.ElementContainer;
@@ -11,6 +7,11 @@ import jwebform.element.structure.GroupType;
 import jwebform.element.structure.SingleType;
 import jwebform.processors.FormResultBuilder;
 import jwebform.validation.FormValidator;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 // Simplifies Building of a form.
 public class FormBuilder {
@@ -22,11 +23,6 @@ public class FormBuilder {
   private List<FormValidator> formValidators = new ArrayList<>();
   private List<TypeBuilder> typeBuilders = new ArrayList<>();
   private List<SingleType> singleTypes = new ArrayList<>();
-
-  // arrays
-  private SingleType [] singleTypeArray;
-  private TypeBuilder [] typeBuilderArray;
-  private ElementContainer [] elementContainerArray;
 
 
   private FormBuilder(String id, FormResultBuilder formResultBuilder) {

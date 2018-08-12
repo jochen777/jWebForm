@@ -5,9 +5,6 @@ public class EnvBuilder {
 
   private int maxLen = 1000;
 
-  public EnvBuilder() {
-  }
-
   public EnvBuilder setMaxLen(int maxLen) {
     this.maxLen = maxLen;
     return this;

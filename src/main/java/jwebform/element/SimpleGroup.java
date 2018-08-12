@@ -1,6 +1,5 @@
 package jwebform.element;
 
-import java.util.List;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.GroupType;
@@ -8,6 +7,8 @@ import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.processors.ElementResults;
 import jwebform.validation.FormValidator;
+
+import java.util.List;
 
 public class SimpleGroup implements GroupType {
 

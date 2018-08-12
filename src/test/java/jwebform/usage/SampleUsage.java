@@ -1,10 +1,5 @@
 package jwebform.usage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.Test;
 import jwebform.FormResult;
 import jwebform.View;
 import jwebform.View.Html5Validation;
@@ -12,6 +7,13 @@ import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SampleUsage {
 
@@ -58,11 +60,11 @@ public class SampleUsage {
         t -> t, (k, v) -> {
         });
     FormResult result = getFormResult(env);
-    View v = result.getView(Html5Validation.on);
+    View v = result.getView(Html5Validation.ON);
     assertEquals(true, v.isUploadEnctypeRequired());
 
     FormResult resultWithoutUpload = getFormResultWithoutUpload(env);
-    View v2 = resultWithoutUpload.getView(Html5Validation.on);
+    View v2 = resultWithoutUpload.getView(Html5Validation.ON);
     assertEquals(false, v2.isUploadEnctypeRequired());
 
 
@@ -239,7 +241,7 @@ public class SampleUsage {
     assertEquals(formId, result.getFormId());
 
 
-    View v = result.getView(Html5Validation.on);
+    View v = result.getView(Html5Validation.ON);
     assertEquals("POST", v.getMethod());
     assertEquals(true, v.isHtml5Validaiton());
 
@@ -247,7 +249,7 @@ public class SampleUsage {
     assertEquals("GET", v2.getMethod());
     assertEquals(true, v2.isHtml5Validaiton());
 
-    View v3 = result.getView(Html5Validation.off, View.Method.POST);
+    View v3 = result.getView(Html5Validation.OFF, View.Method.POST);
     assertEquals("POST", v3.getMethod());
     assertEquals(false, v3.isHtml5Validaiton());
 

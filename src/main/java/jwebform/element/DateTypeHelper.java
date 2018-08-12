@@ -1,11 +1,5 @@
 package jwebform.element;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.List;
-
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.StaticElementInfo;
@@ -14,6 +8,12 @@ import jwebform.processors.ElementResults;
 import jwebform.processors.ElementValdationResults;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.List;
 
 // Suppporting class for date handling types
 class DateTypeHelper {
@@ -40,10 +40,10 @@ class DateTypeHelper {
       return initialValue; // TODO: maybe this is wrong: if nothing is entered, it can't be the
       // initial value!
     }
-    int day = getDefaultValueFromRequest(dayStr);
-    int month = getDefaultValueFromRequest(monthStr);
-    int year = getDefaultValueFromRequest(yearStr);
-    return LocalDate.of(year, month, day);
+    int dayInt = getDefaultValueFromRequest(dayStr);
+    int monthInt = getDefaultValueFromRequest(monthStr);
+    int yearInt = getDefaultValueFromRequest(yearStr);
+    return LocalDate.of(yearInt, monthInt, dayInt);
   }
 
   private int getDefaultValueFromRequest(String input) {
@@ -51,7 +51,7 @@ class DateTypeHelper {
   }
 
 
-  public List<FormValidator> getValidators(ElementContainer source) {
+  public List<FormValidator> getValidators() {
     return Collections.singletonList((elements) -> {
       ElementValdationResults validationResult = new ElementValdationResults();
 

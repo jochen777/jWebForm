@@ -1,8 +1,9 @@
 package jwebform.element.structure;
 
-import javax.annotation.Generated;
 import jwebform.processors.ElementResults;
 import jwebform.validation.ValidationResult;
+
+import javax.annotation.Generated;
 
 // that what is coming out of a "run" method of an element
 public final class ElementResult {

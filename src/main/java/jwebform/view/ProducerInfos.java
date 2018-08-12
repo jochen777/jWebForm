@@ -1,7 +1,10 @@
 package jwebform.view;
 
 import jwebform.element.*;
-import jwebform.element.structure.*;
+import jwebform.element.structure.Decoration;
+import jwebform.element.structure.Element;
+import jwebform.element.structure.ElementContainer;
+import jwebform.element.structure.ElementResult;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 
