@@ -8,17 +8,17 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class Min extends AbstractNumberComparingCriterion {
-  private final int min;
+  private final int minValue;
 
   Min(int min) {
-    this.min = min;
+    this.minValue = min;
   }
 
   @Override
   public ValidationResult validateNumberAndSetError(int input) {
-    boolean isValid = input > min;
+    boolean isValid = input > minValue;
     if (!isValid) {
-      return ValidationResult.fail("jformchecker.min", min);
+      return ValidationResult.fail("jformchecker.min", minValue);
     }
     return ValidationResult.ok();
   }

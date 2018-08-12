@@ -27,16 +27,6 @@ public class Validator {
     return EMPTY_VALIDATOR;
   }
 
-  // this will not work for criteria, that are not constant! Use a loop with "instantof"
-  @Deprecated
-  public boolean containsExactCriterion(Criterion criterionToSearch) {
-    for (Criterion criterion : criteria) {
-      if (criterionToSearch == criterion) {
-        return true;
-      }
-    }
-    return false;
-  }
 
   public boolean isRequired() {
     for (Criterion criterion : criteria) {

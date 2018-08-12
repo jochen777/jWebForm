@@ -8,17 +8,17 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class Max extends AbstractNumberComparingCriterion {
-  private final int max;
+  private final int maxValue;
 
   Max(int max) {
-    this.max = max;
+    this.maxValue = max;
   }
 
   @Override
   public ValidationResult validateNumberAndSetError(int input) {
-    boolean isValid = input < max;
+    boolean isValid = input < maxValue;
     if (!isValid) {
-      return ValidationResult.fail("jformchecker.max", max);
+      return ValidationResult.fail("jformchecker.max", maxValue);
     }
     return ValidationResult.ok();
   }

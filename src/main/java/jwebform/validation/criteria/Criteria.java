@@ -8,6 +8,10 @@ import jwebform.validation.Criterion;
  * Based on work of armandino (at) gmail.com
  */
 public class Criteria {
+
+  private Criteria() {
+    // hide public Constructor, because this can only be used with the static methods
+  }
   private static final Email email = new Email();
   private static final ZipCode zipCode = new ZipCode();
   private static final PostcodeCA postcodeCA = new PostcodeCA();

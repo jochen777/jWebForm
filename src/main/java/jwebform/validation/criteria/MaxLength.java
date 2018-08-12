@@ -9,21 +9,21 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class MaxLength implements Criterion {
-  private final int maxLength;
+  private final int maxLengthOfInput;
 
   MaxLength(int maxLength) {
-    this.maxLength = maxLength;
+    this.maxLengthOfInput = maxLength;
   }
 
   public int getMaxLength() {
-    return maxLength;
+    return maxLengthOfInput;
   }
 
   @Override
   public ValidationResult validate(String value) {
-    boolean isValid = value.length() <= maxLength;
+    boolean isValid = value.length() <= maxLengthOfInput;
     if (!isValid) {
-      return ValidationResult.fail("jformchecker.max_len", maxLength);
+      return ValidationResult.fail("jformchecker.max_len", maxLengthOfInput);
     }
     return ValidationResult.ok();
   }
