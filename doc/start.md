@@ -6,11 +6,9 @@ Check out, how to use jFormchecker in your projects.
 
 [Concept](concept.md)
 
-[Hints for rendering the form within the template](template.md)
+[Rendering the form in template](template.md)
 
 [Validators](validators.md)
-
-[Building individual html whithin the template](individual_html.md)
 
 [Individual Input Types](input_types.md)
 
