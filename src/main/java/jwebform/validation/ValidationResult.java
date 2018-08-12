@@ -23,8 +23,9 @@ public class ValidationResult {
     return isValid;
   }
 
+  // Will return either the translated message (if set) or the messageKey
   public String getMessage() {
-    return message;
+    return translatedMessage.length()>0?translatedMessage: message;
   }
 
   public Object[] getErrorVals() {
@@ -41,6 +42,10 @@ public class ValidationResult {
     this.message = message;
     this.errorVals = errorVals;
     this.translatedMessage = translatedMessage;
+  }
+
+  public String getMessageKey() {
+    return message;
   }
 
   // factory methods

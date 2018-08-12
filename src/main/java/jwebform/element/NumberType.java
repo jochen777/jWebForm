@@ -31,8 +31,6 @@ public class NumberType implements SingleType {
     } catch (NumberFormatException e) {
       parsedNumber = 0;
     }
-    // ValidationResult vr = oneValueElement.validate(env, oneValueElement.validator, requestVal,
-    // val);
     return ElementResult.builder().withValue(parsedNumberVal)
         .withStaticElementInfo(
             new StaticElementInfo(oneValueElement.name, t -> "<!-- number -->", 1))

@@ -62,9 +62,7 @@ class DateTypeHelper {
         setupDateValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
             yearResult.getValue());
       } catch (DateTimeException | NumberFormatException e) {
-        // validationResult.put(day, ValidationResult.fail("jformchecker.wrong_date_format"));
-        // validationResult.put(month, ValidationResult.fail("jformchecker.wrong_date_format"));
-        // validationResult.put(year, ValidationResult.fail("jformchecker.wrong_date_format"));
+        // nothing have to happen here, because the validation for the group will be set to false
       }
       return validationResult;
     });

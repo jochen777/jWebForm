@@ -33,7 +33,6 @@ public class OneValueElementProcessor {
     if (validateInput.test(input)) {
       value = input;
     }
-    // ValidationResult vr = validate(env, validator, requestVal, value);
     return ElementResult.builder().withValue(value)
         .withStaticElementInfo(new StaticElementInfo(name, htmlProducer, tabIndexIncr)).build();
   }
