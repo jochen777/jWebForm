@@ -14,8 +14,8 @@ import java.util.Base64;
 // Form-Elmement, that provides XSRF protection
 public class XSRFProtectionType implements SingleType {
 
-  private final String TOKENNAME = "tokenname";
-  private final String TOKENVAL = "tokenVal";
+  private static final String TOKENNAME = "tokenname";
+  private static final String TOKENVAL = "tokenVal";
 
   private final SecureRandom random = new SecureRandom();
 
