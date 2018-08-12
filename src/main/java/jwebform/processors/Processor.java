@@ -4,7 +4,6 @@ import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.GroupType;
 import jwebform.element.structure.SingleType;
-import jwebform.env.Env;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
