@@ -10,38 +10,38 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-// Holds the elementResults and the elements itself
+// Holds the elementResultMap and the elements itself
 public class ElementResults implements Iterable<Map.Entry<ElementContainer, ElementResult>> {
-  private final Map<ElementContainer, ElementResult> elementResults;
+  private final Map<ElementContainer, ElementResult> elementResultMap;
 
-  public ElementResults(Map<ElementContainer, ElementResult> elementResults) {
-    this.elementResults = elementResults;
+  public ElementResults(Map<ElementContainer, ElementResult> elementResultMap) {
+    this.elementResultMap = elementResultMap;
   }
 
   public ElementResults() {
-    this.elementResults = new LinkedHashMap<>();
+    this.elementResultMap = new LinkedHashMap<>();
   }
 
   public void put(ElementContainer container, ElementResult result) {
     // RFE: Not really final here!! :( We need something like vavr here to solve this efficiently
-    elementResults.put(container, result);
+    elementResultMap.put(container, result);
   }
 
   public boolean containsElement(ElementContainer container) {
-    return elementResults.containsKey(container);
+    return elementResultMap.containsKey(container);
   }
 
   public ElementResult get(ElementContainer element) {
-    return elementResults.get(element);
+    return elementResultMap.get(element);
   }
 
   @Override
   public Iterator<Entry<ElementContainer, ElementResult>> iterator() {
-    return elementResults.entrySet().iterator();
+    return elementResultMap.entrySet().iterator();
   }
 
   public String getElementStringValue(String elementName) {
-    for (ElementResult i : elementResults.values()) {
+    for (ElementResult i : elementResultMap.values()) {
       if (elementName.equals(i.getStaticElementInfo().getName())) {
         return i.getValue();
       }
@@ -51,7 +51,7 @@ public class ElementResults implements Iterable<Map.Entry<ElementContainer, Elem
   }
 
   public final Object getObectValue(String elementName) {
-    for (ElementResult i : elementResults.values()) {
+    for (ElementResult i : elementResultMap.values()) {
       if (elementName.equals(i.getStaticElementInfo().getName())) {
         return i.getValueObject();
       }
@@ -65,7 +65,7 @@ public class ElementResults implements Iterable<Map.Entry<ElementContainer, Elem
   }
 
   public ElementContainer getElement(String elementName) {
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults.entrySet()) {
+    for (Map.Entry<ElementContainer, ElementResult> entry : elementResultMap.entrySet()) {
       if (elementName.equals(entry.getValue().getStaticElementInfo().getName())) {
         return entry.getKey();
       }
@@ -74,12 +74,12 @@ public class ElementResults implements Iterable<Map.Entry<ElementContainer, Elem
   }
 
   public Object size() {
-    return elementResults.size();
+    return elementResultMap.size();
   }
 
   public Set<ElementContainer> getContainers() {
     // TODO Auto-generated method stub
-    return elementResults.keySet();
+    return elementResultMap.keySet();
   }
 
 

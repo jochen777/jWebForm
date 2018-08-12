@@ -48,7 +48,7 @@ public class OneValueElementProcessor {
   }
 
 
-  public ValidationResult validate(EnvWithSubmitInfo env, Validator validator, String requestVal,
+  public ValidationResult validate(EnvWithSubmitInfo env, Validator validator,
       String value) {
     if (env.isSubmitted()) {
       return validator.validate(value);

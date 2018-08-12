@@ -7,6 +7,11 @@ import java.util.List;
 
 // central builder class to allow simple building of all build-in types.
 public class Type {
+
+  private Type() {
+    // hide public constructor
+  }
+
   public static TypeBuilder text(String name, String initialValue) {
     return new TypeBuilder().withTypeSupplier(() -> new TextType(name, initialValue));
   }
