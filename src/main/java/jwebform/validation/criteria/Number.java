@@ -17,10 +17,8 @@ public final class Number implements Criterion {
 
   @Override
   public ValidationResult validate(String value) {
-    if (value.length() > 0) {
-      if (pattern.matcher(value).matches()) {
+    if (value.length() > 0 && pattern.matcher(value).matches()) {
         return ValidationResult.ok();
-      }
     }
     return ValidationResult.fail("jformchecker.not_a_number");
   }

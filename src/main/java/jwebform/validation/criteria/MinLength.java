@@ -9,17 +9,17 @@ import jwebform.validation.ValidationResult;
  * Based on work of armandino (at) gmail.com
  */
 public final class MinLength implements Criterion {
-  private final int minLength;
+  private final int minLengthValue;
 
   MinLength(int minLength) {
-    this.minLength = minLength;
+    this.minLengthValue = minLength;
   }
 
   @Override
   public ValidationResult validate(String value) {
-    boolean isValid = value.length() >= minLength;
+    boolean isValid = value.length() >= minLengthValue;
     if (!isValid) {
-      return ValidationResult.fail("jformchecker.min_len", minLength);
+      return ValidationResult.fail("jformchecker.min_len", minLengthValue);
     }
     return ValidationResult.ok();
   }
