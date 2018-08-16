@@ -1,6 +1,14 @@
-# Features of jWebform
+# Compare jWebform to jFormchecker
 
-List of features:
+Why did I rewrote the jFormchecker lib?
+
+In short: jFormchecker was not clean code as we know it. 
+The library itself did too much things at once, the classes were too big,
+the API too bloated.
+
+I tried to design jWebform more carefully and the result is far better:
+
+The core library
 
 ## Core
 

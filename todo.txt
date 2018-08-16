@@ -124,35 +124,25 @@
 * make StringUtils Package private (OK)
 * Rebuild test-cases. Isolate upload case from other cases. Make tests smaller (OK)
 * check if we can have less public
+* clean up producerInfo. Dismiss redundandent View Objects (OK)
+* Doku jWebForm: template.md (OK)
+* Doku: build your own type (OK)
 #############################
 
-* clean up producerInfo. Dismiss redundandent View Objects
 
-* Important good apis:
-    * Declaring Elements (fine!)
-    * Form-Usage (fine!)
-    * Define your own elements (fine!)
-    * output elements in template
+Aufgefallen bei Integration in Produktion:
+* Type ist zu generisch. Besser z.B. "FormType" / "Typebuilder"
 
-
-* Allow for view only Drawable Element that combines all other types.
- - name
- - html
- - decoration
- - value
- - valueObject
- - validation
- - childs
- - tabindex
- - element
+* best practice beschreiben: FormBuilder klasse sollte validierung, form darstellung und daten-handling machen.
+Nicht mehr! Validierungs-Funktionen am besten per Lamda reinreichen.
 
 * in pebble: dynamiccally include view elements (avoid long if/else)
 
 harmonize styleguide filenames in example project (camelcase and asdf_msdf mixed)
 
-* Doku jWebForm: template.md
 
-* Doku: build your own type
+
+
 * doku: build your own validator
 
 
