@@ -48,7 +48,7 @@ The concept is simple:
 <dependency>
     <groupId>de.cyclon-softworx</groupId>
     <artifactId>jWebForm</artifactId>
-    <version>x.x.x</version> <!-- check on maven central for the latest version -->
+    <version>0.0.9</version> <!-- check on maven central for the latest version -->
 </dependency>
 ...
 ```
