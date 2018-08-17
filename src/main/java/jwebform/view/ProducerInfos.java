@@ -1,17 +1,20 @@
 package jwebform.view;
 
-import jwebform.element.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import jwebform.element.NumberType;
+import jwebform.element.PasswordType;
+import jwebform.element.RadioType;
+import jwebform.element.SelectType;
+import jwebform.element.TextType;
 import jwebform.element.structure.Decoration;
 import jwebform.element.structure.Element;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 // Infos, that the HTMLProducer needs to render the HTML. This will be provided by the form-run
 public class ProducerInfos {
@@ -46,7 +49,7 @@ public class ProducerInfos {
 
 
   public ProducerInfos getTabIndexIncreased() {
-    return new ProducerInfos(this.formId, tabIndex+1, elementResult, elementContainer, childs);
+    return new ProducerInfos(this.formId, tabIndex + 1, elementResult, elementContainer, childs);
   }
 
 
@@ -79,9 +82,13 @@ public class ProducerInfos {
     return elementContainer.decoration;
   }
 
-  public String getValue() { return elementResult.getValue(); }
+  public String getValue() {
+    return elementResult.getValue();
+  }
 
-  public Object getValueObject() { return elementResult.getValueObject(); }
+  public Object getValueObject() {
+    return elementResult.getValueObject();
+  }
 
   public Validator getValidator() {
     return elementContainer.validator;
@@ -89,6 +96,10 @@ public class ProducerInfos {
 
   public ValidationResult getValidationResult() {
     return elementResult.getValidationResult();
+  }
+
+  public ElementResult getElementResult() {
+    return elementResult;
   }
 
   public Map<String, Object> getElementInfoMap() {
@@ -103,13 +114,12 @@ public class ProducerInfos {
     }
     if (elementContainer.element instanceof SelectType) {
       SelectType select = (SelectType) elementContainer.element;
-      elementNameInfo.put("selected",
-        select.getSelectListWithSelected(elementResult.getValue()));
+      elementNameInfo.put("selected", select.getSelectListWithSelected(elementResult.getValue()));
     }
     if (elementContainer.element instanceof RadioType) {
       RadioType radio = (RadioType) elementContainer.element;
       elementNameInfo.put("radioElements",
-        radio.getEntryListWithSelected(elementResult.getValue()));
+          radio.getEntryListWithSelected(elementResult.getValue()));
     }
     return elementNameInfo;
   }

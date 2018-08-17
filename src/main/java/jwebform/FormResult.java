@@ -1,11 +1,7 @@
 package jwebform;
 
 import jwebform.View.Html5Validation;
-import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.ElementResult;
 import jwebform.processors.ElementResults;
-
-import java.util.Map.Entry;
 
 public class FormResult {
 
@@ -51,17 +47,6 @@ public class FormResult {
 
   public final Object getObectValue(String name) {
     return elementResults.getObectValue(name);
-  }
-
-
-  public final String debugOutput() {
-    StringBuilder b = new StringBuilder();
-    for (Entry<ElementContainer, ElementResult> elem : elementResults) {
-      b.append("Name:").append(elem.getValue().getStaticElementInfo().getName()).append(", Value")
-          .append(elem.getValue().getValue()).append("\n")
-          .append(elem.getValue().getValidationResult()).append("\n");
-    }
-    return "FormResult" + formIsValid + "\n " + b.toString();
   }
 
 
