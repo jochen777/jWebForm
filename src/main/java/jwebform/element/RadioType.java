@@ -1,12 +1,11 @@
 package jwebform.element;
 
+import java.util.ArrayList;
+import java.util.List;
 import jwebform.element.structure.ElementResult;
 import jwebform.element.structure.OneValueElementProcessor;
 import jwebform.element.structure.SingleType;
 import jwebform.env.Env.EnvWithSubmitInfo;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RadioType implements SingleType {
 
@@ -22,8 +21,8 @@ public class RadioType implements SingleType {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResultWithInputCheck(env, t -> "<!-- checkbox -->",
-      this::ensureValueIsAllowed);
+    return oneValueElement.calculateElementResultWithInputCheck(env, t -> "<!-- radio -->",
+        this::ensureValueIsAllowed);
   }
 
   /**

@@ -15,7 +15,7 @@ public class PasswordType implements SingleType {
 
   @Override
   public ElementResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResult(env, t -> "<!-- number -->");
+    return oneValueElement.calculateElementResult(env, t -> "<!-- password -->");
   }
 
 
