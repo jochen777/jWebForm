@@ -17,3 +17,7 @@ target/
 
 /sonar-project.properties
 /.gitconfig
+
+.scannerwork
+.sts4-cache
+
