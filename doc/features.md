@@ -21,6 +21,7 @@ List of features:
 * all standard form fields and more (date-input)
 * prepared for multilang-setups
 * warn, if identical names are choosen
+* allow groups of elements for complex types
 * automatically set correct transfer mode if fileupload elment is used
 
 ## Available extensions

@@ -1,5 +1,8 @@
-package jwebform.element.structure;
+package jwebform.element.helper;
 
+import jwebform.element.structure.ElementResult;
+import jwebform.element.structure.HTMLProducer;
+import jwebform.element.structure.StaticElementInfo;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;

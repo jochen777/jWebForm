@@ -59,6 +59,8 @@ What about jFormChecker? After a few months in production,
 I realised some points to improve and wanted to change the name,  
 so I just rewrote it. jWebForm is jFormchecker2. 
 
+[Improvements over jFormchecker](doc/jformchecker_compare.md)
+
 ## Documentation
 
 [Documentation](doc/start.md)

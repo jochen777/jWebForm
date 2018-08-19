@@ -4,13 +4,13 @@ import jwebform.validation.Validator;
 
 // holds everything, that is important to an element (Element Definition, validation, behaviours)
 public class ElementContainer {
-  public final Element element;
+  public final FieldType element;
   public final Validator validator;
   public final Decoration decoration;
 
   private final static Decoration emptyDecoration = new Decoration("");
 
-  public ElementContainer(Element element, Validator validator,
+  public ElementContainer(FieldType element, Validator validator,
       Decoration decoration) {
     this.element = element;
     this.validator = validator;
@@ -19,12 +19,12 @@ public class ElementContainer {
 
 
 
-  public ElementContainer(Element element, Validator validator) {
+  public ElementContainer(FieldType element, Validator validator) {
     this(element, validator, emptyDecoration);
   }
 
 
-  public ElementContainer(Element element) {
+  public ElementContainer(FieldType element) {
     this(element, Validator.emptyValidator()); 
   }
 

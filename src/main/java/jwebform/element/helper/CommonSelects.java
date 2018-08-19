@@ -1,4 +1,4 @@
-package jwebform.element.structure;
+package jwebform.element.helper;
 
 import jwebform.element.SelectType;
 

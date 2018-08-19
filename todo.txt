@@ -132,7 +132,8 @@
 Namen wechseln:
 * Type / Element
 * Type
-(Suggestion: Element is the container of a type, a validator and a decoration)
+(Suggestion: Fieldcontainer | Field | Decoration | Validator )
+ is the container of a type, a validator and a decoration)
 
 * Kein Validator mehr im Element sondern eine Liste von Criterias
 * RFE und TODOS elemenieren
@@ -141,7 +142,7 @@ Namen wechseln:
 ----
 
 Aufgefallen bei Integration in Produktion:
-* Type ist zu generisch. Besser z.B. "FormType" / "Typebuilder"
+* Type ist zu generisch. Besser z.B. "FormType" / "Typebuilder". Idee: Typebuilder und Type in einer klasse
 
 * best practice beschreiben: FormBuilder klasse sollte validierung, form darstellung und daten-handling machen.
 Nicht mehr! Validierungs-Funktionen am besten per Lamda reinreichen.

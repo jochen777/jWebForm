@@ -2,8 +2,8 @@ package jwebform.element.structure;
 
 import jwebform.validation.Validator;
 
-// just a marker interface. A form has elements
-public interface Element {
+// just a marker interface. A form has fields
+public interface FieldType {
 
   default ElementContainer of() {
     return new ElementContainer(this);

@@ -10,7 +10,7 @@ import jwebform.element.RadioType;
 import jwebform.element.SelectType;
 import jwebform.element.TextType;
 import jwebform.element.structure.Decoration;
-import jwebform.element.structure.Element;
+import jwebform.element.structure.FieldType;
 import jwebform.element.structure.ElementContainer;
 import jwebform.element.structure.ElementResult;
 import jwebform.validation.ValidationResult;
@@ -66,7 +66,7 @@ public class ProducerInfos {
     return tabIndex;
   }
 
-  public Element getElement() {
+  public FieldType getElement() {
     return this.elementContainer.element;
   }
 
@@ -124,7 +124,7 @@ public class ProducerInfos {
     return elementNameInfo;
   }
 
-  private String getTypeName(Element element) {
+  private String getTypeName(FieldType element) {
     return element.getClass().getName().replaceAll("jwebform\\.element\\.", "");
   }
 

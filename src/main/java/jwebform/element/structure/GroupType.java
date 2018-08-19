@@ -12,7 +12,7 @@ import java.util.List;
  * need a GroupFormResult?
  *
  */
-public interface GroupType extends Element {
+public interface GroupType extends FieldType {
   List<ElementContainer> getChilds();
 
   ElementResult process(EnvWithSubmitInfo env, ElementResults childResults);

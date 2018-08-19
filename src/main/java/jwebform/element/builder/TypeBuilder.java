@@ -1,7 +1,7 @@
 package jwebform.element.builder;
 
 import jwebform.element.structure.Decoration;
-import jwebform.element.structure.Element;
+import jwebform.element.structure.FieldType;
 import jwebform.element.structure.ElementContainer;
 import jwebform.validation.Criterion;
 import jwebform.validation.Validator;
@@ -15,10 +15,10 @@ public class TypeBuilder {
   private String placeholder = "";
   private Criterion[] criteria = new Criterion[0];
 
-  private Supplier<Element> typeSupplier;
+  private Supplier<FieldType> typeSupplier;
 
 
-  public TypeBuilder withTypeSupplier(Supplier<Element> typeSupplier) {
+  public TypeBuilder withTypeSupplier(Supplier<FieldType> typeSupplier) {
     this.typeSupplier = typeSupplier;
     return this;
   }
