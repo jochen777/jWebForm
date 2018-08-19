@@ -26,11 +26,11 @@ import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.criteria.Criteria;
 
-public class MyFormBuilder {
+public class SampleFormBuilder {
 
   String formId;
 
-  public MyFormBuilder(String id) {
+  public SampleFormBuilder(String id) {
     this.formId = id;
   }
 

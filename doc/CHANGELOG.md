@@ -1,5 +1,13 @@
 # jFormChecker changelog
 
+### 0.0.10 
+
+2018/xx/xx 
+
+Improve Documentation
+Refactor for better Naming
+
+
 
 ### 0.0.9 
 
