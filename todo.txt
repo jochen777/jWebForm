@@ -132,6 +132,23 @@
 Namen wechseln:
 * Type / Element
 * Type
+
+Bisher:
+-------
+Element
+  SingleType  - GroupType
+
+ElementContainer (Element, Validator, Decoration)
+
+ElementResult
+
+StaticElementInfo
+
+
+
+
+
+
 (Suggestion: Fieldcontainer | Field | Decoration | Validator )
  is the container of a type, a validator and a decoration)
 
