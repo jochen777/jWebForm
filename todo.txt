@@ -129,6 +129,16 @@
 * Doku: build your own type (OK)
 #############################
 
+Namen wechseln:
+* Type / Element
+* Type
+(Suggestion: Element is the container of a type, a validator and a decoration)
+
+* Kein Validator mehr im Element sondern eine Liste von Criterias
+* RFE und TODOS elemenieren
+* Kommentare hinzufügen
+
+----
 
 Aufgefallen bei Integration in Produktion:
 * Type ist zu generisch. Besser z.B. "FormType" / "Typebuilder"

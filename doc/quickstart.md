@@ -44,7 +44,7 @@ Write a controller, that uses this form: (Here Spring MVC)
 
   @RequestMapping("/form")
   public String demoJWebForm(HttpServletRequest request, Model model) {
-    FormResult formResult = buildForm().run((key) -> request.getParameter(key)); // pass the request-params via lambda 
+    FormResult formResult = form.run((key) -> request.getParameter(key)); // pass the request-params via lambda 
     
     model.addAttribute("form", formResult.getView()); // add the view object to the model
     
