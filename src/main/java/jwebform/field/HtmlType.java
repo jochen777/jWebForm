@@ -18,7 +18,7 @@ public class HtmlType implements SingleFieldType {
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
     // Beware - no escaping!!
-    return FieldResult.builder().withStaticElementInfo(new StaticFieldInfo("", t -> html, 0)).
+    return FieldResult.builder().withStaticFieldInfo(new StaticFieldInfo("", t -> html, 0)).
     withValidationResult(ValidationResult
       .ok()).build();
   }

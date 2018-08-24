@@ -34,7 +34,7 @@ public class CheckBoxType implements SingleFieldType {
       }
     }
     return FieldResult.builder().withValue(value)
-        .withStaticElementInfo(new StaticFieldInfo(name, t -> "<!-- checkbox -->", 1))
+        .withStaticFieldInfo(new StaticFieldInfo(name, t -> "<!-- checkbox -->", 1))
         .withValueObject(checked).build();
   }
 

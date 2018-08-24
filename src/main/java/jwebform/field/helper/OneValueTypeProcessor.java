@@ -9,25 +9,25 @@ import jwebform.validation.Validator;
 
 import java.util.function.Predicate;
 
-// Generic class that deals with processing and rendering of standard one field elements
-public class OneValueElementProcessor {
+// Generic class that deals with processing and rendering of standard single types
+public class OneValueTypeProcessor {
 
   final public String name;
   final public String initialValue;
   final public Predicate<String> alwaysFine = (t) -> true;
 
 
-  public OneValueElementProcessor(String name, String initialValue) {
+  public OneValueTypeProcessor(String name, String initialValue) {
     this.name = name;
     this.initialValue = initialValue;
   }
 
-  public FieldResult calculateElementResultWithInputCheck(EnvWithSubmitInfo env,
+  public FieldResult calculateTypeWithInputCheck(EnvWithSubmitInfo env,
       HTMLProducer htmlProducer, Predicate<String> validateInput) {
-    return calculateElementResultWithInputCheck(env, htmlProducer, validateInput, 1);
+    return calculateTypeWithInputCheck(env, htmlProducer, validateInput, 1);
   }
 
-  public FieldResult calculateElementResultWithInputCheck(EnvWithSubmitInfo env,
+  public FieldResult calculateTypeWithInputCheck(EnvWithSubmitInfo env,
       HTMLProducer htmlProducer, Predicate<String> validateInput, int tabIndexIncr) {
 
     String requestVal = env.getEnv().getRequest().getParameter(name);
@@ -37,16 +37,16 @@ public class OneValueElementProcessor {
       value = input;
     }
     return FieldResult.builder().withValue(value)
-        .withStaticElementInfo(new StaticFieldInfo(name, htmlProducer, tabIndexIncr)).build();
+        .withStaticFieldInfo(new StaticFieldInfo(name, htmlProducer, tabIndexIncr)).build();
   }
 
-  public FieldResult calculateElementResult(EnvWithSubmitInfo env, HTMLProducer htmlProducer) {
-    return calculateElementResultWithInputCheck(env, htmlProducer, alwaysFine);
+  public FieldResult calculateFieldResult(EnvWithSubmitInfo env, HTMLProducer htmlProducer) {
+    return calculateTypeWithInputCheck(env, htmlProducer, alwaysFine);
   }
 
-  public FieldResult calculateElementResultNoTabIndexIncrement(EnvWithSubmitInfo env,
+  public FieldResult calculateFieldResultNoTabIndexIncrement(EnvWithSubmitInfo env,
       HTMLProducer htmlProducer) {
-    return calculateElementResultWithInputCheck(env, htmlProducer, alwaysFine, 0);
+    return calculateTypeWithInputCheck(env, htmlProducer, alwaysFine, 0);
   }
 
 

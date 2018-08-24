@@ -5,7 +5,7 @@ import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.StaticFieldInfo;
 import jwebform.env.Env;
 import jwebform.processor.FieldResults;
-import jwebform.processor.ElementValdationResults;
+import jwebform.processor.FieldValdationResults;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 
@@ -54,7 +54,7 @@ class DateTypeHelper {
 
   public List<FormValidator> getValidators() {
     return Collections.singletonList((elements) -> {
-      ElementValdationResults validationResult = new ElementValdationResults();
+      FieldValdationResults validationResult = new FieldValdationResults();
 
       FieldResult dayResult = elements.get(day);
       FieldResult monthResult = elements.get(month);
@@ -86,7 +86,7 @@ class DateTypeHelper {
     }
 
     FieldResult result = FieldResult.builder().withValue(dateValStr).withChilds(childs)
-        .withStaticElementInfo(
+        .withStaticFieldInfo(
             new StaticFieldInfo(name, t -> "<!-- " + fallbackTypename + " -->", 3))
         .withValueObject(dateValue).build();
 

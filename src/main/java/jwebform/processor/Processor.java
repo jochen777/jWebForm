@@ -13,61 +13,61 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-// this is doing the "hard work": Let each element do the apply function, run validations, run
+// this is doing the "hard work": Let each field do the apply function, run validations, run
 // form-validations
 public class Processor {
 
 
-  // do the processing of the elements, the validation and the form-validation
+  // do the processing of the field, the validation and the form-validation
   public final FieldResults run(EnvWithSubmitInfo envWithSubmitInfo, GroupFieldType group) {
     // call the apply Method
-    FieldResults elementResults = processElements(envWithSubmitInfo, group.getChilds());
+    FieldResults fieldResults = processFields(envWithSubmitInfo, group.getChilds());
 
     // run preprocessors
-    elementResults = this.runPostProcessors(elementResults);
+    fieldResults = this.runPostProcessors(fieldResults);
 
     // run the form validators
-    ElementValdationResults overridenValidationResults =
-        this.runFormValidations(elementResults, group.getValidators(group.of()));
+    FieldValdationResults overridenValidationResults =
+        this.runFormValidations(fieldResults, group.getValidators(group.of()));
 
     // if form-validators changed validaiton results, correct them on the elemtns
-    return this.correctElementResults(elementResults, overridenValidationResults);
+    return this.correctFieldResults(fieldResults, overridenValidationResults);
   }
 
 
 
-  // process each element. This is used for elements, that have children... (Lke Date-Selects)
-  public FieldResults processElements(EnvWithSubmitInfo env,
-      Field... elementsToProcess) {
-    return this.processElements(env, packElementContainerInList(elementsToProcess));
+  // process each field. This is used for fields, that have children... (Lke Date-Selects)
+  public FieldResults processFields(EnvWithSubmitInfo env,
+      Field... fieldsToProcess) {
+    return this.processFields(env, packFieldsInList(fieldsToProcess));
   }
 
 
   private List<PostProcessor> getPostProcessors() {
-    return Collections.singletonList(new CheckDoubleElementsPostProcessor());
+    return Collections.singletonList(new CheckDoubleFieldsPostProcessor());
   }
 
-  private FieldResults runPostProcessors(FieldResults elementResults) {
+  private FieldResults runPostProcessors(FieldResults fieldResults) {
     for (PostProcessor postProcessor : getPostProcessors()) {
-      elementResults = postProcessor.postProcess(elementResults);
+      fieldResults = postProcessor.postProcess(fieldResults);
     }
-    return elementResults;
+    return fieldResults;
 
   }
 
-  private FieldResults processElements(EnvWithSubmitInfo env, List<Field> elements) {
-    FieldResults elementResults = new FieldResults();
-    for (Field container : elements) {
+  private FieldResults processFields(EnvWithSubmitInfo env, List<Field> fields) {
+    FieldResults fieldResults = new FieldResults();
+    for (Field container : fields) {
       if (container.element instanceof GroupFieldType) {
-        processGroup(env, elementResults, container);
+        processGroup(env, fieldResults, container);
       } else {
-        proessSingleElement(env, elementResults, container);
+        processSingleType(env, fieldResults, container);
       }
     }
-    return elementResults;
+    return fieldResults;
   }
 
-  private void proessSingleElement(
+  private void processSingleType(
     EnvWithSubmitInfo env, FieldResults elementResults, Field container) {
     // here is where the magic happens! The "apply" method of the elements is called.
     FieldResult result = ((SingleFieldType) container.element).apply(env);
@@ -101,13 +101,13 @@ public class Processor {
     // evtl. ein neues "Ober" Element einführen? Also z.B. Element -> Input, Group
   }
 
-  private ElementValdationResults runFormValidations(
+  private FieldValdationResults runFormValidations(
     FieldResults elementResults,
       List<FormValidator> formValidators) {
 
 
     // run the form-validators
-    ElementValdationResults overridenValidationResults = new ElementValdationResults();
+    FieldValdationResults overridenValidationResults = new FieldValdationResults();
     for (FormValidator formValidator : formValidators) {
       overridenValidationResults.merge(formValidator.validate(elementResults));
     }
@@ -127,9 +127,9 @@ public class Processor {
 
 
 
-  private FieldResults correctElementResults(
+  private FieldResults correctFieldResults(
     FieldResults elementResults,
-    ElementValdationResults overridenValidationResults) {
+    FieldValdationResults overridenValidationResults) {
     overridenValidationResults.getResutls().forEach((element, overridenValidationResult) -> {
       FieldResult re = elementResults.get(element);
       elementResults.put(element, re.cloneWithNewValidationResult(overridenValidationResult));
@@ -147,7 +147,7 @@ public class Processor {
     }
   }
 
-  private static List<Field> packElementContainerInList(Field... elements) {
+  private static List<Field> packFieldsInList(Field... elements) {
     List<Field> ec = new ArrayList<>();
     Collections.addAll(ec, elements);
     return ec;

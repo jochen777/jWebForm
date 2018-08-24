@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 
-public class CheckDoubleElementsPostProcessor implements PostProcessor {
+public class CheckDoubleFieldsPostProcessor implements PostProcessor {
 
   @Override
   public FieldResults postProcess(FieldResults results) {

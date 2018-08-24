@@ -33,7 +33,7 @@ https://github.com/jochen777/jWebForm-integration
 
 The concept is simple: 
 
-1. Define a form with every element in it
+1. Define a form with fields in it
 
 2. "run" it
 

@@ -1,7 +1,7 @@
 package jwebform.validation;
 
 import jwebform.processor.FieldResults;
-import jwebform.processor.ElementValdationResults;
+import jwebform.processor.FieldValdationResults;
 
 // Validates a complete Form
 @FunctionalInterface
@@ -14,5 +14,5 @@ public interface FormValidator {
    * @param elements Elements of the form to validate
    * @return validation results for the elements
    */
-  ElementValdationResults validate(FieldResults elements);
+  FieldValdationResults validate(FieldResults elements);
 }

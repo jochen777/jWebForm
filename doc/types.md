@@ -14,7 +14,7 @@ Here is a list of all types that can be used within a form.
 | RadioType          | Radio Input | `Type.radio("radio", "1", new String[] {"1", "2"}, new String[] {"yes", "no"}` |
 | SelectDateType          | Date Input with Select Fields (Group) | `Type.selectDate("dateInput", LocalDate.of(2017, 7, 4))` |
 | SelectType          | SelectInput | `Type.select("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"})` |
-| SimpleGroup          | Group - holds elements |  |
+| SimpleGroup          | Group - holds fields|  |
 | SimpleType          | Very Simple Type (just for demo) | `Type.simple()` |
 | SubmitType          | Submit-Button | `Type.submit()` |
 | TextAreaType          | TextArea Type | `Type.textArea("area", "Area-Prebuild")` |

@@ -19,7 +19,7 @@ public class FormBuilder {
   private String id = "id"; // Default
   private FormResultBuilder formResultBuilder;
   private GroupFieldType group = new SimpleGroup(new ArrayList<>(), new ArrayList<>());
-  private List<Field> elementContainers = new ArrayList<>();
+  private List<Field> fields = new ArrayList<>();
   private List<FormValidator> formValidators = new ArrayList<>();
   private List<FieldBuilder> typeBuilders = new ArrayList<>();
   private List<SingleFieldType> singleTypes = new ArrayList<>();
@@ -50,9 +50,9 @@ public class FormBuilder {
   }
 
   private GroupFieldType buildGroup() {
-    elementContainers.addAll(processTypeBuilders());
-    elementContainers.addAll(processSingleTypes());
-    group.getChilds().addAll(elementContainers);
+    fields.addAll(processTypeBuilders());
+    fields.addAll(processSingleTypes());
+    group.getChilds().addAll(fields);
     group.getValidators(null /* will be ignored */).addAll(formValidators);
     return group;
   }
@@ -60,8 +60,8 @@ public class FormBuilder {
 
   private Collection<Field> processSingleTypes() {
     List<Field> ec = new ArrayList<>();
-    for (SingleFieldType element : singleTypes) {
-      ec.add(new Field(element));
+    for (SingleFieldType type : singleTypes) {
+      ec.add(new Field(type));
     }
     return ec;
   }
@@ -81,13 +81,13 @@ public class FormBuilder {
     return this;
   }
 
-  public FormBuilder elementContainer(List<Field> elList) {
-    elementContainers.addAll(elList);
+  public FormBuilder fields(List<Field> elList) {
+    fields.addAll(elList);
     return this;
   }
 
-  public FormBuilder elementContainer(Field... elList) {
-    elementContainers.addAll(new ArrayList<>(Arrays.asList(elList)));
+  public FormBuilder fields(Field... elList) {
+    fields.addAll(new ArrayList<>(Arrays.asList(elList)));
     return this;
   }
 

@@ -17,15 +17,15 @@ Add this dependency to your project:
 
 ## Define a form
 
-Fill a Form object with your Form-Elements:
+Fill a Form object with your Form-fields:
 
 
 ```Java
     private Form buildForm() {
       return FormBuilder.simple().typeBuilder(
-        Type.text("firstname").
+        text("firstname").
           withLabel("Firstname"), 
-        Type.text("email").
+        text("email").
           withLabel("Email").
           withCriteria(Criteria.required(), Criteria.email())
         ).build();

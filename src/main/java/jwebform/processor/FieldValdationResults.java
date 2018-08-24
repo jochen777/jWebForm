@@ -7,28 +7,28 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 // represents some Element-containers with their ValidationResults. Normally a result of a validator
-public class ElementValdationResults {
+public class FieldValdationResults {
   private final Map<Field, ValidationResult> resutls ;
 
-  public static ElementValdationResults of (Field container, ValidationResult validationResult){
-    ElementValdationResults r = new ElementValdationResults();
+  public static FieldValdationResults of (Field container, ValidationResult validationResult){
+    FieldValdationResults r = new FieldValdationResults();
     r.put(container, validationResult);
     return r;
   }
 
-  public static ElementValdationResults empty() {
-    return new ElementValdationResults();
+  public static FieldValdationResults empty() {
+    return new FieldValdationResults();
   }
 
-  public ElementValdationResults(Map<Field, ValidationResult> resutls) {
+  public FieldValdationResults(Map<Field, ValidationResult> resutls) {
     this.resutls = resutls;
   }
 
-  public ElementValdationResults() {
+  public FieldValdationResults() {
     this.resutls = new LinkedHashMap<>();
   }
 
-  public void merge(ElementValdationResults validate) {
+  public void merge(FieldValdationResults validate) {
     resutls.putAll(validate.getResutls());
   }
 

@@ -33,19 +33,19 @@ public final class FieldResult {
 
 
   public FieldResult ofValidationResult(ValidationResult vr) {
-    return FieldResult.builder().withChilds(childs).withStaticElementInfo(staticElementInfo)
+    return FieldResult.builder().withChilds(childs).withStaticFieldInfo(staticElementInfo)
         .withValidationResult(vr).withValue(value).withValueObject(valueObject).build();
   }
 
   public FieldResult cloneWithChilds(FieldResults childs) {
-    return FieldResult.builder().withChilds(childs).withStaticElementInfo(staticElementInfo)
+    return FieldResult.builder().withChilds(childs).withStaticFieldInfo(staticElementInfo)
         .withValidationResult(validationResult).withValue(value).withValueObject(valueObject)
         .build();
   }
 
 
   public FieldResult cloneWithNewValidationResult(ValidationResult newValidationResult) {
-    return FieldResult.builder().withChilds(childs).withStaticElementInfo(staticElementInfo)
+    return FieldResult.builder().withChilds(childs).withStaticFieldInfo(staticElementInfo)
         .withValidationResult(newValidationResult).withValue(value).withValueObject(valueObject)
         .build();
   }
@@ -115,7 +115,7 @@ public final class FieldResult {
       return this;
     }
 
-    public Builder withStaticElementInfo(StaticFieldInfo staticElementInfo) {
+    public Builder withStaticFieldInfo(StaticFieldInfo staticElementInfo) {
       this.staticElementInfo = staticElementInfo;
       return this;
     }

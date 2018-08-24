@@ -12,7 +12,7 @@ public class SimpleType implements SingleFieldType {
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
     return FieldResult.builder()
-        .withStaticElementInfo(new StaticFieldInfo("", t -> "simple\n", 0)).withValidationResult(ValidationResult
+        .withStaticFieldInfo(new StaticFieldInfo("", t -> "simple\n", 0)).withValidationResult(ValidationResult
         .ok()).build();
   }
 

@@ -1,21 +1,21 @@
 package jwebform.field;
 
-import jwebform.field.helper.OneValueElementProcessor;
+import jwebform.field.helper.OneValueTypeProcessor;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class PasswordType implements SingleFieldType {
 
-  public final OneValueElementProcessor oneValueElement;
+  public final OneValueTypeProcessor oneValueElement;
 
   public PasswordType(String name) {
-    this.oneValueElement = new OneValueElementProcessor(name, "");
+    this.oneValueElement = new OneValueTypeProcessor(name, "");
   }
 
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResult(env, t -> "<!-- password -->");
+    return oneValueElement.calculateFieldResult(env, t -> "<!-- password -->");
   }
 
 

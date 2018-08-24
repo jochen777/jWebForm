@@ -74,7 +74,7 @@ public class XSRFProtectionType implements SingleFieldType {
     // return new FieldResult("xsrf_protection", getRenderer(newName, xsrfVal),
     // tempValidationResult); // no representation
     return FieldResult.builder().withValue("")
-        .withStaticElementInfo(
+        .withStaticFieldInfo(
             new StaticFieldInfo("xsrf_protection", getRenderer(newName, xsrfVal), 0))
         .withValidationResult(tempValidationResult).build();
   }

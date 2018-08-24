@@ -35,7 +35,7 @@ public class SimpleGroup implements GroupFieldType {
 
   @Override
   public FieldResult process(EnvWithSubmitInfo env, FieldResults childs) {
-    return FieldResult.builder().withStaticElementInfo(new StaticFieldInfo("", t -> "", 0))
+    return FieldResult.builder().withStaticFieldInfo(new StaticFieldInfo("", t -> "", 0))
         .build();
   }
 

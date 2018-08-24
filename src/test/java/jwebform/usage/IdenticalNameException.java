@@ -18,7 +18,7 @@ public class IdenticalNameException {
   public void testIdenticalName() {
     try {
       Form f = FormBuilder.simple()
-          .elementContainer(new TextType("pete", "").of(new Decoration("Pete1")),
+          .fields(new TextType("pete", "").of(new Decoration("Pete1")),
               new TextType("pete", "").of(new Decoration("Pete2")))
           .build();
       f.run(new EnvBuilder().of(t -> t));

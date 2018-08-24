@@ -2,7 +2,7 @@ package jwebform.field;
 
 import java.util.ArrayList;
 import java.util.List;
-import jwebform.field.helper.OneValueElementProcessor;
+import jwebform.field.helper.OneValueTypeProcessor;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
 import jwebform.env.Env.EnvWithSubmitInfo;
@@ -11,17 +11,17 @@ public class RadioType implements SingleFieldType {
 
   final public List<RadioInputEntry> entries;
 
-  public final OneValueElementProcessor oneValueElement;
+  public final OneValueTypeProcessor oneValueElement;
 
   // RFE: Add groups too, allow nothing as initial value
   public RadioType(String name, String initialValue, String keys[], String values[]) {
-    this.oneValueElement = new OneValueElementProcessor(name, initialValue);
+    this.oneValueElement = new OneValueTypeProcessor(name, initialValue);
     entries = generateEntriesFromKeyValues(keys, values);
   }
 
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResultWithInputCheck(env, t -> "<!-- radio -->",
+    return oneValueElement.calculateTypeWithInputCheck(env, t -> "<!-- radio -->",
         this::ensureValueIsAllowed);
   }
 

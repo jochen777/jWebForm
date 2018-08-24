@@ -1,30 +1,30 @@
 package jwebform.field;
 
-import jwebform.field.helper.OneValueElementProcessor;
+import jwebform.field.helper.OneValueTypeProcessor;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
 import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class TextType implements SingleFieldType {
 
-  final public OneValueElementProcessor oneValueElement;
+  final public OneValueTypeProcessor oneValueField;
 
   public TextType(String name) {
-    this.oneValueElement = new OneValueElementProcessor(name, "");
+    this.oneValueField = new OneValueTypeProcessor(name, "");
   }
 
   public TextType(String name, String initialValue) {
-    this.oneValueElement = new OneValueElementProcessor(name, initialValue);
+    this.oneValueField = new OneValueTypeProcessor(name, initialValue);
   }
 
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateElementResult(env, t -> "<!-- text -->");
+    return oneValueField.calculateFieldResult(env, t -> "<!-- text -->");
   }
 
   @Override
   public String toString() {
-    return String.format("TextInput. name=%s", oneValueElement.name);
+    return String.format("TextInput. name=%s", oneValueField.name);
   }
 
 }

@@ -1,17 +1,17 @@
 # Concept
 
-First you need to build the form itself. The form contains elements and optional form-validators.
-The elements ("ElementContainer") consists of a type ("FormType"), validator (with "Criteria") 
+First you need to build the form itself. The form contains fields and optional form-validators.
+The fields consists of a type ("FormType"), some criteria ("Criterion" ...) 
 and a decoration ("Decoration").
 
 ## Form
 
-The form must be filled with ElementContainers and Validators.
+The form must be filled with "Fields" and some FormValidation.
 Optionally you can specifiy an "id", if you have more than one form on the page.
 
-#### ElmentContainer
+#### Field
 
-The ElementContainer holds: a type, some validation-rules and a decoration.
+The Field holds: a type, some validation-rules and a decoration.
 
 ##### Type
 
@@ -24,7 +24,7 @@ There a lots of predefined types in jWebform:
 See types.md for complete list of build-in types.
 [See complete list of build-in types.](types.md)
 
-The build in types define all basic input-elements and some additional ones.
+The build in types define all basic input-fields and some additional ones.
 
 You can define your own types. 
 You can even define groups of types for more complex situations.
@@ -46,14 +46,14 @@ You can define easily own validation critera.
 
 ##### Decoration
 
-You can decorate each element with a "Decoration". This holds a Label, a Helptext and a Placeholder text.
+You can decorate each field with a "Decoration". This holds a Label, a Helptext and a Placeholder text.
 You can extend this decoration to add more attributes to your input type.
 
 #### Form-Validators
 
 A form can be validated by FormValidators. You can have 0..n FormValidators.
-For example a registration form contains two Password - Elements. With a form validator 
-you can compare these two elements if they are equal.
+For example a registration form contains two Password - fields. With a form validator 
+you can compare these two fields if they are equal.
 
 ##FormResult
 
@@ -64,6 +64,13 @@ the Env object and you will get a FormResult.
    FormResult result = form.run(env);
 ```
 
+The FormResult holds the results of the fields. The result of earch field contains: 
+* the value, that was entered
+* the validation-result
+* the name of the value
+* the decoration 
+
+
 ###Env
 
 The Env objects holds the parameters from the request. Additionally you can pass information 
@@ -71,20 +78,13 @@ about the session, if you need XSRF protection.
 
 The cool thing: via this Env-Lambda you can abstract your webframework away and avoid dependencies.
 
-###FormResult
-
-The FormResult holds the results of the elements. The result of earch element contains: 
-* the value, that was entered
-* the validation-result
-* the name of the value
-* the decoration 
 
 ##View
 
 The FormResult can deliver a "View" Object, that has some convenience methods for a typical 
 view component in a MVC framework. Typically, you pass the view to the template.
 
-Within the template you loop over the elements and render each element for its own.
+Within the template you loop over the fields and render each field for its own.
 
 ![Overview](overview.png "Overview jFormchecker")
 

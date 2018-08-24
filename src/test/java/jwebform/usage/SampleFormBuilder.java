@@ -20,7 +20,7 @@ import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormResult;
 import jwebform.field.builder.FieldBuilder;
-import jwebform.processor.ElementValdationResults;
+import jwebform.processor.FieldValdationResults;
 import jwebform.validation.Criterion;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -114,7 +114,7 @@ public class SampleFormBuilder {
       if (valueOfTextInput.length() > 3) {
         return it.computeSingleElementValidation("textInput", ValidationResult.fail("not_ok"));
       }
-      return ElementValdationResults.empty();
+      return FieldValdationResults.empty();
     };
 
     return FormBuilder.withId(formId).validation(validator)

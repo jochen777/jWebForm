@@ -20,7 +20,7 @@ public class LabelType implements SingleFieldType {
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
     return FieldResult.builder()
-        .withStaticElementInfo(new StaticFieldInfo("", t -> "<!-- label -->", 0)).withValidationResult(ValidationResult
+        .withStaticFieldInfo(new StaticFieldInfo("", t -> "<!-- label -->", 0)).withValidationResult(ValidationResult
         .ok()).build();
   }
 

@@ -41,14 +41,14 @@ producerInfosContainer:  *ProducerInfosContainer* Object.
 
 piList: List of *ProducerInfos* Object
 
-piNao: Map of <Name, *ProducerInfos*>. For "manually" accessing the elements
+piNao: Map of <Name, *ProducerInfos*>. For "manually" accessing the fields
 
-names: List of the names of the elements
+names: List of the names of the fields
 
 
 ## Available data within the ProducerInfos
 
-name: name of the element
+name: name of the field
 
 html: rendered html
 
@@ -60,30 +60,30 @@ valueObject: the value as native object (for example the date or a boolean)
 
 validationResult: the validation result
 
-childs: childs as *ProducerInfos* if this is a complex element like date
+childs: childs as *ProducerInfos* if this is a complex field like date
 
 tabIndex: the tabIndex
 
 nameOfInput: The type-name (for example "SelectInput", "TextInput"...)
 
-element: The element (type)
+type: The type
 
-elementTypeName: fully classiefied class-name
+typeName: fully classiefied class-name
 
 decoration: The Decoration
 
 validator: The validator object
 
-elementNameInfoMap: a map that describes the element:
+fieldNameInfoMap: a map that describes the field:
 
-* "NameOfElement": true -> Holds a boolean "true" for this name. Allows in template engins "if elementNameInfo.XSRFProtectionType ..." 
+* "NameOfField": true -> Holds a boolean "true" for this name. Allows in template engins "if fieldNameInfo.XSRFProtectionType ..." 
 * "type" -> {text|number|password|} (optional)
 * "selected" -> List of select items, if type is select
-* "radioElements" -> List of radio-elements if type is radio
+* "radioFields" -> List of radio-Fields if type is radio
 
 ## Available data within the ValidationResult
 
-isValid: if the element is valid
+isValid: if the field is valid
 
 message: Message that describes the problem, if not valid
 
@@ -91,8 +91,8 @@ errorVals: values, that can describe the error-message. Example: min/max values
 
 ## Available data within the Decoration
 
-label: the label of the element
-helptext: the helptext of the element
-placeholder: the placeholder (if element supports this )
+label: the label of the field
+helptext: the helptext of the field
+placeholder: the placeholder (if field supports this )
 
 

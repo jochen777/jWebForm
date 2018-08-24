@@ -9,18 +9,18 @@ First, you have to decide: Single Input-Type or complex?
 
 Single input types typically consist of just one input tag. 
 
-To create one, implement the SingleType interface (jwebform.element.structure.SingleType). A good starting point 
-is to look at the sourcecode for jwebform.element.TextType.
+To create one, implement the SingleType interface (jwebform.field.structure.SingleType). A good starting point 
+is to look at the sourcecode for jwebform.field.TextType.
 
-For very simple types, take a look at jwebform.element.SimpleType
+For very simple types, take a look at jwebform.field.SimpleType
 
 Don't forget to add this type to your template code (or Java-Rendering logic).
 
 ## Complex Input Types
 
 If you want an input type, that is constructed out of other input types, 
-you have to choose the jwebform.element.structure.GroupType.
+you have to choose the jwebform.field.structure.GroupType.
 
-A good example is jwebform.element.TextDateType
+A good example is jwebform.field.TextDateType
 
 Don't forget to add this type to your template code (or Java-Rendering logic).  

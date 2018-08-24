@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Validator, that checks a form-element
+ * Validator, that checks a field
  * 
  * @author jochen
  *

@@ -60,8 +60,8 @@ public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
         "This element does not exist in form", elementName);
   }
 
-  public final ElementValdationResults computeSingleElementValidation(String elementName, ValidationResult vr) {
-    return ElementValdationResults.of(getElement(elementName), vr);
+  public final FieldValdationResults computeSingleElementValidation(String elementName, ValidationResult vr) {
+    return FieldValdationResults.of(getElement(elementName), vr);
   }
 
   public Field getElement(String elementName) {

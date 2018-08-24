@@ -1,9 +1,9 @@
 
  * - submit button (OK)
- * - simple input-element (OK)
- * - validate elements (OK)
- * - preset elements (OK)
- * - elements should expose a model (OK)
+ * - simple input-field (OK)
+ * - validate fields (OK)
+ * - preset fields (OK)
+ * - fields should expose a model (OK)
  *  check if complete form is valid (OK)
  * - Formvalidator (OK)
  * - tabindex(OK)
@@ -15,37 +15,37 @@
  
  * - xsrf (OK)
  
- * - firstRun? / * - form-id (mehrere forms pro Seite!. Entscheidung: edited=1 oder form-element-ids. (Symfony: form-element-ids - vielleicht diese optional machen - also nur einsetzen, wenn zwei Forms am start sind?) (OK)
+ * - firstRun? / * - form-id (mehrere forms pro Seite!. Entscheidung: edited=1 oder form-field-ids. (Symfony: form-field-ids - vielleicht diese optional machen - also nur einsetzen, wenn zwei Forms am start sind?) (OK)
  
  * Refactor and extend test (date, xsrf-protection) (OK)
  * idee: Die GetHTML Methode bekommt erst den Request und macht dann das nötige. nicht schon der Konstruktor. (OK)
- * Idee: ElementResult bekommt nicht html-string, sondern render-objekt (OK)
+ * Idee: fieldResult bekommt nicht html-string, sondern render-objekt (OK)
  
  * Everything immutable! (OK)
  * test 2 forms on the same page. (OK)
  * REFACTORINGS!! (RenderHints (OK), Decoration (OK))
  * fix form-result (OK)
- * could Element be immutable or the others too? (OK)
- * introduce HTMLProducer and avoid two loops over elements (OK)
+ * could field be immutable or the others too? (OK)
+ * introduce HTMLProducer and avoid two loops over fields (OK)
  
  * never use null (OK)
  * introduce performance-tests (OK)
  * avoid Tabindex interface (OK)
- * Builder for ElementResult and theme just in Form (not in PrepareInfos) (OK)
+ * Builder for fieldResult and theme just in Form (not in PrepareInfos) (OK)
  * run should not return html but a "HTMLRenderer" that renders the html in case we want it (OK)
-  * - different themes: via: Each element has a hash of renderers. Hash has always "default", but can have more (bootstrap, mobile...) (OK)
+  * - different themes: via: Each field has a hash of renderers. Hash has always "default", but can have more (bootstrap, mobile...) (OK)
  *   - you can add a set of renderers to a form to style differently (OK)
  * Provide clean values (LocalDate, boolean, integer...) (OK)
- -> Idee1: Return extended ElementResults with an extra field for the correct data
+ -> Idee1: Return extended fieldResults with an extra field for the correct data
  -> Idee2: Versuche das End-API zu formulieren, vielleicht folgt dann das korrekt ergebnis
- -> element - nicht mehr immutable (** das ist wahrscheinlich am besten!)
+ -> field - nicht mehr immutable (** das ist wahrscheinlich am besten!)
  -> Ergebnis-Holder
- -> object in addition to value in ElementResult with cast
+ -> object in addition to value in fieldResult with cast
 * 
- * fix form-result finally ( hat viel zu viele Elemente! -> Idee: jedes Element hat unveränderliche Werte (z.B. tabindexincr.) diese Gruppieren und als objekt zurückliefern) (OK)
+ * fix form-result finally ( hat viel zu viele fielde! -> Idee: jedes field hat unveränderliche Werte (z.B. tabindexincr.) diese Gruppieren und als objekt zurückliefern) (OK)
  * Do we need Themeable Interface at all? Reicht es nicht, den Render-Key zurückzugeben? Und wenn beim Rendern ein Key gefunden wird, wird der HTMLRenderer im Theme verwendet. (OK)
- * decide if we need raw object in ElementResult. so instead of "String value" -> Object value; -> NO
- * More Form-Elements (
+ * decide if we need raw object in fieldResult. so instead of "String value" -> Object value; -> NO
+ * More Form-fields (
  Select (OK)
  , checkbox, (OK)
  Label (OK)
@@ -58,24 +58,24 @@
  fileupload, (OK) 
  )
  * vernünftige code-formating regeln (OK)
- * decide if XXXElement or XXXInput or XXX and rename consistent (.net: Ohne, php: xxType, formchecker: Input) (OK)
- * Idee: Replace Element with Function<t,i> from java.util.function (OK)
- * test new elements
- * alle elemente mit vernünftigem Bootstrap-Theme ausgeben (OK)
- * Warning, wenn zweimal der gleiche Name eines Elements einem Form hinzugegügt wird. Exception!! (OK)
- * Führe valueData als Objekt im Result ein. (und elemeniere die Zugriffe auf das Element) (OK)
- * neue Exeption for double element (OK)
+ * decide if XXXfield or XXXInput or XXX and rename consistent (.net: Ohne, php: xxType, formchecker: Input) (OK)
+ * Idee: Replace field with Function<t,i> from java.util.function (OK)
+ * test new fields
+ * alle fielde mit vernünftigem Bootstrap-Theme ausgeben (OK)
+ * Warning, wenn zweimal der gleiche Name eines fields einem Form hinzugegügt wird. Exception!! (OK)
+ * Führe valueData als Objekt im Result ein. (und elemeniere die Zugriffe auf das field) (OK)
+ * neue Exeption for double field (OK)
  * number testen (OK)
- * leere Namen korrekt abfangen, elemente können leere Namen haben. (OK)
-* elements can have an empty name, if they don't have a representation! (OK) 
-* get rid of extends in form-elements by introducing general oneElementStyle helper Class (OK)
+ * leere Namen korrekt abfangen, fielde können leere Namen haben. (OK)
+* fields can have an empty name, if they don't have a representation! (OK) 
+* get rid of extends in form-fields by introducing general onefieldStyle helper Class (OK)
 * better abstraction in ThemeRenderer (OK)
 * nur noch ein renderer für default. -> Theme bekommt den StandardRenderer als Hilfe. (OK)
-* ElementRenderer noch einfacher machen und Bootstrap davon ableiten. -> Nein. Bootstrap IST default. OK
--> perhaps we should add an elementContainer to the form. The container holds the element, the behaviour and the validation (OK)
- * Idee: könnte validation unabhängig von den Elementen stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: ValidatedElement<Element, Validtor> (OK) 
-* ProducerInput soll Source und Validation und Behaviour bekommen. Also eigentlich ElementContainer (OK)
-* ElementResult braucht noch source? (OK)
+* fieldRenderer noch einfacher machen und Bootstrap davon ableiten. -> Nein. Bootstrap IST default. OK
+-> perhaps we should add an fieldContainer to the form. The container holds the field, the behaviour and the validation (OK)
+ * Idee: könnte validation unabhängig von den fielden stattfinden? Die validation erfolgt dann nur auf dem Value. Dafür neues Objekt einführen: Validatedfield<field, Validtor> (OK) 
+* ProducerInput soll Source und Validation und Behaviour bekommen. Also eigentlich fieldContainer (OK)
+* fieldResult braucht noch source? (OK)
 * Behaviour, dass "*" an das Label macht (OK)
 * Automatische (*) bei Required feldern. (OK)
 * globale Behaviours (OK)
@@ -83,9 +83,9 @@
  * bahaviour should be interface (OK)
  * Behaviour sollte immer in Listenform ankommen. (OK)
 * - maxLen (via request??) (OK)
-* change method if fileupload is used (Element kann Flag-Interface implementieren. Wenn das gesetzt ist, wird die Methode geändert) (OK)
+* change method if fileupload is used (field kann Flag-Interface implementieren. Wenn das gesetzt ist, wird die Methode geändert) (OK)
  * Achtung: Wenn man Eine Form abschickt (Submitted=true) ober nicht alle Felder übermittelt, kommt es zu NPE (OK)
- * In form and in Formresult: do we need Map<Element, ElementResult>? Or can we live with a List<ElementResult>? (NO, leave it like it is)
+ * In form and in Formresult: do we need Map<field, fieldResult>? Or can we live with a List<fieldResult>? (NO, leave it like it is)
  * trim? (OK)
  * translations (OK)
  *  MAxlen, required muessen sich in inputfields wiederfinden (OK)
@@ -94,13 +94,13 @@
  * introduce more protected (OK)
 * date-select with dropdowns (OK)
  * Fix test. Read file in a better way. (OK)
- * Make BootstrapRenderer element agnostic. Means: he should check which element to draw, and then decide to paint it differently. Maybe with marker-interfaces (OK)
+ * Make BootstrapRenderer field agnostic. Means: he should check which field to draw, and then decide to paint it differently. Maybe with marker-interfaces (OK)
  * make renderer smaller. (OK)
  * Make BootstrapRenderer more generic, so it can be easly subclassed. Include start/end as well. Get rid of startEndRenderer? (OK) 
  * move classes to right packages
  * implement a template, that renders the form (OK)
  * drop konzept of Theme.KEY entirely? (OK)
-* try with mustache. (Idea: Map with booleans to check which element we have to render) (WORKS!!) :) (OK)
+* try with mustache. (Idea: Map with booleans to check which field we have to render) (WORKS!!) :) (OK)
  * eliminate new, eliminate null (OK)
 * make it JDK 9 ready (OK)
 * erzwinge Request-Chain .cloneWithMaxLenInput(500).cloneWithNullCheck().cloneWithTrim() bzw. biete sinnvollen Default dafür an. (OK)
@@ -109,14 +109,14 @@
 * form2bean as "integration" project (OK)
 * fix moving dropdown-box on example form (WTF?!) (OK)
 * fix nullpointer bei problem mit textDate (OK)
-* convert SelectDate to new GroupElement (OK)
-* Element und GroupElement müssen super-Typ haben. Davon können dann beide ableiten. (OK)
-* introduce simpler groups: Idee: Jede FormElement Liste ist eine Gruppe und wird von WF rekursiv genau wie die erste Liste behandelt (OK)
+* convert SelectDate to new Groupfield (OK)
+* field und Groupfield müssen super-Typ haben. Davon können dann beide ableiten. (OK)
+* introduce simpler groups: Idee: Jede Formfield Liste ist eine Gruppe und wird von WF rekursiv genau wie die erste Liste behandelt (OK)
 * consider loosing the last dependency: Normally we use a template engine, that is doing the escaping... (OK)
 * Decoration muss Teil vom Container werden! (OK)
 * cleanup TextDate and SelectDate (OK)
 * Todo: More tests for View (Method, fileupload, htmlvalidation) (OK)
-* Introduce Builder for each element (jwebform.element.builder) with greatly simplified API (OK)
+* Introduce Builder for each field (jwebform.field.builder) with greatly simplified API (OK)
 * Introduce FormBuilder for greatly simplyfied API (OK)
 * formValidator soll keine Map bekommen, sondern ein neues Objekt (was eine Map enthält) (OK)
 * MyFormBuilder sollte Static-Imports haben, damit Type.XXX entfallen kann. (OK)
@@ -128,30 +128,30 @@
 * Doku jWebForm: template.md (OK)
 * Doku: build your own type (OK)
 Namen wechseln:
-* Type / Element
+* Type / field
 * Type / Field
 
 Bisher:
 -------
-Element
+field
   SingleType  - GroupType
 
-ElementContainer (Element, Validator, Decoration)
+fieldContainer (field, Validator, Decoration)
 
-ElementResult
+fieldResult
 
-StaticElementInfo
+StaticfieldInfo
 
 Type
 TypeBuilder
 
 -----------
 Besser:
-Element
- SingleElement - GroupElement
+field
+ Singlefield - Groupfield
 
-BuildInElements
- ElementBuilder
+BuildInfields
+ fieldBuilder
 -------------
 Best:
 FieldType
@@ -171,7 +171,7 @@ FieldBuilder
 (Suggestion: Fieldcontainer | Field | Decoration | Validator )
  is the container of a type, a validator and a decoration)
 
-* Kein Validator mehr im Element sondern eine Liste von Criterias
+* Kein Validator mehr im field sondern eine Liste von Criterias
 #############################
 
 * elment komplett loswerden.
@@ -187,7 +187,7 @@ Aufgefallen bei Integration in Produktion:
 * best practice beschreiben: FormBuilder klasse sollte validierung, form darstellung und daten-handling machen.
 Nicht mehr! Validierungs-Funktionen am besten per Lamda reinreichen.
 
-* in pebble: dynamiccally include view elements (avoid long if/else)
+* in pebble: dynamiccally include view fields (avoid long if/else)
 
 harmonize styleguide filenames in example project (camelcase and asdf_msdf mixed)
 
@@ -197,7 +197,7 @@ harmonize styleguide filenames in example project (camelcase and asdf_msdf mixed
 * doku: build your own validator
 
 
-* ElementContainer umbenennen in FormElement?
+* fieldContainer umbenennen in Formfield?
 -> Django: Field, Symfony: Type, .net: type/nichts
 
 * Simpler API for Theming
@@ -213,7 +213,7 @@ harmonize styleguide filenames in example project (camelcase and asdf_msdf mixed
 * write test for integration project
 
 maxlen required??
-* View::DrawableElement - Inputs, die mit Marker interface markiert sind, können View-Infos zurückliefern. (Einfach eine Map, die dann mustache verwertet)
+* View::Drawablefield - Inputs, die mit Marker interface markiert sind, können View-Infos zurückliefern. (Einfach eine Map, die dann mustache verwertet)
 
 Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Logger(!), Request....
 
@@ -232,7 +232,7 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
  * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert
  * AttributeBuilder mit einfachem Builder: AttributeBuilder.build("class", "form-class", "required", ""...)
  
- * Kann StaticElementInfo auch als Eingabe für die Elemente verwendet werden?
+ * Kann StaticfieldInfo auch als Eingabe für die fielde verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
  
  * google captcha in core with lamdas for json serialisierung/desserialsierung
