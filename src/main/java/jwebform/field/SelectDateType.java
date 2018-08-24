@@ -33,12 +33,12 @@ public class SelectDateType implements GroupFieldType {
   public SelectDateType(String name, LocalDate initialValue, int yearStart, int yearEnd) {
     Validator numberValidator = new Validator(Criteria.number());
     this.day = new SelectType(name + "_day", String.valueOf(initialValue.getDayOfMonth()),
-        CommonSelects.build().buildDays()).of(numberValidator, new Decoration("Day"));
+        CommonSelects.build().buildDays()).of(new Decoration("Day"), Criteria.number());
     this.month = new SelectType(name + "_month", String.valueOf(initialValue.getMonthValue()),
-        CommonSelects.build().buildMonths()).of(numberValidator, new Decoration("Month"));
+        CommonSelects.build().buildMonths()).of(new Decoration("Month"), Criteria.number());
     this.year = new SelectType(name + "_year", String.valueOf(initialValue.getYear()),
-        CommonSelects.build().getYears(yearStart, yearEnd)).of(numberValidator,
-            new Decoration("Year"));
+        CommonSelects.build().getYears(yearStart, yearEnd)).of(
+            new Decoration("Year"), Criteria.number());
     helper = new DateTypeHelper(day, month, year, initialValue, name);
   }
 

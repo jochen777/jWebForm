@@ -127,11 +127,9 @@
 * clean up producerInfo. Dismiss redundandent View Objects (OK)
 * Doku jWebForm: template.md (OK)
 * Doku: build your own type (OK)
-#############################
-
 Namen wechseln:
 * Type / Element
-* Type
+* Type / Field
 
 Bisher:
 -------
@@ -174,6 +172,8 @@ FieldBuilder
  is the container of a type, a validator and a decoration)
 
 * Kein Validator mehr im Element sondern eine Liste von Criterias
+#############################
+
 * elment komplett loswerden.
 * RFE und TODOS elemenieren
 * Kommentare hinzufügen

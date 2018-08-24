@@ -46,8 +46,8 @@ public class FieldBuilder {
 
 
   public Field build() {
-    return new Field(typeSupplier.get(), new Validator(criteria),
-        new Decoration(label, helptext, placeholder));
+    return new Field(typeSupplier.get(),
+        new Decoration(label, helptext, placeholder), criteria);
   }
 
 

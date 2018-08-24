@@ -31,35 +31,28 @@ public class TextDateType implements GroupFieldType {
 
 
   public TextDateType(String name, LocalDate initialValue) {
-    Validator numberValidator = new Validator(Criteria.number());
 
     this.day = new TextType(name + "_day", String.valueOf(initialValue.getDayOfMonth()))
-        .of(numberValidator, new Decoration("Day"));
+      .of(new Decoration("Day"), Criteria.number());
     this.month = new TextType(name + "_month", String.valueOf(initialValue.getMonthValue()))
-        .of(numberValidator, new Decoration("Month"));
+      .of(new Decoration("Month"), Criteria.number());
     this.year = new TextType(name + "_year", String.valueOf(initialValue.getYear()))
-        .of(numberValidator, new Decoration("Year"));
+      .of(new Decoration("Year"), Criteria.number());
     helper = new DateTypeHelper(day, month, year, initialValue, name);
   }
 
 
-  @Override
-  public List<Field> getChilds() {
+  @Override public List<Field> getChilds() {
     return Arrays.asList(day, month, year);
   }
 
 
-  @Override
-  public List<FormValidator> getValidators(Field source) {
+  @Override public List<FormValidator> getValidators(Field source) {
     return helper.getValidators();
   }
 
 
-  @Override
-  public FieldResult process(EnvWithSubmitInfo env, FieldResults childs) {
+  @Override public FieldResult process(EnvWithSubmitInfo env, FieldResults childs) {
     return helper.processDateVal(env, childs, "text Date");
   }
-
-
-
 }

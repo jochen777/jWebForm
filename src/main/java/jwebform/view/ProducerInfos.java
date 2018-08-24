@@ -91,7 +91,8 @@ public class ProducerInfos {
   }
 
   public Validator getValidator() {
-    return elementContainer.validator;
+    // RFE: This must be injected!!
+    return new Validator(elementContainer.criteria);
   }
 
   public ValidationResult getValidationResult() {

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.cyclon-softworx</groupId>
 	<artifactId>jwebform</artifactId>
-	<version>0.0.10</version>
+	<version>0.0.9</version>
 	<name>jWebForm</name>
 	<url>https://github.com/jochen777/jWebForm</url>
 	<description>HTML form generation and validation</description>
