@@ -58,7 +58,7 @@ public class Processor {
   private FieldResults processFields(EnvWithSubmitInfo env, List<Field> fields) {
     FieldResults fieldResults = new FieldResults();
     for (Field container : fields) {
-      if (container.element instanceof GroupFieldType) {
+      if (container.fieldType instanceof GroupFieldType) {
         processGroup(env, fieldResults, container);
       } else {
         processSingleType(env, fieldResults, container);
@@ -68,55 +68,51 @@ public class Processor {
   }
 
   private void processSingleType(
-    EnvWithSubmitInfo env, FieldResults elementResults, Field container) {
-    // here is where the magic happens! The "apply" method of the elements is called.
-    FieldResult result = ((SingleFieldType) container.element).apply(env);
+    EnvWithSubmitInfo env, FieldResults fieldResults, Field field) {
+    // here is where the magic happens! The "apply" method of the fields is called.
+    FieldResult result = ((SingleFieldType) field.fieldType).apply(env);
     if (env.isSubmitted()) {
       if (result.getValidationResult() != ValidationResult.undefined()) {
-        // element has set the validation itself. This might happen in complex elements. And
+        // type has set the validation itself. This might happen in complex types. And
         // will
         // override the following validation
         // --- do nothing
       } else {
-        result = result.ofValidationResult(container.getValidator().validate(result.getValue()));
+        result = result.ofValidationResult(field.getValidator().validate(result.getValue()));
       }
     } else {
       // do nothing
     }
-    if (elementResults.containsElement(container)) {
-      throw new IdenticalElementException(container);
+    if (fieldResults.containsField(field)) {
+      throw new IdenticalFieldException(field);
     }
-    elementResults.put(container, result);
+    fieldResults.put(field, result);
   }
 
   private void processGroup(
-    EnvWithSubmitInfo env, FieldResults elementResults, Field container) {
-    FieldResults groupElementResults = this.run(env, (GroupFieldType) container.element);
+    EnvWithSubmitInfo env, FieldResults fieldResults, Field field) {
+    FieldResults groupTypeResults = this.run(env, (GroupFieldType) field.fieldType);
     FieldResult groupResult =
-        ((GroupFieldType) container.element).process(env, groupElementResults);
-    elementResults.put(container, groupResult.cloneWithChilds(groupElementResults));
-
-    // TODO: das eigentliche element (groupElement) brauch auch ein Value. Wie kommt es da dran?
-    // Dürfte es auch HTML und ein input-element ausgeben?
-    // evtl. ein neues "Ober" Element einführen? Also z.B. Element -> Input, Group
+        ((GroupFieldType) field.fieldType).process(env, groupTypeResults);
+    fieldResults.put(field, groupResult.cloneWithChilds(groupTypeResults));
   }
 
   private FieldValdationResults runFormValidations(
-    FieldResults elementResults,
+    FieldResults fieldResults,
       List<FormValidator> formValidators) {
 
 
     // run the form-validators
     FieldValdationResults overridenValidationResults = new FieldValdationResults();
     for (FormValidator formValidator : formValidators) {
-      overridenValidationResults.merge(formValidator.validate(elementResults));
+      overridenValidationResults.merge(formValidator.validate(fieldResults));
     }
     return overridenValidationResults;
   }
 
-  public boolean checkAllValidationResults(FieldResults correctedElementResults) {
+  public boolean checkAllValidationResults(FieldResults correctedFieldResults) {
     boolean formIsValid = true;
-    for (Map.Entry<Field, FieldResult> entry : correctedElementResults) {
+    for (Map.Entry<Field, FieldResult> entry : correctedFieldResults) {
       if (entry.getValue().getValidationResult() != ValidationResult.ok()) {
         formIsValid = false;
         break;
@@ -128,28 +124,28 @@ public class Processor {
 
 
   private FieldResults correctFieldResults(
-    FieldResults elementResults,
+    FieldResults fieldResults,
     FieldValdationResults overridenValidationResults) {
-    overridenValidationResults.getResutls().forEach((element, overridenValidationResult) -> {
-      FieldResult re = elementResults.get(element);
-      elementResults.put(element, re.cloneWithNewValidationResult(overridenValidationResult));
+    overridenValidationResults.getResutls().forEach((field, overridenValidationResult) -> {
+      FieldResult re = fieldResults.get(field);
+      fieldResults.put(field, re.cloneWithNewValidationResult(overridenValidationResult));
     });
-    return elementResults;
+    return fieldResults;
   }
 
 
   @SuppressWarnings("serial")
-  public class IdenticalElementException extends RuntimeException {
+  public class IdenticalFieldException extends RuntimeException {
 
-    public IdenticalElementException(Field container) {
-      super("Identical Elements are not allowed. Plese remove double container: "
-          + container.element);
+    public IdenticalFieldException(Field field) {
+      super("Field with the same name are not allowed. Plese remove double container: "
+          + field.fieldType);
     }
   }
 
-  private static List<Field> packFieldsInList(Field... elements) {
+  private static List<Field> packFieldsInList(Field... fields) {
     List<Field> ec = new ArrayList<>();
-    Collections.addAll(ec, elements);
+    Collections.addAll(ec, fields);
     return ec;
   }
 

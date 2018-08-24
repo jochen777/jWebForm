@@ -24,7 +24,7 @@ public final class Form {
   }
 
 
-  // process each element, run validations
+  // process each fieldType, run validations
   public final FormResult run(Env env) {
     Processor p = new Processor();
     FieldResults result = p.run(env.getEnvWithSumitInfo(id), group);

@@ -225,15 +225,15 @@ public class SampleUsage {
     for (Field cont : result.getElementResults().getContainers()) {
       FieldResult eResult = result.getElementResults().get(cont);
       ExpectedElementResult expectedResult = expectedResults.get(i);
-      assertEquals(expectedResult.name, eResult.getStaticElementInfo().getName());
-      // System.err.println(eResult.getStaticElementInfo().getName());
-      assertEquals("BuildInType:" + cont.element.getClass().getName() + ": "
-          + eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " expResult: "
+      assertEquals(expectedResult.name, eResult.getStaticFieldInfo().getName());
+      // System.err.println(eResult.getStaticFieldInfo().getName());
+      assertEquals("BuildInType:" + cont.fieldType.getClass().getName() + ": "
+          + eResult.getStaticFieldInfo().getName() + "/" + expectedResult.name + " expResult: "
           + expectedResult.vr + "/real:" + eResult.getValidationResult().isValid,
           eResult.getValidationResult().isValid, expectedResult.vr);
 
       assertTrue(
-          eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " Value: "
+          eResult.getStaticFieldInfo().getName() + "/" + expectedResult.name + " Value: "
               + expectedResult.value + "/" + eResult.getValue(),
           eResult.getValue().equals(expectedResult.value));
       i++;

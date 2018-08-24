@@ -20,7 +20,7 @@ public class LoggingFormResult extends FormResult {
     elementResults.forEach(entry -> {
       Field container = entry.getKey();
       FieldResult result = entry.getValue();
-      if (container.element instanceof SingleFieldType) {
+      if (container.fieldType instanceof SingleFieldType) {
         appendSingleType(b, container, result, indent);
       } else {
         appendSingleType(b, container, result, indent);
@@ -34,8 +34,8 @@ public class LoggingFormResult extends FormResult {
       String indent) {
     // @formatter:off
     b.append("---------------------\n")
-    .append(indent).append("Typ    : ").append(container.element.getClass().getName()).append("\n")
-    .append(indent).append("Name   : ").append(result.getStaticElementInfo().getName()).append("\n")
+    .append(indent).append("Typ    : ").append(container.fieldType.getClass().getName()).append("\n")
+    .append(indent).append("Name   : ").append(result.getStaticFieldInfo().getName()).append("\n")
     .append(indent).append("Value  : ").append(result.getValue()).append("\n")
     // TODO: Append validation info, label, helptext?, 
     .append(indent).append("Valdid : ").append(result.getValidationResult().isValid() ? "OK" : "Not OK")

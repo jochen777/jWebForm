@@ -15,9 +15,9 @@ public class CheckDoubleFieldsPostProcessor implements PostProcessor {
     Set<String> availElements = new HashSet<>();
     for (Entry<Field, FieldResult> entry : results) {
       // empty names are skipped
-      if (entry.getValue().getStaticElementInfo().getName() != FieldResult.NO_NAME
-          && !availElements.add(entry.getValue().getStaticElementInfo().getName())) {
-        throw new DoubleTakenNameException(entry.getValue().getStaticElementInfo().getName());
+      if (entry.getValue().getStaticFieldInfo().getName() != FieldResult.NO_NAME
+          && !availElements.add(entry.getValue().getStaticFieldInfo().getName())) {
+        throw new DoubleTakenNameException(entry.getValue().getStaticFieldInfo().getName());
       }
     }
     return results;
@@ -31,7 +31,7 @@ public class CheckDoubleFieldsPostProcessor implements PostProcessor {
 
     public DoubleTakenNameException(String name) {
       super(String.format(
-          "The name %s was taken more than once for this form. Make sure, that you use eache name of each element only once!",
+          "The name %s was taken more than once for this form. Make sure, that you use eache name of each fieldType only once!",
           name));
     }
   }

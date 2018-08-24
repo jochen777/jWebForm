@@ -20,8 +20,8 @@ import jwebform.validation.Validator;
 public class ProducerInfos {
   private final String formId;
   private final int tabIndex;
-  private final Field elementContainer;
-  private final FieldResult elementResult;
+  private final Field field;
+  private final FieldResult fieldResult;
 
   private final List<ProducerInfos> childs;
 
@@ -29,18 +29,18 @@ public class ProducerInfos {
 
 
 
-  public ProducerInfos(String formId, int tabIndex, FieldResult elementResult,
-      Field elementContainer, List<ProducerInfos> childs) {
+  public ProducerInfos(String formId, int tabIndex, FieldResult fieldResult,
+      Field field, List<ProducerInfos> childs) {
     this.formId = formId;
     this.tabIndex = tabIndex;
-    this.elementContainer = elementContainer;
+    this.field = field;
     this.childs = childs;
-    this.elementResult = elementResult;
+    this.fieldResult = fieldResult;
   }
 
-  public ProducerInfos(String formId, int tabIndex, FieldResult elementResult,
-      Field elementContainer) {
-    this(formId, tabIndex, elementResult, elementContainer, NO_CHILDS);
+  public ProducerInfos(String formId, int tabIndex, FieldResult fieldResult,
+      Field field) {
+    this(formId, tabIndex, fieldResult, field, NO_CHILDS);
   }
 
   public List<ProducerInfos> getChilds() {
@@ -49,12 +49,12 @@ public class ProducerInfos {
 
 
   public ProducerInfos getTabIndexIncreased() {
-    return new ProducerInfos(this.formId, tabIndex + 1, elementResult, elementContainer, childs);
+    return new ProducerInfos(this.formId, tabIndex + 1, fieldResult, field, childs);
   }
 
 
   public String getHtml() {
-    return elementResult.getStaticElementInfo().getHtmlProducer().getHTML(this);
+    return fieldResult.getStaticFieldInfo().getHtmlProducer().getHTML(this);
   }
 
 
@@ -66,67 +66,67 @@ public class ProducerInfos {
     return tabIndex;
   }
 
-  public FieldType getElement() {
-    return this.elementContainer.element;
+  public FieldType getType() {
+    return this.field.fieldType;
   }
 
   public String getName() {
-    return elementResult.getStaticElementInfo().getName();
+    return fieldResult.getStaticFieldInfo().getName();
   }
 
-  public String getElementTypeName() {
-    return elementContainer.element.getClass().getName();
+  public String getTypeName() {
+    return field.fieldType.getClass().getName();
   }
 
   public Decoration getDecoration() {
-    return elementContainer.decoration;
+    return field.decoration;
   }
 
   public String getValue() {
-    return elementResult.getValue();
+    return fieldResult.getValue();
   }
 
   public Object getValueObject() {
-    return elementResult.getValueObject();
+    return fieldResult.getValueObject();
   }
 
   public Validator getValidator() {
     // RFE: This must be injected!!
-    return new Validator(elementContainer.criteria);
+    return new Validator(field.criteria);
   }
 
   public ValidationResult getValidationResult() {
-    return elementResult.getValidationResult();
+    return fieldResult.getValidationResult();
   }
 
-  public FieldResult getElementResult() {
-    return elementResult;
+  public FieldResult getFieldResult() {
+    return fieldResult;
   }
 
-  public Map<String, Object> getElementInfoMap() {
-    Map<String, Object> elementNameInfo = new HashMap<>();
-    elementNameInfo.put(getTypeName(elementContainer.element), Boolean.TRUE);
-    if (elementContainer.element instanceof TextType) {
-      elementNameInfo.put("type", "text");
-    } else if (elementContainer.element instanceof NumberType) {
-      elementNameInfo.put("type", "number");
-    } else if (elementContainer.element instanceof PasswordType) {
-      elementNameInfo.put("type", "password");
+  public Map<String, Object> getFieldInfoMap() {
+    Map<String, Object> fieldNameInfo = new HashMap<>();
+    fieldNameInfo.put(getTypeName(field.fieldType), Boolean.TRUE);
+    if (field.fieldType instanceof TextType) {
+      fieldNameInfo.put("type", "text");
+    } else if (field.fieldType instanceof NumberType) {
+      fieldNameInfo.put("type", "number");
+    } else if (field.fieldType instanceof PasswordType) {
+      fieldNameInfo.put("type", "password");
     }
-    if (elementContainer.element instanceof SelectType) {
-      SelectType select = (SelectType) elementContainer.element;
-      elementNameInfo.put("selected", select.getSelectListWithSelected(elementResult.getValue()));
+    if (field.fieldType instanceof SelectType) {
+      SelectType select = (SelectType) field.fieldType;
+      fieldNameInfo.put("selected", select.getSelectListWithSelected(fieldResult.getValue()));
     }
-    if (elementContainer.element instanceof RadioType) {
-      RadioType radio = (RadioType) elementContainer.element;
-      elementNameInfo.put("radioElements",
-          radio.getEntryListWithSelected(elementResult.getValue()));
+    if (field.fieldType instanceof RadioType) {
+      RadioType radio = (RadioType) field.fieldType;
+      fieldNameInfo.put("radioFields",
+          radio.getEntryListWithSelected(fieldResult.getValue()));
     }
-    return elementNameInfo;
+    return fieldNameInfo;
   }
 
-  private String getTypeName(FieldType element) {
-    return element.getClass().getName().replaceAll("jwebform\\.element\\.", "");
+  private String getTypeName(FieldType fieldType) {
+    return fieldType.getClass().getName().replaceAll("jwebform\\.fieldType\\.", "");
   }
 
 

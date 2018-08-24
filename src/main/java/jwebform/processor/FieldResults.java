@@ -27,7 +27,7 @@ public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
     elementResultMap.put(container, result);
   }
 
-  public boolean containsElement(Field container) {
+  public boolean containsField(Field container) {
     return elementResultMap.containsKey(container);
   }
 
@@ -42,22 +42,22 @@ public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
 
   public String getElementStringValue(String elementName) {
     for (FieldResult i : elementResultMap.values()) {
-      if (elementName.equals(i.getStaticElementInfo().getName())) {
+      if (elementName.equals(i.getStaticFieldInfo().getName())) {
         return i.getValue();
       }
     }
     throw new IllegalArgumentException(
-        String.format("The element named %s does not exist in form", elementName));
+        String.format("The fieldType named %s does not exist in form", elementName));
   }
 
   public final Object getObectValue(String elementName) {
     for (FieldResult i : elementResultMap.values()) {
-      if (elementName.equals(i.getStaticElementInfo().getName())) {
+      if (elementName.equals(i.getStaticFieldInfo().getName())) {
         return i.getValueObject();
       }
     }
     throw new ElementNotFoundException(
-        "This element does not exist in form", elementName);
+        "This fieldType does not exist in form", elementName);
   }
 
   public final FieldValdationResults computeSingleElementValidation(String elementName, ValidationResult vr) {
@@ -66,7 +66,7 @@ public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
 
   public Field getElement(String elementName) {
     for (Map.Entry<Field, FieldResult> entry : elementResultMap.entrySet()) {
-      if (elementName.equals(entry.getValue().getStaticElementInfo().getName())) {
+      if (elementName.equals(entry.getValue().getStaticFieldInfo().getName())) {
         return entry.getKey();
       }
     }

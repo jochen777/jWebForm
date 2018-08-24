@@ -1,7 +1,7 @@
 package jwebform.validation;
 
 /**
- * A criterion that checks a formchecker element
+ * A criterion that checks a formchecker fieldType
  * 
  */
 @FunctionalInterface

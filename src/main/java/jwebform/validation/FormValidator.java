@@ -8,11 +8,11 @@ import jwebform.processor.FieldValdationResults;
 public interface FormValidator {
 
   /**
-   * checks a complete form. If something is invalid, associate the validationResult to this element
+   * checks a complete form. If something is invalid, associate the validationResult to this fieldType
    * in the resulting map
    * 
-   * @param elements Elements of the form to validate
-   * @return validation results for the elements
+   * @param fieldResults fiels of the form to validate
+   * @return validation results for the fields
    */
-  FieldValdationResults validate(FieldResults elements);
+  FieldValdationResults validate(FieldResults fieldResults);
 }

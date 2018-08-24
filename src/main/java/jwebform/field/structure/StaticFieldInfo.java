@@ -1,6 +1,6 @@
 package jwebform.field.structure;
 
-// infos, that an element provides, but that will not depend on request-params
+// infos, that an fieldType provides, but that will not depend on request-params
 public class StaticFieldInfo {
   private final String name; // static
   private final HTMLProducer htmlProducer; // static

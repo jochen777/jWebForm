@@ -42,7 +42,7 @@ public final class View {
 
   public boolean isUploadEnctypeRequired() {
     for (Map.Entry<Field, FieldResult> entry : elementResults) {
-      if (entry.getKey().element instanceof ForceFileuploadMethod) {
+      if (entry.getKey().fieldType instanceof ForceFileuploadMethod) {
         return true;
       }
     }
@@ -66,9 +66,9 @@ public final class View {
       ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, entry.getKey(),
         createProducerInfoChilds(elementResult.getChilds(), tabIndex));
       elementList.add(pi);
-      elementMap.put(elementResult.getStaticElementInfo().getName(), pi);
-      names.add(elementResult.getStaticElementInfo().getName());
-      tabIndex += elementResult.getStaticElementInfo().getTabIndexIncrement();
+      elementMap.put(elementResult.getStaticFieldInfo().getName(), pi);
+      names.add(elementResult.getStaticFieldInfo().getName());
+      tabIndex += elementResult.getStaticFieldInfo().getTabIndexIncrement();
     }
     return new ProducerInfosContainer(elementMap, elementList, names);
 

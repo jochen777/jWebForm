@@ -5,7 +5,7 @@ import jwebform.validation.ValidationResult;
 
 import javax.annotation.Generated;
 
-// that what is coming out of a "run" method of an element
+// that what is coming out of a "run" method of an fieldType
 public final class FieldResult {
 
   private final ValidationResult validationResult; // not static
@@ -64,7 +64,7 @@ public final class FieldResult {
 
 
 
-  public StaticFieldInfo getStaticElementInfo() {
+  public StaticFieldInfo getStaticFieldInfo() {
     return staticElementInfo;
   }
 
