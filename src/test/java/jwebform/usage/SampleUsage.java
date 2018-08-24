@@ -3,8 +3,8 @@ package jwebform.usage;
 import jwebform.FormResult;
 import jwebform.View;
 import jwebform.View.Html5Validation;
-import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.ElementResult;
+import jwebform.field.structure.Field;
+import jwebform.field.structure.FieldResult;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
 import org.junit.Test;
@@ -222,12 +222,12 @@ public class SampleUsage {
     assertEquals(expectedResults.size(), result.getElementResults().size());
 
     int i = 0;
-    for (ElementContainer cont : result.getElementResults().getContainers()) {
-      ElementResult eResult = result.getElementResults().get(cont);
+    for (Field cont : result.getElementResults().getContainers()) {
+      FieldResult eResult = result.getElementResults().get(cont);
       ExpectedElementResult expectedResult = expectedResults.get(i);
       assertEquals(expectedResult.name, eResult.getStaticElementInfo().getName());
       // System.err.println(eResult.getStaticElementInfo().getName());
-      assertEquals("Type:" + cont.element.getClass().getName() + ": "
+      assertEquals("BuildInType:" + cont.element.getClass().getName() + ": "
           + eResult.getStaticElementInfo().getName() + "/" + expectedResult.name + " expResult: "
           + expectedResult.vr + "/real:" + eResult.getValidationResult().isValid,
           eResult.getValidationResult().isValid, expectedResult.vr);

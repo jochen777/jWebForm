@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import jwebform.element.NumberType;
-import jwebform.element.PasswordType;
-import jwebform.element.RadioType;
-import jwebform.element.SelectType;
-import jwebform.element.TextType;
-import jwebform.element.structure.Decoration;
-import jwebform.element.structure.FieldType;
-import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.ElementResult;
+import jwebform.field.NumberType;
+import jwebform.field.PasswordType;
+import jwebform.field.RadioType;
+import jwebform.field.SelectType;
+import jwebform.field.TextType;
+import jwebform.field.structure.Decoration;
+import jwebform.field.structure.Field;
+import jwebform.field.structure.FieldResult;
+import jwebform.field.structure.FieldType;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 
@@ -20,8 +20,8 @@ import jwebform.validation.Validator;
 public class ProducerInfos {
   private final String formId;
   private final int tabIndex;
-  private final ElementContainer elementContainer;
-  private final ElementResult elementResult;
+  private final Field elementContainer;
+  private final FieldResult elementResult;
 
   private final List<ProducerInfos> childs;
 
@@ -29,8 +29,8 @@ public class ProducerInfos {
 
 
 
-  public ProducerInfos(String formId, int tabIndex, ElementResult elementResult,
-      ElementContainer elementContainer, List<ProducerInfos> childs) {
+  public ProducerInfos(String formId, int tabIndex, FieldResult elementResult,
+      Field elementContainer, List<ProducerInfos> childs) {
     this.formId = formId;
     this.tabIndex = tabIndex;
     this.elementContainer = elementContainer;
@@ -38,8 +38,8 @@ public class ProducerInfos {
     this.elementResult = elementResult;
   }
 
-  public ProducerInfos(String formId, int tabIndex, ElementResult elementResult,
-      ElementContainer elementContainer) {
+  public ProducerInfos(String formId, int tabIndex, FieldResult elementResult,
+      Field elementContainer) {
     this(formId, tabIndex, elementResult, elementContainer, NO_CHILDS);
   }
 
@@ -98,7 +98,7 @@ public class ProducerInfos {
     return elementResult.getValidationResult();
   }
 
-  public ElementResult getElementResult() {
+  public FieldResult getElementResult() {
     return elementResult;
   }
 

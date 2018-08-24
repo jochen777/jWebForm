@@ -1,15 +1,15 @@
 package jwebform;
 
 import jwebform.View.Html5Validation;
-import jwebform.processors.ElementResults;
+import jwebform.processor.FieldResults;
 
 public class FormResult {
 
   private final String formId;
-  private final ElementResults elementResults;
+  private final FieldResults elementResults;
   private final boolean formIsValid;
 
-  public FormResult(String formId, ElementResults elementResults, boolean formIsValid) {
+  public FormResult(String formId, FieldResults elementResults, boolean formIsValid) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.elementResults = elementResults;
@@ -37,7 +37,7 @@ public class FormResult {
   }
 
 
-  public final ElementResults getElementResults() {
+  public final FieldResults getElementResults() {
     return elementResults;
   }
 

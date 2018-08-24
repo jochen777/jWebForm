@@ -1,11 +1,11 @@
 package jwebform;
 
-import jwebform.element.SimpleGroup;
-import jwebform.element.builder.TypeBuilder;
-import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.GroupType;
-import jwebform.element.structure.SingleType;
-import jwebform.processors.FormResultBuilder;
+import jwebform.field.SimpleGroup;
+import jwebform.field.builder.FieldBuilder;
+import jwebform.field.structure.Field;
+import jwebform.field.structure.GroupFieldType;
+import jwebform.field.structure.SingleFieldType;
+import jwebform.processor.FormResultBuilder;
 import jwebform.validation.FormValidator;
 
 import java.util.ArrayList;
@@ -18,11 +18,11 @@ public class FormBuilder {
 
   private String id = "id"; // Default
   private FormResultBuilder formResultBuilder;
-  private GroupType group = new SimpleGroup(new ArrayList<>(), new ArrayList<>());
-  private List<ElementContainer> elementContainers = new ArrayList<>();
+  private GroupFieldType group = new SimpleGroup(new ArrayList<>(), new ArrayList<>());
+  private List<Field> elementContainers = new ArrayList<>();
   private List<FormValidator> formValidators = new ArrayList<>();
-  private List<TypeBuilder> typeBuilders = new ArrayList<>();
-  private List<SingleType> singleTypes = new ArrayList<>();
+  private List<FieldBuilder> typeBuilders = new ArrayList<>();
+  private List<SingleFieldType> singleTypes = new ArrayList<>();
 
 
   private FormBuilder(String id, FormResultBuilder formResultBuilder) {
@@ -49,7 +49,7 @@ public class FormBuilder {
     return new Form(id, buildGroup(), formResultBuilder);
   }
 
-  private GroupType buildGroup() {
+  private GroupFieldType buildGroup() {
     elementContainers.addAll(processTypeBuilders());
     elementContainers.addAll(processSingleTypes());
     group.getChilds().addAll(elementContainers);
@@ -58,56 +58,56 @@ public class FormBuilder {
   }
 
 
-  private Collection<ElementContainer> processSingleTypes() {
-    List<ElementContainer> ec = new ArrayList<>();
-    for (SingleType element : singleTypes) {
-      ec.add(new ElementContainer(element));
+  private Collection<Field> processSingleTypes() {
+    List<Field> ec = new ArrayList<>();
+    for (SingleFieldType element : singleTypes) {
+      ec.add(new Field(element));
     }
     return ec;
   }
 
 
-  private Collection<ElementContainer> processTypeBuilders() {
-    List<ElementContainer> elList = new ArrayList<>();
-    for (TypeBuilder typeBuilder : typeBuilders) {
+  private Collection<Field> processTypeBuilders() {
+    List<Field> elList = new ArrayList<>();
+    for (FieldBuilder typeBuilder : typeBuilders) {
       elList.add(typeBuilder.build());
     }
     return elList;
   }
 
 
-  public FormBuilder group(GroupType group) {
+  public FormBuilder group(GroupFieldType group) {
     this.group = group;
     return this;
   }
 
-  public FormBuilder elementContainer(List<ElementContainer> elList) {
+  public FormBuilder elementContainer(List<Field> elList) {
     elementContainers.addAll(elList);
     return this;
   }
 
-  public FormBuilder elementContainer(ElementContainer... elList) {
+  public FormBuilder elementContainer(Field... elList) {
     elementContainers.addAll(new ArrayList<>(Arrays.asList(elList)));
     return this;
   }
 
 
-  public FormBuilder typeBuilder(List<TypeBuilder> typeBuilders) {
+  public FormBuilder typeBuilder(List<FieldBuilder> typeBuilders) {
     this.typeBuilders.addAll(typeBuilders);
     return this;
   }
 
-  public FormBuilder typeBuilder(TypeBuilder... typeBuilder) {
+  public FormBuilder typeBuilder(FieldBuilder... typeBuilder) {
     this.typeBuilders.addAll(new ArrayList<>(Arrays.asList(typeBuilder)));
     return this;
   }
 
-  public FormBuilder singleTypes(List<SingleType> singleTypeList) {
+  public FormBuilder singleTypes(List<SingleFieldType> singleTypeList) {
     this.singleTypes.addAll(singleTypeList);
     return this;
   }
 
-  public FormBuilder singleTypes(SingleType... singleType) {
+  public FormBuilder singleTypes(SingleFieldType... singleType) {
     this.singleTypes.addAll(new ArrayList<>(Arrays.asList(singleType)));
     return this;
   }

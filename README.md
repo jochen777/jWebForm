@@ -65,6 +65,9 @@ so I just rewrote it. jWebForm is jFormchecker2.
 
 [Documentation](doc/start.md)
 
+## Requirements
+
+Java 8 required.
 
 ## Thanks
 

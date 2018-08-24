@@ -37,3 +37,5 @@ List of features:
 * functional interfaces, lambdas
 * clean code
 * AAA rating in sonoarqube 
+
+

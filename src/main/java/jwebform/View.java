@@ -1,9 +1,9 @@
 package jwebform;
 
-import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.ElementResult;
-import jwebform.element.structure.ForceFileuploadMethod;
-import jwebform.processors.ElementResults;
+import jwebform.field.structure.Field;
+import jwebform.field.structure.FieldResult;
+import jwebform.field.structure.ForceFileuploadMethod;
+import jwebform.processor.FieldResults;
 import jwebform.view.ProducerInfos;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.Map.Entry;
 
 public final class View {
 
-  private final ElementResults elementResults;
+  private final FieldResults elementResults;
 
 
   private final String formId;
@@ -23,7 +23,7 @@ public final class View {
 
 
 
-  public View(String formId, ElementResults elementResults, Method method,
+  public View(String formId, FieldResults elementResults, Method method,
       Html5Validation html5Validation) {
     this.formId = formId;
     this.elementResults = elementResults;
@@ -41,7 +41,7 @@ public final class View {
 
 
   public boolean isUploadEnctypeRequired() {
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
+    for (Map.Entry<Field, FieldResult> entry : elementResults) {
       if (entry.getKey().element instanceof ForceFileuploadMethod) {
         return true;
       }
@@ -61,8 +61,8 @@ public final class View {
     Map<String, ProducerInfos> elementMap = new LinkedHashMap<>();
     List<String> names = new ArrayList<>();
     int tabIndex = 1;
-    for (Map.Entry<ElementContainer, ElementResult> entry : elementResults) {
-      ElementResult elementResult = entry.getValue();
+    for (Map.Entry<Field, FieldResult> entry : elementResults) {
+      FieldResult elementResult = entry.getValue();
       ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, entry.getKey(),
         createProducerInfoChilds(elementResult.getChilds(), tabIndex));
       elementList.add(pi);
@@ -87,10 +87,10 @@ public final class View {
     }
   }
 
-  private List<ProducerInfos> createProducerInfoChilds(ElementResults childs, int tabIndex) {
+  private List<ProducerInfos> createProducerInfoChilds(FieldResults childs, int tabIndex) {
     List<ProducerInfos> listOfPis = new ArrayList<>(); // RFE: only, if childs is not empty!
     // RFE: This allows only one depth! It would be cooler, if we can do infinite depth
-    for (Entry<ElementContainer, ElementResult> elem : childs) {
+    for (Entry<Field, FieldResult> elem : childs) {
       listOfPis.add(new ProducerInfos(formId, tabIndex, elem.getValue(), elem.getKey()));
     }
     return listOfPis;

@@ -1,11 +1,11 @@
 package jwebform;
 
-import jwebform.element.structure.ElementContainer;
-import jwebform.element.structure.GroupType;
+import jwebform.field.structure.Field;
+import jwebform.field.structure.GroupFieldType;
 import jwebform.env.Env;
-import jwebform.processors.ElementResults;
-import jwebform.processors.FormResultBuilder;
-import jwebform.processors.Processor;
+import jwebform.processor.FieldResults;
+import jwebform.processor.FormResultBuilder;
+import jwebform.processor.Processor;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ public final class Form {
   private final String id;
   private final FormResultBuilder formResultBuilder;
 
-  private final GroupType group;
+  private final GroupFieldType group;
 
-  public Form(String id, GroupType group, FormResultBuilder formResultBuilder) {
+  public Form(String id, GroupFieldType group, FormResultBuilder formResultBuilder) {
     this.id = id;
     this.formResultBuilder = formResultBuilder;
     this.group = group;
@@ -27,13 +27,13 @@ public final class Form {
   // process each element, run validations
   public final FormResult run(Env env) {
     Processor p = new Processor();
-    ElementResults result = p.run(env.getEnvWithSumitInfo(id), group);
+    FieldResults result = p.run(env.getEnvWithSumitInfo(id), group);
     return formResultBuilder.build(id, result, p.checkAllValidationResults(result));
   }
 
 
 
-  public final List<ElementContainer> getElements() {
+  public final List<Field> getElements() {
     return group.getChilds();
   }
 

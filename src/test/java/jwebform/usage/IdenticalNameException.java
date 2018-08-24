@@ -2,10 +2,10 @@ package jwebform.usage;
 
 import jwebform.Form;
 import jwebform.FormBuilder;
-import jwebform.element.HtmlType;
-import jwebform.element.SimpleType;
-import jwebform.element.TextType;
-import jwebform.element.structure.Decoration;
+import jwebform.field.HtmlType;
+import jwebform.field.SimpleType;
+import jwebform.field.TextType;
+import jwebform.field.structure.Decoration;
 import jwebform.env.EnvBuilder;
 import org.junit.Test;
 

@@ -144,8 +144,29 @@ ElementResult
 
 StaticElementInfo
 
+Type
+TypeBuilder
 
+-----------
+Besser:
+Element
+ SingleElement - GroupElement
 
+BuildInElements
+ ElementBuilder
+-------------
+Best:
+FieldType
+ SingleFieldType  - GroupFieldType
+
+Field (container für FormFieldType, Criterias, Decoration)
+
+FieldResult
+
+StaticFieldInfo
+
+BuildInField
+FieldBuilder
 
 
 
@@ -153,8 +174,10 @@ StaticElementInfo
  is the container of a type, a validator and a decoration)
 
 * Kein Validator mehr im Element sondern eine Liste von Criterias
+* elment komplett loswerden.
 * RFE und TODOS elemenieren
 * Kommentare hinzufügen
+* validatoinREsult muss methode bekommen, die die error-objekte zurückliefert.
 
 ----
 
