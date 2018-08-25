@@ -6,10 +6,9 @@ import jwebform.validation.FormValidator;
 
 import java.util.List;
 
-// a group of elements. this is basically a form.
+// a group of fields. this is basically a form.
 /**
- * Needs: List of Field, FormValidator. Produces: List of FieldResults. TODO: Do we
- * need a GroupFormResult?
+ * Needs: List of Field, FormValidator. Produces: List of FieldResults.
  *
  */
 public interface GroupFieldType extends FieldType {

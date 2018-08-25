@@ -10,22 +10,22 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 // TODO: No value here!, change method!
 public class UploadType implements SingleFieldType, ForceFileuploadMethod {
 
-  public final OneValueTypeProcessor oneValueElement;
+  public final OneValueTypeProcessor oneValueType;
 
   public UploadType(String name) {
-    this.oneValueElement = new OneValueTypeProcessor(name, "");
+    this.oneValueType = new OneValueTypeProcessor(name, "");
   }
 
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateFieldResult(env, t -> "<!-- upload -->");
+    return oneValueType.calculateFieldResult(env, t -> "<!-- upload -->");
   }
 
 
 
   @Override
   public String toString() {
-    return String.format("UploadInput. name=%s", oneValueElement.name);
+    return String.format("UploadInput. name=%s", oneValueType.name);
   }
 
 }

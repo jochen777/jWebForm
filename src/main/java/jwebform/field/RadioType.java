@@ -11,17 +11,17 @@ public class RadioType implements SingleFieldType {
 
   final public List<RadioInputEntry> entries;
 
-  public final OneValueTypeProcessor oneValueElement;
+  public final OneValueTypeProcessor oneValueType;
 
   // RFE: Add groups too, allow nothing as initial value
   public RadioType(String name, String initialValue, String keys[], String values[]) {
-    this.oneValueElement = new OneValueTypeProcessor(name, initialValue);
+    this.oneValueType = new OneValueTypeProcessor(name, initialValue);
     entries = generateEntriesFromKeyValues(keys, values);
   }
 
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateTypeWithInputCheck(env, t -> "<!-- radio -->",
+    return oneValueType.calculateTypeWithInputCheck(env, t -> "<!-- radio -->",
         this::ensureValueIsAllowed);
   }
 
@@ -56,7 +56,7 @@ public class RadioType implements SingleFieldType {
 
   @Override
   public String toString() {
-    return String.format("RadioInput. name=%s", oneValueElement.name);
+    return String.format("RadioInput. name=%s", oneValueType.name);
   }
 
 

@@ -6,18 +6,18 @@ import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
 
 public class LoggingFormResult extends FormResult {
-  public LoggingFormResult(String formId, FieldResults elementResults, boolean formIsValid) {
-    super(formId, elementResults, formIsValid);
+  public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid) {
+    super(formId, fieldResults, formIsValid);
   }
 
   public void logForm(Logger logger) {
     StringBuilder b = new StringBuilder("\n");
-    this.debugOutput(getElementResults(), b, "");
+    this.debugOutput(getFieldResults(), b, "");
     logger.log(b.toString());
   }
 
-  private String debugOutput(FieldResults elementResults, StringBuilder b, String indent) {
-    elementResults.forEach(entry -> {
+  private String debugOutput(FieldResults fieldResults, StringBuilder b, String indent) {
+    fieldResults.forEach(entry -> {
       Field container = entry.getKey();
       FieldResult result = entry.getValue();
       if (container.fieldType instanceof SingleFieldType) {

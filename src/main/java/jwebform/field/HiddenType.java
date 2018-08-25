@@ -9,18 +9,18 @@ public class HiddenType implements SingleFieldType {
 
   public final String name;
   public final String value;
-  final public OneValueTypeProcessor oneValueElement;
+  final public OneValueTypeProcessor oneValueType;
 
   public HiddenType(String name, String initialValue) {
     this.name = name;
     this.value = initialValue;
-    this.oneValueElement = new OneValueTypeProcessor(name, initialValue);
+    this.oneValueType = new OneValueTypeProcessor(name, initialValue);
 
   }
 
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateFieldResultNoTabIndexIncrement(env, t -> "<!-- hidden -->");
+    return oneValueType.calculateFieldResultNoTabIndexIncrement(env, t -> "<!-- hidden -->");
   }
 
 }

@@ -193,19 +193,19 @@ public class SampleUsage {
   }
 
   private class ExpectedResultList {
-    List<ExpectedElementResult> expRes = new ArrayList<>();
+    List<ExpectedFieldResult> expRes = new ArrayList<>();
 
     public void add(String name, boolean validationREsult, String value) {
-      expRes.add(new ExpectedElementResult(name, validationREsult, value));
+      expRes.add(new ExpectedFieldResult(name, validationREsult, value));
     }
 
-    public List<ExpectedElementResult> getList() {
+    public List<ExpectedFieldResult> getList() {
       return expRes;
     }
   }
 
-  private class ExpectedElementResult {
-    public ExpectedElementResult(String name, boolean vr, String value) {
+  private class ExpectedFieldResult {
+    public ExpectedFieldResult(String name, boolean vr, String value) {
       this.name = name;
       this.vr = vr;
       this.value = value;
@@ -217,14 +217,14 @@ public class SampleUsage {
   }
 
   private void testExpectectedResults(FormResult result,
-      List<ExpectedElementResult> expectedResults) {
+      List<ExpectedFieldResult> expectedResults) {
 
-    assertEquals(expectedResults.size(), result.getElementResults().size());
+    assertEquals(expectedResults.size(), result.getFieldResults().size());
 
     int i = 0;
-    for (Field cont : result.getElementResults().getContainers()) {
-      FieldResult eResult = result.getElementResults().get(cont);
-      ExpectedElementResult expectedResult = expectedResults.get(i);
+    for (Field cont : result.getFieldResults().getContainers()) {
+      FieldResult eResult = result.getFieldResults().get(cont);
+      ExpectedFieldResult expectedResult = expectedResults.get(i);
       assertEquals(expectedResult.name, eResult.getStaticFieldInfo().getName());
       // System.err.println(eResult.getStaticFieldInfo().getName());
       assertEquals("BuildInType:" + cont.fieldType.getClass().getName() + ": "

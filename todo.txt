@@ -175,6 +175,7 @@ FieldBuilder
 #############################
 
 * elment komplett loswerden.
+* Formbuilder externalisieren in theme projekt um doppeltes zu verhindern.
 * RFE und TODOS elemenieren
 * Kommentare hinzufügen
 * validatoinREsult muss methode bekommen, die die error-objekte zurückliefert.

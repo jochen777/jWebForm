@@ -16,6 +16,6 @@ import jwebform.FormResult;
 @FunctionalInterface
 public interface FormResultBuilder {
 
-  FormResult build(String formId, FieldResults elementResults, boolean formIsValid);
+  FormResult build(String formId, FieldResults fieldResults, boolean formIsValid);
 
 }

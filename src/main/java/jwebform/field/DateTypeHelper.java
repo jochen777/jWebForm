@@ -53,12 +53,12 @@ class DateTypeHelper {
 
 
   public List<FormValidator> getValidators() {
-    return Collections.singletonList((elements) -> {
+    return Collections.singletonList((fieldResults) -> {
       FieldValdationResults validationResult = new FieldValdationResults();
 
-      FieldResult dayResult = elements.get(day);
-      FieldResult monthResult = elements.get(month);
-      FieldResult yearResult = elements.get(year);
+      FieldResult dayResult = fieldResults.get(day);
+      FieldResult monthResult = fieldResults.get(month);
+      FieldResult yearResult = fieldResults.get(year);
       try {
         setupDateValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
             yearResult.getValue());

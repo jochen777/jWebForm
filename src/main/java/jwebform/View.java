@@ -14,7 +14,7 @@ import java.util.Map.Entry;
 
 public final class View {
 
-  private final FieldResults elementResults;
+  private final FieldResults fieldResults;
 
 
   private final String formId;
@@ -23,10 +23,10 @@ public final class View {
 
 
 
-  public View(String formId, FieldResults elementResults, Method method,
+  public View(String formId, FieldResults fieldResults, Method method,
       Html5Validation html5Validation) {
     this.formId = formId;
-    this.elementResults = elementResults;
+    this.fieldResults = fieldResults;
     this.method = method;
     this.html5Validaiton = html5Validation;
   }
@@ -41,7 +41,7 @@ public final class View {
 
 
   public boolean isUploadEnctypeRequired() {
-    for (Map.Entry<Field, FieldResult> entry : elementResults) {
+    for (Map.Entry<Field, FieldResult> entry : fieldResults) {
       if (entry.getKey().fieldType instanceof ForceFileuploadMethod) {
         return true;
       }
@@ -57,20 +57,20 @@ public final class View {
 
 
   public ProducerInfosContainer getProducerInfosContainer() {
-    List<ProducerInfos> elementList = new ArrayList<>();
-    Map<String, ProducerInfos> elementMap = new LinkedHashMap<>();
+    List<ProducerInfos> piList = new ArrayList<>();
+    Map<String, ProducerInfos> piMap = new LinkedHashMap<>();
     List<String> names = new ArrayList<>();
     int tabIndex = 1;
-    for (Map.Entry<Field, FieldResult> entry : elementResults) {
-      FieldResult elementResult = entry.getValue();
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, elementResult, entry.getKey(),
-        createProducerInfoChilds(elementResult.getChilds(), tabIndex));
-      elementList.add(pi);
-      elementMap.put(elementResult.getStaticFieldInfo().getName(), pi);
-      names.add(elementResult.getStaticFieldInfo().getName());
-      tabIndex += elementResult.getStaticFieldInfo().getTabIndexIncrement();
+    for (Map.Entry<Field, FieldResult> entry : fieldResults) {
+      FieldResult fieldResult = entry.getValue();
+      ProducerInfos pi = new ProducerInfos(formId, tabIndex, fieldResult, entry.getKey(),
+        createProducerInfoChilds(fieldResult.getChilds(), tabIndex));
+      piList.add(pi);
+      piMap.put(fieldResult.getStaticFieldInfo().getName(), pi);
+      names.add(fieldResult.getStaticFieldInfo().getName());
+      tabIndex += fieldResult.getStaticFieldInfo().getTabIndexIncrement();
     }
-    return new ProducerInfosContainer(elementMap, elementList, names);
+    return new ProducerInfosContainer(piMap, piList, names);
 
   }
 

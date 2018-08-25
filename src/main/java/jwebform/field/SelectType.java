@@ -12,20 +12,20 @@ public class SelectType implements SingleFieldType {
 
   final public List<SelectInputEntry> entries;
 
-  public final OneValueTypeProcessor oneValueElement;
+  public final OneValueTypeProcessor oneValueType;
   public final List<SelectInputEntryGroup> groups;
   private final static List<SelectInputEntryGroup> EMPTY_GROUPS = new ArrayList<>();
 
 
   // TOOD: Move multiple Constructors to BuildInType.java. Just allow groups. If there is only one group, skip dipslaying group-info
   public SelectType(String name, String initialValue, String keys[], String values[]) {
-    this.oneValueElement = new OneValueTypeProcessor(name, initialValue);
+    this.oneValueType = new OneValueTypeProcessor(name, initialValue);
     this.entries = generateEntriesFromKeyValues(keys, values);
     this.groups = EMPTY_GROUPS;
   }
 
   public SelectType(String name, String initialValue, List<SelectInputEntry> entries) {
-    this.oneValueElement = new OneValueTypeProcessor(name, initialValue);
+    this.oneValueType = new OneValueTypeProcessor(name, initialValue);
     this.entries = entries;
     this.groups = EMPTY_GROUPS;
   }
@@ -33,7 +33,7 @@ public class SelectType implements SingleFieldType {
   // somewhat fishy because groups and entries seems to be the same type, so we have to change the
   // order of inputs
   public SelectType(String name, List<SelectInputEntryGroup> groups, String initialValue) {
-    this.oneValueElement = new OneValueTypeProcessor(name, initialValue);
+    this.oneValueType = new OneValueTypeProcessor(name, initialValue);
     this.entries = new ArrayList<>();
     this.groups = groups;
   }
@@ -41,7 +41,7 @@ public class SelectType implements SingleFieldType {
 
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
-    return oneValueElement.calculateTypeWithInputCheck(env, t -> "<!-- select -->",
+    return oneValueType.calculateTypeWithInputCheck(env, t -> "<!-- select -->",
       this::ensureValueIsAllowed);
   }
 
@@ -89,7 +89,7 @@ public class SelectType implements SingleFieldType {
 
   @Override
   public String toString() {
-    return String.format("SelectInput. name=%s", oneValueElement.name);
+    return String.format("SelectInput. name=%s", oneValueType.name);
   }
 
 

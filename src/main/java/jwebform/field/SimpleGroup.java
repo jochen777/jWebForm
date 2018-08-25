@@ -15,8 +15,8 @@ public class SimpleGroup implements GroupFieldType {
   private final List<Field> childs;
   private final List<FormValidator> formValidators;
 
-  public SimpleGroup(List<Field> elements, List<FormValidator> formValidators) {
-    this.childs = elements;
+  public SimpleGroup(List<Field> fields, List<FormValidator> formValidators) {
+    this.childs = fields;
     this.formValidators = formValidators;
   }
 

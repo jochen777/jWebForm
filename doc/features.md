@@ -13,15 +13,15 @@ List of features:
 * handling the request-response loop for forms
 * handling error-messages and error-highlighting of the labels
 * correct tab-order
-* pre-fillments of form-elements
+* pre-fillments of form-fields
 * automatically syntactical correct HTML (5) with label and "label-for"
 * pre-fillments of user-input after submit
-* max-lenght constraint on every element to avoid security issues (TBD)
+* max-lenght constraint on every field to avoid security issues (TBD)
 * easy prebuild validation variants, easy custom validation
 * all standard form fields and more (date-input)
 * prepared for multilang-setups
 * warn, if identical names are choosen
-* allow groups of elements for complex types
+* allow groups of fields for complex types
 * automatically set correct transfer mode if fileupload elment is used
 
 ## Available extensions

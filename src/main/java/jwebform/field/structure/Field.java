@@ -3,7 +3,7 @@ package jwebform.field.structure;
 import jwebform.validation.Criterion;
 import jwebform.validation.Validator;
 
-// holds everything, that is important to an fieldType (Element Definition, validation, behaviours)
+// holds everything, that is important to an fieldType (Type, validation, decoration)
 public class Field {
   public final FieldType fieldType;
   public final Criterion [] criteria;
@@ -19,13 +19,13 @@ public class Field {
 
 
 
-  public Field(FieldType element, Criterion ... criteria) {
-    this(element, emptyDecoration, criteria);
+  public Field(FieldType fieldType, Criterion ... criteria) {
+    this(fieldType, emptyDecoration, criteria);
   }
 
 
-  public Field(FieldType element) {
-    this(element, emptyDecoration, new Criterion[0]);
+  public Field(FieldType fieldType) {
+    this(fieldType, emptyDecoration, new Criterion[0]);
   }
 
 

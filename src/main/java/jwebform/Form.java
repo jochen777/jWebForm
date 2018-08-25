@@ -33,7 +33,7 @@ public final class Form {
 
 
 
-  public final List<Field> getElements() {
+  public final List<Field> getFields() {
     return group.getChilds();
   }
 

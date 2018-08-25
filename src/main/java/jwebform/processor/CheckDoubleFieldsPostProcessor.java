@@ -12,11 +12,11 @@ public class CheckDoubleFieldsPostProcessor implements PostProcessor {
 
   @Override
   public FieldResults postProcess(FieldResults results) {
-    Set<String> availElements = new HashSet<>();
+    Set<String> availableFields = new HashSet<>();
     for (Entry<Field, FieldResult> entry : results) {
       // empty names are skipped
       if (entry.getValue().getStaticFieldInfo().getName() != FieldResult.NO_NAME
-          && !availElements.add(entry.getValue().getStaticFieldInfo().getName())) {
+          && !availableFields.add(entry.getValue().getStaticFieldInfo().getName())) {
         throw new DoubleTakenNameException(entry.getValue().getStaticFieldInfo().getName());
       }
     }
@@ -24,7 +24,7 @@ public class CheckDoubleFieldsPostProcessor implements PostProcessor {
   }
 
 
-  // This exeption will be thrown, if you run a form and assigned elements with identical name
+  // This exeption will be thrown, if you run a form and assigned fields with identical name
   public class DoubleTakenNameException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;

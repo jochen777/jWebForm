@@ -30,14 +30,14 @@ public class IdenticalNameException {
   }
 
   @Test
-  public void testDoubleSimpleElements() {
+  public void testDoubleSimpleFields() {
     try {
       Form f = FormBuilder.simple().singleTypes(new SimpleType(), new SimpleType(),
           new HtmlType("Hello"), new HtmlType("world")).build();
       f.run(new EnvBuilder().of(t -> t));
       assertTrue("An exeption should not be raised before!", true);
     } catch (Exception e) {
-      fail("An exeption should not be raised, because we have double SIMPLE elements!");
+      fail("An exeption should not be raised, because we have double SIMPLE fields!");
     }
   }
 }

@@ -12,7 +12,7 @@ public final class FieldResult {
   private final String value; // not static
   private final Object valueObject;
 
-  private final StaticFieldInfo staticElementInfo;
+  private final StaticFieldInfo staticFieldInfo;
   private final FieldResults childs;
 
   private static final String EMPTY_STRING = "";
@@ -24,7 +24,7 @@ public final class FieldResult {
     this.validationResult = builder.validationResult;
     this.value = builder.value;
     this.valueObject = builder.valueObject;
-    this.staticElementInfo = builder.staticElementInfo;
+    this.staticFieldInfo = builder.internalStaticFieldInfo;
     this.childs = builder.childs;
   }
 
@@ -33,19 +33,19 @@ public final class FieldResult {
 
 
   public FieldResult ofValidationResult(ValidationResult vr) {
-    return FieldResult.builder().withChilds(childs).withStaticFieldInfo(staticElementInfo)
+    return FieldResult.builder().withChilds(childs).withStaticFieldInfo(staticFieldInfo)
         .withValidationResult(vr).withValue(value).withValueObject(valueObject).build();
   }
 
   public FieldResult cloneWithChilds(FieldResults childs) {
-    return FieldResult.builder().withChilds(childs).withStaticFieldInfo(staticElementInfo)
+    return FieldResult.builder().withChilds(childs).withStaticFieldInfo(staticFieldInfo)
         .withValidationResult(validationResult).withValue(value).withValueObject(valueObject)
         .build();
   }
 
 
   public FieldResult cloneWithNewValidationResult(ValidationResult newValidationResult) {
-    return FieldResult.builder().withChilds(childs).withStaticFieldInfo(staticElementInfo)
+    return FieldResult.builder().withChilds(childs).withStaticFieldInfo(staticFieldInfo)
         .withValidationResult(newValidationResult).withValue(value).withValueObject(valueObject)
         .build();
   }
@@ -65,7 +65,7 @@ public final class FieldResult {
 
 
   public StaticFieldInfo getStaticFieldInfo() {
-    return staticElementInfo;
+    return staticFieldInfo;
   }
 
   public Object getValueObject() {
@@ -95,7 +95,7 @@ public final class FieldResult {
     private ValidationResult validationResult = ValidationResult.undefined();
     private String value = EMPTY_STRING;
     private Object valueObject = EMPTY_STRING;
-    private StaticFieldInfo staticElementInfo;
+    private StaticFieldInfo internalStaticFieldInfo;
     private FieldResults childs = new FieldResults();
 
     private Builder() {}
@@ -115,8 +115,8 @@ public final class FieldResult {
       return this;
     }
 
-    public Builder withStaticFieldInfo(StaticFieldInfo staticElementInfo) {
-      this.staticElementInfo = staticElementInfo;
+    public Builder withStaticFieldInfo(StaticFieldInfo staticFieldInfo) {
+      this.internalStaticFieldInfo = staticFieldInfo;
       return this;
     }
 

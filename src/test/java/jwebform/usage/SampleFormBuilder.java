@@ -110,9 +110,9 @@ public class SampleFormBuilder {
 
   public Form buildForm() {
     FormValidator validator = it -> {
-      String valueOfTextInput = it.getElementStringValue("textInput");
+      String valueOfTextInput = it.getFieldStringValue("textInput");
       if (valueOfTextInput.length() > 3) {
-        return it.computeSingleElementValidation("textInput", ValidationResult.fail("not_ok"));
+        return it.computeSingleFieldValidation("textInput", ValidationResult.fail("not_ok"));
       }
       return FieldValdationResults.empty();
     };
