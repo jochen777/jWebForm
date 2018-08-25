@@ -16,11 +16,11 @@ import java.util.Optional;
  */
 public class Validator {
 
-  private final List<Criterion> criteria = new ArrayList<>();
+  private final Criterion [] criteria;
   private static final Validator EMPTY_VALIDATOR = new Validator();
 
   public Validator(Criterion... inputCriterium) {
-    Collections.addAll(criteria, inputCriterium);
+    criteria = inputCriterium;
   }
 
   public static Validator emptyValidator() {
