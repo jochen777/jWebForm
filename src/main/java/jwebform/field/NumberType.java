@@ -14,7 +14,6 @@ public class NumberType implements SingleFieldType {
 
   public final OneValueTypeProcessor oneValueType;
 
-  // RFE: Maybe we need here an Optional<Integer> to allow nothing on the first place.
   public NumberType(String name, int initialValue) {
     this.oneValueType = new OneValueTypeProcessor(name, Integer.toString(initialValue));
     initialNumber = initialValue;

@@ -175,21 +175,24 @@ FieldBuilder
 * elment komplett loswerden. (OK)
 * Formbuilder externalisieren in theme projekt um doppeltes zu verhindern. (OK)
 * group element muss auch validatoren annehmen können!
-#############################
-
-
 * Test NumberType like DateInputText
+* TODOS elemenieren
+* fieldContainer umbenennen in Formfield?
+-> Django: Field, Symfony: Type, .net: type/nichts
+ * html output generally over simple template engine?!
+#######################################################################################
+#######################################################################################
 
-* RFE und TODOS elemenieren
+
+
+* validatoinREsult muss methode bekommen, die die error-objekte zurückliefert.
 * FormBuilder muss umbenannt werden!
 * Kommentare hinzufügen
-* validatoinREsult muss methode bekommen, die die error-objekte zurückliefert.
-* compare different java approaches to handle forms
+
+0.0.10
 ----
 
-Aufgefallen bei Integration in Produktion:
-* Type ist zu generisch. Besser z.B. "FormType" / "Typebuilder". Idee: Typebuilder und Type in einer klasse
-
+* compare different java approaches to handle forms
 * best practice beschreiben: FormBuilder klasse sollte validierung, form darstellung und daten-handling machen.
 Nicht mehr! Validierungs-Funktionen am besten per Lamda reinreichen.
 
@@ -203,8 +206,6 @@ harmonize styleguide filenames in example project (camelcase and asdf_msdf mixed
 * doku: build your own validator
 
 
-* fieldContainer umbenennen in Formfield?
--> Django: Field, Symfony: Type, .net: type/nichts
 
 * Simpler API for Theming
 
@@ -243,7 +244,6 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
  
  * google captcha in core with lamdas for json serialisierung/desserialsierung
  
- * html output generally over simple template engine?!
  
  
  * bean-validation
