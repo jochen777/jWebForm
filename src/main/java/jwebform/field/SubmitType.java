@@ -1,13 +1,12 @@
 package jwebform.field;
 
+import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
 import jwebform.field.structure.StaticFieldInfo;
-import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class SubmitType implements SingleFieldType {
 
-  // TODO: Remove label. Should be taken from decoration
   public final String label;
   public final String name;
 

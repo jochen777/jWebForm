@@ -21,6 +21,7 @@ import jwebform.FormBuilder;
 import jwebform.FormResult;
 import jwebform.field.builder.FieldBuilder;
 import jwebform.processor.FieldValdationResults;
+import jwebform.processor.LoggingFormResult;
 import jwebform.validation.Criterion;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
@@ -117,7 +118,8 @@ public class SampleFormBuilder {
       return FieldValdationResults.empty();
     };
 
-    return FormBuilder.withId(formId).validation(validator)
+
+    return FormBuilder.flexible(formId, LoggingFormResult::new).validation(validator)
         .typeBuilder(getTypeBuildersForSampleForm()).build();
 
   }

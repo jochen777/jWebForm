@@ -1,13 +1,12 @@
 package jwebform.field;
 
+import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.field.helper.OneValueTypeProcessor;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.ForceFileuploadMethod;
 import jwebform.field.structure.SingleFieldType;
-import jwebform.env.Env.EnvWithSubmitInfo;
 
 
-// TODO: No value here!, change method!
 public class UploadType implements SingleFieldType, ForceFileuploadMethod {
 
   public final OneValueTypeProcessor oneValueType;

@@ -1,17 +1,16 @@
 package jwebform.processor;
 
-import jwebform.field.structure.Field;
-import jwebform.field.structure.FieldResult;
-import jwebform.field.structure.GroupFieldType;
-import jwebform.field.structure.SingleFieldType;
-import jwebform.env.Env.EnvWithSubmitInfo;
-import jwebform.validation.FormValidator;
-import jwebform.validation.ValidationResult;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import jwebform.env.Env.EnvWithSubmitInfo;
+import jwebform.field.structure.Field;
+import jwebform.field.structure.FieldResult;
+import jwebform.field.structure.GroupFieldType;
+import jwebform.field.structure.SingleFieldType;
+import jwebform.validation.FormValidator;
+import jwebform.validation.ValidationResult;
 
 // this is doing the "hard work": Let each field do the apply function, run validations, run
 // form-validations
@@ -37,8 +36,7 @@ public class Processor {
 
 
   // process each field. This is used for fields, that have children... (Lke Date-Selects)
-  public FieldResults processFields(EnvWithSubmitInfo env,
-      Field... fieldsToProcess) {
+  public FieldResults processFields(EnvWithSubmitInfo env, Field... fieldsToProcess) {
     return this.processFields(env, packFieldsInList(fieldsToProcess));
   }
 
@@ -67,8 +65,7 @@ public class Processor {
     return fieldResults;
   }
 
-  private void processSingleType(
-    EnvWithSubmitInfo env, FieldResults fieldResults, Field field) {
+  private void processSingleType(EnvWithSubmitInfo env, FieldResults fieldResults, Field field) {
     // here is where the magic happens! The "apply" method of the fields is called.
     FieldResult result = ((SingleFieldType) field.fieldType).apply(env);
     if (env.isSubmitted()) {
@@ -89,16 +86,21 @@ public class Processor {
     fieldResults.put(field, result);
   }
 
-  private void processGroup(
-    EnvWithSubmitInfo env, FieldResults fieldResults, Field field) {
+  private void processGroup(EnvWithSubmitInfo env, FieldResults fieldResults, Field field) {
     FieldResults groupTypeResults = this.run(env, (GroupFieldType) field.fieldType);
-    FieldResult groupResult =
-        ((GroupFieldType) field.fieldType).process(env, groupTypeResults);
+    FieldResult groupResult = ((GroupFieldType) field.fieldType).process(env, groupTypeResults);
+    /*
+     * if group result is ok in itself, it can happen, that configured criteria render this to false
+     * Example: The date itself is okay, but we want a date, that is youger than 3 days...
+     */
+    if (groupResult.getValidationResult().isValid) {
+      groupResult =
+          groupResult.ofValidationResult(field.getValidator().validate(groupResult.getValue()));
+    }
     fieldResults.put(field, groupResult.cloneWithChilds(groupTypeResults));
   }
 
-  private FieldValdationResults runFormValidations(
-    FieldResults fieldResults,
+  private FieldValdationResults runFormValidations(FieldResults fieldResults,
       List<FormValidator> formValidators) {
 
 
@@ -123,9 +125,8 @@ public class Processor {
 
 
 
-  private FieldResults correctFieldResults(
-    FieldResults fieldResults,
-    FieldValdationResults overridenValidationResults) {
+  private FieldResults correctFieldResults(FieldResults fieldResults,
+      FieldValdationResults overridenValidationResults) {
     overridenValidationResults.getResutls().forEach((field, overridenValidationResult) -> {
       FieldResult re = fieldResults.get(field);
       fieldResults.put(field, re.cloneWithNewValidationResult(overridenValidationResult));

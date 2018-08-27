@@ -1,10 +1,12 @@
 package jwebform.field;
 
+import java.util.Optional;
+import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.field.helper.OneValueTypeProcessor;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
 import jwebform.field.structure.StaticFieldInfo;
-import jwebform.env.Env.EnvWithSubmitInfo;
+import jwebform.validation.ValidationResult;
 
 public class NumberType implements SingleFieldType {
 
@@ -19,22 +21,30 @@ public class NumberType implements SingleFieldType {
   }
 
   @Override
-  // TODO: Test this!
   public FieldResult apply(EnvWithSubmitInfo env) {
     String requestVal = env.getEnv().getRequest().getParameter(oneValueType.name);
-    String val = env.isSubmitted() ? requestVal : Integer.toString(initialNumber);
     int parsedNumber = 0;
     String parsedNumberVal = "";
-    try {
-      parsedNumber = Integer.parseInt(val);
-      parsedNumberVal = Integer.toString(parsedNumber);
-    } catch (NumberFormatException e) {
-      parsedNumber = 0;
+    ValidationResult vr = ValidationResult.undefined();
+    Optional<Integer> numbOptional;
+
+    if ("".equals(requestVal)) {
+      numbOptional = Optional.empty();
+    } else {
+      String val = env.isSubmitted() ? requestVal : Integer.toString(initialNumber);
+      try {
+        parsedNumber = Integer.parseInt(val);
+        parsedNumberVal = Integer.toString(parsedNumber);
+        numbOptional = Optional.of(parsedNumber);
+      } catch (NumberFormatException e) {
+        vr = ValidationResult.fail("jformchecker.not_a_number");
+        parsedNumber = 0;
+        numbOptional = Optional.empty();
+      }
     }
     return FieldResult.builder().withValue(parsedNumberVal)
-        .withStaticFieldInfo(
-            new StaticFieldInfo(oneValueType.name, t -> "<!-- number -->", 1))
-        .withValueObject(parsedNumber).build();
+        .withStaticFieldInfo(new StaticFieldInfo(oneValueType.name, t -> "<!-- number -->", 1))
+        .withValidationResult(vr).withValueObject(numbOptional).build();
   }
 
 

@@ -1,9 +1,8 @@
 package jwebform.field.structure;
 
+import javax.annotation.Generated;
 import jwebform.processor.FieldResults;
 import jwebform.validation.ValidationResult;
-
-import javax.annotation.Generated;
 
 // that what is coming out of a "run" method of an fieldType
 public final class FieldResult {
@@ -27,9 +26,6 @@ public final class FieldResult {
     this.staticFieldInfo = builder.internalStaticFieldInfo;
     this.childs = builder.childs;
   }
-
-  // TODO: Remove validationResult entirely here! This can move to producerInfos
-
 
 
   public FieldResult ofValidationResult(ValidationResult vr) {

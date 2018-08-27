@@ -1,14 +1,13 @@
 package jwebform.processor;
 
-import jwebform.field.structure.Field;
-import jwebform.field.structure.FieldResult;
-import jwebform.validation.ValidationResult;
-
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import jwebform.field.structure.Field;
+import jwebform.field.structure.FieldResult;
+import jwebform.validation.ValidationResult;
 
 // Holds the fieldResultMap and the field itself
 public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
@@ -56,11 +55,11 @@ public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
         return i.getValueObject();
       }
     }
-    throw new FieldNotFoundException(
-        "This fieldType does not exist in form", fieldName);
+    throw new FieldNotFoundException("This fieldType does not exist in form", fieldName);
   }
 
-  public final FieldValdationResults computeSingleFieldValidation(String fieldName, ValidationResult vr) {
+  public final FieldValdationResults computeSingleFieldValidation(String fieldName,
+      ValidationResult vr) {
     return FieldValdationResults.of(getField(fieldName), vr);
   }
 
@@ -78,12 +77,12 @@ public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
   }
 
   public Set<Field> getContainers() {
-    // TODO Auto-generated method stub
     return fieldResultMap.keySet();
   }
 
   public class FieldNotFoundException extends RuntimeException {
     private final String fieldName;
+
     public FieldNotFoundException(String msg, String fieldName) {
       super(msg);
       this.fieldName = fieldName;

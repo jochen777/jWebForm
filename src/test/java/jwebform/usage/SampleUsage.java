@@ -1,19 +1,18 @@
 package jwebform.usage;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Test;
 import jwebform.FormResult;
 import jwebform.View;
 import jwebform.View.Html5Validation;
-import jwebform.field.structure.Field;
-import jwebform.field.structure.FieldResult;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import jwebform.field.structure.Field;
+import jwebform.field.structure.FieldResult;
+import jwebform.processor.LoggingFormResult;
 
 public class SampleUsage {
 
@@ -85,7 +84,8 @@ public class SampleUsage {
     }, // this simulates the input of the names
         t -> t, (k, v) -> {
         });
-    FormResult result = getFormResult(env);
+    LoggingFormResult result = getFormResult(env);
+    // result.logForm(System.err::print);
 
     ExpectedResultList expRes = new ExpectedResultList();
     expRes.add("xsrf_protection", true, "");
@@ -121,13 +121,14 @@ public class SampleUsage {
     }, // this simulates empty inputs
         t -> t, (k, v) -> {
         });
-    FormResult result = getFormResult(env);
+    LoggingFormResult result = getFormResult(env);
+    result.logForm(System.err::print);
 
     ExpectedResultList expRes = new ExpectedResultList();
     expRes.add("xsrf_protection", true, "");
     expRes.add("", true, "");
     expRes.add("textInput", false, "");
-    expRes.add("dateInput", true, "2017-07-04");
+    expRes.add("dateInput", false, "");
     expRes.add("textInput2", false, "");
     expRes.add("gender", true, "");
     expRes.add("submit", true, "");
@@ -166,7 +167,7 @@ public class SampleUsage {
     expRes.add("xsrf_protection", true, "");
     expRes.add("", true, "");
     expRes.add("textInput", true, "1");
-    expRes.add("dateInput", true, "2017-07-04");
+    expRes.add("dateInput", false, "");
     expRes.add("textInput2", false, "");
     expRes.add("gender", true, "");
     expRes.add("submit", true, "");
@@ -184,8 +185,8 @@ public class SampleUsage {
         !result.isOk());
   }
 
-  private FormResult getFormResult(Env env) {
-    return new SampleFormBuilder(formId).buildForm().run(env);
+  private LoggingFormResult getFormResult(Env env) {
+    return (LoggingFormResult) new SampleFormBuilder(formId).buildForm().run(env);
   }
 
   private FormResult getFormResultWithoutUpload(Env env) {
@@ -226,10 +227,10 @@ public class SampleUsage {
       FieldResult eResult = result.getFieldResults().get(cont);
       ExpectedFieldResult expectedResult = expectedResults.get(i);
       assertEquals(expectedResult.name, eResult.getStaticFieldInfo().getName());
-      // System.err.println(eResult.getStaticFieldInfo().getName());
-      assertEquals("BuildInType:" + cont.fieldType.getClass().getName() + ": "
-          + eResult.getStaticFieldInfo().getName() + "/" + expectedResult.name + " expResult: "
-          + expectedResult.vr + "/real:" + eResult.getValidationResult().isValid,
+      assertEquals(
+          "BuildInType:" + cont.fieldType.getClass().getName() + ": "
+              + eResult.getStaticFieldInfo().getName() + "/" + expectedResult.name + " expResult: "
+              + expectedResult.vr + "/real:" + eResult.getValidationResult().isValid,
           eResult.getValidationResult().isValid, expectedResult.vr);
 
       assertTrue(

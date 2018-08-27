@@ -172,14 +172,19 @@ FieldBuilder
  is the container of a type, a validator and a decoration)
 
 * Kein Validator mehr im field sondern eine Liste von Criterias
+* elment komplett loswerden. (OK)
+* Formbuilder externalisieren in theme projekt um doppeltes zu verhindern. (OK)
+* group element muss auch validatoren annehmen können!
 #############################
 
-* elment komplett loswerden.
-* Formbuilder externalisieren in theme projekt um doppeltes zu verhindern.
+
+* Test NumberType like DateInputText
+
 * RFE und TODOS elemenieren
+* FormBuilder muss umbenannt werden!
 * Kommentare hinzufügen
 * validatoinREsult muss methode bekommen, die die error-objekte zurückliefert.
-
+* compare different java approaches to handle forms
 ----
 
 Aufgefallen bei Integration in Produktion:

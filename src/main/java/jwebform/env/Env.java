@@ -63,7 +63,6 @@ public class Env {
     return new Env((i) -> nullSave(this.request.getParameter(i)), this.sessionGet, this.sessionSet);
   }
 
-  // RFE: Maybe better to cut just the trailing spaces
   public Env cloneWithTrim() {
     // make sure, that you choose before the cloneWithNullCheck
     return new Env((i) -> this.request.getParameter(i).trim(), this.sessionGet, this.sessionSet);
@@ -97,7 +96,7 @@ public class Env {
     public EnvWithSubmitInfo(String formId, Env env) {
       this.env = env;
       this.submitted =
-        (Env.SUBMIT_VALUE_PREFIX + formId).equals(env.getRequest().getParameter(Env.SUBMIT_KEY));
+          (Env.SUBMIT_VALUE_PREFIX + formId).equals(env.getRequest().getParameter(Env.SUBMIT_KEY));
     }
 
 

@@ -1,15 +1,14 @@
 package jwebform.field;
 
+import java.security.SecureRandom;
+import java.util.Base64;
+import jwebform.env.Env;
+import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.HTMLProducer;
 import jwebform.field.structure.SingleFieldType;
 import jwebform.field.structure.StaticFieldInfo;
-import jwebform.env.Env;
-import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
-
-import java.security.SecureRandom;
-import java.util.Base64;
 
 // Form-Elmement, that provides XSRF protection
 public class XSRFProtectionType implements SingleFieldType {
@@ -66,8 +65,6 @@ public class XSRFProtectionType implements SingleFieldType {
     env.getSessionSet().setAttribute(newName, xsrfVal);
 
     // ###############
-
-    // TODO: What happens, if session runs out and user want's a new code?
 
     // is firstrun - then generate a complete new token
 

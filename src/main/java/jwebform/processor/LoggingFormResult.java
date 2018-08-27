@@ -37,7 +37,7 @@ public class LoggingFormResult extends FormResult {
     .append(indent).append("Typ    : ").append(container.fieldType.getClass().getName()).append("\n")
     .append(indent).append("Name   : ").append(result.getStaticFieldInfo().getName()).append("\n")
     .append(indent).append("Value  : ").append(result.getValue()).append("\n")
-    // TODO: Append validation info, label, helptext?, 
+    // Append validation info, label, helptext?, 
     .append(indent).append("Valdid : ").append(result.getValidationResult().isValid() ? "OK" : "Not OK")
     .append("\n")
     ;
