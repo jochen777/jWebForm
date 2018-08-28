@@ -18,12 +18,14 @@ import jwebform.validation.criteria.Criteria;
 // tests the DateInput Default and empty behaviour
 public class DateInputValueTest {
 
+  public static final String FIELD_NAME = "date";
+
   private Form buildFormWithDateInput() {
     // @formatter:off
     return FormBuilder.simple()
         .typeBuilder(
              FormBuilder.array(
-                 BuildInType.textDate("date", LocalDate.of(2018, 8, 26))
+                 BuildInType.textDate(FIELD_NAME, LocalDate.of(2018, 8, 26))
                  )
              )
         .build();
@@ -35,7 +37,7 @@ public class DateInputValueTest {
     return FormBuilder.simple()
         .typeBuilder(
              FormBuilder.array(
-                 BuildInType.textDate("date", LocalDate.of(2018, 8, 26)).withCriteria(Criteria.required())
+                 BuildInType.textDate(FIELD_NAME, LocalDate.of(2018, 8, 26)).withCriteria(Criteria.required())
                  )
              )
         .build();
@@ -59,8 +61,8 @@ public class DateInputValueTest {
     params.put("WF_SUBMITTED", "WF-id");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
     assertTrue(result.isOk());
-    assertEquals("", result.getStringValue("date"));
-    assertEquals(Optional.empty(), result.getObectValue("date"));
+    assertEquals("", result.getStringValue(FIELD_NAME));
+    assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
 
   @Test
@@ -73,8 +75,8 @@ public class DateInputValueTest {
     params.put("date_year", "2018");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
     assertTrue(result.isOk());
-    assertEquals("2018-10-05", result.getStringValue("date"));
-    assertEquals(Optional.of(LocalDate.of(2018, 10, 5)), result.getObectValue("date"));
+    assertEquals("2018-10-05", result.getStringValue(FIELD_NAME));
+    assertEquals(Optional.of(LocalDate.of(2018, 10, 5)), result.getObectValue(FIELD_NAME));
   }
 
   @Test
@@ -87,8 +89,8 @@ public class DateInputValueTest {
     params.put("date_year", "2018");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
     assertTrue(!result.isOk());
-    assertEquals("", result.getStringValue("date"));
-    assertEquals(Optional.empty(), result.getObectValue("date"));
+    assertEquals("", result.getStringValue(FIELD_NAME));
+    assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
 
   @Test
@@ -98,8 +100,8 @@ public class DateInputValueTest {
     params.put("WF_SUBMITTED", "WF-id");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
     assertTrue(!result.isOk());
-    assertEquals("", result.getStringValue("date"));
-    assertEquals(Optional.empty(), result.getObectValue("date"));
+    assertEquals("", result.getStringValue(FIELD_NAME));
+    assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
 
 

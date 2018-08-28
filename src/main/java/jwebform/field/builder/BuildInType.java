@@ -117,5 +117,8 @@ public class BuildInType {
     return new FieldBuilder().withTypeSupplier(() -> new TextDateType(name,  initialValue));
   }
 
+  public
+  static <T> T[] array(T... values) { return values; }
+
 
 }

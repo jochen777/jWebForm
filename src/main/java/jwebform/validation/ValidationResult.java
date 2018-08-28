@@ -24,6 +24,8 @@ public class ValidationResult {
   }
 
   // Will return either the translated message (if set) or the messageKey
+  // RFE: This normally makes no sense. Either you want the key OR the translated message.
+  @Deprecated // Use either getMessageKey OR getTranslatedMessage
   public String getMessage() {
     return translatedMessage.length()>0?translatedMessage: message;
   }
@@ -47,6 +49,8 @@ public class ValidationResult {
   public String getMessageKey() {
     return message;
   }
+
+
 
   // factory methods
   public static ValidationResult of_(boolean isValid, String message, Object... errorVals) {

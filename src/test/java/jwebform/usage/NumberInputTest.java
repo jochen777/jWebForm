@@ -17,12 +17,14 @@ import jwebform.validation.criteria.Criteria;
 // tests the NumberInput
 public class NumberInputTest {
 
+  public static final String FIELD_NAME = "number";
+
   private Form buildFormWithNumber() {
     // @formatter:off
     return FormBuilder.simple()
         .typeBuilder(
-             FormBuilder.array(
-                 BuildInType.number("number", 5)
+             BuildInType.array(
+                 BuildInType.number(FIELD_NAME, 5)
                  )
              )
         .build();
@@ -33,8 +35,9 @@ public class NumberInputTest {
     // @formatter:off
     return FormBuilder.simple()
         .typeBuilder(
-             FormBuilder.array(
-                 BuildInType.number("number", 5).withCriteria(Criteria.required())
+             BuildInType.array(
+                 BuildInType.number(FIELD_NAME, 5).
+                   withCriteria(Criteria.required())
                  )
              )
         .build();
@@ -60,8 +63,8 @@ public class NumberInputTest {
     params.put("WF_SUBMITTED", "WF-id");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
     assertTrue(result.isOk());
-    assertEquals("", result.getStringValue("number"));
-    assertEquals(Optional.empty(), result.getObectValue("number"));
+    assertEquals("", result.getStringValue(FIELD_NAME));
+    assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
 
   @Test
@@ -69,11 +72,11 @@ public class NumberInputTest {
     Form testForm = buildFormWithNumber();
     Map<String, String> params = new HashMap<>();
     params.put("WF_SUBMITTED", "WF-id");
-    params.put("number", "9");
+    params.put(FIELD_NAME, "9");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
     assertTrue(result.isOk());
-    assertEquals("9", result.getStringValue("number"));
-    assertEquals(Optional.of(9), result.getObectValue("number"));
+    assertEquals("9", result.getStringValue(FIELD_NAME));
+    assertEquals(Optional.of(9), result.getObectValue(FIELD_NAME));
   }
 
   @Test
@@ -81,11 +84,11 @@ public class NumberInputTest {
     Form testForm = buildFormWithNumber();
     Map<String, String> params = new HashMap<>();
     params.put("WF_SUBMITTED", "WF-id");
-    params.put("number", "a");
+    params.put(FIELD_NAME, "a");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
     assertTrue(!result.isOk());
-    assertEquals("", result.getStringValue("number"));
-    assertEquals(Optional.empty(), result.getObectValue("number"));
+    assertEquals("", result.getStringValue(FIELD_NAME));
+    assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
 
   @Test
@@ -95,8 +98,8 @@ public class NumberInputTest {
     params.put("WF_SUBMITTED", "WF-id");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
     assertTrue(!result.isOk());
-    assertEquals("", result.getStringValue("number"));
-    assertEquals(Optional.empty(), result.getObectValue("number"));
+    assertEquals("", result.getStringValue(FIELD_NAME));
+    assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
 
 
