@@ -22,23 +22,28 @@ public class NumberType implements SingleFieldType {
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
     String requestVal = env.getEnv().getRequest().getParameter(oneValueType.name);
+    ValidationResult vr = ValidationResult.undefined();
+
     int parsedNumber = 0;
     String parsedNumberVal = "";
-    ValidationResult vr = ValidationResult.undefined();
     Optional<Integer> numbOptional;
-
-    if ("".equals(requestVal)) {
-      numbOptional = Optional.empty();
+    if (!env.isSubmitted()) {
+      parsedNumber = initialNumber;
+      numbOptional = Optional.of(initialNumber);
+      parsedNumberVal = Integer.toString(parsedNumber);
     } else {
-      String val = env.isSubmitted() ? requestVal : Integer.toString(initialNumber);
-      try {
-        parsedNumber = Integer.parseInt(val);
-        parsedNumberVal = Integer.toString(parsedNumber);
-        numbOptional = Optional.of(parsedNumber);
-      } catch (NumberFormatException e) {
-        vr = ValidationResult.fail("jformchecker.not_a_number");
-        parsedNumber = 0;
+      if ("".equals(requestVal)) {
         numbOptional = Optional.empty();
+      } else {
+        String val = env.isSubmitted() ? requestVal : Integer.toString(initialNumber);
+        try {
+          parsedNumber = Integer.parseInt(val);
+          parsedNumberVal = Integer.toString(parsedNumber);
+          numbOptional = Optional.of(parsedNumber);
+        } catch (NumberFormatException e) {
+          vr = ValidationResult.fail("jformchecker.not_a_number");
+          numbOptional = Optional.empty();
+        }
       }
     }
     return FieldResult.builder().withValue(parsedNumberVal)
