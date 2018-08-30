@@ -185,12 +185,13 @@ FieldBuilder
 Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. debug-infos
  * AttributeBuilder mit einfachem Builder: AttributeBuilder.build("class", "form-class", "required", ""...)
 * Rename BuildInType: remove "with" (OK)
+* Validator kann über Beanvalidator funktionieren (über FormValidator)
 #######################################################################################
 #######################################################################################
 
 
 * Kommentare hinzufügen
-* Validator kann über Beanvalidator funktionieren
+
 
 
 0.0.10

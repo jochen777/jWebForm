@@ -29,10 +29,6 @@ public class Field {
   }
 
 
-  // RFE: This must be injected! Validator could change - for example with Beanvalidator
-  public Validator getValidator() {
-    return new Validator(criteria);
-  }
 
   @Override
   public String toString() {

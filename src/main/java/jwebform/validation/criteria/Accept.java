@@ -40,7 +40,7 @@ public class Accept implements Criterion {
         isValid = true;
     }
     if (!isValid) {
-      return ValidationResult.fail("jformchecker.allowed_values", (Object[]) acceptableValues);
+      return ValidationResult.fail("jwebform.allowed_values", (Object[]) acceptableValues);
     }
     return ValidationResult.ok();
   }

@@ -30,7 +30,7 @@ public class OneValueTypeProcessor {
   public FieldResult calculateTypeWithInputCheck(EnvWithSubmitInfo env,
       HTMLProducer htmlProducer, Predicate<String> validateInput, int tabIndexIncr) {
 
-    String requestVal = env.getEnv().getRequest().getParameter(name);
+    String requestVal = env.getEnv().getParameter(name);
     String value = "";
     String input = fetchValue(env, requestVal, initialValue);
     if (validateInput.test(input)) {

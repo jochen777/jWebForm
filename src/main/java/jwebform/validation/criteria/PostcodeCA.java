@@ -13,7 +13,7 @@ public final class PostcodeCA extends Regex {
 
   PostcodeCA() {
     super(REGEX);
-    setErrorMsg("jformchecker.postalcode");
+    setErrorMsg("jwebform.postalcode");
   }
 
 }

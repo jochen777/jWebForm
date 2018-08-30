@@ -23,11 +23,6 @@ public class Validator {
     criteria = inputCriterium;
   }
 
-  public static Validator emptyValidator() {
-    return EMPTY_VALIDATOR;
-  }
-
-
   public boolean isRequired() {
     for (Criterion criterion : criteria) {
       if (criterion == Criteria.required()) { // this is ok, because it uses a sigelton
@@ -48,8 +43,7 @@ public class Validator {
   }
 
 
-  public ValidationResult validate(String value) { // RFE: Better just
-                                                   // object??
+  public ValidationResult validate(String value) {
     return allCriteriaSatisfied(value);
   }
 

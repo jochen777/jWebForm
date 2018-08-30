@@ -16,6 +16,6 @@ public class StrongPassword extends Regex {
 
   StrongPassword(int minLen) {
     super(REGEX + minLen + REGEX1);
-    setErrorMsg("jformchecker.strong_password");
+    setErrorMsg("jwebform.strong_password");
   }
 }

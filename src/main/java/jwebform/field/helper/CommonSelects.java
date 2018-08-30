@@ -6,8 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Common selects. Like gender, months...
- * @author jochen
+ * Common convenience setups for select fields.
+ *
+ * Build-in:
+ * * Months (january ... december)
+ * * Days (1..31)
+ * * Years (start ... end)
+ * * Gender
+ *
+ * RFE: Add Days (monday...sunday),
  *
  */
 public class CommonSelects {
@@ -23,13 +30,13 @@ public class CommonSelects {
 
 	
 	public List<SelectType.SelectInputEntry> buildDays() { 
-		return buildMap(1, 31, "jformchecker.select.day");
+		return buildMap(1, 31, "jwebform.select.day");
 	}
 
 	public  List<SelectType.SelectInputEntry> buildMonths() { 
 	  List<SelectType.SelectInputEntry> monthsList = new ArrayList<>();
 		for (int i=1; i<=12; i++) {
-		  monthsList.add(new SelectType.SelectInputEntry(Integer.toString(i), "jformchecker.select."+ months[i-1]));
+		  monthsList.add(new SelectType.SelectInputEntry(Integer.toString(i), "jwebform.select."+ months[i-1]));
 		}
 		return monthsList;
 	}
@@ -40,14 +47,14 @@ public class CommonSelects {
       startYear = endYear;
       endYear = tmp;
     }
-		return builReverseMap(startYear, endYear, "jformchecker.select.year");
+		return builReverseMap(startYear, endYear, "jwebform.select.year");
 	}
 
 	
 	public List<SelectType.SelectInputEntry> getGenderSelect() { 
       List<SelectType.SelectInputEntry> genderSelect = new ArrayList<>();
-      addToList(genderSelect, "f", "jformchecker.select.female");
-      addToList(genderSelect, "m", "jformchecker.select.male");
+      addToList(genderSelect, "f", "jwebform.select.female");
+      addToList(genderSelect, "m", "jwebform.select.male");
 		return genderSelect;
 	}
 	

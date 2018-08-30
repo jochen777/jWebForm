@@ -11,6 +11,7 @@ import jwebform.field.structure.GroupFieldType;
 import jwebform.field.structure.SingleFieldType;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
+import jwebform.validation.Validator;
 
 // this is doing the "hard work": Let each field do the apply function, run validations, run
 // form-validations
@@ -75,10 +76,12 @@ public class Processor {
         // override the following validation
         // --- do nothing
       } else {
-        result = result.ofValidationResult(field.getValidator().validate(result.getValue()));
+          result = result.ofValidationResult(new Validator(field.criteria).validate(result.getValue()));
+
+        // validate with external validators
       }
     } else {
-      // do nothing
+      // do nothing, form is not submitted yet.
     }
     if (fieldResults.containsField(field)) {
       throw new IdenticalFieldException(field);
@@ -95,7 +98,7 @@ public class Processor {
      */
     if (groupResult.getValidationResult().isValid) {
       groupResult =
-          groupResult.ofValidationResult(field.getValidator().validate(groupResult.getValue()));
+          groupResult.ofValidationResult(new Validator(field.criteria).validate(groupResult.getValue()));
     }
     fieldResults.put(field, groupResult.cloneWithChilds(groupTypeResults));
   }

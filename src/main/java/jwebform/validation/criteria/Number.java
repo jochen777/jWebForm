@@ -20,7 +20,7 @@ public final class Number implements Criterion {
     if (value.length() > 0 && pattern.matcher(value).matches()) {
         return ValidationResult.ok();
     }
-    return ValidationResult.fail("jformchecker.not_a_number");
+    return ValidationResult.fail("jwebform.not_a_number");
   }
 
 }

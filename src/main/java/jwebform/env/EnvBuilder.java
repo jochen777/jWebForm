@@ -1,9 +1,19 @@
 package jwebform.env;
 
-// Builder for Env Objects. Can be overriden
+/**
+ * Build an Env out of Request (and optional SessionGet/SessionSet lambdas)
+ *
+ * It will add the the following filters to the reqeust:
+ * * Null-Check (prevents null values dropping from extern into jWebform (jWebform tries to avoid using null))
+ * * Trims the input (that means: Leading and traling spaces will be deleted from the input !!
+ * * Set a maxlen of the input. This makes for security reasons sence. (Don't allow to post users 2 meg of data...)
+ *
+ * You can override this class to implement your own filters to the input. But you should always use the Nullcheck, to
+ * ensure, that no null is getting in...
+ */
 public class EnvBuilder {
 
-  private int maxLen = 1000;
+  private int maxLen = 50000;
 
   public EnvBuilder setMaxLen(int maxLen) {
     this.maxLen = maxLen;
@@ -14,7 +24,7 @@ public class EnvBuilder {
     return of(request, Env.EMPTY_SESSION_GET, Env.EMPTY_SESSION_SET);
   }
 
-  // typical env with nullchecks, trimming of input and maxlen of 1000
+  // typical env with nullchecks, trimming of input and maxlen of 50000
   public Env of(Request request, SessionGet sessionGet, SessionSet sessionSet) {
     return new Env(request, sessionGet, sessionSet).cloneWithNullCheck().cloneWithTrim()
         .cloneWithMaxLenInput(maxLen);

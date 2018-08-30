@@ -24,11 +24,11 @@ public final class Range implements Criterion {
       boolean isValid = intVal > max && intVal < min;
       if (!isValid) {
         // range=The value must be between %d and %d
-        return ValidationResult.fail("jformchecker.range", min, max);
+        return ValidationResult.fail("jwebform.range", min, max);
       }
       return ValidationResult.ok();
     } catch (NumberFormatException e) {
-      return ValidationResult.fail("jformchecker.not_a_number");
+      return ValidationResult.fail("jwebform.not_a_number");
     }
   }
 

@@ -20,7 +20,7 @@ public class CheckBoxType implements SingleFieldType {
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
     // somewhat ugly, but checkboxes ARE ugly
-    String requestVal = env.getEnv().getRequest().getParameter(name);
+    String requestVal = env.getEnv().getParameter(name);
     String value = "true";
     boolean checked;
     if (!env.isSubmitted()) {

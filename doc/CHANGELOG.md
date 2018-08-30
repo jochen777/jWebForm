@@ -1,4 +1,4 @@
-# jFormChecker changelog
+# jwebform changelog
 
 ### 0.0.10 
 

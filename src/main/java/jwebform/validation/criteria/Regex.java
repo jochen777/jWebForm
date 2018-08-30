@@ -12,7 +12,7 @@ import jwebform.validation.ValidationResult;
 public class Regex implements Criterion {
   private final Pattern pattern;
   private final String stringPattern;
-  private String errorMsg = "jformchecker.regexp";
+  private String errorMsg = "jwebform.regexp";
 
   public void setErrorMsg(String errorMsg) {
     this.errorMsg = errorMsg;

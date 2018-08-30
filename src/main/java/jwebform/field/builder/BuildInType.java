@@ -5,12 +5,19 @@ import jwebform.field.*;
 import java.time.LocalDate;
 import java.util.List;
 
-// central builder class to allow simple building of all build-in types.
+/**
+ *  central builder class to allow simple building of all build-in types.
+ *
+ *  you can implement a class like this for your own types.
+ *
+ */
 public class BuildInType {
 
   private BuildInType() {
     // hide public constructor
   }
+
+  // simple Fields
 
   public static FieldBuilder text(String name, String initialValue) {
     return new FieldBuilder().withTypeSupplier(() -> new TextType(name, initialValue));
@@ -23,7 +30,6 @@ public class BuildInType {
   public static FieldBuilder simple() {
     return new FieldBuilder().withTypeSupplier(() -> new SimpleType());
   }
-
 
   public static FieldBuilder checkbox(String name, boolean initialValue) {
     return new FieldBuilder().withTypeSupplier(() -> new CheckBoxType(name, initialValue));
@@ -70,9 +76,8 @@ public class BuildInType {
 
   public static FieldBuilder submit() {
     return new FieldBuilder()
-      .withTypeSupplier(() -> new SubmitType("submit"));
+      .withTypeSupplier(() -> new SubmitType("Submit"));
   }
-
 
   public static FieldBuilder textArea(String name, String initialValue) {
     return new FieldBuilder().withTypeSupplier(() -> new TextAreaType(name, initialValue));

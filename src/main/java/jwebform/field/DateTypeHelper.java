@@ -82,7 +82,7 @@ class DateTypeHelper {
         }
         validationResult = ValidationResult.ok();
       } catch (DateTimeException | NumberFormatException e) {
-        validationResult = ValidationResult.fail("jformchecker.wrong_date_format");
+        validationResult = ValidationResult.fail("jwebform.wrong_date_format");
       }
     }
 

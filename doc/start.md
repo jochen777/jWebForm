@@ -1,6 +1,6 @@
-# jFormChecker documentation
+# jWebform documentation
 
-Check out, how to use jFormchecker in your projects. 
+Check out, how to use jWebform in your projects. 
 
 [Quickstart](quickstart.md)
 

@@ -21,7 +21,7 @@ public class NumberType implements SingleFieldType {
 
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
-    String requestVal = env.getEnv().getRequest().getParameter(oneValueType.name);
+    String requestVal = env.getEnv().getParameter(oneValueType.name);
     ValidationResult vr = ValidationResult.undefined();
 
     int parsedNumber = 0;
@@ -41,7 +41,7 @@ public class NumberType implements SingleFieldType {
           parsedNumberVal = Integer.toString(parsedNumber);
           numbOptional = Optional.of(parsedNumber);
         } catch (NumberFormatException e) {
-          vr = ValidationResult.fail("jformchecker.not_a_number");
+          vr = ValidationResult.fail("jwebform.not_a_number");
           numbOptional = Optional.empty();
         }
       }

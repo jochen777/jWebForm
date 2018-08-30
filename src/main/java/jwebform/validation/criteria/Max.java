@@ -18,7 +18,7 @@ public final class Max extends AbstractNumberComparingCriterion {
   public ValidationResult validateNumberAndSetError(int input) {
     boolean isValid = input < maxValue;
     if (!isValid) {
-      return ValidationResult.fail("jformchecker.max", maxValue);
+      return ValidationResult.fail("jwebform.max", maxValue);
     }
     return ValidationResult.ok();
   }

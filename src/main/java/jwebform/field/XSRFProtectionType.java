@@ -43,13 +43,13 @@ public class XSRFProtectionType implements SingleFieldType {
 
     // ############ validation
 
-    String xsrfVal = env.getRequest().getParameter(TOKENVAL);
+    String xsrfVal = env.getParameter(TOKENVAL);
 
     ValidationResult tempValidationResult;
 
-    boolean isSubmitted = env.getRequest().isSubmitted(TOKENVAL);
+    boolean isSubmitted = env.isSubmitted(TOKENVAL);
     boolean submittedValueEqualsSessionVal = isSubmitted && xsrfVal
-        .equals(env.getSessionGet().getAttribute(env.getRequest().getParameter(TOKENNAME)));
+        .equals(env.getSessionAttribute(env.getParameter(TOKENNAME)));
 
     if (isSubmitted && !submittedValueEqualsSessionVal
     // && !staticTokenName
@@ -62,7 +62,7 @@ public class XSRFProtectionType implements SingleFieldType {
 
     String newName = "token-" + (staticTokenName ? "" : Math.random());
     xsrfVal = (staticTokenName ? "static" : getRandomValue());
-    env.getSessionSet().setAttribute(newName, xsrfVal);
+    env.setSessionAttribute(newName, xsrfVal);
 
     // ###############
 

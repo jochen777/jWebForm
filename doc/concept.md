@@ -86,5 +86,5 @@ view component in a MVC framework. Typically, you pass the view to the template.
 
 Within the template you loop over the fields and render each field for its own.
 
-![Overview](overview.png "Overview jFormchecker")
+![Overview](overview.png "Overview jWebform")
 

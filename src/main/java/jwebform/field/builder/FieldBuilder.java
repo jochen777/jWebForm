@@ -8,6 +8,10 @@ import jwebform.validation.Validator;
 
 import java.util.function.Supplier;
 
+
+/**
+ * A field Builder, that allows to set the Decoration and the criteria
+  */
 public class FieldBuilder {
 
   private String label = "";
