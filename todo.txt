@@ -180,17 +180,22 @@ FieldBuilder
 * fieldContainer umbenennen in Formfield?
 -> Django: Field, Symfony: Type, .net: type/nichts
  * html output generally over simple template engine?!
-#######################################################################################
-#######################################################################################
-
-
-
-* validatoinREsult muss methode bekommen, die die error-objekte zurückliefert.
+ * validatoinREsult muss methode bekommen, die die error-objekte zurückliefert. (OK)
 * FormBuilder muss umbenannt werden!
+Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. debug-infos
+ * AttributeBuilder mit einfachem Builder: AttributeBuilder.build("class", "form-class", "required", ""...)
+* Rename BuildInType: remove "with" (OK)
+#######################################################################################
+#######################################################################################
+
+
 * Kommentare hinzufügen
+* Validator kann über Beanvalidator funktionieren
+
 
 0.0.10
 ----
+
 
 * compare different java approaches to handle forms
 * best practice beschreiben: FormBuilder klasse sollte validierung, form darstellung und daten-handling machen.
@@ -219,12 +224,11 @@ harmonize styleguide filenames in example project (camelcase and asdf_msdf mixed
 
 * write test for integration project
 
-maxlen required??
+maxlen required?? (über Post-Processor?)
 * View::Drawablefield - Inputs, die mit Marker interface markiert sind, können View-Infos zurückliefern. (Einfach eine Map, die dann mustache verwertet)
 
-Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Logger(!), Request....
 
-Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. debug-infos
+
 
 * renderer: form_as_p, form_as_table, form_as_li
 
@@ -237,14 +241,14 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
 * Speed-Optimierung: Wrap should work with StringBuilder
  * evtl. einen EmailType einführen? Wie ist die Browserkompatibiltät?
  * Idee: Methode, die ein Javascript ausgibt, die das Formular validiert
- * AttributeBuilder mit einfachem Builder: AttributeBuilder.build("class", "form-class", "required", ""...)
- 
+
  * Kann StaticfieldInfo auch als Eingabe für die fielde verwendet werden?
  * evtl. staticElmentInfo mit Vererbungshierachie? 
  
  * google captcha in core with lamdas for json serialisierung/desserialsierung
  
- 
+ * Ideen: Config Objekt mit wichtigsten Einstellungen: Theme, FormResultBuilder, Logger(!), Request....
+
  
  * bean-validation
  * fromBean, toBean

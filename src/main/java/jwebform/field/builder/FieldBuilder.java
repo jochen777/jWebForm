@@ -23,23 +23,23 @@ public class FieldBuilder {
     return this;
   }
 
-  public FieldBuilder withLabel(String label) {
+  public FieldBuilder label(String label) {
     this.label = label;
     return this;
   }
 
-  public FieldBuilder withHelptext(String helptext) {
+  public FieldBuilder helpText(String helptext) {
     this.helptext = helptext;
     return this;
   }
 
-  public FieldBuilder withPlaceholder(String placeholder) {
+  public FieldBuilder placeholder(String placeholder) {
     this.placeholder = placeholder;
     return this;
   }
 
 
-  public FieldBuilder withCriteria(Criterion... criteria) {
+  public FieldBuilder criteria(Criterion... criteria) {
     this.criteria = criteria;
     return this;
   }

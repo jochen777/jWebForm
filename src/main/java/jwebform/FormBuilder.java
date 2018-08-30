@@ -123,8 +123,8 @@ public class FormBuilder {
   }
 
   // helps to build easyly an array
-  public
-  static <T> T[] array(T... values) { return values; }
+//  public
+//  static <T> T[] array(T... values) { return values; }
 
 
 }

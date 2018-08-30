@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormResult;
+import jwebform.field.builder.BuildInType;
 import jwebform.field.builder.FieldBuilder;
 import jwebform.processor.FieldValdationResults;
 import jwebform.processor.LoggingFormResult;
@@ -42,62 +43,63 @@ public class SampleFormBuilder {
 
     // @formatter:off
 
-    return FormBuilder.array(
+    return BuildInType.array(
       
       xsrfProtectionForTesting(),
       
       simple(),
       
-      text                  ("textInput", "Peter\"Paul").
-        withCriteria        (req).
-        withLabel           ("TextInputLabel"),
+      text           ("textInput", "Peter\"Paul").
+        criteria     (req).
+        label        ("TextInputLabel"),
         
-      textDate              ("dateInput", LocalDate.of(2017, 7, 4)).
-        withCriteria        (req).
-        withLabel           ("Plase insert date").
-        withHelptext        ("datehelptext"),
+      textDate       ("dateInput", LocalDate.of(2017, 7, 4)).
+        criteria     (req).
+        label        ("Plase insert date").
+        helpText     ("datehelptext"),
         
-      text                  ("textInput2", "Peter\"Paul").
-        withCriteria        (req).
-        withLabel           ("TextInputLabel2").
-        withHelptext        ("Help-Text").
-        withPlaceholder     ("Placeholder"),
+      text           ("textInput2", "Peter\"Paul").
+        criteria     (req).
+        label        ("TextInputLabel2").
+        helpText     ("Help-Text").
+        placeholder  ("Placeholder"),
         
-      select                ("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"})
-        .withLabel          ("Gender"),
+      select         ("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"}).
+        label        ("Gender"),
         
       submit(),
       
-      checkbox              ("chk", true)
-        .withCriteria       (req)
-        .withLabel          ("chk-label").
-        withHelptext        ("chk_help"),
+      checkbox       ("chk", true).
+        criteria     (req).
+        label        ("chk-label").
+        helpText     ("chk_help"),
         
-      label                 ("lbl"),
+      label          ("lbl"),
       
-      html                  ("<strong>HTML</strong>"),
+      html           ("<strong>HTML</strong>"),
       
-      hidden                ("hddn", "hddn-value"),
+      hidden         ("hddn", "hddn-value"),
       
-      textArea              ("area", "Area-Prebuild").
-        withCriteria        (req).
-        withLabel           ("Area").
-        withHelptext        ("Area-Help").
-        withPlaceholder     ("Area-Placeholder"),
+      textArea       ("area", "Area-Prebuild").
+        criteria     (req).
+        label        ("Area").
+        helpText     ("Area-Help").
+        placeholder  ("Area-Placeholder"),
         
-      number                ("nbr", 5).
-        withCriteria        (req).
-        withLabel           ("nbr-label").
-        withHelptext        ("nrb-help"),
+      number         ("nbr", 5).
+        criteria     (req).
+        label        ("nbr-label").
+        helpText     ("nrb-help"),
         
-      password              ("pssword").
-        withLabel           ("Password"),
+      password       ("pssword").
+        label        ("Password"),
         
-      upload                ("upld").
-        withLabel           ("Upload"),
+      upload         ("upld").
+        label        ("Upload"),
         
-      radio                 ("radio", "1", new String[] {"1", "2"}, new String[] {"yes", "no"})
-        .withLabel          ("Radio")
+      radio          ("radio", "1", new String[] {"1", "2"}, new String[] {"yes", "no"})
+        .label       ("Radio")
+
     );
     
  // @formatter:on
@@ -129,10 +131,10 @@ public class SampleFormBuilder {
   }
 
   private FieldBuilder[] getTypeBuildersWithoutUploadForm() {
-    return FormBuilder.array(
-        textArea("area", "Area-Prebuild").withLabel("Area").withHelptext("Area-Help")
-            .withPlaceholder("Area-Placeholder"),
-        checkbox("chk", true).withLabel("chk-label").withHelptext("chk_help"));
+    return BuildInType.array(
+        textArea("area", "Area-Prebuild").label("Area").helpText("Area-Help")
+            .placeholder("Area-Placeholder"),
+        checkbox("chk", true).label("chk-label").helpText("chk_help"));
   }
 
 

@@ -7,8 +7,8 @@ public class Env {
   private final SessionSet sessionSet;
 
   final static SessionGet EMPTY_SESSION_GET = t -> "";
-  final static SessionSet EMPTY_SESSION_SET = (k, v) -> {
-  };
+  final static SessionSet EMPTY_SESSION_SET = (k, v) -> { };
+
   private final static String SUBMIT_KEY = "WF_SUBMITTED";
   public final static String SUBMIT_VALUE_PREFIX = "WF-";
 

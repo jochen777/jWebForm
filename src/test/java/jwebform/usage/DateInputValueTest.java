@@ -24,7 +24,7 @@ public class DateInputValueTest {
     // @formatter:off
     return FormBuilder.simple()
         .typeBuilder(
-             FormBuilder.array(
+             BuildInType.array(
                  BuildInType.textDate(FIELD_NAME, LocalDate.of(2018, 8, 26))
                  )
              )
@@ -36,8 +36,8 @@ public class DateInputValueTest {
     // @formatter:off
     return FormBuilder.simple()
         .typeBuilder(
-             FormBuilder.array(
-                 BuildInType.textDate(FIELD_NAME, LocalDate.of(2018, 8, 26)).withCriteria(Criteria.required())
+             BuildInType.array(
+                 BuildInType.textDate(FIELD_NAME, LocalDate.of(2018, 8, 26)).criteria(Criteria.required())
                  )
              )
         .build();

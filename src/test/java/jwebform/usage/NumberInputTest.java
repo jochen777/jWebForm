@@ -37,7 +37,7 @@ public class NumberInputTest {
         .typeBuilder(
              BuildInType.array(
                  BuildInType.number(FIELD_NAME, 5).
-                   withCriteria(Criteria.required())
+                   criteria(Criteria.required())
                  )
              )
         .build();
