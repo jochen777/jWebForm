@@ -29,27 +29,25 @@ public class EnvBuilder {
     return new Env(request.andThen(nullCheck).andThen(maxLenCutting).andThen(trimming) , sessionGet, sessionSet);
   }
 
-  private Request maxLenCutting = (i) -> cutString(i, maxLen);
   private Request trimming = (i) -> i.trim();
-  private Request nullCheck = (i) -> nullSave(i);
 
-
-  private String nullSave(String input) {
+  private Request nullCheck = (input) -> {
     if (input == null) {
       return "";
     } else {
       return input;
     }
-  }
+  };
 
-  private String cutString(String s, int len) {
+  private Request maxLenCutting = (s) -> {
     if (s == null) {
       return null;
     }
-    if (s.length() < len) {
+    if (s.length() < maxLen) {
       return s;
     }
-    return s.substring(0, len);
-  }
+    return s.substring(0, maxLen);
+  };
+
 
 }
