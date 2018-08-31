@@ -9,7 +9,9 @@ import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.validation.ValidationResult;
 
-// Holds the fieldResultMap and the field itself
+/**
+ * Holds the field results of the form.
+  */
 public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
   private final Map<Field, FieldResult> fieldResultMap;
 

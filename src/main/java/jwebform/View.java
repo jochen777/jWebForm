@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * The view that just "enhances" a formResult and is perfect to give informations to your template.
+ *
+ */
 public final class View {
 
   private final FieldResults fieldResults;

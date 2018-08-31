@@ -8,6 +8,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 
+/**
+ * Post processor, that checks, if an indentical fieldname was given more than once.
+ */
 public class CheckDoubleFieldsPostProcessor implements PostProcessor {
 
   @Override

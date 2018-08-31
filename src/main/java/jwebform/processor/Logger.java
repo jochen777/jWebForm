@@ -1,5 +1,8 @@
 package jwebform.processor;
 
+/**
+ * Whith this logger interface you can "inject" Logging Mechanisms as you need it.
+ */
 @FunctionalInterface
 public interface Logger {
 

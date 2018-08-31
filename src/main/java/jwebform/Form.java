@@ -9,7 +9,10 @@ import jwebform.processor.Processor;
 
 import java.util.List;
 
-// Represents a form
+/**
+ * Represents a form
+ * Holds Fields and a formId - and can be "run"
+  */
 public final class Form {
 
   private final String id;

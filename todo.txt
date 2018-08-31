@@ -218,7 +218,8 @@ harmonize styleguide filenames in example project (camelcase and asdf_msdf mixed
 
 * doku: build your own validator
 
-
+* Für Integration Project: Introduce FormResultFormatter that outputs format for easy sending per mail for example.
+*  --> Is the subclassing here the way we want it?
 
 * Simpler API for Theming
 

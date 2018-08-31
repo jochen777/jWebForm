@@ -3,6 +3,10 @@ package jwebform;
 import jwebform.View.Html5Validation;
 import jwebform.processor.FieldResults;
 
+/**
+ * The result of a form.run
+ * It contains all infos, that is needed to get the entered values, the validation results and if the form was submitted correctly.
+ */
 public class FormResult {
 
   private final String formId;

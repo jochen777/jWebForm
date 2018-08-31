@@ -36,12 +36,6 @@ public class Processor {
 
 
 
-  // process each field. This is used for fields, that have children... (Lke Date-Selects)
-  public FieldResults processFields(EnvWithSubmitInfo env, Field... fieldsToProcess) {
-    return this.processFields(env, packFieldsInList(fieldsToProcess));
-  }
-
-
   private List<PostProcessor> getPostProcessors() {
     return Collections.singletonList(new CheckDoubleFieldsPostProcessor());
   }
@@ -146,13 +140,6 @@ public class Processor {
           + field.fieldType);
     }
   }
-
-  private static List<Field> packFieldsInList(Field... fields) {
-    List<Field> ec = new ArrayList<>();
-    Collections.addAll(ec, fields);
-    return ec;
-  }
-
 
 
 }

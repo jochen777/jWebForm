@@ -5,6 +5,10 @@ import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
 
+
+/**
+ * A form result that can additionally log the form in an convenient way
+ */
 public class LoggingFormResult extends FormResult {
   public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid) {
     super(formId, fieldResults, formIsValid);

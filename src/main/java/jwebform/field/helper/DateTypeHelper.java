@@ -1,4 +1,4 @@
-package jwebform.field;
+package jwebform.field.helper;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -16,7 +16,7 @@ import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 
 // Suppporting class for date handling types
-class DateTypeHelper {
+public class DateTypeHelper {
 
   final private Field day;
   final private Field month;
