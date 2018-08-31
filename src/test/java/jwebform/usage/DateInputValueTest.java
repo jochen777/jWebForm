@@ -1,21 +1,20 @@
 package jwebform.usage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
-import jwebform.processor.LoggingFormResult;
-import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
 import jwebform.field.builder.BuildInType;
+import jwebform.processor.LoggingFormResult;
 import jwebform.validation.criteria.Criteria;
+import org.junit.Test;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import static org.junit.Assert.*;
 
 // tests the DateInput Default and empty behaviour
 public class DateInputValueTest {
@@ -23,7 +22,7 @@ public class DateInputValueTest {
   public static final String FIELD_NAME = "date";
 
   private FormBuilder getFormBuilder() {
-    return FormBuilder.flexible("id", LoggingFormResult::new);
+    return FormBuilder.withLogging();
   }
 
   private Form buildFormWithDateInput() {

@@ -198,6 +198,7 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
 0.0.10
 ----
 
+* new pom structure, single repo.
 
 * compare different java approaches to handle forms
 * best practice beschreiben: FormBuilder klasse sollte validierung, form darstellung und daten-handling machen.

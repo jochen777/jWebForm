@@ -1,7 +1,5 @@
 package jwebform.env;
 
-import java.util.function.Function;
-
 /**
  * Holds the request-attributes - acts as a gateway to the servlet request for example
  * 

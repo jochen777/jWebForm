@@ -6,6 +6,7 @@ import jwebform.field.structure.Field;
 import jwebform.field.structure.GroupFieldType;
 import jwebform.field.structure.SingleFieldType;
 import jwebform.processor.FormResultBuilder;
+import jwebform.processor.LoggingFormResult;
 import jwebform.validation.FormValidator;
 
 import java.util.ArrayList;
@@ -16,7 +17,9 @@ import java.util.List;
 // Simplifies Building of a form.
 public class FormBuilder {
 
-  private String id = "id"; // Default
+  private static String DEFAULT_ID = "id";
+
+  private String id = DEFAULT_ID;
   private FormResultBuilder formResultBuilder;
   private GroupFieldType group = new SimpleGroup(new ArrayList<>(), new ArrayList<>());
   private List<Field> fields = new ArrayList<>();
@@ -32,12 +35,21 @@ public class FormBuilder {
 
 
   public static FormBuilder simple() {
-    return new FormBuilder("id", FormResult::new);
+    return new FormBuilder(DEFAULT_ID, FormResult::new);
   }
 
   public static FormBuilder withId(String id) {
     return new FormBuilder(id, FormResult::new);
   }
+
+  public static FormBuilder withLogging(String id) {
+    return flexible(id, LoggingFormResult::new);
+  }
+
+  public static FormBuilder withLogging() {
+    return flexible(DEFAULT_ID, LoggingFormResult::new);
+  }
+
 
   public static FormBuilder flexible(String id, FormResultBuilder fb) {
     return new FormBuilder(id, fb);
@@ -122,9 +134,6 @@ public class FormBuilder {
     return this;
   }
 
-  // helps to build easyly an array
-//  public
-//  static <T> T[] array(T... values) { return values; }
 
 
 }
