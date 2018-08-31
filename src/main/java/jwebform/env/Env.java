@@ -11,7 +11,7 @@ package jwebform.env;
  * Because Request and Session-Handling are just functional interfaces, you can easily pass in some
  * lambdas, that will surely match your web framework of choice. (And even for unit-tests, it's
  * great.) So it will work with HttpServletRequest as well with a simple map, that will hold the
- * input-params. (For example in Spring with RequestParam Map<String, String> params )
+ * input-params. (For example in Spring with RequestParam Map String, String params )
  *
  * You can not use this directly. Use the EnvBuilder to build an Env for you.
  *
