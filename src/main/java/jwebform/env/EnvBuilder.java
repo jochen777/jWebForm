@@ -26,8 +26,30 @@ public class EnvBuilder {
 
   // typical env with nullchecks, trimming of input and maxlen of 50000
   public Env of(Request request, SessionGet sessionGet, SessionSet sessionSet) {
-    return new Env(request, sessionGet, sessionSet).cloneWithNullCheck().cloneWithTrim()
-        .cloneWithMaxLenInput(maxLen);
+    return new Env(request.andThen(nullCheck).andThen(maxLenCutting).andThen(trimming) , sessionGet, sessionSet);
+  }
+
+  private Request maxLenCutting = (i) -> cutString(i, maxLen);
+  private Request trimming = (i) -> i.trim();
+  private Request nullCheck = (i) -> nullSave(i);
+
+
+  private String nullSave(String input) {
+    if (input == null) {
+      return "";
+    } else {
+      return input;
+    }
+  }
+
+  private String cutString(String s, int len) {
+    if (s == null) {
+      return null;
+    }
+    if (s.length() < len) {
+      return s;
+    }
+    return s.substring(0, len);
   }
 
 }

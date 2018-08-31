@@ -4,23 +4,23 @@ package jwebform.env;
  * Environment that connects jWebform to the Web-Request, so this Env is between your webframework
  * and jWebform.
  *
- * Main objectivs:
+ * Main objectives:
  * * Check if the form was submitted
- * * provide the request-paramters
- * * allow to write and read from the sesson.
+ * * provide the request-parameters
+ * * allow to write and read from the session.
  *
  *
  * Because Request and Session-Handling are just functional interfaces, you can
- * easily pass in some lambdas, that will surely match your webframework of choice.
+ * easily pass in some lambdas, that will surely match your web framework of choice.
  * (And even for unit-tests, it's great.) So it will work with HttpServletRequest as well with
  * a simple map, that will hold the input-params. (For example in Spring with
- *  @RequestParam Map<String, String> params )
+ *  @ RequestParam Map<String, String> params )
  *
  * You can not use this directly. Use the EnvBuilder to build an Env for you.
  *
  *
  */
-public final class Env {
+public class Env {
   private final Request request;
   private final SessionGet sessionGet;
   private final SessionSet sessionSet;
@@ -29,7 +29,7 @@ public final class Env {
   final static SessionSet EMPTY_SESSION_SET = (k, v) -> { };
 
   private final static String SUBMIT_KEY = "WF_SUBMITTED";
-  public final static String SUBMIT_VALUE_PREFIX = "WF-";
+  private final static String SUBMIT_VALUE_PREFIX = "WF-";
 
   protected Env(Request request, SessionGet sessionGet, SessionSet sessionSet) {
     this.request = request;
@@ -37,6 +37,16 @@ public final class Env {
     this.sessionSet = sessionSet;
   }
 
+  /**
+   * just for extensibility reasons: Maybe you want to enhance reqeust with header-infos, you can
+   * pass in an extended Request Object (inherited from Request).
+   *
+   * But normally, it is enough to call the "getParameter" Method
+    */
+
+  public Request getRequest() {
+    return request;
+  }
 
   public boolean isSubmitted(String name) {
     return request.isSubmitted(name);
@@ -62,7 +72,7 @@ public final class Env {
   public class SessionMissingException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public SessionMissingException() {
+    SessionMissingException() {
       super(
           "Session data missing in Env. \nPlease provide sessionGet() and sessionSet() in Env!\n\n...This is needed for XSRF-Protection."
               + "\n\nExample: \nnew Env(requestParamName -> request.getParameter(requestParamName),	// Request"
@@ -75,23 +85,6 @@ public final class Env {
   public EnvWithSubmitInfo getEnvWithSumitInfo(String formId) {
     return new EnvWithSubmitInfo(formId, this);
   }
-
-  // will deliver an Env, that cuts the input after some chars. Useful for security-reasons
-  public Env cloneWithMaxLenInput(int maxLen) {
-    return new Env((i) -> cutString(this.request.getParameter(i), maxLen), this.sessionGet,
-        this.sessionSet);
-  }
-
-  public Env cloneWithNullCheck() {
-    return new Env((i) -> nullSave(this.request.getParameter(i)), this.sessionGet, this.sessionSet);
-  }
-
-  public Env cloneWithTrim() {
-    // make sure, that you choose before the cloneWithNullCheck
-    return new Env((i) -> this.request.getParameter(i).trim(), this.sessionGet, this.sessionSet);
-  }
-
-
 
 
   public class EnvWithSubmitInfo {
@@ -115,22 +108,6 @@ public final class Env {
   }
 
 
-  private String nullSave(String input) {
-    if (input == null) {
-      return "";
-    } else {
-      return input;
-    }
-  }
 
-  private String cutString(String s, int len) {
-    if (s == null) {
-      return null;
-    }
-    if (s.length() < len) {
-      return s;
-    }
-    return s.substring(0, len);
-  }
 
 }

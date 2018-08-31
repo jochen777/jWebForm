@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import jwebform.processor.LoggingFormResult;
 import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormBuilder;
@@ -17,11 +19,16 @@ import jwebform.validation.criteria.Criteria;
 // tests the NumberInput
 public class NumberInputTest {
 
+
+  private FormBuilder getFormBuilder() {
+    return FormBuilder.flexible("id", LoggingFormResult::new);
+  }
+
   public static final String FIELD_NAME = "number";
 
   private Form buildFormWithNumber() {
     // @formatter:off
-    return FormBuilder.simple()
+    return getFormBuilder()
         .typeBuilder(
              BuildInType.array(
                  BuildInType.number(FIELD_NAME, 5)
@@ -33,7 +40,7 @@ public class NumberInputTest {
 
   private Form buildFormInputRequired() {
     // @formatter:off
-    return FormBuilder.simple()
+    return getFormBuilder()
         .typeBuilder(
              BuildInType.array(
                  BuildInType.number(FIELD_NAME, 5).
@@ -73,7 +80,9 @@ public class NumberInputTest {
     Map<String, String> params = new HashMap<>();
     params.put("WF_SUBMITTED", "WF-id");
     params.put(FIELD_NAME, "9");
-    FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
+    LoggingFormResult result =
+      (LoggingFormResult) testForm.run(new EnvBuilder().of(it -> params.get(it)));
+    //result.logForm(System.err::println);
     assertTrue(result.isOk());
     assertEquals("9", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.of(9), result.getObectValue(FIELD_NAME));

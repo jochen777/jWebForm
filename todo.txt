@@ -186,6 +186,7 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
  * AttributeBuilder mit einfachem Builder: AttributeBuilder.build("class", "form-class", "required", ""...)
 * Rename BuildInType: remove "with" (OK)
 * Validator kann über Beanvalidator funktionieren (über FormValidator)
+* Ist es möglich, den Request zu erben und z.B. header mitzuschicken?? (Ja, durch erben von Request)
 #######################################################################################
 #######################################################################################
 

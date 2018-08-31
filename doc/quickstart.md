@@ -24,10 +24,10 @@ Fill a Form object with your Form-fields:
     private Form buildForm() {
       return FormBuilder.simple().typeBuilder(
         text("firstname").
-          withLabel("Firstname"), 
+          label("Firstname"), 
         text("email").
-          withLabel("Email").
-          withCriteria(Criteria.required(), Criteria.email())
+          label("Email").
+          criteria(Criteria.required(), Criteria.email())
         ).build();
     }
     

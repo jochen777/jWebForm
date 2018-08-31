@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import jwebform.processor.LoggingFormResult;
 import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormBuilder;
@@ -20,9 +22,13 @@ public class DateInputValueTest {
 
   public static final String FIELD_NAME = "date";
 
+  private FormBuilder getFormBuilder() {
+    return FormBuilder.flexible("id", LoggingFormResult::new);
+  }
+
   private Form buildFormWithDateInput() {
     // @formatter:off
-    return FormBuilder.simple()
+    return getFormBuilder()
         .typeBuilder(
              BuildInType.array(
                  BuildInType.textDate(FIELD_NAME, LocalDate.of(2018, 8, 26))
@@ -34,7 +40,7 @@ public class DateInputValueTest {
 
   private Form buildFormWithDateInputRequired() {
     // @formatter:off
-    return FormBuilder.simple()
+    return getFormBuilder()
         .typeBuilder(
              BuildInType.array(
                  BuildInType.textDate(FIELD_NAME, LocalDate.of(2018, 8, 26)).criteria(Criteria.required())
@@ -73,7 +79,9 @@ public class DateInputValueTest {
     params.put("date_day", "5");
     params.put("date_month", "10");
     params.put("date_year", "2018");
-    FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
+    LoggingFormResult result =
+      (LoggingFormResult) testForm.run(new EnvBuilder().of(it -> params.get(it)));
+    //result.logForm(System.err::print);
     assertTrue(result.isOk());
     assertEquals("2018-10-05", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.of(LocalDate.of(2018, 10, 5)), result.getObectValue(FIELD_NAME));
