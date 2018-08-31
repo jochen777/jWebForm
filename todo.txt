@@ -199,7 +199,7 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
 ----
 
 * replace jFormchecker completly in u.
-
+* include travis build
 1.0.0
 ----
 

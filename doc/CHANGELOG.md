@@ -2,7 +2,7 @@
 
 ### 0.0.10 
 
-2018/xx/xx 
+2018/08/31 
 
 * Improve documentation
 * Refactor for better naming

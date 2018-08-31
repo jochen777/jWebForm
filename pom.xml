@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.cyclon-softworx</groupId>
 	<artifactId>jwebform</artifactId>
-	<version>0.0.10-SNAPSHOT</version>
+	<version>0.0.10</version>
 	<name>jWebForm</name>
 	<url>https://github.com/jochen777/jWebForm</url>
 	<description>HTML form generation and validation</description>
@@ -44,7 +44,7 @@
 	</properties>
 
 	<scm>
-		<url>https://github.com/jochen777/jwebform.git</url>
+		<url>https://github.com/jochen777/jWebForm.git</url>
 	</scm>
 
 	<dependencies>
@@ -64,7 +64,6 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.3</version>
       </plugin>
-      <!-- 
       <plugin>
         <groupId>org.sonatype.plugins</groupId>
         <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -116,7 +115,6 @@
           </execution>
         </executions>
       </plugin>
-     -->
     </plugins>
   </build>
 
