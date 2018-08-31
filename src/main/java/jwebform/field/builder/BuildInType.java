@@ -28,7 +28,7 @@ public class BuildInType {
   }
 
   public static FieldBuilder simple() {
-    return new FieldBuilder().withTypeSupplier(() -> new SimpleType());
+    return new FieldBuilder().withTypeSupplier(SimpleType::new);
   }
 
   public static FieldBuilder checkbox(String name, boolean initialValue) {
@@ -92,7 +92,7 @@ public class BuildInType {
   }
 
   public static FieldBuilder xsrfProtection(){
-    return new FieldBuilder().withTypeSupplier(() -> new XSRFProtectionType());
+    return new FieldBuilder().withTypeSupplier(XSRFProtectionType::new);
   }
 
   public static FieldBuilder xsrfProtectionForTesting(){

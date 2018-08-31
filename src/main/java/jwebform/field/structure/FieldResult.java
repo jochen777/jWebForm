@@ -4,16 +4,20 @@ import javax.annotation.Generated;
 import jwebform.processor.FieldResults;
 import jwebform.validation.ValidationResult;
 
-// that what is coming out of a "run" method of an fieldType
+/**
+ * that what is coming out of a "run" method of an fieldType
+ *
+ */
 public final class FieldResult {
 
-  private final ValidationResult validationResult; // not static
-  private final String value; // not static
+  private final ValidationResult validationResult;
+  private final String value;
   private final Object valueObject;
 
   private final StaticFieldInfo staticFieldInfo;
   private final FieldResults childs;
 
+  // some "constants"
   private static final String EMPTY_STRING = "";
   public static final String NO_NAME = "";
   public static final FieldResults NOCHILDS = new FieldResults();

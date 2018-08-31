@@ -9,12 +9,14 @@ import jwebform.validation.Validator;
 
 import java.util.function.Predicate;
 
-// Generic class that deals with processing and rendering of standard single types
+/**
+ * Generic class that helps with processing and rendering of standard single types
+  */
 public class OneValueTypeProcessor {
 
   final public String name;
   final public String initialValue;
-  final public Predicate<String> alwaysFine = (t) -> true;
+  final private Predicate<String> alwaysFine = (t) -> true;
 
 
   public OneValueTypeProcessor(String name, String initialValue) {

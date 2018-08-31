@@ -4,7 +4,6 @@ import jwebform.field.structure.Decoration;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldType;
 import jwebform.validation.Criterion;
-import jwebform.validation.Validator;
 
 import java.util.function.Supplier;
 
@@ -22,7 +21,7 @@ public class FieldBuilder {
   private Supplier<FieldType> typeSupplier;
 
 
-  public FieldBuilder withTypeSupplier(Supplier<FieldType> typeSupplier) {
+  FieldBuilder withTypeSupplier(Supplier<FieldType> typeSupplier) {
     this.typeSupplier = typeSupplier;
     return this;
   }

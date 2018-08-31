@@ -198,6 +198,11 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
 0.0.10
 ----
 
+* replace jFormchecker completly in u.
+
+1.0.0
+----
+
 * new pom structure, single repo.
 
 * compare different java approaches to handle forms

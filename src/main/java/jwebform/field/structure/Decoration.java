@@ -2,12 +2,15 @@ package jwebform.field.structure;
 
 import javax.annotation.Generated;
 
-// Decorative data for typical inputfield
+/**
+ * Decorative data for typical inputfield, can be subclassed to use more data.
+  */
 public class Decoration {
 
   private final String label;
   private final String helptext;
   private final String placeholder;
+
   public static final String EMPTY = "";
 
   @Generated("SparkTools")
@@ -34,10 +37,6 @@ public class Decoration {
 
   public String getLabel() {
     return label;
-  }
-
-  public boolean isLabelNotEmpty() {
-    return label.length() > 0;
   }
 
   public String getHelptext() {

@@ -29,7 +29,7 @@ public class EnvBuilder {
     return new Env(request.andThen(nullCheck).andThen(maxLenCutting).andThen(trimming) , sessionGet, sessionSet);
   }
 
-  private Request trimming = (i) -> i.trim();
+  private Request trimming = String::trim;
 
   private Request nullCheck = (input) -> {
     if (input == null) {

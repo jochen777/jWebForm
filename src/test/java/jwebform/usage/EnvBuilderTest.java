@@ -10,9 +10,7 @@ public class EnvBuilderTest {
   @Test
   public void test_cutLenghtOfInput() {
     String input = "1234567890";
-    EnvBuilder envBuilder = new EnvBuilder();
-    envBuilder.setMaxLen(5);
-    Env env = envBuilder.of(t -> t);
+    Env env = new EnvBuilder().setMaxLen(5).of(t -> t);
     assertEquals("12345", env.getParameter(input));
   }
 
