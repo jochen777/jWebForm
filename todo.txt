@@ -203,6 +203,9 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
 1.0.0
 ----
 
+* Spring Integration: FormBean<Bean form> form, ... (prefill über Interface: Bean implements BeanFiller
+  Beanfiller { String getnameOfBeanfiller() }
+
 * new pom structure, single repo.
 
 * compare different java approaches to handle forms
