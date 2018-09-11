@@ -187,11 +187,29 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
 * Rename BuildInType: remove "with" (OK)
 * Validator kann über Beanvalidator funktionieren (über FormValidator)
 * Ist es möglich, den Request zu erben und z.B. header mitzuschicken?? (Ja, durch erben von Request)
+* Kommentare hinzufügen (OK)
 #######################################################################################
 #######################################################################################
 
 
-* Kommentare hinzufügen
+
+
+* replace jFormchecker completly in u.
+
+Geht das kürzer?
+FormResult formResult = new SearchFormJW().buildForm().run(new EnvBuilder().of(t -> params.get(t)));
+beser:
+FormResult formResult = new SearchFormJW().runWithMap(params);
+
+Ja: includiere FormRunner und FormGenerator in helper package
+
+
+Führe dafür eine kürzere Methode ein:
+formResult.getView(View.Method.GET) -> z.B. formResult.getViewGet()
+
+
+Man braucht eine Methode, um die Action zu setzen.
+
 
 
 

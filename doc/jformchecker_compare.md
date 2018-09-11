@@ -13,6 +13,6 @@ I tried to design jWebform more carefully and I hope the result is far better:
 * Reduce public methods as much as possible (Example: reduce public methods from 42 (jFormchecker) to 3 (jWebform)
 * Allow groups of types
 * Simpler creation of new types (Builder pattern)
-* More than 100% faster than jFormchecker
+* More than 100% faster than jFormchecker ( but to be honest, you will not realise this...)
 * Render HTML in separate project (allow java rendering or template-macros)
 * And last but not least: A better name. jFormchecker seemed just to "check" forms, but not to "draw" and define them. jWebform is more generic. And I can use this to implement pyWebform, pWebform, plWebform .... you name it.
