@@ -14,17 +14,18 @@ Wait for the version 1.0.0 to adapt it.)
 
 ## Overview
 
-With jWebform you can define HTML forms in a clean way, fill them with request-variables, validate them and build HTML out of them.
-It gets away from the tedious work around form handling in HTML projects.
+With jWebform you can define HTML forms in a clean way, 
+fill them with request-variables, validate and build HTML out of them.
+It gets you away from the tedious work around form handling in HTML projects.
 It is framework agnostic, so it should work with *every* Java/Kotlin... Webframework around. 
+
+Form-handling support in current Java MVC frameworks is often basic.
+ jWebForm tries to fill this gap by providing these features:
 
 * central form-definition for reuse and separation of concerns
 * avoiding a lot of boilerplate code
 * very compact output in sourcecode of template
 * build in validation and security
-
-Form-handling support in current Java MVC frameworks is often basic. jWebForm tries to fill this gap by providing these features:
-
 
 More here: [Overview Features](doc/features.md)
 
