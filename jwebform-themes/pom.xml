@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.cyclon-softworx</groupId>
+		<artifactId>jwebform-project</artifactId>
+		<version>0.0.10-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>jwebform-themes</artifactId>
+	<packaging>jar</packaging>
+
+	<name>jWebForm Themes</name>
+	<url>https://github.com/jochen777/jWebForm</url>
+	<description>build html with themes for jwebforms</description>
+
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>de.cyclon-softworx</groupId>
+			<artifactId>jwebform</artifactId>
+			<version>0.0.10-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.coverity.security</groupId>
+			<artifactId>coverity-escapers</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.samskivert</groupId>
+			<artifactId>jmustache</artifactId>
+			<version>1.14</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

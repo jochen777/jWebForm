@@ -3,10 +3,6 @@
 .project
 .settings/
 
-# Intellij
-.idea/
-*.iml
-*.iws
 
 # Mac
 .DS_Store
@@ -14,10 +10,29 @@
 # Maven
 log/
 target/
+target/*
+/bin/
 
 /sonar-project.properties
 /.gitconfig
 
 .scannerwork
 .sts4-cache
+
+
+
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
 

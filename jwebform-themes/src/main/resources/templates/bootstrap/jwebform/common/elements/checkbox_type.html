@@ -1,0 +1,12 @@
+{{>jwebform/common/elements/widgets/startingDiv}}
+{{>jwebform/common/elements/widgets/label}}
+        <input type="checkbox"
+          {{>jwebform/common/elements/widgets/tabIndex}}
+          {{>jwebform/common/elements/widgets/nameAttribute }}
+          {{>jwebform/common/elements/widgets/requiredAttribute }}
+          {{#producerInfos.elementResult.valueObject }}checked{{/producerInfos.elementResult.valueObject}}
+          {{>jwebform/common/elements/widgets/ariaDescribedBy }}
+>
+{{>jwebform/common/elements/widgets/error}}
+{{>jwebform/common/elements/widgets/help}}
+</div>

@@ -1,0 +1,16 @@
+{{>jwebform/common/elements/widgets/startingDiv}}
+{{>jwebform/common/elements/widgets/label}}
+<select class="form-control"
+
+          {{>jwebform/common/elements/widgets/tabIndex}}
+          {{>jwebform/common/elements/widgets/nameAttribute }}
+          {{>jwebform/common/elements/widgets/requiredAttribute }}
+          {{>jwebform/common/elements/widgets/ariaDescribedBy }}
+          >
+          {{ #elementNameInfo.selected }}
+              <option value="{{ key }}" {{#selcted}}SELECTED{{/selcted}}>{{ value }}</option>
+          {{ /elementNameInfo.selected }}
+        </select>
+{{>jwebform/common/elements/widgets/error}}
+{{>jwebform/common/elements/widgets/help}}
+</div>

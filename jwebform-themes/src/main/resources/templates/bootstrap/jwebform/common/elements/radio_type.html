@@ -1,0 +1,25 @@
+{{>jwebform/common/elements/widgets/startingDiv}}
+{{>jwebform/common/elements/widgets/label}}
+          {{ #elementNameInfo.radioElements }}
+
+            <div class="radio">
+                <label>
+                  <input type="radio" 
+                    id="form-radio-{{ producerInfos.nameOfInput }}-{{ key}}"
+                    {{>jwebform/common/elements/widgets/nameAttribute }}  
+                    value="{{ key}}" 
+										{{ #selected }}checked{{/selected}}  
+										{{>jwebform/common/elements/widgets/requiredAttribute }}
+										{{>jwebform/common/elements/widgets/tabIndex}}
+ 
+                  >
+                  {{ value}}
+                </label>
+            </div>
+
+          {{ /elementNameInfo.radioElements }}
+
+
+{{>jwebform/common/elements/widgets/error}}
+{{>jwebform/common/elements/widgets/help}}
+</div>

@@ -1,0 +1,10 @@
+    <div class="form-group 
+    {{ #producerInfo.elementResult.validationResult.isSuccess }} 
+    has-success
+    {{ /producerInfo.elementResult.validationResult.isSuccess }}
+    {{ ^producerInfo.elementResult.validationResult.isSuccess }}
+    {{ #producerInfo.elementResult.validationResult.isError }}
+    has-error
+    {{ /producerInfo.elementResult.validationResult.isError }}
+    {{ /producerInfo.elementResult.validationResult.isSuccess }}
+    ">
