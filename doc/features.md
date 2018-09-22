@@ -23,6 +23,7 @@ List of features:
 * warn, if identical names are choosen
 * allow groups of fields for complex types
 * automatically set correct transfer mode if fileupload elment is used
+* easy handling of mulitple forms on the same page
 
 ## Available extensions
 

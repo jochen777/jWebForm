@@ -48,7 +48,7 @@ public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
       }
     }
     throw new IllegalArgumentException(
-        String.format("The fieldType named %s does not exist in form", fieldName));
+        String.format("The field named '%s' does not exist in form", fieldName));
   }
 
   public final Object getObectValue(String fieldName) {

@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>de.cyclon-softworx</groupId>
 			<artifactId>jwebform</artifactId>
-			<version>0.0.10-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 
 

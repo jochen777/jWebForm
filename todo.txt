@@ -188,6 +188,12 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
 * Validator kann über Beanvalidator funktionieren (über FormValidator)
 * Ist es möglich, den Request zu erben und z.B. header mitzuschicken?? (Ja, durch erben von Request)
 * Kommentare hinzufügen (OK)
+Geht das kürzer?
+FormResult formResult = new SearchFormJW().buildForm().run(new EnvBuilder().of(t -> params.get(t)));
+beser:
+FormResult formResult = new SearchFormJW().runWithMap(params);
+
+Ja: includiere FormRunner und FormGenerator in helper package
 #######################################################################################
 #######################################################################################
 
@@ -196,12 +202,20 @@ Idee: Gib Logging-Lambda mit rein, um bestimmte sachen loggen zu können, z.B. d
 
 * replace jFormchecker completly in u.
 
-Geht das kürzer?
-FormResult formResult = new SearchFormJW().buildForm().run(new EnvBuilder().of(t -> params.get(t)));
-beser:
-FormResult formResult = new SearchFormJW().runWithMap(params);
+Wie kann man in jWebform die Methode einstellen? (Method.GET oder Method.POST) -> am besten im template!
+Wie kann man einem JWebForm einen parameter aus dem request mitgeben? SelfDeleteAdminFormJw
+Wie übergebe ich Parameter, die aus dem Model oder Bean kommen? ->
 
-Ja: includiere FormRunner und FormGenerator in helper package
+1.)  JWebFormFiller<MyForm, MyPreFiller> form
+2.) myForm muss interface implementieren, mit dem man einen Prefiller setzen kann
+3.) Händischer Weg wie bisher
+4.) Per annotation
+5.) Form hat ein Interface, mit dem es sich selbst instanzieieren kann. Etwa: createFrom(request, applicationcontext)
+-> Achtung: Wie ist die Mock-Fähigkeit/Testbarkeit dann noch?
+6.) Über JWebFormWithoutInit<Bean>  -> Das nimmt die params aus dem request mit, aber lässt noch kein run laufen.
+Dann kann man über form.getBean().init(.. .. ) die dinge initialsiieren, die man will. Danach form.run() bzw. form.isOK() lässt run implizit laufen
+7.) jWebForm kann eine Annotation sein? dann könnte das Form roh reingegeben werden und leicht unit-getestet werden.
+
 
 
 Führe dafür eine kürzere Methode ein:
