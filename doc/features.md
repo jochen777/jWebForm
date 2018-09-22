@@ -8,6 +8,7 @@ List of features:
 * avoiding a lot of boilerplate code
 * very compact output in sourcecode of template
 
+
 ## Details
 
 * handling the request-response loop for forms
@@ -33,6 +34,7 @@ List of features:
 ## Architecture
 
 * no dependencies
+* runs in every web-framework
 * mostly no nulls
 * mostly immutable objects
 * functional interfaces, lambdas

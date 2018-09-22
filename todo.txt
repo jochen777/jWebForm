@@ -198,7 +198,8 @@ Ja: includiere FormRunner und FormGenerator in helper package
 #######################################################################################
 
 
-
+* introduce a SimpleJWebForm that operates on an empty constructor FormGenerator and that calls the run method itself
+* introduce a way to deal with normal beans.
 
 * replace jFormchecker completly in u.
 

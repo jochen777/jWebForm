@@ -8,6 +8,8 @@ Check out, how to use jWebform in your projects.
 
 [Rendering the form in template](template.md)
 
+[Use in Spring Boot](spring_boot.md)
+
 [Validators](validators.md)
 
 [Individual Input Types](input_types.md)
