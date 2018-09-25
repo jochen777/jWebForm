@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.support.ContextExposingHttpServletRequest;
 import org.springframework.web.method.annotation.ModelFactory;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
@@ -13,26 +14,20 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class JWebFormArgumentResolver implements HandlerMethodArgumentResolver{
 
 
-  private final ApplicationContext applicationContext;
 
-  public JWebFormArgumentResolver(ApplicationContext applicationContext) {
-    this.applicationContext = applicationContext;
+  public JWebFormArgumentResolver() {
   }
 
   @Override
   public Object resolveArgument(MethodParameter methodParam, ModelAndViewContainer mavContainer, NativeWebRequest request,
     WebDataBinderFactory binderFactory) throws Exception {
 
-    String parameterName = getParameterName(methodParam);
 
-    methodParam.increaseNestingLevel();
-    Class<FormGenerator> typeOfBean = (Class<FormGenerator>) methodParam.getNestedParameterType();
-    methodParam.decreaseNestingLevel();
-
-    //JWebForm<?> f = (JWebForm<?>)BeanUtils.instantiateClass(methodParam.getParameterType());
-    //Object bean = BeanUtils.instantiateClass(typeOfBean);
-
-    JWebForm<FormGenerator> f = new JWebForm<FormGenerator>(typeOfBean, request, mavContainer);
+    JWebForm f = new JWebForm(
+      t -> request.getParameter(t),
+      t -> request.getNativeRequest(ContextExposingHttpServletRequest.class).getAttribute(t),
+      (t, v) -> request.getNativeRequest(ContextExposingHttpServletRequest.class).setAttribute(t, v),
+      (t,v) -> mavContainer.addAttribute(t, v));
 
     return f;
   }

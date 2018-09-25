@@ -194,14 +194,16 @@ beser:
 FormResult formResult = new SearchFormJW().runWithMap(params);
 
 Ja: includiere FormRunner und FormGenerator in helper package
-#######################################################################################
-#######################################################################################
-
-
 * introduce a SimpleJWebForm that operates on an empty constructor FormGenerator and that calls the run method itself
-* introduce a way to deal with normal beans.
+#######################################################################################
+#######################################################################################
 
-* replace jFormchecker completly in u.
+
+[ ] introduce a way to deal with normal beans.
+
+[ ] replace jFormchecker completly in u.
+
+[ ] document unit-test with spring
 
 Wie kann man in jWebform die Methode einstellen? (Method.GET oder Method.POST) -> am besten im template!
 Wie kann man einem JWebForm einen parameter aus dem request mitgeben? SelfDeleteAdminFormJw
@@ -218,7 +220,7 @@ Dann kann man über form.getBean().init(.. .. ) die dinge initialsiieren, die ma
 7.) jWebForm kann eine Annotation sein? dann könnte das Form roh reingegeben werden und leicht unit-getestet werden.
 
 
-
+[ ] Can we reuse the WebDataBinderFactory in any way?
 Führe dafür eine kürzere Methode ein:
 formResult.getView(View.Method.GET) -> z.B. formResult.getViewGet()
 

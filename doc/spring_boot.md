@@ -36,11 +36,12 @@ public class AddressForm implements FormGenerator{
 ## Controller
 
 Write a controller, like this with SimpleJWebform<Myform> form as argument: 
+(MyForm has to implement the FormGenerator interface!)
 
 ```Java
 
   @RequestMapping("/form")
-  public String demoJWebForm(SimpleJWebForm<MyForm> form) {   // arguemnt resulover will fill request-vars
+  public String demoJWebForm(SimpleJWebForm<MyForm> form) {   // argument resolver will fill request-vars
   
     if (form.isOk()) {   // check if the form was submitted and is valid
       log.debug("Valid firstname from form:"  + form.getStringValue("firstname"));   // if everything was okay, we can get the values from the form
@@ -51,15 +52,15 @@ Write a controller, like this with SimpleJWebform<Myform> form as argument:
 
 ```
 
-If you need to pass parameters to your formBuilder, user JWebForm and pass the FormGenerator instance to the run method.
+If you need to pass parameters to your formBuilder, use JWebForm and pass the FormGenerator instance to the run method.
 
 Example
 
 ```Java
 
 ...
-public String demoJWebForm(JWebForm<MyForm> form) {   // arguemnt resulover will fill request-vars
-    FormResult formResult = form.run(new MyForm(LocalDate.now()));   
+public String demoJWebForm(JWebForm form) {   // arguemnt resulover will fill request-vars
+    FormResult formResult = form.run(new MyForm(LocalDate.now()).generateForm());   
     
     if (formResult.isOk()) {   // check if the form was submitted and is valid
 ...

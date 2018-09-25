@@ -20,7 +20,8 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter implement
 
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolver) {
-    argumentResolver.add(new JWebFormArgumentResolver(applicationContext ));
+    argumentResolver.add(new JWebFormArgumentResolver( ));
+    argumentResolver.add(new SimpleJWebFormArgumentResolver( ));
   }
 
   @Override
