@@ -201,14 +201,19 @@ Ja: includiere FormRunner und FormGenerator in helper package
 
 [ ] introduce a way to deal with normal beans.
 
+[ ] Muss form in Spring einen parameterlosen Construktor haben? -> See https://blog.trifork.com/2011/12/08/use-immutable-objects-in-your-spring-mvc-controller-by-implementing-your-own-webargumentresolver/
+Gutes Beispiel für complexität ohne jwebform: https://www.intertech.com/Blog/spring-mvc-command-beans-as-complex-as-you-need/
+
+[ ] kommt man ohne die statischen methoden aus? Das würde eine zentrale Ersetzung der Fields erlauben
+
+
 [ ] replace jFormchecker completly in u.
 
 [ ] document unit-test with spring
 
 Wie kann man in jWebform die Methode einstellen? (Method.GET oder Method.POST) -> am besten im template!
-Wie kann man einem JWebForm einen parameter aus dem request mitgeben? SelfDeleteAdminFormJw
-Wie übergebe ich Parameter, die aus dem Model oder Bean kommen? ->
 
+Wie übergebe ich Parameter, die aus dem Model oder Bean kommen? ->
 1.)  JWebFormFiller<MyForm, MyPreFiller> form
 2.) myForm muss interface implementieren, mit dem man einen Prefiller setzen kann
 3.) Händischer Weg wie bisher
@@ -225,7 +230,7 @@ Führe dafür eine kürzere Methode ein:
 formResult.getView(View.Method.GET) -> z.B. formResult.getViewGet()
 
 
-Man braucht eine Methode, um die Action zu setzen.
+Man braucht eine Methode, um die Action zu setzen. -> besser im template?
 
 
 

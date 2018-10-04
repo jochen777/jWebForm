@@ -82,5 +82,14 @@ As you can see, especially on the template side, you have to enter a lot of (red
 stuff for basic highlighting errors. 
 And this stuff within the template must be repeated for every form 
 and can not be easily used in a generic way. 
+
 In contrast to that, jWebform can define forms completly in code and 
 let the template render the form in a generic way.
+
+These are the main advantages over common form-handling implementations in webframeworks:
+
+* Definition of forms at runtime. (Maybe you need suddenly a captcha? Or for some different user-roles slightly different forms?)
+* Complex-Input-Types (Date, Adress...)
+* Generic html output handling
+* Rich decoration (label, placeholder, helptext)
+* 

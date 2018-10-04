@@ -1,5 +1,14 @@
 # jwebform changelog
 
+### 0.0.11 
+
+2018/xx/xx 
+
+* Improve documentation (spring boot, more advantages)
+* Move all jWebForm related projects to one single repository, introduce multi-module maven project
+* Introduce Spring-Boot integration via jwebform-spring-boot-starter
+
+
 ### 0.0.10 
 
 2018/08/31 
