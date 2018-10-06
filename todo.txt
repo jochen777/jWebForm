@@ -203,6 +203,9 @@ Ja: includiere FormRunner und FormGenerator in helper package
 
 [ ] Muss form in Spring einen parameterlosen Construktor haben? -> See https://blog.trifork.com/2011/12/08/use-immutable-objects-in-your-spring-mvc-controller-by-implementing-your-own-webargumentresolver/
 Gutes Beispiel für complexität ohne jwebform: https://www.intertech.com/Blog/spring-mvc-command-beans-as-complex-as-you-need/
+package org.springframework.beans.BeanUtils
+
+[ ] add Bean validation (best without dependency by providing a function for it!)
 
 [ ] kommt man ohne die statischen methoden aus? Das würde eine zentrale Ersetzung der Fields erlauben
 

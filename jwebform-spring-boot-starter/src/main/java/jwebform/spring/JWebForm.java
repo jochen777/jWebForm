@@ -3,6 +3,7 @@ package jwebform.spring;
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.env.*;
+import jwebform.integration.Bean2From;
 
 import java.util.function.BiConsumer;
 
@@ -15,11 +16,17 @@ public class JWebForm {
   public JWebForm(Request request, SessionGet sessionGet, SessionSet sessionSet, BiConsumer<String, Object> model) {
     this.env = new EnvBuilder().of(request, sessionGet, sessionSet);
     this.model = model;
-
   }
 
-  public FormResult run(Form form) {
-    FormResult fr =  form.run(env);
+  public FormResult run(Object formOrBean) {
+    Form form;
+    if (formOrBean instanceof Form) {
+      form = (Form)formOrBean;
+    } else {
+      form = new Bean2From().getFormFromBean(formOrBean);
+    }
+
+    FormResult fr = form.run(env);
 
     // RFE: What can we do, if we have more than one Form on the page?
     // RFE: Should be configurable!

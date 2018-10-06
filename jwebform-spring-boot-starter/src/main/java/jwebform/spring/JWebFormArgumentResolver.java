@@ -10,6 +10,8 @@ import org.springframework.web.method.annotation.ModelFactory;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 public class JWebFormArgumentResolver implements HandlerMethodArgumentResolver{
 
@@ -25,9 +27,10 @@ public class JWebFormArgumentResolver implements HandlerMethodArgumentResolver{
 
     JWebForm f = new JWebForm(
       t -> request.getParameter(t),
-      t -> request.getNativeRequest(ContextExposingHttpServletRequest.class).getAttribute(t),
-      (t, v) -> request.getNativeRequest(ContextExposingHttpServletRequest.class).setAttribute(t, v),
+      t -> request.getNativeRequest(HttpServletRequest.class).getAttribute(t),
+      (t, v) -> request.getNativeRequest(HttpServletRequest.class).setAttribute(t, v),
       (t,v) -> mavContainer.addAttribute(t, v));
+
 
     return f;
   }

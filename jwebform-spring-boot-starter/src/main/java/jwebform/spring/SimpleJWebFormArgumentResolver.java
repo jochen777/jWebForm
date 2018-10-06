@@ -1,15 +1,13 @@
 package jwebform.spring;
 
 import jwebform.processor.FormGenerator;
-import org.springframework.beans.BeanUtils;
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.context.support.ContextExposingHttpServletRequest;
-import org.springframework.web.method.annotation.ModelFactory;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 public class SimpleJWebFormArgumentResolver implements HandlerMethodArgumentResolver{
@@ -31,8 +29,8 @@ public class SimpleJWebFormArgumentResolver implements HandlerMethodArgumentReso
 
     SimpleJWebForm f = new SimpleJWebForm<FormGenerator>(typeOfBean,
       t -> request.getParameter(t),
-      t -> request.getNativeRequest(ContextExposingHttpServletRequest.class).getAttribute(t),
-      (t, v) -> request.getNativeRequest(ContextExposingHttpServletRequest.class).setAttribute(t, v),
+      t -> request.getNativeRequest(HttpServletRequest.class).getAttribute(t),
+      (t, v) -> request.getNativeRequest(HttpServletRequest.class).setAttribute(t, v),
       (t,v) -> mavContainer.addAttribute(t, v));
 
     return f;
