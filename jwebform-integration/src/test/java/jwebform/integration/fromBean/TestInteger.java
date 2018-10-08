@@ -1,12 +1,18 @@
 package jwebform.integration.fromBean;
 
 import jwebform.Form;
+import jwebform.FormResult;
+import jwebform.env.EnvBuilder;
 import jwebform.field.NumberType;
 import jwebform.field.TextType;
+import jwebform.field.structure.Field;
+import jwebform.field.structure.FieldResult;
 import jwebform.integration.Bean2From;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.Optional;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -17,7 +23,7 @@ public class TestInteger {
   public static final Integer INITIAL_VALUE = 144;
   Form form;
 
-  @BeforeClass
+  @Before
   public void init() {
     Bean bean = new Bean();
     bean.numb = INITIAL_VALUE;
@@ -33,18 +39,22 @@ public class TestInteger {
   @Test
   public void test_beanNameCorrect() {
     NumberType numberType = (NumberType)form.getFields().get(0).fieldType;
-    assertEquals(numberType.oneValueType.name, "check");
+    assertEquals(numberType.oneValueType.name, "numb");
   }
 
   @Test
   public void test_presetCorrect() {
-    NumberType numberType = (NumberType)form.getFields().get(0).fieldType;
-    assertEquals( INITIAL_VALUE, numberType.oneValueType.initialValue);
+    FormResult fr = form.run(new EnvBuilder().of(t -> null));
+    Field f = fr.getFieldResults().getField("numb");
+    FieldResult fieldResult = fr.getFieldResults().get(f);
+
+
+    assertEquals( INITIAL_VALUE, ((Optional<Integer>)fieldResult.getValueObject()).get());
   }
 
 
 
   public class Bean {
-    public Integer numb;
+    public Integer numb = INITIAL_VALUE;
   }
 }

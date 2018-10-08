@@ -11,13 +11,8 @@ import static jwebform.field.builder.BuildInType.text;
 public class StringConverter implements MethodConverter{
 
   @Override public FieldType convert(
-    Field m, String parametername, Class clasz, Object root) {
-    try {
+    Field m, String parametername, Class clasz, Object root) throws IllegalAccessException{
       return new TextType(parametername, (String) m.get(root));
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-      return null;
-    }
   }
 
   @Override public boolean supportsType(Class clasz) {

@@ -16,7 +16,7 @@ public class TestString {
   public static final String INITIAL_VALUE = "testname";
   Form form;
 
-  @BeforeClass
+  @Before
   public void init() {
     Bean bean = new Bean();
     bean.name = INITIAL_VALUE;

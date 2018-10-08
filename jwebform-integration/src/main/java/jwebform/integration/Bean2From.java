@@ -69,7 +69,12 @@ public class Bean2From {
       } else {
         for (MethodConverter converter : converters) {
           if (converter.supportsType(classOfField)) {
-            fields.add(new Field(converter.convert(fieldOfBean, name, classOfField, bean), decoration));
+            try {
+              fields.add(new Field(converter.convert(fieldOfBean, name, classOfField, bean), decoration));
+            } catch (IllegalAccessException e) {
+              // RFE: Should be a better own exception
+              throw new RuntimeException("Can not access field: \"" + name + "\"", e);
+            }
           }
         }
       }

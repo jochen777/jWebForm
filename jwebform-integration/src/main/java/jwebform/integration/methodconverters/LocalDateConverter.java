@@ -12,8 +12,8 @@ import static jwebform.field.builder.BuildInType.textDate;
 public class LocalDateConverter implements MethodConverter{
 
   @Override public FieldType convert(
-    Field m, String parametername, Class clasz, Object root) {
-      return new TextDateType(parametername, LocalDate.now());
+    Field m, String parametername, Class clasz, Object root) throws IllegalAccessException {
+      return new TextDateType(parametername, (LocalDate)m.get(root));
   }
 
   @Override public boolean supportsType(Class clasz) {
