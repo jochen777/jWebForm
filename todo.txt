@@ -200,12 +200,18 @@ Ja: includiere FormRunner und FormGenerator in helper package
 
 
 [ ] introduce a way to deal with normal beans.
+    [x] Resolve types to fieldTypes
+    [ ] Implement Annotation FieldCreators that deal with all types of fieldTypes
+    [ ] Preset fields with value from bean
+    [ ] Introduce an Annotation, that forms the Decoration
+    [ ] Allow via Interface custom resulting Form manipulation
+    [ ] Handle BeanValidation (in a decoupled way!)
+    [ ] Fill bean from FormResult
+    [ ] Test for all of this.
+    [ ] Bean2Form must be injectible in spring-boot helper
 
-[ ] Muss form in Spring einen parameterlosen Construktor haben? -> See https://blog.trifork.com/2011/12/08/use-immutable-objects-in-your-spring-mvc-controller-by-implementing-your-own-webargumentresolver/
-Gutes Beispiel für complexität ohne jwebform: https://www.intertech.com/Blog/spring-mvc-command-beans-as-complex-as-you-need/
-package org.springframework.beans.BeanUtils
+[ ] In spring-boot it has to be possible to choose, if rendering via java or template or theme
 
-[ ] add Bean validation (best without dependency by providing a function for it!)
 
 [ ] kommt man ohne die statischen methoden aus? Das würde eine zentrale Ersetzung der Fields erlauben
 

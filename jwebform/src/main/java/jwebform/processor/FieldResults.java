@@ -71,7 +71,7 @@ public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
         return entry.getKey();
       }
     }
-    throw new IllegalArgumentException("This name is not within the form!");
+    throw new IllegalArgumentException("The name \""+fieldName+"\" is not within the form!");
   }
 
   public Object size() {

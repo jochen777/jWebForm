@@ -34,7 +34,7 @@ public class CheckDoubleFieldsPostProcessor implements PostProcessor {
 
     public DoubleTakenNameException(String name) {
       super(String.format(
-          "The name %s was taken more than once for this form. Make sure, that you use eache name of each fieldType only once!",
+          "The name '%s' was taken more than once for this form. Make sure, that you use eache name of each fieldType only once!",
           name));
     }
   }
