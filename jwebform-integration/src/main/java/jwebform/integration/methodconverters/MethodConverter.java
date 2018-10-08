@@ -1,11 +1,12 @@
 package jwebform.integration.methodconverters;
 
 import jwebform.field.structure.Field;
+import jwebform.field.structure.FieldType;
 
 import java.lang.reflect.Method;
 import java.util.Optional;
 
 public interface MethodConverter {
-  Field convert(java.lang.reflect.Field m, String parametername, Class clasz);
+  FieldType convert(java.lang.reflect.Field m, String parametername, Class clasz, Object root);
   boolean supportsType(Class clasz);
 }

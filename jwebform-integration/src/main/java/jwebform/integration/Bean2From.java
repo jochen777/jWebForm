@@ -2,25 +2,26 @@ package jwebform.integration;
 
 import jwebform.Form;
 import jwebform.FormBuilder;
+import jwebform.field.CheckBoxType;
+import jwebform.field.TextAreaType;
+import jwebform.field.structure.Decoration;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldType;
+import jwebform.integration.annotations.UseDecoration;
 import jwebform.integration.annotations.UseFieldType;
-import jwebform.integration.fliedCreators.FieldCreator;
-import jwebform.integration.fliedCreators.TextAreaCreator;
 import jwebform.integration.methodconverters.*;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.BiFunction;
 
 import static jwebform.field.builder.BuildInType.text;
 
 public class Bean2From {
 
   final List<MethodConverter> converters;
-  final List<FieldCreator> fieldCreators;
+  final Map<Class, BiFunction<String, Object, FieldType>> fieldCreators;
 
   public Bean2From() {
     converters = new ArrayList<>();
@@ -29,13 +30,21 @@ public class Bean2From {
     converters.add(new BooleanConverter());
     converters.add(new LocalDateConverter());
 
-    fieldCreators = new ArrayList<>();
-    fieldCreators.add(new TextAreaCreator());
+    // TODO: Dass muss eine Liste werden. Denn evtl. kommmen subtypen vor
+    fieldCreators = new LinkedHashMap<>();
+    fillFieldCreators();
     // TODO: Add default converter, in case an annoation exists. (Maybe it is an enum!)
   }
+
+  private void fillFieldCreators() {
+    // TODO: Create a object to type converter, that raises good readable exceptions
+    fieldCreators.put(CheckBoxType.class, (s, o) -> new CheckBoxType(s, (Boolean) o));
+    fieldCreators.put(TextAreaType.class, (s, o) -> new TextAreaType(s, (String) o));
+  }
+
   /**
    * Default mapping:
-   *
+   * <p>
    * String: Text
    * Boolean: Checkbox
    * LocalDate: TextSelectDate
@@ -44,37 +53,43 @@ public class Bean2From {
    * @param bean
    * @return
    */
-  public Form getFormFromBean(Object bean){
+  public Form getFormFromBean(Object bean) {
 
     java.lang.reflect.Field[] fieldsOfBean = bean.getClass().getFields();
 
     List<Field> fields = new ArrayList<>();
-    for(java.lang.reflect.Field fieldOfBean: fieldsOfBean) {
+    for (java.lang.reflect.Field fieldOfBean : fieldsOfBean) {
 
       String name = fieldOfBean.getName();
       Class classOfField = fieldOfBean.getType();
-      fields.add(checkAnnoation(fieldOfBean, name).orElseGet( () -> {
-        for(MethodConverter converter: converters) {
+      Optional<FieldType> oFieldType = checkAnnoation(fieldOfBean, name);
+      Decoration decoration = getDecoration(fieldOfBean, name);
+      if (oFieldType.isPresent()) {
+        fields.add(new Field(oFieldType.get(),decoration));
+      } else {
+        for (MethodConverter converter : converters) {
           if (converter.supportsType(classOfField)) {
-            return converter.convert(fieldOfBean, name, classOfField);
+            fields.add(new Field(converter.convert(fieldOfBean, name, classOfField, bean), decoration));
           }
         }
-        return null;
-      }));
-
+      }
     }
     return FormBuilder.simple().fields(fields).build();
   }
 
-  private Optional<Field> checkAnnoation(java.lang.reflect.Field fieldOfBean, String name) {
+  private Decoration getDecoration(java.lang.reflect.Field fieldOfBean, String name) {
+    UseDecoration decoration = fieldOfBean.getAnnotation(UseDecoration.class);
+    if (decoration != null) {
+      Decoration d = new Decoration(decoration.label(), decoration.helpText(), decoration.placeholder());
+      return d;
+    }
+    return new Decoration(name);
+  }
+
+  private Optional<FieldType> checkAnnoation(java.lang.reflect.Field fieldOfBean, String name) {
     UseFieldType useFieldType = fieldOfBean.getAnnotation(UseFieldType.class);
-    if (useFieldType != null) {
-      for(FieldCreator fieldCreator: fieldCreators) {
-        if (fieldCreator.supportsFieldType() == useFieldType.type()) {
-          return Optional.of(fieldCreator.createField(useFieldType.type(), name));
-        }
-      }
-      return Optional.empty();
+    if (useFieldType != null && fieldCreators.containsKey(useFieldType.type())) {
+      return Optional.of(fieldCreators.get(useFieldType.type()).apply(name, ""));
     }
     return Optional.empty();
   }
@@ -89,9 +104,7 @@ public class Bean2From {
   }
 
   public static boolean isSetter(Method method) {
-    return Modifier.isPublic(method.getModifiers()) &&
-      method.getReturnType().equals(void.class) &&
-      method.getParameterTypes().length == 1 &&
-      method.getName().matches("^set[A-Z].*");
+    return Modifier.isPublic(method.getModifiers()) && method.getReturnType().equals(void.class)
+      && method.getParameterTypes().length == 1 && method.getName().matches("^set[A-Z].*");
   }
 }
