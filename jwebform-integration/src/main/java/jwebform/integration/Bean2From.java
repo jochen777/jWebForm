@@ -2,33 +2,26 @@ package jwebform.integration;
 
 import jwebform.Form;
 import jwebform.FormBuilder;
-import jwebform.field.CheckBoxType;
-import jwebform.field.TextAreaType;
+import jwebform.field.*;
 import jwebform.field.structure.Decoration;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldType;
+import jwebform.integration.annotations.IgnoreField;
 import jwebform.integration.annotations.UseDecoration;
 import jwebform.integration.annotations.UseFieldType;
-import jwebform.integration.methodconverters.*;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.BiFunction;
 
-import static jwebform.field.builder.BuildInType.text;
 
 public class Bean2From {
 
-  final List<MethodConverter> converters;
   final Map<Class, BiFunction<String, Object, FieldType>> fieldCreators;
 
   public Bean2From() {
-    converters = new ArrayList<>();
-    converters.add(new StringConverter());
-    converters.add(new IntegerConverter());
-    converters.add(new BooleanConverter());
-    converters.add(new LocalDateConverter());
 
     // TODO: Dass muss eine Liste werden. Denn evtl. kommmen subtypen vor
     fieldCreators = new LinkedHashMap<>();
@@ -40,6 +33,13 @@ public class Bean2From {
     // TODO: Create a object to type converter, that raises good readable exceptions
     fieldCreators.put(CheckBoxType.class, (s, o) -> new CheckBoxType(s, (Boolean) o));
     fieldCreators.put(TextAreaType.class, (s, o) -> new TextAreaType(s, (String) o));
+    fieldCreators.put(SubmitType.class, (s, o) -> new SubmitType(s));
+
+    // Standard classes (without annoation)
+    fieldCreators.put(String.class, (s, o) -> new TextType(s, (String) o));
+    fieldCreators.put(Integer.class, (s, o) -> new NumberType(s, (Integer) o));
+    fieldCreators.put(Boolean.class, (s, o) -> new CheckBoxType(s, (Boolean) o));
+    fieldCreators.put(LocalDate.class, (s, o) -> new TextDateType(s, (LocalDate) o));
   }
 
   /**
@@ -60,26 +60,40 @@ public class Bean2From {
     List<Field> fields = new ArrayList<>();
     for (java.lang.reflect.Field fieldOfBean : fieldsOfBean) {
 
+      if (isIgnore(fieldOfBean)) {
+        continue;
+      }
+
       String name = fieldOfBean.getName();
       Class classOfField = fieldOfBean.getType();
-      Optional<FieldType> oFieldType = checkAnnoation(fieldOfBean, name);
+
       Decoration decoration = getDecoration(fieldOfBean, name);
+
+      Optional<FieldType> oFieldType = checkAnnoation(fieldOfBean, name);
       if (oFieldType.isPresent()) {
         fields.add(new Field(oFieldType.get(),decoration));
       } else {
-        for (MethodConverter converter : converters) {
-          if (converter.supportsType(classOfField)) {
-            try {
-              fields.add(new Field(converter.convert(fieldOfBean, name, classOfField, bean), decoration));
-            } catch (IllegalAccessException e) {
-              // RFE: Should be a better own exception
-              throw new RuntimeException("Can not access field: \"" + name + "\"", e);
-            }
+        if (fieldCreators.containsKey(classOfField)) {
+          Object valueOfMethod = null;
+          try {
+            valueOfMethod = fieldOfBean.get(bean);
+          } catch (IllegalAccessException e) {
+            e.printStackTrace();
           }
+          fields.add(new Field(fieldCreators.get(classOfField).apply(name, valueOfMethod), decoration));
+        } else {
+          System.err.println("Unsupported type:" + classOfField);
         }
       }
     }
     return FormBuilder.simple().fields(fields).build();
+  }
+
+  private boolean isIgnore(java.lang.reflect.Field fieldOfBean) {
+    if (fieldOfBean.isAnnotationPresent(IgnoreField.class)) {
+      return true;
+    }
+    return false;
   }
 
   private Decoration getDecoration(java.lang.reflect.Field fieldOfBean, String name) {

@@ -202,13 +202,17 @@ Ja: includiere FormRunner und FormGenerator in helper package
 [ ] introduce a way to deal with normal beans.
     [x] Resolve types to fieldTypes
     [ ] Implement Annotation FieldCreators that deal with all types of fieldTypes
-    [ ] Preset fields with value from bean
+    [ ] Deal with missing or present values differently
+    [x] Preset fields with value from bean
+    [x] Get rid of method-converters. Can all be done with lamda producers
     [x] Introduce an Annotation, that forms the Decoration
     [ ] Allow via Interface custom resulting Form manipulation (Bean implements JWebFormBean)
     [ ] Handle BeanValidation (in a decoupled way!)
     [ ] Fill bean from FormResult
     [ ] Test for all of this.
     [ ] Bean2Form must be injectible in spring-boot helper
+    [x] @IgnoreField Annotation for ignoring a field
+    [x] Do we need an automatic Submit field? -> No!
 
 [ ] In spring-boot it has to be possible to choose, if rendering via java or template or theme
 
