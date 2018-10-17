@@ -26,14 +26,14 @@ public class TestInteger {
   @Before
   public void init() {
     Bean bean = new Bean();
-    bean.numb = INITIAL_VALUE;
     form = new Bean2From().getFormFromBean(bean);
   }
 
   @Test
   public void test_beanWithString() {
-    assertEquals(form.getFields().size(), 1);
+    assertEquals(form.getFields().size(), 2);
     assertTrue(form.getFields().get(0).fieldType instanceof NumberType);
+    assertTrue(form.getFields().get(1).fieldType instanceof NumberType);
   }
 
   @Test
@@ -41,6 +41,13 @@ public class TestInteger {
     NumberType numberType = (NumberType)form.getFields().get(0).fieldType;
     assertEquals(numberType.oneValueType.name, "numb");
   }
+
+  @Test
+  public void test_beanName2Correct() {
+    NumberType numberType = (NumberType)form.getFields().get(1).fieldType;
+    assertEquals(numberType.oneValueType.name, "numb2");
+  }
+
 
   @Test
   public void test_presetCorrect() {
@@ -53,8 +60,20 @@ public class TestInteger {
   }
 
 
+  @Test
+  public void test_preset2Correct() {
+    FormResult fr = form.run(new EnvBuilder().of(t -> null));
+    Field f = fr.getFieldResults().getField("numb2");
+    FieldResult fieldResult = fr.getFieldResults().get(f);
+
+    Integer testVal = (INITIAL_VALUE+1);
+
+    assertEquals( testVal , ((Optional<Integer>)fieldResult.getValueObject()).get());
+  }
+
 
   public class Bean {
     public Integer numb = INITIAL_VALUE;
+    public int numb2 = INITIAL_VALUE+1;
   }
 }

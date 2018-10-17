@@ -19,6 +19,7 @@ import java.util.function.BiFunction;
 
 public class Bean2From {
 
+  // TODO: Vielleicht besser nicht "Object" übergeben, sondern besser Field
   final Map<Class, BiFunction<String, Object, FieldType>> fieldCreators;
 
   public Bean2From() {
@@ -30,17 +31,59 @@ public class Bean2From {
   }
 
   private void fillFieldCreators() {
+    BiFunction<String, Object, FieldType> bool2checkbox = (s, o) -> new CheckBoxType(s, (Boolean) o);
+    BiFunction<String, Object, FieldType> int2Number = (s, o) -> new NumberType(s, (Integer) o);
+
+
     // TODO: Create a object to type converter, that raises good readable exceptions
     fieldCreators.put(CheckBoxType.class, (s, o) -> new CheckBoxType(s, (Boolean) o));
     fieldCreators.put(TextAreaType.class, (s, o) -> new TextAreaType(s, (String) o));
+    fieldCreators.put(HiddenType.class, (s, o) -> new HiddenType(s, (String) o));
+    fieldCreators.put(HtmlType.class, (s, o) -> new HtmlType((String) o));
+    fieldCreators.put(LabelType.class, (s, o) -> new LabelType((String) o));
+    fieldCreators.put(NumberType.class, (s, o) -> new NumberType(s, (Integer) o));
+    fieldCreators.put(PasswordType.class, (s, o) -> new PasswordType(s));
+
+    fieldCreators.put(SelectType.class, (s, o) -> new SelectType(s, getVal(o, String.class), getKeys(o), getVals(o)));
+    // what to do with RadioType?
+    fieldCreators.put(RadioType.class, (s, o) -> new PasswordType(s));
+
     fieldCreators.put(SubmitType.class, (s, o) -> new SubmitType(s));
 
     // Standard classes (without annoation)
     fieldCreators.put(String.class, (s, o) -> new TextType(s, (String) o));
-    fieldCreators.put(Integer.class, (s, o) -> new NumberType(s, (Integer) o));
-    fieldCreators.put(Boolean.class, (s, o) -> new CheckBoxType(s, (Boolean) o));
+    fieldCreators.put(Integer.class,  int2Number);
+    fieldCreators.put(int.class,      int2Number);
+    fieldCreators.put(Boolean.class, bool2checkbox);
+    fieldCreators.put(boolean.class, bool2checkbox);
     fieldCreators.put(LocalDate.class, (s, o) -> new TextDateType(s, (LocalDate) o));
+
   }
+
+  private <T> T getVal(Object o, Class<T> clss){
+    if (o instanceof ValuesOfObject) {
+      ValuesOfObject valuesOfObject = (ValuesOfObject)o;
+      return clss.cast(valuesOfObject.initialValue);
+    }
+    return clss.cast(o);
+  }
+
+  private String[] getVals(Object o){
+    if (o instanceof ValuesOfObject) {
+      ValuesOfObject valuesOfObject = (ValuesOfObject)o;
+      return valuesOfObject.useFieldTypeAnnotation.vals();
+    }
+    throw new IllegalArgumentException("Please call the getKeys just with a ValuesOfObject field. You called with: " + o.getClass());
+  }
+
+  private String[] getKeys(Object o){
+    if (o instanceof ValuesOfObject) {
+      ValuesOfObject valuesOfObject = (ValuesOfObject)o;
+      return valuesOfObject.useFieldTypeAnnotation.keys();
+    }
+    throw new IllegalArgumentException("Please call the getKeys just with a ValuesOfObject field. You called with: " + o.getClass());
+  }
+
 
   /**
    * Default mapping:
@@ -65,22 +108,22 @@ public class Bean2From {
       }
 
       String name = fieldOfBean.getName();
+      Object initialValue = null;
+      try {
+        initialValue = fieldOfBean.get(bean);
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
+      }
       Class classOfField = fieldOfBean.getType();
 
       Decoration decoration = getDecoration(fieldOfBean, name);
 
-      Optional<FieldType> oFieldType = checkAnnoation(fieldOfBean, name);
+      Optional<FieldType> oFieldType = checkAnnoation(fieldOfBean, name, initialValue);
       if (oFieldType.isPresent()) {
         fields.add(new Field(oFieldType.get(),decoration));
       } else {
         if (fieldCreators.containsKey(classOfField)) {
-          Object valueOfMethod = null;
-          try {
-            valueOfMethod = fieldOfBean.get(bean);
-          } catch (IllegalAccessException e) {
-            e.printStackTrace();
-          }
-          fields.add(new Field(fieldCreators.get(classOfField).apply(name, valueOfMethod), decoration));
+          fields.add(new Field(fieldCreators.get(classOfField).apply(name, initialValue), decoration));
         } else {
           System.err.println("Unsupported type:" + classOfField);
         }
@@ -105,10 +148,14 @@ public class Bean2From {
     return new Decoration(name);
   }
 
-  private Optional<FieldType> checkAnnoation(java.lang.reflect.Field fieldOfBean, String name) {
+  private Optional<FieldType> checkAnnoation(
+    java.lang.reflect.Field fieldOfBean, String name, Object initialValue) {
     UseFieldType useFieldType = fieldOfBean.getAnnotation(UseFieldType.class);
     if (useFieldType != null && fieldCreators.containsKey(useFieldType.type())) {
-      return Optional.of(fieldCreators.get(useFieldType.type()).apply(name, ""));
+      ValuesOfObject valuesOfObject = new ValuesOfObject();
+      valuesOfObject.initialValue = initialValue;
+      valuesOfObject.useFieldTypeAnnotation = useFieldType;
+      return Optional.of(fieldCreators.get(useFieldType.type()).apply(name, valuesOfObject));
     }
     return Optional.empty();
   }
@@ -126,4 +173,10 @@ public class Bean2From {
     return Modifier.isPublic(method.getModifiers()) && method.getReturnType().equals(void.class)
       && method.getParameterTypes().length == 1 && method.getName().matches("^set[A-Z].*");
   }
+
+  private class ValuesOfObject {
+    Object initialValue;
+    UseFieldType useFieldTypeAnnotation;
+  }
+
 }

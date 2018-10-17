@@ -12,6 +12,7 @@ import java.lang.annotation.*;
 public @interface UseFieldType {
 
   Class<? extends FieldType> type();
-
+  String [] keys() default {};
+  String [] vals() default {};;
 
 }

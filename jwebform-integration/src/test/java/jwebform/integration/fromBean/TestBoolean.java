@@ -24,13 +24,15 @@ public class TestBoolean {
   public void init() {
     Bean bean = new Bean();
     bean.check = INITIAL_VALUE;
+    bean.check2 = !INITIAL_VALUE;
     form = new Bean2From().getFormFromBean(bean);
   }
 
   @Test
   public void test_beanWithString() {
-    assertEquals(form.getFields().size(), 1);
+    assertEquals(form.getFields().size(), 2);
     assertTrue(form.getFields().get(0).fieldType instanceof CheckBoxType);
+    assertTrue(form.getFields().get(1).fieldType instanceof CheckBoxType);
   }
 
   @Test
@@ -42,6 +44,15 @@ public class TestBoolean {
   }
 
   @Test
+  public void test_beanName2Correct() {
+    FormResult fr = form.run(new EnvBuilder().of(t -> null));
+    Field f = fr.getFieldResults().getField("check2");
+    FieldResult fieldResult = fr.getFieldResults().get(f);
+    assertEquals("check2", fieldResult.getStaticFieldInfo().getName());
+  }
+
+
+  @Test
   public void test_presetCorrect() {
     FormResult fr = form.run(new EnvBuilder().of(t -> null));
     Field f = fr.getFieldResults().getField("check");
@@ -50,8 +61,17 @@ public class TestBoolean {
   }
 
 
+  @Test
+  public void test_preset2Correct() {
+    FormResult fr = form.run(new EnvBuilder().of(t -> null));
+    Field f = fr.getFieldResults().getField("check2");
+    FieldResult fieldResult = fr.getFieldResults().get(f);
+    assertEquals( !INITIAL_VALUE, fieldResult.getValueObject());
+  }
+
 
   public class Bean {
     public Boolean check;
+    public boolean check2;
   }
 }

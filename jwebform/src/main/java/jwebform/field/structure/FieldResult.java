@@ -126,6 +126,11 @@ public final class FieldResult {
     }
 
     public FieldResult build() {
+      // if someone did only call withValue and did not call withValueObject we set the valueObject automatically
+      if (valueObject == EMPTY_STRING && value != EMPTY_STRING) {
+        valueObject = value;
+      }
+
       return new FieldResult(this);
     }
   }
