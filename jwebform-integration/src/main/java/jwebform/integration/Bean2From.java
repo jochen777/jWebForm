@@ -9,6 +9,7 @@ import jwebform.field.structure.FieldType;
 import jwebform.integration.annotations.IgnoreField;
 import jwebform.integration.annotations.UseDecoration;
 import jwebform.integration.annotations.UseFieldType;
+import jwebform.processor.FormResultBuilder;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -19,53 +20,60 @@ import java.util.function.BiFunction;
 
 public class Bean2From {
 
-  // TODO: Vielleicht besser nicht "Object" übergeben, sondern besser Field
   final Map<Class, BiFunction<String, Object, FieldType>> fieldCreators;
 
   public Bean2From() {
 
-    // TODO: Dass muss eine Liste werden. Denn evtl. kommmen subtypen vor
     fieldCreators = new LinkedHashMap<>();
     fillFieldCreators();
-    // TODO: Add default converter, in case an annoation exists. (Maybe it is an enum!)
   }
 
   private void fillFieldCreators() {
-    BiFunction<String, Object, FieldType> bool2checkbox = (s, o) -> new CheckBoxType(s, (Boolean) o);
-    BiFunction<String, Object, FieldType> int2Number = (s, o) -> new NumberType(s, (Integer) o);
+    BiFunction<String, Object, FieldType> bool2checkbox = (s, o) -> new CheckBoxType(s, getVal(o, Boolean.class));
+    BiFunction<String, Object, FieldType> int2Number = (s, o) -> new NumberType(s, getVal(o, Integer.class));
 
 
-    // TODO: Create a object to type converter, that raises good readable exceptions
-    fieldCreators.put(CheckBoxType.class, (s, o) -> new CheckBoxType(s, (Boolean) o));
-    fieldCreators.put(TextAreaType.class, (s, o) -> new TextAreaType(s, (String) o));
-    fieldCreators.put(HiddenType.class, (s, o) -> new HiddenType(s, (String) o));
-    fieldCreators.put(HtmlType.class, (s, o) -> new HtmlType((String) o));
-    fieldCreators.put(LabelType.class, (s, o) -> new LabelType((String) o));
-    fieldCreators.put(NumberType.class, (s, o) -> new NumberType(s, (Integer) o));
+    fieldCreators.put(CheckBoxType.class, (s, o) -> new CheckBoxType(s, getVal(o, Boolean.class)));
+    fieldCreators.put(HiddenType.class, (s, o) -> new HiddenType(s, getVal(o, String.class)));
+    fieldCreators.put(HtmlType.class, (s, o) -> new HtmlType(getVal(o, String.class)));
+    fieldCreators.put(LabelType.class, (s, o) -> new LabelType(getVal(o, String.class)));
+    fieldCreators.put(NumberType.class, (s, o) -> new NumberType(s, getVal(o, Integer.class)));
     fieldCreators.put(PasswordType.class, (s, o) -> new PasswordType(s));
-
+    fieldCreators.put(RadioType.class, (s, o) -> new RadioType(s, getVal(o, String.class), getKeys(o), getVals(o)));
+    fieldCreators.put(SelectDateType.class, (s, o) -> new SelectDateType(s, getVal(o, LocalDate.class),
+      LocalDate.now().getYear()-100, LocalDate.now().getYear()+1));
     fieldCreators.put(SelectType.class, (s, o) -> new SelectType(s, getVal(o, String.class), getKeys(o), getVals(o)));
-    // what to do with RadioType?
-    fieldCreators.put(RadioType.class, (s, o) -> new PasswordType(s));
-
+    fieldCreators.put(TextAreaType.class, (s, o) -> new TextAreaType(s, getVal( o, String.class)));
     fieldCreators.put(SubmitType.class, (s, o) -> new SubmitType(s));
+    fieldCreators.put(TextDateType.class, (s, o) -> new TextDateType(s, getVal(o, LocalDate.class)));
+    fieldCreators.put(TextType.class, (s, o) -> new TextType(s, getVal( o, String.class)));
+    // UploadType must be handled differently!
+    // XSRFType sould be added by frombuilder
+
+
+
+
 
     // Standard classes (without annoation)
-    fieldCreators.put(String.class, (s, o) -> new TextType(s, (String) o));
+    fieldCreators.put(String.class, (s, o) -> new TextType(s, getVal(o, String.class)));
     fieldCreators.put(Integer.class,  int2Number);
     fieldCreators.put(int.class,      int2Number);
     fieldCreators.put(Boolean.class, bool2checkbox);
     fieldCreators.put(boolean.class, bool2checkbox);
-    fieldCreators.put(LocalDate.class, (s, o) -> new TextDateType(s, (LocalDate) o));
+    fieldCreators.put(LocalDate.class, (s, o) -> new TextDateType(s, getVal(o, LocalDate.class)));
 
   }
 
   private <T> T getVal(Object o, Class<T> clss){
-    if (o instanceof ValuesOfObject) {
-      ValuesOfObject valuesOfObject = (ValuesOfObject)o;
-      return clss.cast(valuesOfObject.initialValue);
+    try {
+      if (o instanceof ValuesOfObject) {
+        ValuesOfObject valuesOfObject = (ValuesOfObject) o;
+        return clss.cast(valuesOfObject.initialValue);
+      }
+      return clss.cast(o);
+    } catch (Exception e) {
+      throw new RuntimeException("I can not cast this!", e);
     }
-    return clss.cast(o);
   }
 
   private String[] getVals(Object o){
@@ -129,7 +137,7 @@ public class Bean2From {
         }
       }
     }
-    return FormBuilder.simple().fields(fields).build();
+    return FormBuilder.flexible("id", (a, b, c) -> new FormResultWithBean(a, b, c, bean)).fields(fields).build();
   }
 
   private boolean isIgnore(java.lang.reflect.Field fieldOfBean) {
@@ -160,19 +168,6 @@ public class Bean2From {
     return Optional.empty();
   }
 
-  static ArrayList<Method> searchSetters(Class<?> c) {
-    ArrayList<Method> list = new ArrayList<>();
-    Method[] methods = c.getDeclaredMethods();
-    for (Method method : methods)
-      if (isSetter(method))
-        list.add(method);
-    return list;
-  }
-
-  public static boolean isSetter(Method method) {
-    return Modifier.isPublic(method.getModifiers()) && method.getReturnType().equals(void.class)
-      && method.getParameterTypes().length == 1 && method.getName().matches("^set[A-Z].*");
-  }
 
   private class ValuesOfObject {
     Object initialValue;

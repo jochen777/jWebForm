@@ -25,8 +25,8 @@ public class JWebForm {
     } else {
       form = new Bean2From().getFormFromBean(formOrBean);
     }
-
     FormResult fr = form.run(env);
+
 
     // RFE: What can we do, if we have more than one Form on the page?
     // RFE: Should be configurable!

@@ -3,6 +3,7 @@ package jwebform.integration;
 import java.util.ArrayList;
 import java.util.List;
 import jwebform.Form;
+import jwebform.FormResult;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldType;
 import jwebform.validation.Criterion;
@@ -34,7 +35,7 @@ public class FormBuilder {
   public Form build() {
     return jwebform.FormBuilder
         .flexible(id,
-            (formId, elementResults, formIsValid) -> new FormResultWithBean(formId, elementResults,
+            (formId, elementResults, formIsValid) -> new FormResult(formId, elementResults,
                 formIsValid))
         .fields(elements).validation(formValidators).build();
 

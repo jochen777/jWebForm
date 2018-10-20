@@ -10,11 +10,15 @@ import jwebform.FormResult;
 
 public class FormResultWithBean extends FormResult {
 
-  public FormResultWithBean(String formId, FieldResults fieldResults, boolean formIsValid) {
+
+  public FormResultWithBean(String formId, FieldResults fieldResults, boolean formIsValid, Object bean) {
     super(formId, fieldResults, formIsValid);
+    fillBean(bean);
   }
 
-  public void fillBean(Object bean) {
+  // RFE: this is kind of ugly, because it modifies the bean. Better: Make a new object of this and copy all elements in it.
+  // not it can not immutable!
+  private void fillBean(Object bean) {
     FieldResults fieldResults = this.getFieldResults();
 
     try {
@@ -26,7 +30,7 @@ public class FormResultWithBean extends FormResult {
 
           Object className = pd.getPropertyType().getName();
           if (className.equals("java.lang.String")) {
-            PropertyUtils.setSimpleProperty(bean, key, result.getValueObject());
+            PropertyUtils.setSimpleProperty(bean, key, result.getValue());
           } else if (className.equals("java.lang.Boolean") || className.equals("boolean")) {
             if ("true".equals(result.getValue())) {
               PropertyUtils.setSimpleProperty(bean, key, true);
