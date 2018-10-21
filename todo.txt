@@ -206,8 +206,8 @@ Ja: includiere FormRunner und FormGenerator in helper package
     [x] Preset fields with value from bean
     [x] Get rid of method-converters. Can all be done with lamda producers
     [x] Introduce an Annotation, that forms the Decoration
-    [ ] Fill bean from FormResult without external libs
-    [ ] Allow via Interface custom resulting Form manipulation (Bean implements JWebFormBean)
+    [x] Fill bean from FormResult without external libs
+    [x] Allow via Interface custom resulting Form manipulation (Bean implements JWebFormBean)
     [ ] Handle BeanValidation (in a decoupled way!)
     [ ] Test for all of this.
     [ ] Bean2Form must be injectible in spring-boot helper
