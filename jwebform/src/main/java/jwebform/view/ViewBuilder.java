@@ -6,7 +6,7 @@ import jwebform.View.Method;
 import jwebform.processor.FieldResults;
 
 @FunctionalInterface
-public interface ViewGenerator {
+public interface ViewBuilder {
   View build(String formId, FieldResults fieldResults, Method method,
       Html5Validation html5Validation);
 }

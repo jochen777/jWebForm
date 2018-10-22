@@ -8,25 +8,24 @@ import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldType;
 import jwebform.validation.Criterion;
 import jwebform.validation.FormValidator;
-import jwebform.validation.Validator;
 
 // convenience methods for building the form
-public class FormBuilder {
+public class SimpleFormBuilder {
 
   String id = "id";
   List<Field> elements = new ArrayList<>();
   List<FormValidator> formValidators = new ArrayList<>();
 
-  public FormBuilder() {
+  public SimpleFormBuilder() {
 
   }
 
-  public FormBuilder setId(String id) {
+  public SimpleFormBuilder setId(String id) {
     this.id = id;
     return this;
   }
 
-  public FormBuilder addElement(FieldType type, Criterion... inputCriterium) {
+  public SimpleFormBuilder addElement(FieldType type, Criterion... inputCriterium) {
     elements.add(type.of(inputCriterium));
     return this;
   }
@@ -35,8 +34,8 @@ public class FormBuilder {
   public Form build() {
     return jwebform.FormBuilder
         .flexible(id,
-            (formId, elementResults, formIsValid) -> new FormResult(formId, elementResults,
-                formIsValid))
+            (formId, elementResults, formIsValid, viewBuilder) -> new FormResult(formId,
+                elementResults, formIsValid, viewBuilder))
         .fields(elements).validation(formValidators).build();
 
   }

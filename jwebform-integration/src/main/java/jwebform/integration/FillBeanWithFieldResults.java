@@ -1,30 +1,13 @@
 package jwebform.integration;
 
 import java.util.Optional;
-import jwebform.FormResult;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.processor.FieldResults;
-import jwebform.view.ViewBuilder;
 
-public class FormResultWithBean extends FormResult {
+public class FillBeanWithFieldResults {
 
-
-  public FormResultWithBean(String formId, FieldResults fieldResults, boolean formIsValid,
-      ViewBuilder viewBuilder, Object bean) {
-    super(formId, fieldResults, formIsValid, viewBuilder);
-    /*
-     * if (bean instanceof JWebFormBean) { fillBean(bean, ((JWebFormBean) bean).postRun(this)); }
-     * else { fillBean(bean, this); }
-     */
-  }
-
-  // RFE: this is kind of ugly, because it modifies the bean. Better: Make a new object of this and
-  // copy all elements in it.
-  // now it can not immutable!
-  private void fillBean(Object bean, FormResult formResult) {
-    FieldResults fieldResults = formResult.getFieldResults();
-
+  public void fill(Object bean, FieldResults fieldResults) {
     for (Field fieldofForm : fieldResults.getContainers()) {
 
       FieldResult result = fieldResults.get(fieldofForm);
@@ -75,16 +58,6 @@ public class FormResultWithBean extends FormResult {
     // if (bean instanceof FormCheckerBean) {
     // ((FormCheckerBean) bean).postRun(form);
     // }
-  }
-
-  public class FillBeanExecption extends RuntimeException {
-
-    private static final long serialVersionUID = 1L;
-
-    public FillBeanExecption(String msg, Exception e) {
-      super(msg, e);
-    }
-
   }
 
 }

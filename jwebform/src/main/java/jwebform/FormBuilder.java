@@ -1,5 +1,9 @@
 package jwebform;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import jwebform.field.SimpleGroup;
 import jwebform.field.builder.FieldBuilder;
 import jwebform.field.structure.Field;
@@ -8,11 +12,6 @@ import jwebform.field.structure.SingleFieldType;
 import jwebform.processor.FormResultBuilder;
 import jwebform.processor.LoggingFormResult;
 import jwebform.validation.FormValidator;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 // Simplifies Building of a form.
 public class FormBuilder {
@@ -58,7 +57,7 @@ public class FormBuilder {
 
 
   public Form build() {
-    return new Form(id, buildGroup(), formResultBuilder);
+    return new Form(id, buildGroup(), formResultBuilder, View::new);
   }
 
   private GroupFieldType buildGroup() {

@@ -28,16 +28,103 @@ import jwebform.field.structure.FieldType;
 import jwebform.integration.annotations.IgnoreField;
 import jwebform.integration.annotations.UseDecoration;
 import jwebform.integration.annotations.UseFieldType;
+import jwebform.integration.beanvalidation.BeanValidationValidator;
+import jwebform.integration.beanvalidation.ExternalValidation;
+import jwebform.processor.FieldValdationResults;
+import jwebform.validation.FormValidator;
+import jwebform.validation.ValidationResult;
 
 
 public class Bean2From {
 
   final Map<Class, BiFunction<String, Object, FieldType>> fieldCreators;
+  final BeanValidationValidator beanValidator;
 
   public Bean2From() {
+    this((b) -> new ArrayList<>());
+  }
+
+
+  public Bean2From(BeanValidationValidator beanValidator) {
 
     fieldCreators = new LinkedHashMap<>();
+    this.beanValidator = beanValidator;
     fillFieldCreators();
+  }
+
+  /**
+   * Default mapping:
+   * <p>
+   * String: Text Boolean: Checkbox LocalDate: TextSelectDate Integer: Number
+   *
+   * @param bean
+   * @return
+   */
+  public Form getFormFromBean(Object bean) {
+
+    java.lang.reflect.Field[] fieldsOfBean = bean.getClass().getFields();
+
+    List<Field> fields = new ArrayList<>();
+    for (java.lang.reflect.Field fieldOfBean : fieldsOfBean) {
+
+      if (isIgnore(fieldOfBean)) {
+        continue;
+      }
+
+      String name = fieldOfBean.getName();
+      Object initialValue = null;
+      try {
+        initialValue = fieldOfBean.get(bean);
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
+      }
+      Class classOfField = fieldOfBean.getType();
+
+      Decoration decoration = getDecoration(fieldOfBean, name);
+
+      Optional<FieldType> oFieldType = checkAnnoation(fieldOfBean, name, initialValue);
+      if (oFieldType.isPresent()) {
+        fields.add(new Field(oFieldType.get(), decoration));
+      } else {
+        if (fieldCreators.containsKey(classOfField)) {
+          fields.add(
+              new Field(fieldCreators.get(classOfField).apply(name, initialValue), decoration));
+        } else {
+          System.err.println("Unsupported type:" + classOfField);
+        }
+      }
+    }
+    // add formValdidator (with beanvalidation)
+    Form f = FormBuilder.flexible("id", (a, b, c, d) -> new FormResultWithBean(a, b, c, d, bean))
+        .fields(fields).validation(generateFormValidator(bean)).build();
+    if (bean instanceof JWebFormBean) {
+      Form processedByBean = ((JWebFormBean) bean).preRun(f);
+      return processedByBean;
+    }
+    return f;
+  }
+
+
+  /**
+   * this is a little hack, because formValidators will be called after formfield processing. And
+   * not only the form validation via beanvalidation is done here, but also the filling of the bean!
+   */
+  private FormValidator generateFormValidator(Object bean) {
+    return (fieldResults) -> {
+      FillBeanWithFieldResults fillBeanWithFieldResults = new FillBeanWithFieldResults();
+      fillBeanWithFieldResults.fill(bean, fieldResults);
+
+      // bean validation
+      List<ExternalValidation> validationResults = beanValidator.getValidationResults(bean);
+      FieldValdationResults fieldValdationResults = new FieldValdationResults();
+
+      validationResults.forEach(externalValidation -> {
+        Field f = fieldResults.getField(externalValidation.fieldName);
+        fieldValdationResults.put(f,
+            ValidationResult.failWithTranslated(externalValidation.validationMessage));
+      });
+      return fieldValdationResults;
+    };
   }
 
   private void fillFieldCreators() {
@@ -113,56 +200,6 @@ public class Bean2From {
   }
 
 
-  /**
-   * Default mapping:
-   * <p>
-   * String: Text Boolean: Checkbox LocalDate: TextSelectDate Integer: Number
-   *
-   * @param bean
-   * @return
-   */
-  public Form getFormFromBean(Object bean) {
-
-    java.lang.reflect.Field[] fieldsOfBean = bean.getClass().getFields();
-
-    List<Field> fields = new ArrayList<>();
-    for (java.lang.reflect.Field fieldOfBean : fieldsOfBean) {
-
-      if (isIgnore(fieldOfBean)) {
-        continue;
-      }
-
-      String name = fieldOfBean.getName();
-      Object initialValue = null;
-      try {
-        initialValue = fieldOfBean.get(bean);
-      } catch (IllegalAccessException e) {
-        e.printStackTrace();
-      }
-      Class classOfField = fieldOfBean.getType();
-
-      Decoration decoration = getDecoration(fieldOfBean, name);
-
-      Optional<FieldType> oFieldType = checkAnnoation(fieldOfBean, name, initialValue);
-      if (oFieldType.isPresent()) {
-        fields.add(new Field(oFieldType.get(), decoration));
-      } else {
-        if (fieldCreators.containsKey(classOfField)) {
-          fields.add(
-              new Field(fieldCreators.get(classOfField).apply(name, initialValue), decoration));
-        } else {
-          System.err.println("Unsupported type:" + classOfField);
-        }
-      }
-    }
-    Form f = FormBuilder.flexible("id", (a, b, c) -> new FormResultWithBean(a, b, c, bean))
-        .fields(fields).build();
-    if (bean instanceof JWebFormBean) {
-      Form processedByBean = ((JWebFormBean) bean).preRun(f);
-      return processedByBean;
-    }
-    return f;
-  }
 
   private boolean isIgnore(java.lang.reflect.Field fieldOfBean) {
     if (fieldOfBean.isAnnotationPresent(IgnoreField.class)) {

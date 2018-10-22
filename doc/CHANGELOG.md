@@ -8,6 +8,7 @@
 * Move all jWebForm related projects to one single repository, introduce multi-module maven project
 * Introduce Spring-Boot integration via jwebform-spring-boot-starter
 * Introduce Bean2Form converter
+* View can be exchanged by providing via ViewBuilder
 
 
 ### 0.0.10 

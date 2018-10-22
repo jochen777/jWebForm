@@ -4,7 +4,7 @@ import jwebform.FormResult;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
-import jwebform.view.ViewGenerator;
+import jwebform.view.ViewBuilder;
 
 
 /**
@@ -12,7 +12,7 @@ import jwebform.view.ViewGenerator;
  */
 public class LoggingFormResult extends FormResult {
   public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid,
-      ViewGenerator viewGenerator) {
+      ViewBuilder viewGenerator) {
     super(formId, fieldResults, formIsValid, viewGenerator);
   }
 

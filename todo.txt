@@ -208,7 +208,8 @@ Ja: includiere FormRunner und FormGenerator in helper package
     [x] Introduce an Annotation, that forms the Decoration
     [x] Fill bean from FormResult without external libs
     [x] Allow via Interface custom resulting Form manipulation (Bean implements JWebFormBean)
-    [ ] Handle BeanValidation (in a decoupled way!)
+    [x] Handle BeanValidation (in a decoupled way!)
+    [x] BeanValidation in jWebForm<?> too
     [ ] Test for all of this.
     [ ] Bean2Form must be injectible in spring-boot helper
     [x] @IgnoreField Annotation for ignoring a field

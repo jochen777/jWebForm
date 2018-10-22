@@ -26,11 +26,15 @@ public class Processor {
     fieldResults = this.runPostProcessors(fieldResults);
 
     // run the form validators
-    FieldValdationResults overridenValidationResults =
-        this.runFormValidations(fieldResults, group.getValidators(group.of()));
+    if (envWithSubmitInfo.isSubmitted()) {
+      FieldValdationResults overridenValidationResults =
+          this.runFormValidations(fieldResults, group.getValidators(group.of()));
 
-    // if form-validators changed validaiton results, correct them on the elemtns
-    return this.correctFieldResults(fieldResults, overridenValidationResults);
+      // if form-validators changed validaiton results, correct them on the elemtns
+      return this.correctFieldResults(fieldResults, overridenValidationResults);
+    } else {
+      return fieldResults;
+    }
   }
 
 

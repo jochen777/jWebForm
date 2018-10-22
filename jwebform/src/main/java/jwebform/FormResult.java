@@ -2,7 +2,7 @@ package jwebform;
 
 import jwebform.View.Html5Validation;
 import jwebform.processor.FieldResults;
-import jwebform.view.ViewGenerator;
+import jwebform.view.ViewBuilder;
 
 /**
  * The result of a form.run It contains all infos, that is needed to get the entered values, the
@@ -13,10 +13,10 @@ public class FormResult {
   private final String formId;
   private final FieldResults fieldResults;
   private final boolean formIsValid;
-  private final ViewGenerator viewGenerator;
+  private final ViewBuilder viewGenerator;
 
   public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
-      ViewGenerator viewGenerator) {
+      ViewBuilder viewGenerator) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;

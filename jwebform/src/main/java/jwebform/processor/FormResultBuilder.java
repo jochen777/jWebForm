@@ -1,7 +1,7 @@
 package jwebform.processor;
 
 import jwebform.FormResult;
-import jwebform.view.ViewGenerator;
+import jwebform.view.ViewBuilder;
 
 /**
  * builds formResults. Allows to create subclassed FormResults by implementing this
@@ -20,6 +20,6 @@ import jwebform.view.ViewGenerator;
 public interface FormResultBuilder {
 
   FormResult build(String formId, FieldResults fieldResults, boolean formIsValid,
-      ViewGenerator viewGenerator);
+      ViewBuilder viewGenerator);
 
 }
