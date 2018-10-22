@@ -1,12 +1,15 @@
 package jwebform.processor;
 
 import jwebform.FormResult;
+import jwebform.view.ViewGenerator;
 
 /**
  * builds formResults. Allows to create subclassed FormResults by implementing this
  * 
  * Example: If you want a formResult that has a debug output, you can implement this interface and
  * add a debug() method.
+ * 
+ * Normally this is just a FormResult::new default method.
  * 
  * Currently used to add a fillBean() method within the integration project (FormResultWithBean)
  * 
@@ -16,6 +19,7 @@ import jwebform.FormResult;
 @FunctionalInterface
 public interface FormResultBuilder {
 
-  FormResult build(String formId, FieldResults fieldResults, boolean formIsValid);
+  FormResult build(String formId, FieldResults fieldResults, boolean formIsValid,
+      ViewGenerator viewGenerator);
 
 }

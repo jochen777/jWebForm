@@ -4,14 +4,16 @@ import jwebform.FormResult;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
+import jwebform.view.ViewGenerator;
 
 
 /**
  * A form result that can additionally log the form in an convenient way
  */
 public class LoggingFormResult extends FormResult {
-  public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid) {
-    super(formId, fieldResults, formIsValid);
+  public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid,
+      ViewGenerator viewGenerator) {
+    super(formId, fieldResults, formIsValid, viewGenerator);
   }
 
   public void logForm(Logger logger) {

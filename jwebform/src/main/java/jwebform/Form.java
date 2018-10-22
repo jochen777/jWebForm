@@ -1,18 +1,16 @@
 package jwebform;
 
+import java.util.List;
+import jwebform.env.Env;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.GroupFieldType;
-import jwebform.env.Env;
 import jwebform.processor.FieldResults;
 import jwebform.processor.FormResultBuilder;
 import jwebform.processor.Processor;
 
-import java.util.List;
-
 /**
- * Represents a form
- * Holds Fields and a formId - and can be "run"
-  */
+ * Represents a form Holds Fields and a formId - and can be "run"
+ */
 public final class Form {
 
   private final String id;
@@ -31,7 +29,7 @@ public final class Form {
   public final FormResult run(Env env) {
     Processor p = new Processor();
     FieldResults result = p.run(env.getEnvWithSumitInfo(id), group);
-    return formResultBuilder.build(id, result, p.checkAllValidationResults(result));
+    return formResultBuilder.build(id, result, p.checkAllValidationResults(result), View::new);
   }
 
 

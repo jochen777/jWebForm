@@ -1,6 +1,5 @@
 package jwebform.processor;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class Processor {
     // call the apply Method
     FieldResults fieldResults = processFields(envWithSubmitInfo, group.getChilds());
 
-    // run preprocessors
+    // run postprocessors
     fieldResults = this.runPostProcessors(fieldResults);
 
     // run the form validators
@@ -35,7 +34,7 @@ public class Processor {
   }
 
 
-
+  // RFE: Could be made static. Not needed to generate always a list...
   private List<PostProcessor> getPostProcessors() {
     return Collections.singletonList(new CheckDoubleFieldsPostProcessor());
   }
@@ -70,7 +69,8 @@ public class Processor {
         // override the following validation
         // --- do nothing
       } else {
-          result = result.ofValidationResult(new Validator(field.criteria).validate(result.getValue()));
+        result =
+            result.ofValidationResult(new Validator(field.criteria).validate(result.getValue()));
 
         // validate with external validators
       }
@@ -91,8 +91,8 @@ public class Processor {
      * Example: The date itself is okay, but we want a date, that is youger than 3 days...
      */
     if (groupResult.getValidationResult().isValid) {
-      groupResult =
-          groupResult.ofValidationResult(new Validator(field.criteria).validate(groupResult.getValue()));
+      groupResult = groupResult
+          .ofValidationResult(new Validator(field.criteria).validate(groupResult.getValue()));
     }
     fieldResults.put(field, groupResult.cloneWithChilds(groupTypeResults));
   }
@@ -100,8 +100,6 @@ public class Processor {
   private FieldValdationResults runFormValidations(FieldResults fieldResults,
       List<FormValidator> formValidators) {
 
-
-    // run the form-validators
     FieldValdationResults overridenValidationResults = new FieldValdationResults();
     for (FormValidator formValidator : formValidators) {
       overridenValidationResults.merge(formValidator.validate(fieldResults));
