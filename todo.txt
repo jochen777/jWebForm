@@ -209,11 +209,13 @@ Ja: includiere FormRunner und FormGenerator in helper package
     [x] Fill bean from FormResult without external libs
     [x] Allow via Interface custom resulting Form manipulation (Bean implements JWebFormBean)
     [x] Handle BeanValidation (in a decoupled way!)
-    [x] BeanValidation in jWebForm<?> too
-    [ ] Test for all of this.
-    [ ] Bean2Form must be injectible in spring-boot helper
     [x] @IgnoreField Annotation for ignoring a field
     [x] Do we need an automatic Submit field? -> No!
+    [x] BeanValidation in jWebForm<?> too
+    [ ] Transfer some BeanValidation Validations to own Criteria (Requrired, Maxlen)
+    [ ] Test for all of this.
+    [ ] Bean2Form must be injectible in spring-boot helper
+    [ ] FormBuilder must be injectible or can be modified by parameters to control how view etc. is done.
     [ ] Package for new Input-Types: Type itself, rendering, bean-handling
 
 [ ] In spring-boot it has to be possible to choose, if rendering via java or template or theme

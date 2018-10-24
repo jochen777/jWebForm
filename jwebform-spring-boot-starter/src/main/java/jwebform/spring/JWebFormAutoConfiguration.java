@@ -21,7 +21,7 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolver) {
     Validator validator = applicationContext.getBean(Validator.class);
-    argumentResolver.add(new JWebFormArgumentResolver());
+    argumentResolver.add(new JWebFormArgumentResolver(validator));
     argumentResolver.add(new SimpleJWebFormArgumentResolver(validator));
   }
 

@@ -1,23 +1,15 @@
 package jwebform.spring;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import java.util.function.BiConsumer;
-import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import org.springframework.beans.BeanUtils;
-import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
 import jwebform.env.Request;
 import jwebform.env.SessionGet;
 import jwebform.env.SessionSet;
-import jwebform.integration.Bean2From;
-import jwebform.integration.beanvalidation.BeanValidationValidator;
-import jwebform.integration.beanvalidation.ExternalValidation;
-import jwebform.processor.FormGenerator;
+import jwebform.spring.internal.InternalFormRunner;
 
 // Container, that holds a jWebForm Form (or a normal bean) and provides a facade to jwebform
 // objects
@@ -41,37 +33,9 @@ public class SimpleJWebForm<T> {
 
 
   private FormResult run(T input) {
-    Form form = null;
-    if (input instanceof FormGenerator) {
-      form = ((FormGenerator) input).generateForm();
-    } else {
-      form = new Bean2From(getValidator()).getFormFromBean(input);
-    }
-    FormResult fr = form.run(env);
-
-    // RFE: What can we do, if we have more than one Form on the page?
-    // RFE: Should be configurable!
-    model.accept("form", fr.getView());
-
-    return fr;
+    InternalFormRunner formRunner = new InternalFormRunner();
+    return formRunner.run(input, env, model, validator);
   }
-
-  private BeanValidationValidator getValidator() {
-
-    return (b) -> {
-      Set<ConstraintViolation<Object>> vals = validator.validate(b);
-      List<ExternalValidation> externalVals = new ArrayList<>();
-      vals.forEach(constr -> {
-        ExternalValidation e = new ExternalValidation();
-        e.fieldName = constr.getPropertyPath().toString();
-        e.validationMessage = constr.getMessage();
-        externalVals.add(e);
-      });
-
-      return externalVals;
-    };
-  }
-
 
 
   public boolean isOk() {
