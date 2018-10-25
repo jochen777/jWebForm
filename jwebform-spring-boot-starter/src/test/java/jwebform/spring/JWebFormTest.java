@@ -13,7 +13,7 @@ public class JWebFormTest {
 
   // test if bean-validation works in JWebForm
   @Test
-  public void testRun() {
+  public void testRun_beanValidation() {
 
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
@@ -23,10 +23,12 @@ public class JWebFormTest {
         ExampleRequests.stupidModel(), validator);
 
     FormResult fr = jwebform.run(new MyForm10());
-    assertTrue("The form should be not okay, beause the validation should fail", !fr.isOk());
+    assertTrue(
+        "The form should be not okay, beause the validation should fail ('test' is smaller than 10 chars)",
+        !fr.isOk());
 
     FormResult fr2 = jwebform.run(new MyForm2());
-    assertTrue("The form should be okay, test is bigger than 2 chars", fr2.isOk());
+    assertTrue("The form should be okay, 'test' is bigger than 2 chars", fr2.isOk());
 
   }
 

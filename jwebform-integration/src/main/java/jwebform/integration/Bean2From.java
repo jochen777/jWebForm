@@ -2,10 +2,12 @@ package jwebform.integration;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiFunction;
 import jwebform.Form;
 import jwebform.FormBuilder;
@@ -28,27 +30,34 @@ import jwebform.field.structure.FieldType;
 import jwebform.integration.annotations.IgnoreField;
 import jwebform.integration.annotations.UseDecoration;
 import jwebform.integration.annotations.UseFieldType;
+import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
 import jwebform.integration.beanvalidation.BeanValidationValidator;
 import jwebform.integration.beanvalidation.ExternalValidation;
 import jwebform.processor.FieldValdationResults;
+import jwebform.validation.Criterion;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
+import jwebform.validation.criteria.Criteria;
 
 
 public class Bean2From {
 
   final Map<Class, BiFunction<String, Object, FieldType>> fieldCreators;
   final BeanValidationValidator beanValidator;
+  final BeanValidationRuleDeliverer beanValidationRuleDeliverer;
 
   public Bean2From() {
-    this((b) -> new ArrayList<>());
+    // no bean validation at all!
+    this((b) -> new ArrayList<>(), (bean, name) -> Collections.emptySet());
   }
 
 
-  public Bean2From(BeanValidationValidator beanValidator) {
+  public Bean2From(BeanValidationValidator beanValidator,
+      BeanValidationRuleDeliverer ruleDeliverer) {
 
     fieldCreators = new LinkedHashMap<>();
     this.beanValidator = beanValidator;
+    this.beanValidationRuleDeliverer = ruleDeliverer;
     fillFieldCreators();
   }
 
@@ -83,16 +92,18 @@ public class Bean2From {
       Decoration decoration = getDecoration(fieldOfBean, name);
 
       Optional<FieldType> oFieldType = checkAnnoation(fieldOfBean, name, initialValue);
+      Criterion[] criteras = getCriterias(bean, name);
       if (oFieldType.isPresent()) {
-        fields.add(new Field(oFieldType.get(), decoration));
+        fields.add(new Field(oFieldType.get(), decoration, criteras));
       } else {
         if (fieldCreators.containsKey(classOfField)) {
-          fields.add(
-              new Field(fieldCreators.get(classOfField).apply(name, initialValue), decoration));
+          fields.add(new Field(fieldCreators.get(classOfField).apply(name, initialValue),
+              decoration, criteras));
         } else {
           System.err.println("Unsupported type:" + classOfField);
         }
       }
+
     }
     // add formValdidator (with beanvalidation)
     Form f = FormBuilder.flexible("id", (a, b, c, d) -> new FormResultWithBean(a, b, c, d, bean))
@@ -102,6 +113,24 @@ public class Bean2From {
       return processedByBean;
     }
     return f;
+  }
+
+
+  private Criterion[] getCriterias(Object bean, String name) {
+
+    Set<String> annotations = beanValidationRuleDeliverer.getCriteriaForField(bean, name);
+    if (!annotations.isEmpty()) {
+      List<Criterion> criterionList = new ArrayList<>();
+      for (String a : annotations) {
+
+        System.err.println(a);
+        if (a.contains("constraints.NotEmpty")) {
+          criterionList.add(Criteria.required());
+        }
+      }
+      return criterionList.toArray(new Criterion[0]);
+    }
+    return new Criterion[0];
   }
 
 
