@@ -17,6 +17,7 @@ import jwebform.integration.Bean2From;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
 import jwebform.integration.beanvalidation.BeanValidationValidator;
 import jwebform.integration.beanvalidation.ExternalValidation;
+import jwebform.integration.beanvalidation.ExternalValidationDescription;
 import jwebform.processor.FormGenerator;
 
 public class InternalFormRunner {
@@ -43,13 +44,15 @@ public class InternalFormRunner {
 
   private BeanValidationRuleDeliverer getRuleDeliverer(Validator validator) {
     return (bean, name) -> {
-      Set<String> criteraSet = new HashSet<>();
+      Set<ExternalValidationDescription> criteraSet = new HashSet<>();
       BeanDescriptor i = validator.getConstraintsForClass(bean.getClass());
       PropertyDescriptor b = i.getConstraintsForProperty(name);
       if (b != null) {
         Set<ConstraintDescriptor<?>> z = b.getConstraintDescriptors();
         z.forEach(constraintDesc -> {
-          criteraSet.add(constraintDesc.getAnnotation().annotationType().getName());
+          criteraSet.add(new ExternalValidationDescription(
+              constraintDesc.getAnnotation().annotationType().getSimpleName(),
+              constraintDesc.getAttributes()));
 
         });
       }

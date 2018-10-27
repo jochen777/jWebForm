@@ -212,7 +212,9 @@ Ja: includiere FormRunner und FormGenerator in helper package
     [x] @IgnoreField Annotation for ignoring a field
     [x] Do we need an automatic Submit field? -> No!
     [x] BeanValidation in jWebForm<?> too
-    [x] Transfer some BeanValidation Validations to own Criteria (Requrired (OK), Maxlen)
+    [x] Transfer some BeanValidation Validations to own Criteria (Requrired (OK))
+    [x] Transfer  Maxlen (enhance interface to deliver map with annotation attributes)
+    [x] Check why valdiation throws an exception on the attribute "age"
     [ ] Test for all of this.
     [ ] Bean2Form must be injectible in spring-boot helper
     [ ] FormBuilder must be injectible or can be modified by parameters to control how view etc. is done.

@@ -33,6 +33,7 @@ import jwebform.integration.annotations.UseFieldType;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
 import jwebform.integration.beanvalidation.BeanValidationValidator;
 import jwebform.integration.beanvalidation.ExternalValidation;
+import jwebform.integration.beanvalidation.ExternalValidationDescription;
 import jwebform.processor.FieldValdationResults;
 import jwebform.validation.Criterion;
 import jwebform.validation.FormValidator;
@@ -118,15 +119,20 @@ public class Bean2From {
 
   private Criterion[] getCriterias(Object bean, String name) {
 
-    Set<String> annotations = beanValidationRuleDeliverer.getCriteriaForField(bean, name);
+    Set<ExternalValidationDescription> annotations =
+        beanValidationRuleDeliverer.getCriteriaForField(bean, name);
     if (!annotations.isEmpty()) {
       List<Criterion> criterionList = new ArrayList<>();
-      for (String a : annotations) {
-
-        System.err.println(a);
-        if (a.contains("constraints.NotEmpty")) {
+      for (ExternalValidationDescription a : annotations) {
+        System.err.println("MEE: " + a.parameters);
+        System.err.println("MEEE: " + a.name);
+        if (a.name.contains("NotEmpty")) {
           criterionList.add(Criteria.required());
+        } else if (a.name.contains("Size")) {
+
+          criterionList.add(Criteria.maxLength((Integer) a.parameters.get("max")));
         }
+
       }
       return criterionList.toArray(new Criterion[0]);
     }

@@ -5,5 +5,5 @@ import java.util.Set;
 @FunctionalInterface
 public interface BeanValidationRuleDeliverer {
 
-  Set<String> getCriteriaForField(Object bean, String fieldname);
+  Set<ExternalValidationDescription> getCriteriaForField(Object bean, String fieldname);
 }
