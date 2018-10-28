@@ -17,4 +17,5 @@ I tried to design jWebform more carefully and I hope the result is far better:
 * Render HTML in separate project (allow java rendering or template-macros)
 * Much more cleaner and better Bean handling
 * Very simple Spring-Boot integration 
+* Sort of DSL for defining forms, see: https://github.com/jochen777/jWebformExample/blob/master/src/main/java/com/example/web/forms/ExampleForm.java
 * And last but not least: A better name. jFormchecker seemed just to "check" forms, but not to render and define them. jWebform is more generic. And I can use this to implement pyWebform, pWebform, plWebform .... you name it ;)
