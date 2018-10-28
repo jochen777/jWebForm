@@ -218,10 +218,10 @@ Ja: includiere FormRunner und FormGenerator in helper package
     [x] Allow easy bean-validation (form validation) via callback
     [ ] Bean2Form must be injectible in spring-boot helper
     [ ] FormBuilder must be injectible or can be modified by parameters to control how view etc. is done.
+    [ ] In spring-boot it has to be possible to choose, if rendering via java or template or theme
     [ ] Test for String, Boolean, LocalDate, Integer Fields
     [ ] Package for new Input-Types: Type itself, rendering, bean-handling
 
-[ ] In spring-boot it has to be possible to choose, if rendering via java or template or theme
 
 
 [ ] kommt man ohne die statischen methoden aus? Das würde eine zentrale Ersetzung der Fields erlauben

@@ -10,31 +10,39 @@ import jwebform.env.Request;
 import jwebform.env.SessionGet;
 import jwebform.env.SessionSet;
 import jwebform.spring.internal.InternalFormRunner;
+import jwebform.themes.FormRenderer;
 
 // Container, that holds a jWebForm Form (or a normal bean) and provides a facade to jwebform
 // objects
 // typically this will be filled by the framework
 public class SimpleJWebForm<T> {
+
+  // RFE: These are not nessessary to store! just pass them to the run method!
   private final Env env;
   private final BiConsumer<String, Object> model;
   private final FormResult formResult;
   private final T bean;
   private final Validator validator;
+  private final JWebFormProperties properties;
+  private final FormRenderer formRenderer;
 
   public SimpleJWebForm(Class<T> typeOfBean, Request request, SessionGet sessionGet,
-      SessionSet sessionSet, BiConsumer<String, Object> model, Validator validator) {
+      SessionSet sessionSet, BiConsumer<String, Object> model, Validator validator,
+      JWebFormProperties properties, FormRenderer formRenderer) {
     this.env = new EnvBuilder().of(request, sessionGet, sessionSet);
     this.model = model;
     this.bean = BeanUtils.instantiateClass(typeOfBean);
     this.validator = validator;
+    this.properties = properties;
     this.formResult = run(bean);
+    this.formRenderer = formRenderer;
   }
 
 
 
   private FormResult run(T input) {
     InternalFormRunner formRunner = new InternalFormRunner();
-    return formRunner.run(input, env, model, validator);
+    return formRunner.run(input, env, model, validator, properties, formRenderer);
   }
 
 

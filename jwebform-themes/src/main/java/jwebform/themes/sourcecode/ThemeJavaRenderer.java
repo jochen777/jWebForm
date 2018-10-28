@@ -5,16 +5,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import jwebform.FormResult;
+import jwebform.View.Method;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.HTMLProducer;
 import jwebform.processor.FieldResults;
+import jwebform.themes.FormRenderer;
+import jwebform.themes.common.MessageSource;
 import jwebform.themes.common.StartEndRenderer;
 import jwebform.themes.sourcecode.mapper.Mapper;
 import jwebform.view.ProducerInfos;
 
 // Renders the form with pure java
-public class ThemeJavaRenderer {
+public class ThemeJavaRenderer implements FormRenderer {
 
   public static final String BOOTSTRAP = "bootstrap";
 
@@ -25,9 +28,12 @@ public class ThemeJavaRenderer {
     this.mapper = mapper;
   }
 
-  public String render(FormResult result, String method, boolean html5Validation) {
+  @Override
+  public String render(FormResult result, Method method, boolean html5Validation,
+      MessageSource messageSource) {
     StringBuilder html = new StringBuilder();
-    StartEndRenderer startEndRenderer = new StartEndRenderer(result, method, html5Validation);
+    StartEndRenderer startEndRenderer =
+        new StartEndRenderer(result, method.toString(), html5Validation);
     html.append(startEndRenderer.getStart() + "<fieldset>");
     int tabIndex = 1;
     ProducerInfos pi;
@@ -53,8 +59,7 @@ public class ThemeJavaRenderer {
     return html.toString();
   }
 
-  private List<ProducerInfos> createProducerInfoChilds(
-    FieldResults childs, int tabIndex,
+  private List<ProducerInfos> createProducerInfoChilds(FieldResults childs, int tabIndex,
       String formId) {
     List<ProducerInfos> listOfPis = new ArrayList<>(); // RFE: only, if childs is not empty!
     // RFE: This allows only one depth! It would be cooler, if we can do infinite depth

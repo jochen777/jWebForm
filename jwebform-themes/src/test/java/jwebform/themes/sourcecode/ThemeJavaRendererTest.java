@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import org.junit.Test;
 import jwebform.Form;
+import jwebform.View.Method;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
 import jwebform.processor.LoggingFormResult;
@@ -34,7 +35,7 @@ public class ThemeJavaRendererTest {
   public void testnormalUsageSubmitSuccess() {
     Env env = new EnvBuilder().of(it -> {
       if (it.equals("WF_SUBMITTED")) {
-        return "WF-"+formId;
+        return "WF-" + formId;
       }
       return "1";
 
@@ -49,7 +50,7 @@ public class ThemeJavaRendererTest {
   public void testnormalUsageSubmitError() {
     Env env = new EnvBuilder().of(it -> {
       if (it.equals("WF_SUBMITTED")) {
-        return "WF-"+formId;
+        return "WF-" + formId;
       }
       return "";
 
@@ -66,7 +67,7 @@ public class ThemeJavaRendererTest {
   public void testnormalUsageSubmitVarious() {
     Env env = new EnvBuilder().of(it -> {
       if (it.equals("WF_SUBMITTED")) {
-        return "WF-"+formId;
+        return "WF-" + formId;
       }
       if (("textInput").equals(it)) {
         return "1";
@@ -88,7 +89,7 @@ public class ThemeJavaRendererTest {
     // result.logForm(System.err::print);
     ThemeJavaRenderer renderer = new ThemeJavaRenderer(
         new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
-    String content = renderer.render(result, "POST", true).trim();
+    String content = renderer.render(result, Method.POST, true, msg -> msg).trim();
     String filecontent;
     try {
       filecontent = this.template.loadAndProcessTempalte(templateName);

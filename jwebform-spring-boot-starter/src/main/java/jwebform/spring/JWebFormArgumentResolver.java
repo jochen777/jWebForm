@@ -8,14 +8,20 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.annotation.ModelFactory;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import jwebform.themes.FormRenderer;
 
 
 public class JWebFormArgumentResolver implements HandlerMethodArgumentResolver {
 
   private final Validator validator;
+  private final JWebFormProperties properties;
+  private final FormRenderer formRenderer;
 
-  public JWebFormArgumentResolver(Validator validator) {
+  public JWebFormArgumentResolver(Validator validator, JWebFormProperties properties,
+      FormRenderer formRenderer) {
     this.validator = validator;
+    this.properties = properties;
+    this.formRenderer = formRenderer;
   }
 
   @Override
@@ -26,8 +32,7 @@ public class JWebFormArgumentResolver implements HandlerMethodArgumentResolver {
     JWebForm f = new JWebForm(t -> request.getParameter(t),
         t -> request.getNativeRequest(HttpServletRequest.class).getAttribute(t),
         (t, v) -> request.getNativeRequest(HttpServletRequest.class).setAttribute(t, v),
-        (t, v) -> mavContainer.addAttribute(t, v), validator);
-
+        (t, v) -> mavContainer.addAttribute(t, v), validator, properties, formRenderer);
 
     return f;
   }

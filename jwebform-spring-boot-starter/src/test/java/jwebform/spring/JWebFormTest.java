@@ -8,6 +8,9 @@ import javax.validation.ValidatorFactory;
 import javax.validation.constraints.Size;
 import org.junit.Test;
 import jwebform.FormResult;
+import jwebform.themes.FormRenderer;
+import jwebform.themes.sourcecode.ThemeJavaRenderer;
+import jwebform.themes.sourcecode.mapper.StandardMapper;
 
 public class JWebFormTest {
 
@@ -17,10 +20,13 @@ public class JWebFormTest {
 
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
+    JWebFormProperties properties = new JWebFormProperties();
+    FormRenderer formRenderer = new ThemeJavaRenderer(
+        new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
 
     JWebForm jwebform = new JWebForm(ExampleRequests.exampleSubmittedRequest("name", "test"),
         ExampleRequests.emptySessionGet(), ExampleRequests.emptySessionPut(),
-        ExampleRequests.stupidModel(), validator);
+        ExampleRequests.stupidModel(), validator, properties, formRenderer);
 
     FormResult fr = jwebform.run(new MyForm10());
     assertTrue(

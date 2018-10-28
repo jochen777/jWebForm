@@ -23,18 +23,33 @@
 
     <dependencies>
 
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>${boot.version}</version>
+      <optional>true</optional>
+    </dependency>
+
+        <dependency>
+            <groupId>de.cyclon-softworx</groupId>
+            <artifactId>jwebform-themes</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>de.cyclon-softworx</groupId>
             <artifactId>jwebform-integration</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+<!-- 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
             <scope>provided</scope>
         </dependency>
+        
+         -->
 <!--
         <dependency>
             <groupId>org.springframework.boot</groupId>
