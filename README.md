@@ -34,7 +34,7 @@ jWebForm is for java what Symfony-Forms is for PHP or Rose::HTML for Perl.
 
 Example project (Spring-Web MVC):
 
-https://github.com/jochen777/jWebForm-integration 
+https://github.com/jochen777/jWebformExample 
 
 
 
