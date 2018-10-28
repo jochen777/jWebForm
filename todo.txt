@@ -215,9 +215,10 @@ Ja: includiere FormRunner und FormGenerator in helper package
     [x] Transfer some BeanValidation Validations to own Criteria (Requrired (OK))
     [x] Transfer  Maxlen (enhance interface to deliver map with annotation attributes)
     [x] Check why valdiation throws an exception on the attribute "age"
-    [ ] Test for String, Boolean, LocalDate, Integer Fields
+    [x] Allow easy bean-validation (form validation) via callback
     [ ] Bean2Form must be injectible in spring-boot helper
     [ ] FormBuilder must be injectible or can be modified by parameters to control how view etc. is done.
+    [ ] Test for String, Boolean, LocalDate, Integer Fields
     [ ] Package for new Input-Types: Type itself, rendering, bean-handling
 
 [ ] In spring-boot it has to be possible to choose, if rendering via java or template or theme
@@ -229,6 +230,8 @@ Ja: includiere FormRunner und FormGenerator in helper package
 [ ] replace jFormchecker completly in u.
 
 [ ] document unit-test with spring
+
+[ ] Good idea to switch to cucumber BDD? Can lead to test-suite, that is language independent!
 
 Wie kann man in jWebform die Methode einstellen? (Method.GET oder Method.POST) -> am besten im template!
 

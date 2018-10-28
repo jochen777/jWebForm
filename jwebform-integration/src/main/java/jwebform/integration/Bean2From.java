@@ -151,6 +151,13 @@ public class Bean2From {
 
       // bean validation
       List<ExternalValidation> validationResults = beanValidator.getValidationResults(bean);
+
+      // validation throw JWebFormBean interface
+      if (bean instanceof JWebFormBean) {
+        List<ExternalValidation> validationResultsFromInterface = ((JWebFormBean) bean).validate();
+        validationResults.addAll(validationResultsFromInterface);
+      }
+
       FieldValdationResults fieldValdationResults = new FieldValdationResults();
 
       validationResults.forEach(externalValidation -> {

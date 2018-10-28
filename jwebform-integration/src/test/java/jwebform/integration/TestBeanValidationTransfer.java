@@ -92,9 +92,8 @@ public class TestBeanValidationTransfer {
       Set<ConstraintViolation<Object>> vals = validator.validate(b);
       List<ExternalValidation> externalVals = new ArrayList<>();
       vals.forEach(constr -> {
-        ExternalValidation e = new ExternalValidation();
-        e.fieldName = constr.getPropertyPath().toString();
-        e.validationMessage = constr.getMessage();
+        ExternalValidation e =
+            new ExternalValidation(constr.getPropertyPath().toString(), constr.getMessage());
         externalVals.add(e);
       });
 

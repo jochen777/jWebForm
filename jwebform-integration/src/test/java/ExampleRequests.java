@@ -1,4 +1,4 @@
-package jwebform.usage.helper;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ import jwebform.env.SessionSet;
 public class ExampleRequests {
 
   public static Request exampleSubmittedRequest(Map<String, String> elems) {
-    elems.put("WF_SUBMITTED", "WF-id");
+    elems.put("WF_SUBMITTED", "id");
     return (t) -> elems.get(t);
   }
 

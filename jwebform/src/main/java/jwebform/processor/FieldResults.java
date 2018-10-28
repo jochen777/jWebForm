@@ -11,7 +11,7 @@ import jwebform.validation.ValidationResult;
 
 /**
  * Holds the field results of the form.
-  */
+ */
 public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
   private final Map<Field, FieldResult> fieldResultMap;
 
@@ -21,6 +21,11 @@ public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
 
   public FieldResults() {
     this.fieldResultMap = new LinkedHashMap<>();
+  }
+
+  @Override
+  public String toString() {
+    return fieldResultMap.toString();
   }
 
   public void put(Field container, FieldResult result) {
@@ -71,7 +76,7 @@ public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
         return entry.getKey();
       }
     }
-    throw new IllegalArgumentException("The name \""+fieldName+"\" is not within the form!");
+    throw new IllegalArgumentException("The name \"" + fieldName + "\" is not within the form!");
   }
 
   public Object size() {

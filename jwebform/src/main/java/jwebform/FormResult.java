@@ -23,6 +23,12 @@ public class FormResult {
     this.viewGenerator = viewGenerator;
   }
 
+  @Override
+  public String toString() {
+    return String.format("Formid: %s, Valid: %b, Field-Results: %s", formId, formIsValid,
+        fieldResults);
+  }
+
 
   public final boolean isOk() {
     return formIsValid;
