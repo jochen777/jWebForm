@@ -215,7 +215,7 @@ Ja: includiere FormRunner und FormGenerator in helper package
     [x] Transfer some BeanValidation Validations to own Criteria (Requrired (OK))
     [x] Transfer  Maxlen (enhance interface to deliver map with annotation attributes)
     [x] Check why valdiation throws an exception on the attribute "age"
-    [ ] Test for all of this.
+    [ ] Test for String, Boolean, LocalDate, Integer Fields
     [ ] Bean2Form must be injectible in spring-boot helper
     [ ] FormBuilder must be injectible or can be modified by parameters to control how view etc. is done.
     [ ] Package for new Input-Types: Type itself, rendering, bean-handling
