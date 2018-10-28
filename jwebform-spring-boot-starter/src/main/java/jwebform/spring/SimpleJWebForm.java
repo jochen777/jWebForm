@@ -34,8 +34,8 @@ public class SimpleJWebForm<T> {
     this.bean = BeanUtils.instantiateClass(typeOfBean);
     this.validator = validator;
     this.properties = properties;
-    this.formResult = run(bean);
     this.formRenderer = formRenderer;
+    this.formResult = run(bean);
   }
 
 

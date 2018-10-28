@@ -28,7 +28,6 @@ public class SimpleJWebFormArgumentResolver implements HandlerMethodArgumentReso
   public Object resolveArgument(MethodParameter methodParam, ModelAndViewContainer mavContainer,
       NativeWebRequest request, WebDataBinderFactory binderFactory) throws Exception {
 
-
     methodParam.increaseNestingLevel();
     Class<FormGenerator> typeOfBean = (Class<FormGenerator>) methodParam.getNestedParameterType();
     methodParam.decreaseNestingLevel();

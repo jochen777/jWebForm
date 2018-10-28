@@ -38,7 +38,6 @@ public class InternalFormRunner {
           .getFormFromBean(input);
     }
     FormResult fr = form.run(env);
-
     // RFE: What can we do, if we have more than one Form on the page?
     // RFE: Should be configurable!
     model.accept(properties.getTemplateName(), fr.getView());

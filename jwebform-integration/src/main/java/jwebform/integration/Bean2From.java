@@ -124,8 +124,6 @@ public class Bean2From {
     if (!annotations.isEmpty()) {
       List<Criterion> criterionList = new ArrayList<>();
       for (ExternalValidationDescription a : annotations) {
-        System.err.println("MEE: " + a.parameters);
-        System.err.println("MEEE: " + a.name);
         if (a.name.contains("NotEmpty")) {
           criterionList.add(Criteria.required());
         } else if (a.name.contains("Size")) {
