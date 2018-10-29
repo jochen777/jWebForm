@@ -7,9 +7,9 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class CheckBoxType implements SingleFieldType {
 
-  final private String name;
+  private final String name;
 
-  final private boolean initialValue;
+  private final boolean initialValue;
 
 
   public CheckBoxType(String name, boolean initialValue) {

@@ -7,7 +7,7 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class TextType implements SingleFieldType {
 
-  final public OneValueTypeProcessor oneValueField;
+  public final OneValueTypeProcessor oneValueField;
 
   public TextType(String name) {
     this.oneValueField = new OneValueTypeProcessor(name, "");

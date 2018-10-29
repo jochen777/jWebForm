@@ -38,7 +38,7 @@ public class FieldValdationResults {
     return resutls;
   }
 
-  public void put(Field textInput, ValidationResult not_ok) {
-    resutls.put(textInput, not_ok);
+  public void put(Field textInput, ValidationResult notOk) {
+    resutls.put(textInput, notOk);
   }
 }

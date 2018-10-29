@@ -7,13 +7,10 @@ package jwebform.validation.criteria;
  */
 public final class ZipCode extends Regex {
   private static final String REGEX = "^\\d{5}(-\\d{4})?$";
+  public static final String ERRORMSG = "jwebform.zip";
 
   ZipCode() {
     super(REGEX);
-  }
-
-  protected String generateErrorMessage() {
-    return "jwebform.zip";
   }
 
 }

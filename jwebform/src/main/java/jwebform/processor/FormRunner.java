@@ -6,7 +6,10 @@ import jwebform.env.EnvBuilder;
 import java.util.Map;
 
 public class FormRunner {
+  private FormRunner() {
+    // prevent instanciating this!
+  }
   public static FormResult run(FormGenerator generator, Map<String, String> params) {
-    return generator.generateForm().run(new EnvBuilder().of(t -> params.get(t)));
+    return generator.generateForm().run(new EnvBuilder().of(params::get));
   }
 }

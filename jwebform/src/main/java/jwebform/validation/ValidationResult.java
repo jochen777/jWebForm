@@ -46,9 +46,6 @@ public class ValidationResult {
 
 
   // factory methods
-  public static ValidationResult of_(boolean isValid, String message, Object... errorVals) {
-    return new ValidationResult(isValid, message, errorVals, emptyTranslatedMsg);
-  }
 
   public static ValidationResult fail(String message, Object... errorVals) {
     return new ValidationResult(false, message, errorVals, emptyTranslatedMsg);

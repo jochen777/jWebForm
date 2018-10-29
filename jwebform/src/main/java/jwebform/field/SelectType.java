@@ -10,15 +10,15 @@ import java.util.List;
 
 public class SelectType implements SingleFieldType {
 
-  final public List<SelectInputEntry> entries;
+  public final List<SelectInputEntry> entries;
 
   public final OneValueTypeProcessor oneValueType;
   public final List<SelectInputEntryGroup> groups;
-  private final static List<SelectInputEntryGroup> EMPTY_GROUPS = new ArrayList<>();
+  private static final List<SelectInputEntryGroup> EMPTY_GROUPS = new ArrayList<>();
 
 
   // TOOD: Move multiple Constructors to BuildInType.java. Just allow groups. If there is only one group, skip dipslaying group-info
-  public SelectType(String name, String initialValue, String keys[], String values[]) {
+  public SelectType(String name, String initialValue, String [] keys, String [] values) {
     this.oneValueType = new OneValueTypeProcessor(name, initialValue);
     this.entries = generateEntriesFromKeyValues(keys, values);
     this.groups = EMPTY_GROUPS;
@@ -131,7 +131,7 @@ public class SelectType implements SingleFieldType {
 
   public List<SelectInputEntry> getSelectListWithSelected(String selectedKey) {
     List<SelectInputEntry> resultList = new ArrayList<>();
-    entries.forEach((entry) -> {
+    entries.forEach(entry -> {
       if (entry.getKey().equals(selectedKey)) {
         resultList.add(new SelectInputEntry(entry.key, entry.value, true));
       } else {

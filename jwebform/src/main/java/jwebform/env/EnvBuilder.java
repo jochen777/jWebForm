@@ -31,7 +31,7 @@ public class EnvBuilder {
 
   private Request trimming = String::trim;
 
-  private Request nullCheck = (input) -> {
+  private Request nullCheck = input -> {
     if (input == null) {
       return "";
     } else {
@@ -39,7 +39,7 @@ public class EnvBuilder {
     }
   };
 
-  private Request maxLenCutting = (s) -> {
+  private Request maxLenCutting = s -> {
     if (s == null) {
       return null;
     }

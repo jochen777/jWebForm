@@ -16,9 +16,9 @@ import jwebform.validation.FormValidator;
 // Simplifies Building of a form.
 public class FormBuilder {
 
-  private static String DEFAULT_ID = "id";
+  private static final String DEFAULTID = "id";
 
-  private String id = DEFAULT_ID;
+  private String id = DEFAULTID;
   private FormResultBuilder formResultBuilder;
   private GroupFieldType group = new SimpleGroup(new ArrayList<>(), new ArrayList<>());
   private List<Field> fields = new ArrayList<>();
@@ -34,7 +34,7 @@ public class FormBuilder {
 
 
   public static FormBuilder simple() {
-    return new FormBuilder(DEFAULT_ID, FormResult::new);
+    return new FormBuilder(DEFAULTID, FormResult::new);
   }
 
   public static FormBuilder withId(String id) {
@@ -46,7 +46,7 @@ public class FormBuilder {
   }
 
   public static FormBuilder withLogging() {
-    return flexible(DEFAULT_ID, LoggingFormResult::new);
+    return flexible(DEFAULTID, LoggingFormResult::new);
   }
 
 

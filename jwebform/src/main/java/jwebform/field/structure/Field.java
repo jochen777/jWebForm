@@ -10,7 +10,7 @@ public class Field {
   public final Criterion[] criteria;
   public final Decoration decoration;
 
-  private final static Decoration emptyDecoration = new Decoration("");
+  private static final Decoration emptyDecoration = new Decoration("");
 
   public Field(FieldType fieldType, Decoration decoration, Criterion... criteria) {
     this.fieldType = fieldType;
@@ -29,9 +29,9 @@ public class Field {
 
   @Override
   public String toString() {
-    StringBuffer criteriaStr = new StringBuffer();
-    for (Criterion criteria : criteria) {
-      criteriaStr.append(criteria).append(" / ");
+    StringBuilder criteriaStr = new StringBuilder();
+    for (Criterion crit : criteria) {
+      criteriaStr.append(crit).append(" / ");
     }
     return String.format("Field: %s - %s ", fieldType, criteriaStr);
   }

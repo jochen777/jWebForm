@@ -18,21 +18,19 @@ import jwebform.validation.ValidationResult;
 // Suppporting class for date handling types
 public class DateTypeHelper {
 
-  final private Field day;
-  final private Field month;
-  final private Field year;
-  final private LocalDate initialValue;
-  final private String name;
+  private final Field day;
+  private final Field month;
+  private final Field year;
+  private final String name;
 
-  public DateTypeHelper(Field day, Field month, Field year, LocalDate initialValue, String name) {
+  public DateTypeHelper(Field day, Field month, Field year, String name) {
     this.day = day;
     this.month = month;
     this.year = year;
-    this.initialValue = initialValue;
     this.name = name;
   }
 
-  private Optional<LocalDate> setupDateValue(LocalDate initialValue, String dayStr, String monthStr,
+  private Optional<LocalDate> setupDateValue( String dayStr, String monthStr,
       String yearStr) {
     if (isEmpty(dayStr) && isEmpty(monthStr) && isEmpty(yearStr)) {
       return Optional.empty();
@@ -49,14 +47,14 @@ public class DateTypeHelper {
 
 
   public List<FormValidator> getValidators() {
-    return Collections.singletonList((fieldResults) -> {
+    return Collections.singletonList(fieldResults -> {
       FieldValdationResults validationResult = new FieldValdationResults();
 
       FieldResult dayResult = fieldResults.get(day);
       FieldResult monthResult = fieldResults.get(month);
       FieldResult yearResult = fieldResults.get(year);
       try {
-        setupDateValue(this.initialValue, dayResult.getValue(), monthResult.getValue(),
+        setupDateValue(dayResult.getValue(), monthResult.getValue(),
             yearResult.getValue());
       } catch (DateTimeException | NumberFormatException e) {
         // nothing have to happen here, because the validation for the group will be set to false
@@ -72,7 +70,7 @@ public class DateTypeHelper {
     Optional<LocalDate> dateToSet = Optional.empty();
     if (env.isSubmitted()) {
       try {
-        Optional<LocalDate> dateOptinal = setupDateValue(this.initialValue,
+        Optional<LocalDate> dateOptinal = setupDateValue(
             childs.get(day).getValue(), childs.get(month).getValue(), childs.get(year).getValue());
         dateToSet = dateOptinal;
         if (dateOptinal.isPresent()) {

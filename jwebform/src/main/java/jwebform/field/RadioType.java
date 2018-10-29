@@ -9,12 +9,12 @@ import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class RadioType implements SingleFieldType {
 
-  final public List<RadioInputEntry> entries;
+  public final List<RadioInputEntry> entries;
 
   public final OneValueTypeProcessor oneValueType;
 
   // RFE: Add groups too, allow nothing as initial value
-  public RadioType(String name, String initialValue, String keys[], String values[]) {
+  public RadioType(String name, String initialValue, String [] keys, String [] values) {
     this.oneValueType = new OneValueTypeProcessor(name, initialValue);
     entries = generateEntriesFromKeyValues(keys, values);
   }
@@ -107,7 +107,7 @@ public class RadioType implements SingleFieldType {
 
   public List<RadioInputEntryWithSelectedInfo> getEntryListWithSelected(String selectedKey) {
     List<RadioInputEntryWithSelectedInfo> resultList = new ArrayList<>();
-    entries.forEach((entry) -> {
+    entries.forEach(entry -> {
       boolean selected = false;
       if (entry.getKey().equals(selectedKey)) {
         selected = true;

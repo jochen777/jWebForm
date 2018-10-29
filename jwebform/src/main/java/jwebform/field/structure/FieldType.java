@@ -1,8 +1,6 @@
 package jwebform.field.structure;
 
 import jwebform.validation.Criterion;
-import jwebform.validation.Validator;
-import jwebform.validation.criteria.Criteria;
 
 // just a marker interface. A form has fields
 public interface FieldType {

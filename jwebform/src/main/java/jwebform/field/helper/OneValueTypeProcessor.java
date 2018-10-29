@@ -14,9 +14,9 @@ import java.util.function.Predicate;
   */
 public class OneValueTypeProcessor {
 
-  final public String name;
-  final public String initialValue;
-  final private Predicate<String> alwaysFine = (t) -> true;
+  public final String name;
+  public final String initialValue;
+  private static final Predicate<String> alwaysFine = t -> true;
 
 
   public OneValueTypeProcessor(String name, String initialValue) {

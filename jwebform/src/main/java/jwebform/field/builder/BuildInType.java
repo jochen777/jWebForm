@@ -63,8 +63,8 @@ public class BuildInType {
     return new FieldBuilder().withTypeSupplier(() -> new PasswordType(name));
   }
 
-  public static FieldBuilder radio(String name, String initialValue, String keys[],
-      String values[]) {
+  public static FieldBuilder radio(String name, String initialValue, String [] keys,
+      String [] values) {
     return new FieldBuilder()
         .withTypeSupplier(() -> new RadioType(name, initialValue, keys, values));
   }
@@ -109,7 +109,7 @@ public class BuildInType {
     return new FieldBuilder().withTypeSupplier(() -> new SelectType(name,  initialValue, entries));
   }
 
-  public static FieldBuilder select(String name, String initialValue, String keys[], String values[]){
+  public static FieldBuilder select(String name, String initialValue, String [] keys, String [] values){
     return new FieldBuilder().withTypeSupplier(() -> new SelectType(name,  initialValue, keys, values));
   }
 

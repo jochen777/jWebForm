@@ -9,7 +9,7 @@ public class HiddenType implements SingleFieldType {
 
   public final String name;
   public final String value;
-  final public OneValueTypeProcessor oneValueType;
+  public final OneValueTypeProcessor oneValueType;
 
   public HiddenType(String name, String initialValue) {
     this.name = name;

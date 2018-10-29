@@ -14,7 +14,7 @@ public interface Request {
   }
 
   default Request andThen(Request after) {
-    return (t) -> after.getParameter(getParameter(t));
+    return t -> after.getParameter(getParameter(t));
   }
 
 }

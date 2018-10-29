@@ -18,16 +18,18 @@ package jwebform.env;
  *
  */
 public class Env {
+
+  static final SessionGet EMPTY_SESSION_GET = t -> "";
+  static final SessionSet EMPTY_SESSION_SET = (k, v) -> { };
+
+  private static final String SUBMIT_KEY = "WF_SUBMITTED";
+  private static final String SUBMIT_VALUE_PREFIX = "WF-";
+
   private final Request request;
   private final SessionGet sessionGet;
   private final SessionSet sessionSet;
 
-  final static SessionGet EMPTY_SESSION_GET = t -> "";
-  final static SessionSet EMPTY_SESSION_SET = (k, v) -> {
-  };
 
-  private final static String SUBMIT_KEY = "WF_SUBMITTED";
-  private final static String SUBMIT_VALUE_PREFIX = "WF-";
 
   protected Env(Request request, SessionGet sessionGet, SessionSet sessionSet) {
     this.request = request;

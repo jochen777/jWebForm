@@ -3,9 +3,6 @@ package jwebform.validation;
 import jwebform.validation.criteria.Criteria;
 import jwebform.validation.criteria.MaxLength;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -17,7 +14,6 @@ import java.util.Optional;
 public class Validator {
 
   private final Criterion [] criteria;
-  private static final Validator EMPTY_VALIDATOR = new Validator();
 
   public Validator(Criterion... inputCriterium) {
     criteria = inputCriterium;

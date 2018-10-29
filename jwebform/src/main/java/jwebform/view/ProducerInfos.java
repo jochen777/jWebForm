@@ -25,7 +25,7 @@ public class ProducerInfos {
 
   private final List<ProducerInfos> childs;
 
-  private final static List<ProducerInfos> NO_CHILDS = new ArrayList<>();
+  private static final List<ProducerInfos> NO_CHILDS = new ArrayList<>();
 
 
 
