@@ -1,6 +1,6 @@
 # Spring Boot integration
 
-JWebForm works perfectly with spring-boot.
+JWebForm works perfectly with spring-boot. (currently tested with 1.5.x and 2.0.x)
 
 ## Add dependency
 
@@ -32,6 +32,9 @@ public class AddressForm implements FormGenerator{
     }
 }    
 ```
+
+You can also just write a bean. 
+See: [Working with beans](beans.md)
 
 ## Controller
 
@@ -69,3 +72,4 @@ public String demoJWebForm(JWebForm form) {   // arguemnt resulover will fill re
 
 Note: Output inside the template is exact like in the other frameworks. 
 You will find the view in the model with the key "form". See: [Rendering the form in template](template.md)
+Additionally you will find in form_rendered an object that can output the rendered html via "form_rendered.html".

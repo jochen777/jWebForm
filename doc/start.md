@@ -10,6 +10,8 @@ Check out, how to use jWebform in your projects.
 
 [Use in Spring Boot](spring_boot.md)
 
+[Working with beans](beans.md)
+
 [Validators](validators.md)
 
 [Individual Input Types](input_types.md)
