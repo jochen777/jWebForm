@@ -1,7 +1,7 @@
 package jwebform.themes.sourcecode;
 
 import jwebform.field.RadioType;
-import jwebform.view.ProducerInfos;
+import jwebform.model.ProducerInfos;
 
 import java.util.List;
 

@@ -5,13 +5,13 @@ import jwebform.FormResult;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.processor.FieldResults;
-import jwebform.view.ViewBuilder;
+import jwebform.model.FormModelBuilder;
 
 public class FormResultWithBean extends FormResult {
 
 
   public FormResultWithBean(String formId, FieldResults fieldResults, boolean formIsValid,
-      ViewBuilder viewBuilder, Object bean) {
+      FormModelBuilder viewBuilder, Object bean) {
     super(formId, fieldResults, formIsValid, viewBuilder);
     /*
      * if (bean instanceof JWebFormBean) { fillBean(bean, ((JWebFormBean) bean).postRun(this)); }

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import jwebform.FormResult;
-import jwebform.View.Method;
+import jwebform.FormModel.Method;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.HTMLProducer;
@@ -14,7 +14,7 @@ import jwebform.themes.FormRenderer;
 import jwebform.themes.common.MessageSource;
 import jwebform.themes.common.StartEndRenderer;
 import jwebform.themes.sourcecode.mapper.Mapper;
-import jwebform.view.ProducerInfos;
+import jwebform.model.ProducerInfos;
 
 // Renders the form with pure java
 public class ThemeJavaRenderer implements FormRenderer {

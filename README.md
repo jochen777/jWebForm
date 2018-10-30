@@ -36,18 +36,14 @@ Example project (Spring-Web MVC):
 
 https://github.com/jochen777/jWebformExample 
 
+## When to use it
 
-
-## The jWebForm way
-
-The concept is simple: 
-
-1. Define a form with fields in it
-
-2. "run" it
-
-3. pass the result to the template
-
+jWebForm can be used everywhere you have to implement HTML or Ajax HTML-Forms.
+Especially useful:
+* When you define Forms in a generic way (in a CMS, where users can define Forms)
+* When you have a lot of forms
+* When you have form based web-apps
+* When you have to implement professional, good looking HTML-Forms but don' want to spend much time for it.  
 
 
 

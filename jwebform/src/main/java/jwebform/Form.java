@@ -7,7 +7,7 @@ import jwebform.field.structure.GroupFieldType;
 import jwebform.processor.FieldResults;
 import jwebform.processor.FormResultBuilder;
 import jwebform.processor.Processor;
-import jwebform.view.ViewBuilder;
+import jwebform.model.FormModelBuilder;
 
 /**
  * Represents a form Holds Fields and a formId - and can be "run"
@@ -19,14 +19,14 @@ public final class Form {
 
   private final GroupFieldType group;
 
-  private final ViewBuilder viewGenerator;
+  private final FormModelBuilder formModelBuilder;
 
   public Form(String id, GroupFieldType group, FormResultBuilder formResultBuilder,
-      ViewBuilder viewGenerator) {
+      FormModelBuilder formModelBuilder) {
     this.id = id;
     this.formResultBuilder = formResultBuilder;
     this.group = group;
-    this.viewGenerator = viewGenerator;
+    this.formModelBuilder = formModelBuilder;
   }
 
 
@@ -34,7 +34,8 @@ public final class Form {
   public final FormResult run(Env env) {
     Processor p = new Processor();
     FieldResults result = p.run(env.getEnvWithSumitInfo(id), group);
-    return formResultBuilder.build(id, result, p.checkAllValidationResults(result), viewGenerator);
+    return formResultBuilder.build(id, result, p.checkAllValidationResults(result),
+      formModelBuilder);
   }
 
 

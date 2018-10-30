@@ -2,7 +2,7 @@ package jwebform.themes.sourcecode.producer;
 
 import com.coverity.security.Escape;
 import jwebform.field.structure.HTMLProducer;
-import jwebform.view.ProducerInfos;
+import jwebform.model.ProducerInfos;
 import jwebform.themes.sourcecode.Theme;
 
 public class HiddenProducer implements HTMLProducer {

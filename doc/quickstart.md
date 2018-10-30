@@ -32,6 +32,24 @@ Fill a Form object with your Form-fields:
     }
     
 ```
+Or define your form as a Java POJO:
+
+```Java
+    public class MyForm {
+  
+      @UseDecoration(label="Firstname")
+      String firstname;
+      
+      @UseDecoration(label="Email")
+      @NotEmpty
+      @Email(message = "Email should be valid")
+      String email;
+            
+    }
+    
+```
+
+
 
 
 ## Controller
@@ -47,7 +65,7 @@ Write a controller, that uses this form: (Here Spring MVC)
    
     FormResult formResult = form.run((key) -> request.getParameter(key)); // pass the request-params via lambda 
     
-    model.addAttribute("form", formResult.getView()); // add the view object to the model
+    model.addAttribute("form", formResult); 
     
     if (formResult.isOk()) {   // check if the form was submitted and is valid
       log.debug("Valid firstname from form:"  + formResult.getStringValue("firstname"));   // if everything was okay, we can get the values from the form
@@ -70,7 +88,7 @@ Output the form within your template. (index.html)
 <h1>The form</h1>
 
 <!-- start the form -->
-{{ renderForm(form) }} <!-- you have to create your own renderForm macro! -> see jWebFormTheme project -->
+{{{ form_rendered.html }}} 
 <!-- end form -->
 
 

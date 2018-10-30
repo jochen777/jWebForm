@@ -7,7 +7,7 @@ import jwebform.themes.common.MessageSource;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.MaxLength;
-import jwebform.view.ProducerInfos;
+import jwebform.model.ProducerInfos;
 
 // Renderer for bootstrap for common elements
 public class BootstrapRenderer implements ElementRenderer {
@@ -66,7 +66,7 @@ public class BootstrapRenderer implements ElementRenderer {
    * (non-Javadoc)
    * 
    * @see jwebform.element.renderer.bootstrap.ElementRenderer#renderInputFree(java.lang.String,
-   * jwebform.view.ProducerInfos, jwebform.element.structure.OneFieldDecoration)
+   * jwebform.model.ProducerInfos, jwebform.element.structure.OneFieldDecoration)
    */
   @Override
   public String renderInputFree(String free, ProducerInfos pi, Decoration decoration,

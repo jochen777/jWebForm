@@ -10,7 +10,7 @@
 * Introduce Bean2Form converter
 * View can be exchanged by providing via ViewBuilder
 * Bean can implement "JWebformBean" and offer some useful callbacks (like validation and post-Form process)
-
+* Rename View to FormModel
 
 ### 0.0.10 
 

@@ -57,7 +57,7 @@ public class FormBuilder {
 
 
   public Form build() {
-    return new Form(id, buildGroup(), formResultBuilder, View::new);
+    return new Form(id, buildGroup(), formResultBuilder, FormModel::new);
   }
 
   private GroupFieldType buildGroup() {

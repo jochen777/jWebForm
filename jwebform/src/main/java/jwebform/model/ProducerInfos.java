@@ -1,4 +1,4 @@
-package jwebform.view;
+package jwebform.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;

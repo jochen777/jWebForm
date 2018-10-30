@@ -2,7 +2,7 @@ package jwebform.themes.sourcecode.producer;
 
 import jwebform.field.LabelType;
 import jwebform.field.structure.HTMLProducer;
-import jwebform.view.ProducerInfos;
+import jwebform.model.ProducerInfos;
 import jwebform.themes.sourcecode.Theme;
 
 public class LabelProducer implements HTMLProducer {

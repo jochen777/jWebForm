@@ -3,7 +3,7 @@ package jwebform.themes.sourcecode.producer;
 import com.coverity.security.Escape;
 import jwebform.field.structure.HTMLProducer;
 import jwebform.themes.sourcecode.Theme;
-import jwebform.view.ProducerInfos;
+import jwebform.model.ProducerInfos;
 
 public class TextAreaProducer implements HTMLProducer {
 

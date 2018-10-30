@@ -1,7 +1,7 @@
 package jwebform.themes.sourcecode;
 
 import jwebform.field.structure.Decoration;
-import jwebform.view.ProducerInfos;
+import jwebform.model.ProducerInfos;
 
 public interface ElementRenderer {
 

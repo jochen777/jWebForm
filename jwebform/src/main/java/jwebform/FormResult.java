@@ -1,8 +1,8 @@
 package jwebform;
 
-import jwebform.View.Html5Validation;
+import jwebform.FormModel.Html5Validation;
 import jwebform.processor.FieldResults;
-import jwebform.view.ViewBuilder;
+import jwebform.model.FormModelBuilder;
 
 /**
  * The result of a form.run It contains all infos, that is needed to get the entered values, the
@@ -13,14 +13,14 @@ public class FormResult {
   private final String formId;
   private final FieldResults fieldResults;
   private final boolean formIsValid;
-  private final ViewBuilder viewGenerator;
+  private final FormModelBuilder formModelBuilder;
 
   public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
-      ViewBuilder viewGenerator) {
+      FormModelBuilder formModelBuilder) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;
-    this.viewGenerator = viewGenerator;
+    this.formModelBuilder = formModelBuilder;
   }
 
   @Override
@@ -34,20 +34,20 @@ public class FormResult {
     return formIsValid;
   }
 
-  public View getView(Html5Validation html5Validation) {
-    return viewGenerator.build(formId, fieldResults, View.Method.POST, html5Validation);
+  public FormModel getFormModel(Html5Validation html5Validation) {
+    return formModelBuilder.build(formId, fieldResults, FormModel.Method.POST, html5Validation);
   }
 
-  public View getView(Html5Validation html5Validation, View.Method method) {
-    return viewGenerator.build(formId, fieldResults, method, html5Validation);
+  public FormModel getFormModel(Html5Validation html5Validation, FormModel.Method method) {
+    return formModelBuilder.build(formId, fieldResults, method, html5Validation);
   }
 
-  public View getView(View.Method method) {
-    return viewGenerator.build(formId, fieldResults, method, Html5Validation.ON);
+  public FormModel getFormModel(FormModel.Method method) {
+    return formModelBuilder.build(formId, fieldResults, method, Html5Validation.ON);
   }
 
-  public View getView() {
-    return viewGenerator.build(formId, fieldResults, View.Method.POST, Html5Validation.ON);
+  public FormModel getFormModel() {
+    return formModelBuilder.build(formId, fieldResults, FormModel.Method.POST, Html5Validation.ON);
   }
 
 

@@ -1,6 +1,6 @@
 package jwebform.field.structure;
 
-import jwebform.view.ProducerInfos;
+import jwebform.model.ProducerInfos;
 
 /**
  * Every Type can produce HTML via this function.

@@ -11,7 +11,7 @@ import java.util.Map;
 import com.samskivert.mustache.Mustache;
 import jwebform.Form;
 import jwebform.FormResult;
-import jwebform.View.Method;
+import jwebform.FormModel.Method;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
 import jwebform.themes.FormRenderer;

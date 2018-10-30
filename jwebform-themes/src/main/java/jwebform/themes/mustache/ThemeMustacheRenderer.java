@@ -3,9 +3,9 @@ package jwebform.themes.mustache;
 import java.util.HashMap;
 import java.util.Map;
 import jwebform.FormResult;
-import jwebform.View;
-import jwebform.View.Html5Validation;
-import jwebform.View.Method;
+import jwebform.FormModel;
+import jwebform.FormModel.Html5Validation;
+import jwebform.FormModel.Method;
 import jwebform.themes.FormRenderer;
 import jwebform.themes.common.MessageSource;
 import jwebform.themes.common.StartEndRenderer;
@@ -25,14 +25,14 @@ public class ThemeMustacheRenderer implements FormRenderer {
   @Override
   public String render(FormResult result, Method method, boolean html5Validation,
       MessageSource messageSource) {
-    View view = result.getView(Html5Validation.ON, Method.GET);
+    FormModel view = result.getFormModel(Html5Validation.ON, Method.GET);
     StartEndRenderer startEndRenderer = new StartEndRenderer(result, "POST", true);
 
-    String tmpl = "{{>jwebform/common/start}}\n" + "\n" + "{{ #view.drawableElements }}\n"
-        + "{{>jwebform/common/handle_type}}\n" + "{{ /view.drawableElements }}\n" + "\n"
+    String tmpl = "{{>jwebform/common/start}}\n" + "\n" + "{{ #model.drawableElements }}\n"
+        + "{{>jwebform/common/handle_type}}\n" + "{{ /model.drawableElements }}\n" + "\n"
         + "{{>jwebform/common/end}}";
     Map<String, Object> elements = new HashMap<>();
-    elements.put("view", view);
+    elements.put("model", view);
     elements.put("startEnd", startEndRenderer);
     return renderer.render(tmpl, elements);
   }

@@ -12,7 +12,7 @@ import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
 import jwebform.Form;
 import jwebform.FormResult;
-import jwebform.View.Method;
+import jwebform.FormModel.Method;
 import jwebform.env.Env;
 import jwebform.integration.Bean2From;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
@@ -40,7 +40,7 @@ public class InternalFormRunner {
     FormResult fr = form.run(env);
     // RFE: What can we do, if we have more than one Form on the page?
     // RFE: Should be configurable!
-    model.accept(properties.getTemplateName(), fr.getView());
+    model.accept(properties.getTemplateName(), fr);
     // TODO: Must be configuraable
     model.accept(properties.getTemplateName() + "_rendered",
         new LazyHTMLRenderer(renderer, fr, Method.POST, true /* html5Validation */, msg -> msg));

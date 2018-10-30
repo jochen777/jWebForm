@@ -1,7 +1,7 @@
 package jwebform.themes;
 
 import jwebform.FormResult;
-import jwebform.View.Method;
+import jwebform.FormModel.Method;
 import jwebform.themes.common.MessageSource;
 
 public interface FormRenderer {

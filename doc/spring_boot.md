@@ -33,8 +33,25 @@ public class AddressForm implements FormGenerator{
 }    
 ```
 
-You can also just write a bean. 
-See: [Working with beans](beans.md)
+or define a POJO:
+(See: [Working with beans](beans.md))
+
+```Java
+    public class MyForm {
+  
+      @UseDecoration(label="Firstname")
+      String firstname;
+      
+      @UseDecoration(label="Email")
+      @NotEmpty
+      @Email(message = "Email should be valid")
+      String email;
+            
+    }
+    
+```
+
+
 
 ## Controller
 
@@ -48,6 +65,9 @@ Write a controller, like this with SimpleJWebform<Myform> form as argument:
   
     if (form.isOk()) {   // check if the form was submitted and is valid
       log.debug("Valid firstname from form:"  + form.getStringValue("firstname"));   // if everything was okay, we can get the values from the form
+      
+      log.debug("Valid firstname from form:"  + form.getBean().firstname);   // in case you used the POJO way
+      
     }
     
     return "index"; // the template, that renders the form
@@ -63,7 +83,7 @@ Example
 
 ...
 public String demoJWebForm(JWebForm form) {   // arguemnt resulover will fill request-vars
-    FormResult formResult = form.run(new MyForm(LocalDate.now()).generateForm());   
+    FormResult formResult = form.run(new MyForm(LocalDate.now()));   
     
     if (formResult.isOk()) {   // check if the form was submitted and is valid
 ...
@@ -71,5 +91,6 @@ public String demoJWebForm(JWebForm form) {   // arguemnt resulover will fill re
 
 
 Note: Output inside the template is exact like in the other frameworks. 
-You will find the view in the model with the key "form". See: [Rendering the form in template](template.md)
-Additionally you will find in form_rendered an object that can output the rendered html via "form_rendered.html".
+You will find the view in the model with the key __form__. See: [Rendering the form in template](template.md)
+
+Additionally you will find in __form_rendered__ an object that can output the rendered html via "form_rendered.html".

@@ -82,6 +82,7 @@ As you can see, especially on the template side, you have to enter a lot of (red
 stuff for basic highlighting errors. 
 And this stuff within the template must be repeated for every form 
 and can not be easily used in a generic way. 
+If you want to generate the forms in a dynamic way you can't do this with this approach. 
 
 In contrast to that, jWebform can define forms completly in code and 
 let the template render the form in a generic way.

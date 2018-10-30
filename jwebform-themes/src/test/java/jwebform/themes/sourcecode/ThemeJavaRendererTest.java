@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import org.junit.Test;
 import jwebform.Form;
-import jwebform.View.Method;
+import jwebform.FormModel.Method;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
 import jwebform.processor.LoggingFormResult;

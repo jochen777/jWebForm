@@ -79,10 +79,10 @@ about the session, if you need XSRF protection.
 The cool thing: via this Env-Lambda you can abstract your webframework away and avoid dependencies.
 
 
-##View
+##FormModel
 
-The FormResult can deliver a "View" Object, that has some convenience methods for a typical 
-view component in a MVC framework. Typically, you pass the view to the template.
+The FormResult can deliver a "FormModel" Object, that has some convenience methods for a typical 
+view component in a MVC framework. Typically, you pass the FormModel to the template.
 
 Within the template you loop over the fields and render each field for its own.
 

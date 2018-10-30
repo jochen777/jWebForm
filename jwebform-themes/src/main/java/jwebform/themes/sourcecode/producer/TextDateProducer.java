@@ -6,7 +6,7 @@ import jwebform.field.structure.HTMLProducer;
 import jwebform.themes.sourcecode.Theme;
 import jwebform.themes.sourcecode.mapper.Mapper;
 import jwebform.validation.ValidationResult;
-import jwebform.view.ProducerInfos;
+import jwebform.model.ProducerInfos;
 
 public class TextDateProducer implements HTMLProducer {
 

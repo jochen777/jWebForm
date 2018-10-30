@@ -26,6 +26,7 @@ List of features:
 * automatically set correct transfer mode if fileupload elment is used
 * easy handling of mulitple forms on the same page
 * form can be defined in runtime
+* form can be build by a POJO. Annotations exist to tweak it. BeanValidation works
 
 ## Available extensions
 

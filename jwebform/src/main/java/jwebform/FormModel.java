@@ -4,7 +4,7 @@ import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.ForceFileuploadMethod;
 import jwebform.processor.FieldResults;
-import jwebform.view.ProducerInfos;
+import jwebform.model.ProducerInfos;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -13,10 +13,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * The view that just "enhances" a formResult and is perfect to give informations to your template.
+ * The FormModel just "enhances" a formResult and is perfect to give informations to your template.
  *
  */
-public final class View {
+public final class FormModel {
 
   private final FieldResults fieldResults;
 
@@ -27,7 +27,7 @@ public final class View {
 
 
 
-  public View(String formId, FieldResults fieldResults, Method method,
+  public FormModel(String formId, FieldResults fieldResults, Method method,
       Html5Validation html5Validation) {
     this.formId = formId;
     this.fieldResults = fieldResults;
