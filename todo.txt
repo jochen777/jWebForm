@@ -216,8 +216,8 @@ Ja: includiere FormRunner und FormGenerator in helper package
     [x] Transfer  Maxlen (enhance interface to deliver map with annotation attributes)
     [x] Check why valdiation throws an exception on the attribute "age"
     [x] Allow easy bean-validation (form validation) via callback
-    [ ] Rename View to FormModel, update doku, example should put just formResult in model
-    [ ] Annotations should have a default
+    [x] Rename View to FormModel, update doku, example should put just formResult in model
+    [x] Annotations should have a default
     [ ] Bean2Form must be injectible in spring-boot helper
     [ ] FormBuilder must be injectible or can be modified by parameters to control how view etc. is done.
     [ ] In spring-boot it has to be possible to choose, if rendering via java or template or theme

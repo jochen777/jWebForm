@@ -3,13 +3,11 @@ package jwebform.integration.fromAnnoation;
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
-import jwebform.field.CheckBoxType;
 import jwebform.field.SelectType;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.integration.Bean2From;
 import jwebform.integration.annotations.UseFieldType;
-import jwebform.integration.fromBean.TestBoolean;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,7 +51,7 @@ public class SelectBoxTest {
 
 
   public class Bean {
-    @UseFieldType(type = SelectType.class, keys = {"m", "f"}, vals = {"Male", "Female"})
+    @UseFieldType(value = SelectType.class, keys = {"m", "f"}, vals = {"Male", "Female"})
     public String gender="";
   }
 }

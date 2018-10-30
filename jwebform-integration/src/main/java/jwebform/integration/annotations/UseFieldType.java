@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UseFieldType {
 
-  Class<? extends FieldType> type();
+  Class<? extends FieldType> value();
   String [] keys() default {};
   String [] vals() default {};;
 

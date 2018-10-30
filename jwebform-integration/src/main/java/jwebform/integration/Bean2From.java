@@ -101,7 +101,7 @@ public class Bean2From {
           fields.add(new Field(fieldCreators.get(classOfField).apply(name, initialValue),
               decoration, criteras));
         } else {
-          System.err.println("Unsupported type:" + classOfField);
+          System.err.println("Unsupported value:" + classOfField);
         }
       }
 
@@ -261,11 +261,11 @@ public class Bean2From {
   private Optional<FieldType> checkAnnoation(java.lang.reflect.Field fieldOfBean, String name,
       Object initialValue) {
     UseFieldType useFieldType = fieldOfBean.getAnnotation(UseFieldType.class);
-    if (useFieldType != null && fieldCreators.containsKey(useFieldType.type())) {
+    if (useFieldType != null && fieldCreators.containsKey(useFieldType.value())) {
       ValuesOfObject valuesOfObject = new ValuesOfObject();
       valuesOfObject.initialValue = initialValue;
       valuesOfObject.useFieldTypeAnnotation = useFieldType;
-      return Optional.of(fieldCreators.get(useFieldType.type()).apply(name, valuesOfObject));
+      return Optional.of(fieldCreators.get(useFieldType.value()).apply(name, valuesOfObject));
     }
     return Optional.empty();
   }

@@ -20,10 +20,10 @@ public class MyForm {
     
     public String lastname="";
     
-    @UseFieldType(type = TextAreaType.class)
+    @UseFieldType(TextAreaType.class)
     public String notes="";
     
-    @UseFieldType(type = HiddenType.class)
+    @UseFieldType(HiddenType.class)
     public String password="";
     
     boolean optIn=false;
@@ -47,7 +47,7 @@ Theses types will be converted automatically for you.
 
 | Annotation       | Meaning     | Example     |
 | --------------- |------------------------------------|-------------------|
-| @UseFieldType | Forces a specific type | @UseFieldType(type=TextAreaType.class) String notes;|
+| @UseFieldType | Forces a specific type | @UseFieldType(TextAreaType.class) String notes;|
 | @IgnoreField | Ignores the field in the bean and will not process it | @IgnoreField String secret;|
 | @UseDecoration | Fills in decoration for this field | @UseDecoration(label="Your first name") String firstnaem;|
 
