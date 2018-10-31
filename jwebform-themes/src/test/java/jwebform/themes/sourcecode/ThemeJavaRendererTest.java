@@ -3,6 +3,8 @@ package jwebform.themes.sourcecode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
+
+import jwebform.FormResult;
 import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormModel.Method;
@@ -86,7 +88,7 @@ public class ThemeJavaRendererTest {
   private boolean testFormAgainstRequest(Env env, String templateName) {
     MyFormBuilder formBuilder = new MyFormBuilder(formId);
     Form f = formBuilder.buildForm();
-    LoggingFormResult result = (LoggingFormResult) f.run(env);
+    FormResult result = f.run(env);
     // result.logForm(System.err::print);
     ThemeJavaRenderer renderer = new ThemeJavaRenderer(
         new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));

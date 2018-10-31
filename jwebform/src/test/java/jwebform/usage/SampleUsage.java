@@ -84,7 +84,7 @@ public class SampleUsage {
     }, // this simulates the input of the names
         t -> t, (k, v) -> {
         });
-    LoggingFormResult result = getFormResult(env);
+    FormResult result = getFormResult(env);
     // result.logForm(System.err::print);
 
     ExpectedResultList expRes = new ExpectedResultList();
@@ -121,8 +121,8 @@ public class SampleUsage {
     }, // this simulates empty inputs
         t -> t, (k, v) -> {
         });
-    LoggingFormResult result = getFormResult(env);
-    result.logForm(System.err::print);
+    FormResult result = getFormResult(env);
+
 
     ExpectedResultList expRes = new ExpectedResultList();
     expRes.add("xsrf_protection", true, "");
@@ -185,8 +185,8 @@ public class SampleUsage {
         !result.isOk());
   }
 
-  private LoggingFormResult getFormResult(Env env) {
-    return (LoggingFormResult) new SampleFormBuilder(formId).buildForm().run(env);
+  private FormResult getFormResult(Env env) {
+    return new SampleFormBuilder(formId).buildForm().run(env);
   }
 
   private FormResult getFormResultWithoutUpload(Env env) {

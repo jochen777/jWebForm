@@ -79,8 +79,8 @@ public class NumberInputTest {
     Map<String, String> params = new HashMap<>();
     params.put("WF_SUBMITTED", "WF-id");
     params.put(FIELD_NAME, "9");
-    LoggingFormResult result =
-      (LoggingFormResult) testForm.run(new EnvBuilder().of(it -> params.get(it)));
+    FormResult result =
+      testForm.run(new EnvBuilder().of(it -> params.get(it)));
     //result.logForm(System.err::println);
     assertTrue(result.isOk());
     assertEquals("9", result.getStringValue(FIELD_NAME));

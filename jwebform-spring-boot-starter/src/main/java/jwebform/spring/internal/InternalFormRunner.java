@@ -3,11 +3,14 @@ package jwebform.spring.internal;
 import java.util.function.BiConsumer;
 
 import jwebform.Form;
+import jwebform.FormModel;
 import jwebform.FormResult;
 import jwebform.FormModel.Method;
 import jwebform.env.Env;
 import jwebform.integration.Bean2Form;
+import jwebform.integration.FormResultWithBean;
 import jwebform.processor.FormGenerator;
+import jwebform.processor.FormResultBuilder;
 import jwebform.spring.JWebFormProperties;
 import jwebform.themes.FormRenderer;
 import jwebform.themes.common.MessageSource;
@@ -15,17 +18,21 @@ import jwebform.themes.common.MessageSource;
 public class InternalFormRunner {
 
 
+  public static FormResultBuilder standardFormResultBuidler = FormResult::new;
 
   public FormResult run(Object input, Env env, BiConsumer<String, Object> model,
     Bean2Form bean2Form, JWebFormProperties properties, FormRenderer renderer) {
     Form form = null;
+    FormResultBuilder formResultBuilder;
     if (input instanceof FormGenerator) {
       form = ((FormGenerator) input).generateForm();
+      formResultBuilder = standardFormResultBuidler;
     } else {
       form = bean2Form
           .getFormFromBean(input);
+      formResultBuilder = (a,b,c,d) -> new FormResultWithBean(a,b,c,d, input);
     }
-    FormResult fr = form.run(env);
+    FormResult fr = form.run(env, formResultBuilder, FormModel::new);
     // RFE: What can we do, if we have more than one Form on the page?
     model.accept(properties.getTemplateName(), fr);
     // TODO: Must be configuraable
