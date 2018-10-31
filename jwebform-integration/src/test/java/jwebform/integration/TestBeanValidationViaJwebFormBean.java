@@ -13,7 +13,7 @@ public class TestBeanValidationViaJwebFormBean {
   // checks, if validation throw interface "JWebFormBean" works
   @Test
   public void test_beanValidationViajWebFormBeanInterface() {
-    Form form = new Bean2From().getFormFromBean(new TestBean());
+    Form form = new DefaultBean2Form().getFormFromBean(new TestBean());
     FormResult fr =
         form.run(new EnvBuilder().of(ExampleRequests.exampleSubmittedRequest("password1", "xy")));
     assertTrue("Form should not be valid, because pw1 != pw2", !fr.isOk());

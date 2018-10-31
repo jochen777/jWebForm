@@ -1,13 +1,7 @@
 package jwebform.integration;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiFunction;
 import jwebform.Form;
 import jwebform.FormBuilder;
@@ -41,25 +35,43 @@ import jwebform.validation.ValidationResult;
 import jwebform.validation.criteria.Criteria;
 
 
-public class Bean2From {
+/**
+ * Standard implementation for Bean2Form.
+ * Considers Bean-Validation if available, can be injected with Fieldcreators
+ * Only public fields in the Bean are considered, not the methods!
+ * You have to init each field.
+ * Can handle @Ignore, @UseDecoration and @UseFieldType Annoations
+ *
+ * Example:
+ * public MyForm {
+ *   public String firstname="";
+ *   public String lastname="";
+ * }
+ */
+public class DefaultBean2Form implements Bean2Form {
 
-  final Map<Class, BiFunction<String, Object, FieldType>> fieldCreators;
+  static final LinkedHashMap<Class, BiFunction<String, Object, FieldType>> preBuildfieldCreators = fillFieldCreators();
+  final LinkedHashMap<Class, BiFunction<String, Object, FieldType>> fieldCreators;
   final BeanValidationValidator beanValidator;
   final BeanValidationRuleDeliverer beanValidationRuleDeliverer;
 
-  public Bean2From() {
+  public DefaultBean2Form() {
     // no bean validation at all!
-    this((b) -> new ArrayList<>(), (bean, name) -> Collections.emptySet());
+    this((b) -> new ArrayList<>(), (bean, name) -> Collections.emptySet(), new LinkedHashMap<>());
+  }
+  public DefaultBean2Form(BeanValidationValidator beanValidator,
+    BeanValidationRuleDeliverer ruleDeliverer) {
+    this(beanValidator, ruleDeliverer, new LinkedHashMap<>());
   }
 
+  public DefaultBean2Form(BeanValidationValidator beanValidator,
+      BeanValidationRuleDeliverer ruleDeliverer, LinkedHashMap<Class, BiFunction<String, Object, FieldType>> additionalFieldCreators) {
 
-  public Bean2From(BeanValidationValidator beanValidator,
-      BeanValidationRuleDeliverer ruleDeliverer) {
-
-    fieldCreators = new LinkedHashMap<>();
     this.beanValidator = beanValidator;
     this.beanValidationRuleDeliverer = ruleDeliverer;
-    fillFieldCreators();
+
+    fieldCreators = additionalFieldCreators;
+    fieldCreators.putAll(preBuildfieldCreators);
   }
 
   /**
@@ -70,7 +82,7 @@ public class Bean2From {
    * @param bean
    * @return
    */
-  public Form getFormFromBean(Object bean) {
+  @Override public Form getFormFromBean(Object bean) {
 
     java.lang.reflect.Field[] fieldsOfBean = bean.getClass().getFields();
 
@@ -167,47 +179,49 @@ public class Bean2From {
     };
   }
 
-  private void fillFieldCreators() {
+  private static LinkedHashMap<Class, BiFunction<String, Object, FieldType>> fillFieldCreators() {
+    LinkedHashMap<Class, BiFunction<String, Object, FieldType>> prebuildFieldCreators = new LinkedHashMap<>();
     BiFunction<String, Object, FieldType> bool2checkbox =
         (s, o) -> new CheckBoxType(s, getVal(o, Boolean.class));
     BiFunction<String, Object, FieldType> int2Number =
         (s, o) -> new NumberType(s, getVal(o, Integer.class));
 
 
-    fieldCreators.put(CheckBoxType.class, (s, o) -> new CheckBoxType(s, getVal(o, Boolean.class)));
-    fieldCreators.put(HiddenType.class, (s, o) -> new HiddenType(s, getVal(o, String.class)));
-    fieldCreators.put(HtmlType.class, (s, o) -> new HtmlType(getVal(o, String.class)));
-    fieldCreators.put(LabelType.class, (s, o) -> new LabelType(getVal(o, String.class)));
-    fieldCreators.put(NumberType.class, (s, o) -> new NumberType(s, getVal(o, Integer.class)));
-    fieldCreators.put(PasswordType.class, (s, o) -> new PasswordType(s));
-    fieldCreators.put(RadioType.class,
+    prebuildFieldCreators.put(CheckBoxType.class, (s, o) -> new CheckBoxType(s, getVal(o, Boolean.class)));
+    prebuildFieldCreators.put(HiddenType.class, (s, o) -> new HiddenType(s, getVal(o, String.class)));
+    prebuildFieldCreators.put(HtmlType.class, (s, o) -> new HtmlType(getVal(o, String.class)));
+    prebuildFieldCreators.put(LabelType.class, (s, o) -> new LabelType(getVal(o, String.class)));
+    prebuildFieldCreators.put(NumberType.class, (s, o) -> new NumberType(s, getVal(o, Integer.class)));
+    prebuildFieldCreators.put(PasswordType.class, (s, o) -> new PasswordType(s));
+    prebuildFieldCreators.put(RadioType.class,
         (s, o) -> new RadioType(s, getVal(o, String.class), getKeys(o), getVals(o)));
-    fieldCreators.put(SelectDateType.class,
+    prebuildFieldCreators.put(SelectDateType.class,
         (s, o) -> new SelectDateType(s, getVal(o, LocalDate.class), LocalDate.now().getYear() - 100,
             LocalDate.now().getYear() + 1));
-    fieldCreators.put(SelectType.class,
+    prebuildFieldCreators.put(SelectType.class,
         (s, o) -> new SelectType(s, getVal(o, String.class), getKeys(o), getVals(o)));
-    fieldCreators.put(TextAreaType.class, (s, o) -> new TextAreaType(s, getVal(o, String.class)));
-    fieldCreators.put(SubmitType.class, (s, o) -> new SubmitType(s));
-    fieldCreators.put(TextDateType.class,
+    prebuildFieldCreators.put(TextAreaType.class, (s, o) -> new TextAreaType(s, getVal(o, String.class)));
+    prebuildFieldCreators.put(SubmitType.class, (s, o) -> new SubmitType(s));
+    prebuildFieldCreators.put(TextDateType.class,
         (s, o) -> new TextDateType(s, getVal(o, LocalDate.class)));
-    fieldCreators.put(TextType.class, (s, o) -> new TextType(s, getVal(o, String.class)));
+    prebuildFieldCreators.put(TextType.class, (s, o) -> new TextType(s, getVal(o, String.class)));
     // UploadType must be handled differently!
     // XSRFType sould be added by frombuilder
 
 
 
     // Standard classes (without annoation)
-    fieldCreators.put(String.class, (s, o) -> new TextType(s, getVal(o, String.class)));
-    fieldCreators.put(Integer.class, int2Number);
-    fieldCreators.put(int.class, int2Number);
-    fieldCreators.put(Boolean.class, bool2checkbox);
-    fieldCreators.put(boolean.class, bool2checkbox);
-    fieldCreators.put(LocalDate.class, (s, o) -> new TextDateType(s, getVal(o, LocalDate.class)));
+    prebuildFieldCreators.put(String.class, (s, o) -> new TextType(s, getVal(o, String.class)));
+    prebuildFieldCreators.put(Integer.class, int2Number);
+    prebuildFieldCreators.put(int.class, int2Number);
+    prebuildFieldCreators.put(Boolean.class, bool2checkbox);
+    prebuildFieldCreators.put(boolean.class, bool2checkbox);
+    prebuildFieldCreators.put(LocalDate.class, (s, o) -> new TextDateType(s, getVal(o, LocalDate.class)));
+    return prebuildFieldCreators;
 
   }
 
-  private <T> T getVal(Object o, Class<T> clss) {
+  private static <T> T getVal(Object o, Class<T> clss) {
     try {
       if (o instanceof ValuesOfObject) {
         ValuesOfObject valuesOfObject = (ValuesOfObject) o;
@@ -219,7 +233,7 @@ public class Bean2From {
     }
   }
 
-  private String[] getVals(Object o) {
+  private static String[] getVals(Object o) {
     if (o instanceof ValuesOfObject) {
       ValuesOfObject valuesOfObject = (ValuesOfObject) o;
       return valuesOfObject.useFieldTypeAnnotation.vals();
@@ -229,7 +243,7 @@ public class Bean2From {
             + o.getClass());
   }
 
-  private String[] getKeys(Object o) {
+  private static String[] getKeys(Object o) {
     if (o instanceof ValuesOfObject) {
       ValuesOfObject valuesOfObject = (ValuesOfObject) o;
       return valuesOfObject.useFieldTypeAnnotation.keys();

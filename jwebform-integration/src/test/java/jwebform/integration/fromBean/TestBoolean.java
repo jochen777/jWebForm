@@ -4,12 +4,10 @@ import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
 import jwebform.field.CheckBoxType;
-import jwebform.field.NumberType;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
-import jwebform.integration.Bean2From;
+import jwebform.integration.DefaultBean2Form;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
@@ -25,7 +23,7 @@ public class TestBoolean {
     Bean bean = new Bean();
     bean.check = INITIAL_VALUE;
     bean.check2 = !INITIAL_VALUE;
-    form = new Bean2From().getFormFromBean(bean);
+    form = new DefaultBean2Form().getFormFromBean(bean);
   }
 
   @Test

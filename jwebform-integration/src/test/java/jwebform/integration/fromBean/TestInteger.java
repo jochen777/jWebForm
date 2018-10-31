@@ -4,12 +4,10 @@ import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
 import jwebform.field.NumberType;
-import jwebform.field.TextType;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
-import jwebform.integration.Bean2From;
+import jwebform.integration.DefaultBean2Form;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Optional;
@@ -26,7 +24,7 @@ public class TestInteger {
   @Before
   public void init() {
     Bean bean = new Bean();
-    form = new Bean2From().getFormFromBean(bean);
+    form = new DefaultBean2Form().getFormFromBean(bean);
   }
 
   @Test

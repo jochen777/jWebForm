@@ -2,9 +2,8 @@ package jwebform.integration.fromBean;
 
 import jwebform.Form;
 import jwebform.field.TextType;
-import jwebform.integration.Bean2From;
+import jwebform.integration.DefaultBean2Form;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
@@ -20,7 +19,7 @@ public class TestString {
   public void init() {
     Bean bean = new Bean();
     bean.name = INITIAL_VALUE;
-    form = new Bean2From().getFormFromBean(bean);
+    form = new DefaultBean2Form().getFormFromBean(bean);
   }
 
   @Test

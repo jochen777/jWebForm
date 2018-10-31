@@ -34,7 +34,7 @@ public class TestBeanValidationTransfer {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
 
-    Form f = new Bean2From(getBeanValidator(validator), getRuleDeliverer(validator))
+    Form f = new DefaultBean2Form(getBeanValidator(validator), getRuleDeliverer(validator))
         .getFormFromBean(new MyFormRequired());
     Criterion[] criteria = f.getFields().get(0).criteria;
     assertTrue("There must be exact one critera (required) ", criteria.length == 1);
@@ -53,7 +53,7 @@ public class TestBeanValidationTransfer {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
 
-    Form f = new Bean2From(getBeanValidator(validator), getRuleDeliverer(validator))
+    Form f = new DefaultBean2Form(getBeanValidator(validator), getRuleDeliverer(validator))
         .getFormFromBean(new MyFormSize());
     Criterion[] criteria = f.getFields().get(0).criteria;
     assertTrue("There must be exact one critera (MaxLenghth) ", criteria.length == 1);

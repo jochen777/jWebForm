@@ -218,7 +218,7 @@ Ja: includiere FormRunner und FormGenerator in helper package
     [x] Allow easy bean-validation (form validation) via callback
     [x] Rename View to FormModel, update doku, example should put just formResult in model
     [x] Annotations should have a default
-    [ ] Bean2Form must be injectible in spring-boot helper
+    [x] Bean2Form must be injectible in spring-boot helper
     [ ] FormBuilder must be injectible or can be modified by parameters to control how view etc. is done.
     [ ] In spring-boot it has to be possible to choose, if rendering via java or template or theme
     [ ] Test for String, Boolean, LocalDate, Integer Fields
@@ -228,6 +228,10 @@ Ja: includiere FormRunner und FormGenerator in helper package
 Documentation:
 [x] Ergänze beste einsatzmöglichkeiten. (CMS, Generatoren, große Sites, Geschäftsanwendungen)
 [ ] Update Picture of Architecture
+
+[ ] Share Test code between maven modules
+
+[ ] Make validation optional in spring-boot module
 
 [ ] Introduce "firstRun" check
 

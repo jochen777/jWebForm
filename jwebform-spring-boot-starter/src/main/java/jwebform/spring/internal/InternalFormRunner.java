@@ -1,24 +1,12 @@
 package jwebform.spring.internal;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.function.BiConsumer;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import javax.validation.metadata.BeanDescriptor;
-import javax.validation.metadata.ConstraintDescriptor;
-import javax.validation.metadata.PropertyDescriptor;
+
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.FormModel.Method;
 import jwebform.env.Env;
-import jwebform.integration.Bean2From;
-import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
-import jwebform.integration.beanvalidation.BeanValidationValidator;
-import jwebform.integration.beanvalidation.ExternalValidation;
-import jwebform.integration.beanvalidation.ExternalValidationDescription;
+import jwebform.integration.Bean2Form;
 import jwebform.processor.FormGenerator;
 import jwebform.spring.JWebFormProperties;
 import jwebform.themes.FormRenderer;
@@ -29,17 +17,16 @@ public class InternalFormRunner {
 
 
   public FormResult run(Object input, Env env, BiConsumer<String, Object> model,
-      Validator validator, JWebFormProperties properties, FormRenderer renderer) {
+    Bean2Form bean2FromContract, JWebFormProperties properties, FormRenderer renderer) {
     Form form = null;
     if (input instanceof FormGenerator) {
       form = ((FormGenerator) input).generateForm();
     } else {
-      form = new Bean2From(getBeanValidator(validator), getRuleDeliverer(validator))
+      form = bean2FromContract
           .getFormFromBean(input);
     }
     FormResult fr = form.run(env);
     // RFE: What can we do, if we have more than one Form on the page?
-    // RFE: Should be configurable!
     model.accept(properties.getTemplateName(), fr);
     // TODO: Must be configuraable
     model.accept(properties.getTemplateName() + "_rendered",
@@ -73,7 +60,7 @@ public class InternalFormRunner {
       return fr.render(result, method, html5Validation, messageSource);
     }
   }
-
+/*
   private BeanValidationRuleDeliverer getRuleDeliverer(Validator validator) {
     return (bean, name) -> {
       Set<ExternalValidationDescription> criteraSet = new HashSet<>();
@@ -106,4 +93,5 @@ public class InternalFormRunner {
       return externalVals;
     };
   }
+  */
 }

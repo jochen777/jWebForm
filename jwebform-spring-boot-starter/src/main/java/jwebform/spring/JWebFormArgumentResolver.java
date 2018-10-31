@@ -2,6 +2,8 @@ package jwebform.spring;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Validator;
+
+import jwebform.integration.Bean2Form;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -13,15 +15,17 @@ import jwebform.themes.FormRenderer;
 
 public class JWebFormArgumentResolver implements HandlerMethodArgumentResolver {
 
-  private final Validator validator;
   private final JWebFormProperties properties;
   private final FormRenderer formRenderer;
+  private final Bean2Form bean2FromContract;
 
-  public JWebFormArgumentResolver(Validator validator, JWebFormProperties properties,
-      FormRenderer formRenderer) {
-    this.validator = validator;
+  public JWebFormArgumentResolver(
+    Bean2Form bean2FromContract,
+    JWebFormProperties properties,
+    FormRenderer formRenderer) {
     this.properties = properties;
     this.formRenderer = formRenderer;
+    this.bean2FromContract = bean2FromContract;
   }
 
   @Override
@@ -32,7 +36,7 @@ public class JWebFormArgumentResolver implements HandlerMethodArgumentResolver {
     JWebForm f = new JWebForm(t -> request.getParameter(t),
         t -> request.getNativeRequest(HttpServletRequest.class).getAttribute(t),
         (t, v) -> request.getNativeRequest(HttpServletRequest.class).setAttribute(t, v),
-        (t, v) -> mavContainer.addAttribute(t, v), validator, properties, formRenderer);
+        (t, v) -> mavContainer.addAttribute(t, v), bean2FromContract, properties, formRenderer);
 
     return f;
   }

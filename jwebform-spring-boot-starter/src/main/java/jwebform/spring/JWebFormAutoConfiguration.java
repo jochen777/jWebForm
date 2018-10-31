@@ -1,7 +1,21 @@
 package jwebform.spring;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import javax.validation.metadata.BeanDescriptor;
+import javax.validation.metadata.ConstraintDescriptor;
+import javax.validation.metadata.PropertyDescriptor;
+
+import jwebform.integration.DefaultBean2Form;
+import jwebform.integration.Bean2Form;
+import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
+import jwebform.integration.beanvalidation.BeanValidationValidator;
+import jwebform.integration.beanvalidation.ExternalValidation;
+import jwebform.integration.beanvalidation.ExternalValidationDescription;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -20,33 +34,78 @@ import jwebform.themes.sourcecode.mapper.StandardMapper;
 @Configuration
 @ConditionalOnClass(FormRenderer.class)
 @EnableConfigurationProperties(JWebFormProperties.class)
-public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter
-    implements ApplicationContextAware {
+public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
 
-  private ApplicationContext applicationContext;
 
   @Autowired
-  private JWebFormProperties properties;
+  public JWebFormProperties properties;
 
   @Autowired
-  private FormRenderer formRenderer;
+  public FormRenderer formRenderer;
+
+  @Autowired
+  public Bean2Form bean2Form;
 
 
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolver) {
-    Validator validator = applicationContext.getBean(Validator.class);
-    argumentResolver.add(new JWebFormArgumentResolver(validator, properties, formRenderer));
-    argumentResolver.add(new SimpleJWebFormArgumentResolver(validator, properties, formRenderer));
+
+    argumentResolver.add(new JWebFormArgumentResolver(bean2Form, properties, formRenderer));
+    argumentResolver.add(new SimpleJWebFormArgumentResolver(bean2Form, properties, formRenderer));
   }
 
-  @Override
-  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-    this.applicationContext = applicationContext;
+
+
+  @Configuration
+  @ConditionalOnMissingBean(name = "bean2Form")
+  @ConditionalOnClass(Validator.class)
+  public static class JWebFormBean2FormDefaultConfig {
+
+
+    @Bean Bean2Form bean2Form(Validator validator) {
+      return new DefaultBean2Form(getBeanValidator(validator), getRuleDeliverer(validator));
+    }
+
+
+    private BeanValidationRuleDeliverer getRuleDeliverer(Validator validator) {
+      return (bean, name) -> {
+        Set<ExternalValidationDescription> criteraSet = new HashSet<>();
+        BeanDescriptor i = validator.getConstraintsForClass(bean.getClass());
+        PropertyDescriptor b = i.getConstraintsForProperty(name);
+        if (b != null) {
+          Set<ConstraintDescriptor<?>> z = b.getConstraintDescriptors();
+          z.forEach(constraintDesc -> {
+            criteraSet.add(new ExternalValidationDescription(
+              constraintDesc.getAnnotation().annotationType().getSimpleName(),
+              constraintDesc.getAttributes()));
+
+          });
+        }
+        return criteraSet;
+      };
+    }
+
+    private BeanValidationValidator getBeanValidator(Validator validator) {
+
+      return (b) -> {
+        Set<ConstraintViolation<Object>> vals = validator.validate(b);
+        List<ExternalValidation> externalVals = new ArrayList<>();
+        vals.forEach(constr -> {
+          ExternalValidation e =
+            new ExternalValidation(constr.getPropertyPath().toString(), constr.getMessage());
+          externalVals.add(e);
+        });
+
+        return externalVals;
+      };
+    }
   }
+
 
   @Configuration
   @ConditionalOnMissingBean(name = "formrRenderer")
   public static class JWebFormDefaultConfiguration {
+
 
     @Bean
     public FormRenderer formrRenderer() {
@@ -54,7 +113,10 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter
           new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
       return renderer;
     }
+
   }
+
+
 
 
 }

@@ -6,7 +6,7 @@ import jwebform.env.EnvBuilder;
 import jwebform.field.SelectType;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
-import jwebform.integration.Bean2From;
+import jwebform.integration.DefaultBean2Form;
 import jwebform.integration.annotations.UseFieldType;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class SelectBoxTest {
   public void init() {
     SelectBoxTest.Bean bean = new SelectBoxTest.Bean();
     bean.gender = INITIAL_VALUE;
-    form = new Bean2From().getFormFromBean(bean);
+    form = new DefaultBean2Form().getFormFromBean(bean);
   }
 
   @Test

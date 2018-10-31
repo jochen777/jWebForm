@@ -1,7 +1,8 @@
 package jwebform.spring;
 
 import java.util.function.BiConsumer;
-import javax.validation.Validator;
+
+import jwebform.integration.Bean2Form;
 import org.springframework.beans.BeanUtils;
 import jwebform.FormResult;
 import jwebform.env.Env;
@@ -22,19 +23,22 @@ public class SimpleJWebForm<T> {
   private final BiConsumer<String, Object> model;
   private final FormResult formResult;
   private final T bean;
-  private final Validator validator;
   private final JWebFormProperties properties;
   private final FormRenderer formRenderer;
+  private final Bean2Form bean2FromContract;
 
-  public SimpleJWebForm(Class<T> typeOfBean, Request request, SessionGet sessionGet,
-      SessionSet sessionSet, BiConsumer<String, Object> model, Validator validator,
+  public SimpleJWebForm(
+    Class<T> typeOfBean, Request request, SessionGet sessionGet,
+      SessionSet sessionSet, BiConsumer<String, Object> model, Bean2Form bean2FromContract,
       JWebFormProperties properties, FormRenderer formRenderer) {
     this.env = new EnvBuilder().of(request, sessionGet, sessionSet);
     this.model = model;
     this.bean = BeanUtils.instantiateClass(typeOfBean);
-    this.validator = validator;
     this.properties = properties;
     this.formRenderer = formRenderer;
+    this.bean2FromContract = bean2FromContract;
+
+
     this.formResult = run(bean);
   }
 
@@ -42,7 +46,7 @@ public class SimpleJWebForm<T> {
 
   private FormResult run(T input) {
     InternalFormRunner formRunner = new InternalFormRunner();
-    return formRunner.run(input, env, model, validator, properties, formRenderer);
+    return formRunner.run(input, env, model, bean2FromContract, properties, formRenderer);
   }
 
 

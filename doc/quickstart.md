@@ -88,7 +88,7 @@ Output the form within your template. (index.html)
 <h1>The form</h1>
 
 <!-- start the form -->
-{{{ form_rendered.html }}} 
+{{ render(form) }} <!-- use a macro to render the form or use the theme project to render the html in java --> 
 <!-- end form -->
 
 
