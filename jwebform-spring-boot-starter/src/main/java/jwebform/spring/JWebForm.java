@@ -18,23 +18,18 @@ import jwebform.themes.FormRenderer;
 public class JWebForm {
   private final Env env;
   private final BiConsumer<String, Object> model;
-  private final Bean2Form bean2FromContract;
-  private final JWebFormProperties properties;
-  private final FormRenderer formRenderer;
+  private final FormRunnerConfig formRunnerConfig;
   private final InternalFormRunner formRunner = new InternalFormRunner();
 
   public JWebForm(Request request, SessionGet sessionGet, SessionSet sessionSet,
-      BiConsumer<String, Object> model, Bean2Form bean2FromContract, JWebFormProperties properties,
-      FormRenderer formRenderer) {
+      BiConsumer<String, Object> model, FormRunnerConfig formRunnerConfig) {
     this.env = new EnvBuilder().of(request, sessionGet, sessionSet);
     this.model = model;
-    this.bean2FromContract = bean2FromContract;
-    this.properties = properties;
-    this.formRenderer = formRenderer;
+    this.formRunnerConfig = formRunnerConfig;
   }
 
   public FormResult run(Object formOrBean) {
-    return formRunner.run(formOrBean, env, model, bean2FromContract, properties, formRenderer);
+    return formRunner.run(formOrBean, env, model, formRunnerConfig);
   }
 
 

@@ -23,22 +23,16 @@ public class SimpleJWebForm<T> {
   private final BiConsumer<String, Object> model;
   private final FormResult formResult;
   private final T bean;
-  private final JWebFormProperties properties;
-  private final FormRenderer formRenderer;
-  private final Bean2Form bean2FromContract;
   private final InternalFormRunner formRunner = new InternalFormRunner();
+  private final FormRunnerConfig formRunnerConfig;
 
   public SimpleJWebForm(
     Class<T> typeOfBean, Request request, SessionGet sessionGet,
-      SessionSet sessionSet, BiConsumer<String, Object> model, Bean2Form bean2FromContract,
-      JWebFormProperties properties, FormRenderer formRenderer) {
+      SessionSet sessionSet, BiConsumer<String, Object> model, FormRunnerConfig formRunnerConfig) {
     this.env = new EnvBuilder().of(request, sessionGet, sessionSet);
     this.model = model;
     this.bean = BeanUtils.instantiateClass(typeOfBean);
-    this.properties = properties;
-    this.formRenderer = formRenderer;
-    this.bean2FromContract = bean2FromContract;
-
+    this.formRunnerConfig = formRunnerConfig;
 
     this.formResult = run(bean);
   }
@@ -46,7 +40,7 @@ public class SimpleJWebForm<T> {
 
 
   private FormResult run(T input) {
-    return formRunner.run(input, env, model, bean2FromContract, properties, formRenderer);
+    return formRunner.run(input, env, model, formRunnerConfig);
   }
 
 

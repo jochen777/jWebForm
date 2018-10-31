@@ -10,12 +10,14 @@ import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
 
+import jwebform.FormModel;
 import jwebform.integration.DefaultBean2Form;
 import jwebform.integration.Bean2Form;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
 import jwebform.integration.beanvalidation.BeanValidationValidator;
 import jwebform.integration.beanvalidation.ExternalValidation;
 import jwebform.integration.beanvalidation.ExternalValidationDescription;
+import jwebform.model.FormModelBuilder;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -46,18 +48,22 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
   @Autowired
   public Bean2Form bean2Form;
 
+  @Autowired
+  public FormModelBuilder formModelBuilder;
+
 
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolver) {
 
-    argumentResolver.add(new JWebFormArgumentResolver(bean2Form, properties, formRenderer));
-    argumentResolver.add(new SimpleJWebFormArgumentResolver(bean2Form, properties, formRenderer));
+    FormRunnerConfig formRunnerConfig = new FormRunnerConfig(formRenderer,bean2Form, formModelBuilder, properties);
+    argumentResolver.add(new JWebFormArgumentResolver(formRunnerConfig));
+    argumentResolver.add(new SimpleJWebFormArgumentResolver(formRunnerConfig));
   }
 
 
 
   @Configuration
-  @ConditionalOnMissingBean(name = "bean2Form")
+  @ConditionalOnMissingBean(Bean2Form.class)
   @ConditionalOnClass(Validator.class)
   public static class JWebFormBean2FormDefaultConfig {
 
@@ -103,12 +109,12 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
 
 
   @Configuration
-  @ConditionalOnMissingBean(name = "formrRenderer")
+  @ConditionalOnMissingBean(value = FormRenderer.class)
   public static class JWebFormDefaultConfiguration {
 
 
     @Bean
-    public FormRenderer formrRenderer() {
+    public FormRenderer formRenderer() {
       ThemeJavaRenderer renderer = new ThemeJavaRenderer(
           new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
       return renderer;
@@ -116,7 +122,17 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
 
   }
 
+  @Configuration
+  @ConditionalOnMissingBean(FormModelBuilder.class)
+  public static class FormModelBuilderDefaultConfiguration {
 
+
+    @Bean
+    public FormModelBuilder formModelBuilder() {
+      return FormModel::new;
+    }
+
+  }
 
 
 }

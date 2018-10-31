@@ -15,17 +15,11 @@ import jwebform.themes.FormRenderer;
 
 public class SimpleJWebFormArgumentResolver implements HandlerMethodArgumentResolver {
 
-  private final JWebFormProperties properties;
-  private final FormRenderer formRenderer;
-  private final Bean2Form bean2FromContract;
+  private final FormRunnerConfig formRunnerConfig;
 
   public SimpleJWebFormArgumentResolver(
-    Bean2Form bean2FromContract,
-    JWebFormProperties properties,
-    FormRenderer formRenderer) {
-    this.properties = properties;
-    this.formRenderer = formRenderer;
-    this.bean2FromContract = bean2FromContract;
+    FormRunnerConfig formRunnerConfig) {
+    this.formRunnerConfig = formRunnerConfig;
   }
 
   @Override
@@ -39,7 +33,7 @@ public class SimpleJWebFormArgumentResolver implements HandlerMethodArgumentReso
     SimpleJWebForm f = new SimpleJWebForm<FormGenerator>(typeOfBean, t -> request.getParameter(t),
         t -> request.getNativeRequest(HttpServletRequest.class).getAttribute(t),
         (t, v) -> request.getNativeRequest(HttpServletRequest.class).setAttribute(t, v),
-        (t, v) -> mavContainer.addAttribute(t, v), bean2FromContract, properties, formRenderer);
+        (t, v) -> mavContainer.addAttribute(t, v), formRunnerConfig);
 
     return f;
   }

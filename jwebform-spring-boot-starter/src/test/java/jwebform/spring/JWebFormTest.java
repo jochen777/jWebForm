@@ -12,6 +12,7 @@ import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
 
+import jwebform.FormModel;
 import jwebform.integration.DefaultBean2Form;
 import jwebform.integration.Bean2Form;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
@@ -41,9 +42,11 @@ public class JWebFormTest {
     FormRenderer formRenderer = new ThemeJavaRenderer(
         new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
 
+    FormRunnerConfig formRunnerConfig = new FormRunnerConfig(formRenderer,bean2FromContract, FormModel::new, properties);
+
     JWebForm jwebform = new JWebForm(ExampleRequests.exampleSubmittedRequest("name", "test"),
         ExampleRequests.emptySessionGet(), ExampleRequests.emptySessionPut(),
-        ExampleRequests.stupidModel(), bean2FromContract, properties, formRenderer);
+        ExampleRequests.stupidModel(), formRunnerConfig);
 
     FormResult fr = jwebform.run(new MyForm10());
     assertTrue(
