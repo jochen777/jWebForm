@@ -229,7 +229,7 @@ Documentation:
 [x] Ergänze beste einsatzmöglichkeiten. (CMS, Generatoren, große Sites, Geschäftsanwendungen)
 [ ] Update Picture of Architecture
 
-[ ] Share Test code between maven modules
+[ ] Share Test code between maven modules (http://maven.apache.org/guides/mini/guide-attached-tests.html)
 
 [ ] Make validation optional in spring-boot module
 

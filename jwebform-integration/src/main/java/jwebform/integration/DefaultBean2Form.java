@@ -122,6 +122,7 @@ public class DefaultBean2Form implements Bean2Form {
     Form f = FormBuilder.flexible("id", (a, b, c, d) -> new FormResultWithBean(a, b, c, d, bean))
         .fields(fields).validation(generateFormValidator(bean)).build();
     if (bean instanceof JWebFormBean) {
+      // callback "prerun" - called in case of the JwebFormBean. Can modify the form.
       Form processedByBean = ((JWebFormBean) bean).preRun(f);
       return processedByBean;
     }

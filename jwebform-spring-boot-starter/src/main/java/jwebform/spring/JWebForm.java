@@ -21,6 +21,7 @@ public class JWebForm {
   private final Bean2Form bean2FromContract;
   private final JWebFormProperties properties;
   private final FormRenderer formRenderer;
+  private final InternalFormRunner formRunner = new InternalFormRunner();
 
   public JWebForm(Request request, SessionGet sessionGet, SessionSet sessionSet,
       BiConsumer<String, Object> model, Bean2Form bean2FromContract, JWebFormProperties properties,
@@ -33,7 +34,6 @@ public class JWebForm {
   }
 
   public FormResult run(Object formOrBean) {
-    InternalFormRunner formRunner = new InternalFormRunner();
     return formRunner.run(formOrBean, env, model, bean2FromContract, properties, formRenderer);
   }
 

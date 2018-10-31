@@ -19,7 +19,6 @@ public class FormBuilder {
   private static final String DEFAULTID = "id";
 
   private String id = DEFAULTID;
-  private FormResultBuilder formResultBuilder;
   private GroupFieldType group = new SimpleGroup(new ArrayList<>(), new ArrayList<>());
   private List<Field> fields = new ArrayList<>();
   private List<FormValidator> formValidators = new ArrayList<>();
@@ -27,37 +26,22 @@ public class FormBuilder {
   private List<SingleFieldType> singleTypes = new ArrayList<>();
 
 
-  private FormBuilder(String id, FormResultBuilder formResultBuilder) {
+  private FormBuilder(String id) {
     this.id = id;
-    this.formResultBuilder = formResultBuilder;
   }
 
 
   public static FormBuilder simple() {
-    return new FormBuilder(DEFAULTID, FormResult::new);
+    return new FormBuilder(DEFAULTID);
   }
 
   public static FormBuilder withId(String id) {
-    return new FormBuilder(id, FormResult::new);
+    return new FormBuilder(id);
   }
-
-  public static FormBuilder withLogging(String id) {
-    return flexible(id, LoggingFormResult::new);
-  }
-
-  public static FormBuilder withLogging() {
-    return flexible(DEFAULTID, LoggingFormResult::new);
-  }
-
-
-  public static FormBuilder flexible(String id, FormResultBuilder fb) {
-    return new FormBuilder(id, fb);
-  }
-
 
 
   public Form build() {
-    return new Form(id, buildGroup(), formResultBuilder, FormModel::new);
+    return new Form(id, buildGroup());
   }
 
   private GroupFieldType buildGroup() {

@@ -2,6 +2,7 @@ package jwebform.usage;
 
 import jwebform.Form;
 import jwebform.FormBuilder;
+import jwebform.FormModel;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
 import jwebform.field.builder.BuildInType;
@@ -22,7 +23,7 @@ public class DateInputValueTest {
   public static final String FIELD_NAME = "date";
 
   private FormBuilder getFormBuilder() {
-    return FormBuilder.withLogging();
+    return FormBuilder.simple();
   }
 
   private Form buildFormWithDateInput() {
@@ -52,9 +53,10 @@ public class DateInputValueTest {
   // @Test
   public void testDateFirstRun() {
     Form testForm = buildFormWithDateInput();
-    FormResult result = testForm.run(new EnvBuilder().of(it -> null // this simulates the first run
+    FormResult result = testForm.run(new EnvBuilder().of(it -> null ),// this simulates the first run
                                                                     // (all values null)
-    ));
+      LoggingFormResult::new, FormModel::new
+    );
     // first run is never ok
     assertFalse(result.isOk());
   }
@@ -79,7 +81,9 @@ public class DateInputValueTest {
     params.put("date_month", "10");
     params.put("date_year", "2018");
     LoggingFormResult result =
-      (LoggingFormResult) testForm.run(new EnvBuilder().of(it -> params.get(it)));
+      (LoggingFormResult) testForm.run(new EnvBuilder().of(it -> params.get(it)),
+        LoggingFormResult::new, FormModel::new
+        );
     //result.logForm(System.err::print);
     assertTrue(result.isOk());
     assertEquals("2018-10-05", result.getStringValue(FIELD_NAME));

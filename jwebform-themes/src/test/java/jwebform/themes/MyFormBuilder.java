@@ -120,7 +120,7 @@ public class MyFormBuilder {
     });
 
     // test here field-apis
-    return FormBuilder.flexible(formId, LoggingFormResult::new).validation(formValidators)
+    return FormBuilder.withId(formId).validation(formValidators)
         .typeBuilder(getTypeBuildersForSampleForm())
 
         .build();

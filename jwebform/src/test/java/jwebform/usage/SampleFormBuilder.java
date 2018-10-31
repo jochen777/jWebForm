@@ -121,7 +121,7 @@ public class SampleFormBuilder {
     };
 
 
-    return FormBuilder.flexible(formId, LoggingFormResult::new).validation(validator)
+    return FormBuilder.withId(formId).validation(validator)
         .typeBuilder(getTypeBuildersForSampleForm()).build();
 
   }

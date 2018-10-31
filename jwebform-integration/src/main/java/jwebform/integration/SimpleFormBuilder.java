@@ -33,9 +33,7 @@ public class SimpleFormBuilder {
 
   public Form build() {
     return jwebform.FormBuilder
-        .flexible(id,
-            (formId, elementResults, formIsValid, viewBuilder) -> new FormResult(formId,
-                elementResults, formIsValid, viewBuilder))
+        .withId(id)
         .fields(elements).validation(formValidators).build();
 
   }

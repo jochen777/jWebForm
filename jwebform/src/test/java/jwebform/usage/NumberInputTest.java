@@ -20,7 +20,7 @@ public class NumberInputTest {
 
 
   private FormBuilder getFormBuilder() {
-    return FormBuilder.withLogging();
+    return FormBuilder.simple();
   }
 
   public static final String FIELD_NAME = "number";

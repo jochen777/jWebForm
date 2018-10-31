@@ -15,27 +15,28 @@ import jwebform.model.FormModelBuilder;
 public final class Form {
 
   private final String id;
-  private final FormResultBuilder formResultBuilder;
 
   private final GroupFieldType group;
+  // RFE: maybe we should inject this in the fututer too.
+  private final Processor p = new Processor();
 
-  private final FormModelBuilder formModelBuilder;
 
-  public Form(String id, GroupFieldType group, FormResultBuilder formResultBuilder,
-      FormModelBuilder formModelBuilder) {
+  public Form(String id, GroupFieldType group
+      ) {
     this.id = id;
-    this.formResultBuilder = formResultBuilder;
     this.group = group;
-    this.formModelBuilder = formModelBuilder;
   }
 
 
   // process each fieldType, run validations
-  public final FormResult run(Env env) {
-    Processor p = new Processor();
+  public final FormResult run(Env env, FormResultBuilder formResultBuilder, FormModelBuilder formModelBuilder) {
     FieldResults result = p.run(env.getEnvWithSumitInfo(id), group);
     return formResultBuilder.build(id, result, p.checkAllValidationResults(result),
       formModelBuilder);
+  }
+
+  public final FormResult run(Env env) {
+    return run(env, FormResult::new, FormModel::new);
   }
 
 

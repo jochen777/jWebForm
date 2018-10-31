@@ -26,6 +26,7 @@ public class SimpleJWebForm<T> {
   private final JWebFormProperties properties;
   private final FormRenderer formRenderer;
   private final Bean2Form bean2FromContract;
+  private final InternalFormRunner formRunner = new InternalFormRunner();
 
   public SimpleJWebForm(
     Class<T> typeOfBean, Request request, SessionGet sessionGet,
@@ -45,7 +46,6 @@ public class SimpleJWebForm<T> {
 
 
   private FormResult run(T input) {
-    InternalFormRunner formRunner = new InternalFormRunner();
     return formRunner.run(input, env, model, bean2FromContract, properties, formRenderer);
   }
 

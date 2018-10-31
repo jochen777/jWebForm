@@ -17,12 +17,12 @@ public class InternalFormRunner {
 
 
   public FormResult run(Object input, Env env, BiConsumer<String, Object> model,
-    Bean2Form bean2FromContract, JWebFormProperties properties, FormRenderer renderer) {
+    Bean2Form bean2Form, JWebFormProperties properties, FormRenderer renderer) {
     Form form = null;
     if (input instanceof FormGenerator) {
       form = ((FormGenerator) input).generateForm();
     } else {
-      form = bean2FromContract
+      form = bean2Form
           .getFormFromBean(input);
     }
     FormResult fr = form.run(env);
@@ -60,38 +60,5 @@ public class InternalFormRunner {
       return fr.render(result, method, html5Validation, messageSource);
     }
   }
-/*
-  private BeanValidationRuleDeliverer getRuleDeliverer(Validator validator) {
-    return (bean, name) -> {
-      Set<ExternalValidationDescription> criteraSet = new HashSet<>();
-      BeanDescriptor i = validator.getConstraintsForClass(bean.getClass());
-      PropertyDescriptor b = i.getConstraintsForProperty(name);
-      if (b != null) {
-        Set<ConstraintDescriptor<?>> z = b.getConstraintDescriptors();
-        z.forEach(constraintDesc -> {
-          criteraSet.add(new ExternalValidationDescription(
-              constraintDesc.getAnnotation().annotationType().getSimpleName(),
-              constraintDesc.getAttributes()));
 
-        });
-      }
-      return criteraSet;
-    };
-  }
-
-  private BeanValidationValidator getBeanValidator(Validator validator) {
-
-    return (b) -> {
-      Set<ConstraintViolation<Object>> vals = validator.validate(b);
-      List<ExternalValidation> externalVals = new ArrayList<>();
-      vals.forEach(constr -> {
-        ExternalValidation e =
-            new ExternalValidation(constr.getPropertyPath().toString(), constr.getMessage());
-        externalVals.add(e);
-      });
-
-      return externalVals;
-    };
-  }
-  */
 }
