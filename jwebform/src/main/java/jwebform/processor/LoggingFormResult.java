@@ -11,9 +11,9 @@ import jwebform.model.FormModelBuilder;
  * A form result that can additionally log the form in an convenient way
  */
 public class LoggingFormResult extends FormResult {
-  public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid,
+  public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid, boolean isFirstrun,
       FormModelBuilder formModelBuilder) {
-    super(formId, fieldResults, formIsValid, formModelBuilder);
+    super(formId, fieldResults, formIsValid, isFirstrun, formModelBuilder);
   }
 
   public void logForm(Logger logger) {

@@ -19,7 +19,7 @@ import jwebform.model.FormModelBuilder;
 @FunctionalInterface
 public interface FormResultBuilder {
 
-  FormResult build(String formId, FieldResults fieldResults, boolean formIsValid,
+  FormResult build(String formId, FieldResults fieldResults, boolean formIsValid, boolean isFirstRun,
       FormModelBuilder formModelBuilder);
 
 }

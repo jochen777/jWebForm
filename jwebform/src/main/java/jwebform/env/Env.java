@@ -105,6 +105,10 @@ public class Env {
       return submitted;
     }
 
+    public boolean isFirstRun() {
+      return !submitted;
+    }
+
   }
 
 

@@ -31,7 +31,7 @@ public final class Form {
   // process each fieldType, run validations
   public final FormResult run(Env env, FormResultBuilder formResultBuilder, FormModelBuilder formModelBuilder) {
     FieldResults result = p.run(env.getEnvWithSumitInfo(id), group);
-    return formResultBuilder.build(id, result, p.checkAllValidationResults(result),
+    return formResultBuilder.build(id, result, p.checkAllValidationResults(result), env.getEnvWithSumitInfo(id).isFirstRun(),
       formModelBuilder);
   }
 

@@ -221,9 +221,9 @@ Ja: includiere FormRunner und FormGenerator in helper package
     [x] Bean2Form must be injectible in spring-boot helper
     [x] FormModelBuilder must be injectible or can be modified by parameters to control how view etc. is done.
     [x] In spring-boot it has to be possible to choose, if rendering via java or template or theme
+    [x] Idea: Allow annotation for Critera in beans -> no. Constructors are too heavy.
     [ ] Test for String, Boolean, LocalDate, Integer Fields
     [ ] Package for new Input-Types: Type itself, rendering, bean-handling
-    [ ] Idea: Allow annotation for Critera in beans
 
 Documentation:
 [x] Ergänze beste einsatzmöglichkeiten. (CMS, Generatoren, große Sites, Geschäftsanwendungen)
@@ -233,14 +233,14 @@ Documentation:
 
 [ ] Make validation optional in spring-boot module
 
-[ ] Introduce "firstRun" check
+[x] Introduce "firstRun" check
 
 [ ] kommt man ohne die statischen methoden aus? Das würde eine zentrale Ersetzung der Fields erlauben
 
 
 [ ] replace jFormchecker completly in u.
 
-[ ] document unit-test with spring
+[x] document unit-test with spring
 
 [ ] Good idea to switch to cucumber BDD? Can lead to test-suite, that is language independent!
 

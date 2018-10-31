@@ -14,12 +14,15 @@ public class FormResult {
   private final FieldResults fieldResults;
   private final boolean formIsValid;
   private final FormModelBuilder formModelBuilder;
+  private final boolean isFirstRun;
 
-  public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
+
+  public FormResult(String formId, FieldResults fieldResults, boolean formIsValid, boolean isFirstRun,
       FormModelBuilder formModelBuilder) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;
+    this.isFirstRun = isFirstRun;
     this.formModelBuilder = formModelBuilder;
   }
 
@@ -33,6 +36,11 @@ public class FormResult {
   public final boolean isOk() {
     return formIsValid;
   }
+
+  public final boolean isFirstRun() {
+    return isFirstRun;
+  }
+
 
   public FormModel getFormModel(Html5Validation html5Validation) {
     return formModelBuilder.build(formId, fieldResults, FormModel.Method.POST, html5Validation);

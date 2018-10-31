@@ -31,7 +31,7 @@ public class InternalFormRunner {
     } else {
       form = formRunnerConfig.bean2Form
           .getFormFromBean(input);
-      formResultBuilder = (a,b,c,d) -> new FormResultWithBean(a,b,c,d, input);
+      formResultBuilder = (a,b,c,d, e) -> new FormResultWithBean(a,b,c,d,e, input);
     }
     FormResult fr = form.run(env, formResultBuilder, formRunnerConfig.formModelBuilder);
     // RFE: What can we do, if we have more than one Form on the page?

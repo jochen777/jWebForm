@@ -10,9 +10,9 @@ import jwebform.model.FormModelBuilder;
 public class FormResultWithBean extends FormResult {
 
 
-  public FormResultWithBean(String formId, FieldResults fieldResults, boolean formIsValid,
+  public FormResultWithBean(String formId, FieldResults fieldResults, boolean formIsValid, boolean isFirstRun,
       FormModelBuilder viewBuilder, Object bean) {
-    super(formId, fieldResults, formIsValid, viewBuilder);
+    super(formId, fieldResults, formIsValid, isFirstRun, viewBuilder);
     /*
      * if (bean instanceof JWebFormBean) { fillBean(bean, ((JWebFormBean) bean).postRun(this)); }
      * else { fillBean(bean, this); }
