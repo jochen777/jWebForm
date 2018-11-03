@@ -24,7 +24,7 @@ Form-handling support in current Java MVC frameworks is often basic.
 
 * central form-definition for reuse and separation of concerns
 * avoiding a lot of boilerplate code
-* very compact output in sourcecode of template
+* allow to handle the generic rendering of html for the form
 * build in validation and security
 
 More here: [Overview Features](doc/features.md)
