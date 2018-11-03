@@ -20,7 +20,7 @@ Add this dependency to your project:
 
 Write a class, that builds the form. You have to implement the "FormGenerator" interface.
 ```Java
-public class AddressForm implements FormGenerator{ 
+public class MyForm implements FormGenerator{ 
     @Override public Form generateForm() {
       return FormBuilder.simple().typeBuilder(
         text("firstname").
@@ -82,10 +82,10 @@ Example
 ```Java
 
 ...
-public String demoJWebForm(JWebForm form) {   // arguemnt resulover will fill request-vars
+public String demoJWebForm(FormRunner form) {   // arguemnt resulover will fill request-vars
     FormResult formResult = form.run(new MyForm(LocalDate.now()));   
     
-    if (formResult.isOk()) {   // check if the form was submitted and is valid
+    if (formResult.isSubmittedAndOk()) {   // check if the form was submitted and is valid
 ...
 ```
 
