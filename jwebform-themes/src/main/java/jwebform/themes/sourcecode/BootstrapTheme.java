@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import jwebform.FormResult;
 import jwebform.field.structure.HTMLProducer;
-import jwebform.themes.common.MessageSource;
+import jwebform.integration.MessageSource;
 import jwebform.themes.common.StartEndRenderer;
 
 public class BootstrapTheme implements Theme {

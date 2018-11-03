@@ -1,8 +1,8 @@
 package jwebform;
 
 import jwebform.FormModel.Html5Validation;
-import jwebform.processor.FieldResults;
 import jwebform.model.FormModelBuilder;
+import jwebform.processor.FieldResults;
 
 /**
  * The result of a form.run It contains all infos, that is needed to get the entered values, the
@@ -14,15 +14,15 @@ public class FormResult {
   private final FieldResults fieldResults;
   private final boolean formIsValid;
   private final FormModelBuilder formModelBuilder;
-  private final boolean isFirstRun;
+  private final boolean submitted;
 
 
-  public FormResult(String formId, FieldResults fieldResults, boolean formIsValid, boolean isFirstRun,
-      FormModelBuilder formModelBuilder) {
+  public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
+      boolean submitted, FormModelBuilder formModelBuilder) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;
-    this.isFirstRun = isFirstRun;
+    this.submitted = submitted;
     this.formModelBuilder = formModelBuilder;
   }
 
@@ -33,12 +33,12 @@ public class FormResult {
   }
 
 
-  public final boolean isOk() {
+  public final boolean isSubmittedAndOk() {
     return formIsValid;
   }
 
-  public final boolean isFirstRun() {
-    return isFirstRun;
+  public final boolean isSubmitted() {
+    return submitted;
   }
 
 

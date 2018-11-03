@@ -6,8 +6,8 @@ import jwebform.FormResult;
 import jwebform.FormModel;
 import jwebform.FormModel.Html5Validation;
 import jwebform.FormModel.Method;
-import jwebform.themes.FormRenderer;
-import jwebform.themes.common.MessageSource;
+import jwebform.integration.FormRenderer;
+import jwebform.integration.MessageSource;
 import jwebform.themes.common.StartEndRenderer;
 
 // renders the form with help of mustache

@@ -6,6 +6,8 @@ import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
+import jwebform.integration.bean2form.AbstractJWebFormBean;
+import jwebform.integration.bean2form.DefaultBean2Form;
 import jwebform.integration.beanvalidation.ExternalValidation;
 
 public class TestBeanValidationViaJwebFormBean {
@@ -16,7 +18,7 @@ public class TestBeanValidationViaJwebFormBean {
     Form form = new DefaultBean2Form().getFormFromBean(new TestBean());
     FormResult fr =
         form.run(new EnvBuilder().of(ExampleRequests.exampleSubmittedRequest("password1", "xy")));
-    assertTrue("Form should not be valid, because pw1 != pw2", !fr.isOk());
+    assertTrue("Form should not be valid, because pw1 != pw2", !fr.isSubmittedAndOk());
 
   }
 

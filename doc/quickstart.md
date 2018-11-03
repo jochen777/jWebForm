@@ -67,7 +67,7 @@ Write a controller, that uses this form: (Here Spring MVC)
     
     model.addAttribute("form", formResult); 
     
-    if (formResult.isOk()) {   // check if the form was submitted and is valid
+    if (formResult.isSubmittedAndOk()) {   // check if the form was submitted and is valid
       log.debug("Valid firstname from form:"  + formResult.getStringValue("firstname"));   // if everything was okay, we can get the values from the form
     }
     

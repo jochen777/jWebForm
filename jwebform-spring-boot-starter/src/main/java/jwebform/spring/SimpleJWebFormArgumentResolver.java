@@ -2,15 +2,16 @@ package jwebform.spring;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Validator;
-
-import jwebform.integration.Bean2Form;
+import jwebform.integration.ContainerFormRunner;
+import jwebform.integration.FormRenderer;
+import jwebform.integration.FormRunnerConfig;
+import jwebform.integration.bean2form.Bean2Form;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import jwebform.processor.FormGenerator;
-import jwebform.themes.FormRenderer;
 
 
 public class SimpleJWebFormArgumentResolver implements HandlerMethodArgumentResolver {
@@ -30,7 +31,7 @@ public class SimpleJWebFormArgumentResolver implements HandlerMethodArgumentReso
     Class<FormGenerator> typeOfBean = (Class<FormGenerator>) methodParam.getNestedParameterType();
     methodParam.decreaseNestingLevel();
 
-    SimpleJWebForm f = new SimpleJWebForm<FormGenerator>(typeOfBean, t -> request.getParameter(t),
+    ContainerFormRunner f = new ContainerFormRunner<FormGenerator>(typeOfBean, t -> request.getParameter(t),
         t -> request.getNativeRequest(HttpServletRequest.class).getAttribute(t),
         (t, v) -> request.getNativeRequest(HttpServletRequest.class).setAttribute(t, v),
         (t, v) -> mavContainer.addAttribute(t, v), formRunnerConfig);
@@ -41,7 +42,7 @@ public class SimpleJWebFormArgumentResolver implements HandlerMethodArgumentReso
 
   @Override
   public boolean supportsParameter(MethodParameter parameter) {
-    return parameter.getParameterType().equals(SimpleJWebForm.class);
+    return parameter.getParameterType().equals(ContainerFormRunner.class);
   }
 
 

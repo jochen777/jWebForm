@@ -1,22 +1,17 @@
-package jwebform.spring;
+package jwebform.integration;
 
 import java.util.function.BiConsumer;
-
-import jwebform.integration.Bean2Form;
-import org.springframework.beans.BeanUtils;
 import jwebform.FormResult;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
 import jwebform.env.Request;
 import jwebform.env.SessionGet;
 import jwebform.env.SessionSet;
-import jwebform.spring.internal.InternalFormRunner;
-import jwebform.themes.FormRenderer;
 
 // Container, that holds a jWebForm Form (or a normal bean) and provides a facade to jwebform
 // objects
 // typically this will be filled by the framework
-public class SimpleJWebForm<T> {
+public class ContainerFormRunner<T> {
 
   // RFE: These are not nessessary to store! just pass them to the run method!
   private final Env env;
@@ -26,12 +21,15 @@ public class SimpleJWebForm<T> {
   private final InternalFormRunner formRunner = new InternalFormRunner();
   private final FormRunnerConfig formRunnerConfig;
 
-  public SimpleJWebForm(
-    Class<T> typeOfBean, Request request, SessionGet sessionGet,
+  public ContainerFormRunner(Class<T> typeOfBean, Request request, SessionGet sessionGet,
       SessionSet sessionSet, BiConsumer<String, Object> model, FormRunnerConfig formRunnerConfig) {
     this.env = new EnvBuilder().of(request, sessionGet, sessionSet);
     this.model = model;
-    this.bean = BeanUtils.instantiateClass(typeOfBean);
+    try {
+      this.bean = typeOfBean.newInstance();
+    } catch (InstantiationException | IllegalAccessException e) {
+      throw new RuntimeException("Problem with instanciating the bean of class " + typeOfBean);
+    }
     this.formRunnerConfig = formRunnerConfig;
 
     this.formResult = run(bean);
@@ -44,8 +42,12 @@ public class SimpleJWebForm<T> {
   }
 
 
-  public boolean isOk() {
-    return formResult.isOk();
+  public boolean isSubmittedAndOk() {
+    return formResult.isSubmittedAndOk();
+  }
+
+  public boolean isSubmitted() {
+    return formResult.isSubmitted();
   }
 
   public String getStringValue(String name) {

@@ -2,7 +2,10 @@ package jwebform.spring;
 
 
 import static org.junit.Assert.assertTrue;
-
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -11,26 +14,22 @@ import javax.validation.constraints.Size;
 import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
-
+import org.junit.Test;
 import jwebform.FormModel;
-import jwebform.integration.DefaultBean2Form;
-import jwebform.integration.Bean2Form;
+import jwebform.FormResult;
+import jwebform.integration.FormRenderer;
+import jwebform.integration.FormRunner;
+import jwebform.integration.FormRunnerConfig;
+import jwebform.integration.bean2form.Bean2Form;
+import jwebform.integration.bean2form.DefaultBean2Form;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
 import jwebform.integration.beanvalidation.BeanValidationValidator;
 import jwebform.integration.beanvalidation.ExternalValidation;
 import jwebform.integration.beanvalidation.ExternalValidationDescription;
-import org.junit.Test;
-import jwebform.FormResult;
-import jwebform.themes.FormRenderer;
 import jwebform.themes.sourcecode.ThemeJavaRenderer;
 import jwebform.themes.sourcecode.mapper.StandardMapper;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-public class JWebFormTest {
+public class FormRunnerTest {
 
   // test if bean-validation works in JWebForm
   @Test
@@ -38,26 +37,25 @@ public class JWebFormTest {
 
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Bean2Form bean2FromContract = getBean2Form(factory.getValidator());
-    JWebFormProperties properties = new JWebFormProperties();
     FormRenderer formRenderer = new ThemeJavaRenderer(
         new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
 
-    FormRunnerConfig formRunnerConfig = new FormRunnerConfig(formRenderer,bean2FromContract, FormModel::new, properties);
+    FormRunnerConfig formRunnerConfig =
+        new FormRunnerConfig(formRenderer, bean2FromContract, FormModel::new, "form");
 
-    JWebForm jwebform = new JWebForm(ExampleRequests.exampleSubmittedRequest("name", "test"),
+    FormRunner jwebform = new FormRunner(ExampleRequests.exampleSubmittedRequest("name", "test"),
         ExampleRequests.emptySessionGet(), ExampleRequests.emptySessionPut(),
         ExampleRequests.stupidModel(), formRunnerConfig);
 
     FormResult fr = jwebform.run(new MyForm10());
     assertTrue(
         "The form should be not okay, beause the validation should fail ('test' is smaller than 10 chars)",
-        !fr.isOk());
+        !fr.isSubmittedAndOk());
 
     FormResult fr2 = jwebform.run(new MyForm2());
-    assertTrue("The form should be okay, 'test' is bigger than 2 chars", fr2.isOk());
+    assertTrue("The form should be okay, 'test' is bigger than 2 chars", fr2.isSubmittedAndOk());
 
   }
-
 
 
 
@@ -84,8 +82,8 @@ public class JWebFormTest {
         Set<ConstraintDescriptor<?>> z = b.getConstraintDescriptors();
         z.forEach(constraintDesc -> {
           criteraSet.add(new ExternalValidationDescription(
-            constraintDesc.getAnnotation().annotationType().getSimpleName(),
-            constraintDesc.getAttributes()));
+              constraintDesc.getAnnotation().annotationType().getSimpleName(),
+              constraintDesc.getAttributes()));
 
         });
       }
@@ -100,7 +98,7 @@ public class JWebFormTest {
       List<ExternalValidation> externalVals = new ArrayList<>();
       vals.forEach(constr -> {
         ExternalValidation e =
-          new ExternalValidation(constr.getPropertyPath().toString(), constr.getMessage());
+            new ExternalValidation(constr.getPropertyPath().toString(), constr.getMessage());
         externalVals.add(e);
       });
 

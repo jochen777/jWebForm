@@ -48,7 +48,7 @@ public class SampleUsage {
     testExpectectedResults(result, expRes.getList());
 
 
-    assertTrue("The form should be not true, because it is the firstrun", !result.isOk());
+    assertTrue("The form should be not true, because it is the firstrun", !result.isSubmittedAndOk());
   }
 
 
@@ -106,7 +106,7 @@ public class SampleUsage {
     expRes.add("radio", true, "1");
     testExpectectedResults(result, expRes.getList());
 
-    assertTrue("The form should be true, because the inputs are ok", result.isOk());
+    assertTrue("The form should be true, because the inputs are ok", result.isSubmittedAndOk());
   }
 
   @Test
@@ -144,7 +144,7 @@ public class SampleUsage {
     testExpectectedResults(result, expRes.getList());
 
     assertTrue("The form should be false, because some fields are required or reqire a number",
-        !result.isOk());
+        !result.isSubmittedAndOk());
   }
 
 
@@ -182,7 +182,7 @@ public class SampleUsage {
     expRes.add("radio", true, "");
     testExpectectedResults(result, expRes.getList());
     assertTrue("The form should be false, because some fields are required or reqire a number",
-        !result.isOk());
+        !result.isSubmittedAndOk());
   }
 
   private FormResult getFormResult(Env env) {

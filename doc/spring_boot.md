@@ -61,9 +61,9 @@ Write a controller, like this with SimpleJWebform<Myform> form as argument:
 ```Java
 
   @RequestMapping("/form")
-  public String demoJWebForm(SimpleJWebForm<MyForm> form) {   // argument resolver will fill request-vars
+  public String demoJWebForm(ContainerFormRunner<MyForm> form) {   // argument resolver will fill request-vars
   
-    if (form.isOk()) {   // check if the form was submitted and is valid
+    if (form.isSubmittedAndOk()) {   // check if the form was submitted and is valid
       log.debug("Valid firstname from form:"  + form.getStringValue("firstname"));   // if everything was okay, we can get the values from the form
       
       log.debug("Valid firstname from form:"  + form.getBean().firstname);   // in case you used the POJO way

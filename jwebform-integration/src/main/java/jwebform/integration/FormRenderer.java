@@ -1,8 +1,7 @@
-package jwebform.themes;
+package jwebform.integration;
 
-import jwebform.FormResult;
 import jwebform.FormModel.Method;
-import jwebform.themes.common.MessageSource;
+import jwebform.FormResult;
 
 public interface FormRenderer {
   public String render(FormResult result, Method method, boolean html5Validation,
