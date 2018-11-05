@@ -21,7 +21,7 @@
 
 		<dependency>
 			<groupId>de.cyclon-softworx</groupId>
-			<artifactId>jwebform</artifactId>
+			<artifactId>jwebform-integration</artifactId>
 			<version>0.0.10-SNAPSHOT</version>
 		</dependency>
 

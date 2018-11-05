@@ -59,7 +59,7 @@ public class NumberInputTest {
                                                                     // (all values null)
     ));
     // first run is never ok
-    assertFalse(result.isOk());
+    assertFalse(result.isSubmittedAndOk());
   }
 
   @Test
@@ -68,7 +68,7 @@ public class NumberInputTest {
     Map<String, String> params = new HashMap<>();
     params.put("WF_SUBMITTED", "WF-id");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
-    assertTrue(result.isOk());
+    assertTrue(result.isSubmittedAndOk());
     assertEquals("", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
@@ -82,7 +82,7 @@ public class NumberInputTest {
     FormResult result =
       testForm.run(new EnvBuilder().of(it -> params.get(it)));
     //result.logForm(System.err::println);
-    assertTrue(result.isOk());
+    assertTrue(result.isSubmittedAndOk());
     assertEquals("9", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.of(9), result.getObectValue(FIELD_NAME));
   }
@@ -94,7 +94,7 @@ public class NumberInputTest {
     params.put("WF_SUBMITTED", "WF-id");
     params.put(FIELD_NAME, "a");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
-    assertTrue(!result.isOk());
+    assertTrue(!result.isSubmittedAndOk());
     assertEquals("", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
@@ -105,7 +105,7 @@ public class NumberInputTest {
     Map<String, String> params = new HashMap<>();
     params.put("WF_SUBMITTED", "WF-id");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
-    assertTrue(!result.isOk());
+    assertTrue(!result.isSubmittedAndOk());
     assertEquals("", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }

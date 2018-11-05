@@ -6,8 +6,8 @@ import jwebform.env.EnvBuilder;
 import jwebform.field.SelectType;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
-import jwebform.integration.DefaultBean2Form;
-import jwebform.integration.annotations.UseFieldType;
+import jwebform.integration.bean2form.DefaultBean2Form;
+import jwebform.integration.bean2form.annotations.UseFieldType;
 import org.junit.Before;
 import org.junit.Test;
 

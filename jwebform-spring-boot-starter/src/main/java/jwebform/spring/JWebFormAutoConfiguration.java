@@ -9,27 +9,24 @@ import javax.validation.Validator;
 import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import jwebform.FormModel;
-import jwebform.integration.DefaultBean2Form;
-import jwebform.integration.Bean2Form;
+import jwebform.integration.FormRenderer;
+import jwebform.integration.FormRunnerConfig;
+import jwebform.integration.bean2form.Bean2Form;
+import jwebform.integration.bean2form.DefaultBean2Form;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
 import jwebform.integration.beanvalidation.BeanValidationValidator;
 import jwebform.integration.beanvalidation.ExternalValidation;
 import jwebform.integration.beanvalidation.ExternalValidationDescription;
 import jwebform.model.FormModelBuilder;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import jwebform.themes.FormRenderer;
 import jwebform.themes.sourcecode.ThemeJavaRenderer;
 import jwebform.themes.sourcecode.mapper.StandardMapper;
 
@@ -55,7 +52,8 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolver) {
 
-    FormRunnerConfig formRunnerConfig = new FormRunnerConfig(formRenderer,bean2Form, formModelBuilder, properties);
+    FormRunnerConfig formRunnerConfig = new FormRunnerConfig(formRenderer, bean2Form,
+        formModelBuilder, properties.getTemplateName());
     argumentResolver.add(new JWebFormArgumentResolver(formRunnerConfig));
     argumentResolver.add(new SimpleJWebFormArgumentResolver(formRunnerConfig));
   }
@@ -68,7 +66,8 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
   public static class JWebFormBean2FormDefaultConfig {
 
 
-    @Bean Bean2Form bean2Form(Validator validator) {
+    @Bean
+    Bean2Form bean2Form(Validator validator) {
       return new DefaultBean2Form(getBeanValidator(validator), getRuleDeliverer(validator));
     }
 
@@ -82,8 +81,8 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
           Set<ConstraintDescriptor<?>> z = b.getConstraintDescriptors();
           z.forEach(constraintDesc -> {
             criteraSet.add(new ExternalValidationDescription(
-              constraintDesc.getAnnotation().annotationType().getSimpleName(),
-              constraintDesc.getAttributes()));
+                constraintDesc.getAnnotation().annotationType().getSimpleName(),
+                constraintDesc.getAttributes()));
 
           });
         }
@@ -98,7 +97,7 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
         List<ExternalValidation> externalVals = new ArrayList<>();
         vals.forEach(constr -> {
           ExternalValidation e =
-            new ExternalValidation(constr.getPropertyPath().toString(), constr.getMessage());
+              new ExternalValidation(constr.getPropertyPath().toString(), constr.getMessage());
           externalVals.add(e);
         });
 

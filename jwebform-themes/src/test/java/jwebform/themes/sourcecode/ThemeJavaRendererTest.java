@@ -97,11 +97,11 @@ public class ThemeJavaRendererTest {
     try {
       filecontent = this.template.loadAndProcessTempalte(templateName);
       assertEquals(filecontent.trim(), content);
-      return result.isOk();
+      return result.isSubmittedAndOk();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return !result.isOk();
+    return !result.isSubmittedAndOk();
   }
 
 

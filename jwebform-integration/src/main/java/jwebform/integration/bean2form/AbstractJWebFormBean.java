@@ -1,4 +1,4 @@
-package jwebform.integration;
+package jwebform.integration.bean2form;
 
 import java.util.Collections;
 import java.util.List;

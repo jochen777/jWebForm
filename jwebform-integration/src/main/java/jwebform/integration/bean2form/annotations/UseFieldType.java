@@ -1,4 +1,4 @@
-package jwebform.integration.annotations;
+package jwebform.integration.bean2form.annotations;
 
 
 

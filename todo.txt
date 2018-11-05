@@ -229,12 +229,17 @@ Ja: includiere FormRunner und FormGenerator in helper package
 Documentation:
 [x] Ergänze beste einsatzmöglichkeiten. (CMS, Generatoren, große Sites, Geschäftsanwendungen)
 [ ] Update Picture of Architecture
+[ ] Draw overview of projects (jwebform, integration, theme, spring / example / example spring boot2)
 
 [ ] Share Test code between maven modules (http://maven.apache.org/guides/mini/guide-attached-tests.html)
 
 [ ] Make validation optional in spring-boot module
 
 [x] Introduce "firstRun" check
+
+[ ] Rename jWebform and SimplejWebform -> FormHolder, FormContainer
+[ ] move them  to integration, because they don't belong to spring (jWebform and SimplejWebform -> FormHolder, FormContainer)
+[ ] rename isOk to isSubmittedAndValidated
 
 [ ] kommt man ohne die statischen methoden aus? Das würde eine zentrale Ersetzung der Fields erlauben
 

@@ -20,7 +20,7 @@ Add this dependency to your project:
 
 Write a class, that builds the form. You have to implement the "FormGenerator" interface.
 ```Java
-public class AddressForm implements FormGenerator{ 
+public class MyForm implements FormGenerator{ 
     @Override public Form generateForm() {
       return FormBuilder.simple().typeBuilder(
         text("firstname").
@@ -61,9 +61,9 @@ Write a controller, like this with SimpleJWebform<Myform> form as argument:
 ```Java
 
   @RequestMapping("/form")
-  public String demoJWebForm(SimpleJWebForm<MyForm> form) {   // argument resolver will fill request-vars
+  public String demoJWebForm(ContainerFormRunner<MyForm> form) {   // argument resolver will fill request-vars
   
-    if (form.isOk()) {   // check if the form was submitted and is valid
+    if (form.isSubmittedAndOk()) {   // check if the form was submitted and is valid
       log.debug("Valid firstname from form:"  + form.getStringValue("firstname"));   // if everything was okay, we can get the values from the form
       
       log.debug("Valid firstname from form:"  + form.getBean().firstname);   // in case you used the POJO way
@@ -82,10 +82,10 @@ Example
 ```Java
 
 ...
-public String demoJWebForm(JWebForm form) {   // arguemnt resulover will fill request-vars
+public String demoJWebForm(FormRunner form) {   // arguemnt resulover will fill request-vars
     FormResult formResult = form.run(new MyForm(LocalDate.now()));   
     
-    if (formResult.isOk()) {   // check if the form was submitted and is valid
+    if (formResult.isSubmittedAndOk()) {   // check if the form was submitted and is valid
 ...
 ```
 

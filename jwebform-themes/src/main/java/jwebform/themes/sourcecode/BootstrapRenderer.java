@@ -3,7 +3,7 @@ package jwebform.themes.sourcecode;
 import java.util.Optional;
 import com.coverity.security.Escape;
 import jwebform.field.structure.Decoration;
-import jwebform.themes.common.MessageSource;
+import jwebform.integration.MessageSource;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.MaxLength;

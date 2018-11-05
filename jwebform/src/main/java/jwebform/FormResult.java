@@ -39,9 +39,12 @@ public class FormResult {
    * @return
    */
   public final boolean isOk() {
+  public final boolean isSubmittedAndOk() {
     return formIsValid;
   }
 
+  public final boolean isSubmitted() {
+    return submitted;
   /**
    * Checks, the form was submitted.
    * If not submitted, it will return true

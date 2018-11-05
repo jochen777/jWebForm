@@ -33,7 +33,7 @@ public class LoggingFormResult extends FormResult {
         debugOutput(result.getChilds(), b, indent + "---- ");
       }
     });
-    return "Form valid: " + this.isOk() + "\n " + b.toString();
+    return "Form valid: " + this.isSubmittedAndOk() + "\n " + b.toString();
   }
 
   private void appendSingleType(StringBuilder b, Field container, FieldResult result,

@@ -6,7 +6,7 @@ import jwebform.env.EnvBuilder;
 import jwebform.field.CheckBoxType;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
-import jwebform.integration.DefaultBean2Form;
+import jwebform.integration.bean2form.DefaultBean2Form;
 import org.junit.Before;
 import org.junit.Test;
 

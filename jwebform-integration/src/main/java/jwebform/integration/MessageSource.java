@@ -1,4 +1,4 @@
-package jwebform.themes.common;
+package jwebform.integration;
 
 import jwebform.validation.ValidationResult;
 

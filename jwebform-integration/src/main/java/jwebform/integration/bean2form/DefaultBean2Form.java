@@ -1,4 +1,4 @@
-package jwebform.integration;
+package jwebform.integration.bean2form;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -21,9 +21,9 @@ import jwebform.field.TextType;
 import jwebform.field.structure.Decoration;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldType;
-import jwebform.integration.annotations.IgnoreField;
-import jwebform.integration.annotations.UseDecoration;
-import jwebform.integration.annotations.UseFieldType;
+import jwebform.integration.bean2form.annotations.IgnoreField;
+import jwebform.integration.bean2form.annotations.UseDecoration;
+import jwebform.integration.bean2form.annotations.UseFieldType;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
 import jwebform.integration.beanvalidation.BeanValidationValidator;
 import jwebform.integration.beanvalidation.ExternalValidation;

@@ -58,7 +58,7 @@ public class DateInputValueTest {
       LoggingFormResult::new, FormModel::new
     );
     // first run is never ok
-    assertFalse(result.isOk());
+    assertFalse(result.isSubmittedAndOk());
   }
 
   @Test
@@ -67,7 +67,7 @@ public class DateInputValueTest {
     Map<String, String> params = new HashMap<>();
     params.put("WF_SUBMITTED", "WF-id");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
-    assertTrue(result.isOk());
+    assertTrue(result.isSubmittedAndOk());
     assertEquals("", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
@@ -85,7 +85,7 @@ public class DateInputValueTest {
         LoggingFormResult::new, FormModel::new
         );
     //result.logForm(System.err::print);
-    assertTrue(result.isOk());
+    assertTrue(result.isSubmittedAndOk());
     assertEquals("2018-10-05", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.of(LocalDate.of(2018, 10, 5)), result.getObectValue(FIELD_NAME));
   }
@@ -99,7 +99,7 @@ public class DateInputValueTest {
     params.put("date_month", "2");
     params.put("date_year", "2018");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
-    assertTrue(!result.isOk());
+    assertTrue(!result.isSubmittedAndOk());
     assertEquals("", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
@@ -110,7 +110,7 @@ public class DateInputValueTest {
     Map<String, String> params = new HashMap<>();
     params.put("WF_SUBMITTED", "WF-id");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
-    assertTrue(!result.isOk());
+    assertTrue(!result.isSubmittedAndOk());
     assertEquals("", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
