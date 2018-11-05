@@ -24,10 +24,11 @@ public class InternalFormRunner {
   public FormResult run(Object input, Env env, BiConsumer<String, Object> model,
     FormRunnerConfig formRunnerConfig) {
     Form form = null;
-    FormResultBuilder formResultBuilder;
+    FormResultBuilder formResultBuilder = standardFormResultBuidler;
     if (input instanceof FormGenerator) {
       form = ((FormGenerator) input).generateForm();
-      formResultBuilder = standardFormResultBuidler;
+    } else if (input instanceof Form) {
+      form = (Form) input;
     } else {
       form = formRunnerConfig.bean2Form
           .getFormFromBean(input);

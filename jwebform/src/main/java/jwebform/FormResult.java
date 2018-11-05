@@ -33,11 +33,28 @@ public class FormResult {
   }
 
 
+  /**
+   * Checks, if the Form was submitted AND correctly validated.
+   * So if this returns true, the user has submitted the form and every value in it is correct.
+   * @return
+   */
   public final boolean isOk() {
     return formIsValid;
   }
 
-  public final boolean isFirstRun() {
+  /**
+   * Checks, the form was submitted.
+   * If not submitted, it will return true
+   * If submitted, it will return false
+   *
+   * You can use this to show to the user some explanations in case of errors or not.
+   *
+   *
+   * Note: This does not correspond to valdiation errors.
+   * If the user submitted and the form is not correct, this will return true.
+   * @return
+   */
+  public final boolean isSubmitted() {
     return isFirstRun;
   }
 
