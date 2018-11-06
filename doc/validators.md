@@ -8,6 +8,7 @@ Here is a list of all criteria that can be used to fill Validators.
 | Accept          | Match exact strings | `Criteria.accept("New York", "Las Vegas")` | `New York` | *.allowed_values |
 | And (optional)        | Connect several criteria | `Criteria.And( Criteria.accept("New York", "Las Vegas"), Criteria.required)` | - | - |
 | Email          | Input must be an email | `Criteria.email()` | `pete@dmn.com` | *.valid_email |
+| URL          | Input must be a website URL | `Criteria.url()` | `http://www.github.com` | *.valid_url |
 | ExactLenght          | Input must have this exact lenght | `Criteria.exactLenght(6)` | `123456` | *.exact_lenght |
 | Lenght          | Input must have lenght between min and max | `Criteria.length(2,4)` | `123` | *.length |
 | Max          | Input must be a number and smaller than max | `Criteria.max(50)` | `49` | *.max |
