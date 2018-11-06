@@ -38,13 +38,19 @@ public class FormResult {
    * So if this returns true, the user has submitted the form and every value in it is correct.
    * @return
    */
-  public final boolean isOk() {
   public final boolean isSubmittedAndOk() {
     return formIsValid;
   }
 
-  public final boolean isSubmitted() {
-    return submitted;
+
+
+  // Please use isSubmittedAndOk (This name is much more readable)
+  @Deprecated
+  public final boolean isOK() {
+    return formIsValid;
+  }
+
+
   /**
    * Checks, the form was submitted.
    * If not submitted, it will return true
@@ -58,7 +64,11 @@ public class FormResult {
    * @return
    */
   public final boolean isSubmitted() {
-    return isFirstRun;
+    return !isFirstRun;
+  }
+
+  public final boolean isSubmittedAndNotOk() {
+    return !isFirstRun && !formIsValid;
   }
 
 

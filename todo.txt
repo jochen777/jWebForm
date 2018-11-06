@@ -230,6 +230,13 @@ Documentation:
 [x] Ergänze beste einsatzmöglichkeiten. (CMS, Generatoren, große Sites, Geschäftsanwendungen)
 [ ] Update Picture of Architecture
 [ ] Draw overview of projects (jwebform, integration, theme, spring / example / example spring boot2)
+[x] Introduce Criteria for URL
+[x] SimpleJWebForm must deliver FormResult too
+[ ] Don't use form_generated but use form.formModel.generated ! (This must be possible to configure!)
+
+[x] Unit Test for FormResult / isSubmitted ...
+[ ] Rename Spring ArgumentResolver
+
 
 [ ] Share Test code between maven modules (http://maven.apache.org/guides/mini/guide-attached-tests.html)
 
@@ -237,9 +244,9 @@ Documentation:
 
 [x] Introduce "firstRun" check
 
-[ ] Rename jWebform and SimplejWebform -> FormHolder, FormContainer
-[ ] move them  to integration, because they don't belong to spring (jWebform and SimplejWebform -> FormHolder, FormContainer)
-[ ] rename isOk to isSubmittedAndValidated
+[x] Rename jWebform and SimplejWebform -> FormHolder, FormContainer
+[x] move them  to integration, because they don't belong to spring (jWebform and SimplejWebform -> FormHolder, FormContainer)
+[x] rename isOk to isSubmittedAndValidated
 
 [ ] kommt man ohne die statischen methoden aus? Das würde eine zentrale Ersetzung der Fields erlauben
 

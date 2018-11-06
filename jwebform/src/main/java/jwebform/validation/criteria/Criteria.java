@@ -13,6 +13,7 @@ public class Criteria {
     // hide public Constructor, because this can only be used with the static methods
   }
   private static final Email email = new Email();
+  private static final Url url = new Url();
   private static final ZipCode zipCode = new ZipCode();
   private static final PostcodeCA postcodeCA = new PostcodeCA();
 
@@ -83,6 +84,10 @@ public class Criteria {
 
   public static Criterion email() {
     return email;
+  }
+
+  public static Criterion url() {
+    return url;
   }
 
   public static Criterion strongPassword(int minLength) {
