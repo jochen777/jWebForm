@@ -199,7 +199,7 @@ Ja: includiere FormRunner und FormGenerator in helper package
 #######################################################################################
 
 
-[ ] introduce a way to deal with normal beans.
+[x] introduce a way to deal with normal beans.
     [x] Resolve types to fieldTypes
     [x] Implement Annotation FieldCreators that deal with all types of fieldTypes
     [x] Deal with missing or present values differently -> *Must* be prefilled!
@@ -227,7 +227,7 @@ Ja: includiere FormRunner und FormGenerator in helper package
 [x] SimpleJWebForm must deliver FormResult too
 
 [x] Rename Spring ArgumentResolver
-[ ] Don't use form_generated but use form.formModel.generated ! (This must be possible to configure!)
+[x] Don't use form_generated but use form.formModel.html ! (This must be possible to configure!)
 
 ---------- -> U!
 

@@ -16,27 +16,28 @@ import java.util.Map.Entry;
  * The FormModel just "enhances" a formResult and is perfect to give informations to your template.
  *
  */
-public final class FormModel {
-
-  private final FieldResults fieldResults;
+public class FormModel {
 
 
-  private final String formId;
+  private FormResult formResult;
   private final Method method;
   private final Html5Validation html5Validaiton;
 
 
 
-  public FormModel(String formId, FieldResults fieldResults, Method method,
+  public FormModel(FormResult formResult, Method method,
       Html5Validation html5Validation) {
-    this.formId = formId;
-    this.fieldResults = fieldResults;
+    this.formResult = formResult;
     this.method = method;
     this.html5Validaiton = html5Validation;
   }
 
   public String getFormId() {
-    return formId;
+    return formResult.getFormId();
+  }
+
+  public Method getMethodObject() {
+    return method;
   }
 
   public String getMethod() {
@@ -44,8 +45,9 @@ public final class FormModel {
   }
 
 
+
   public boolean isUploadEnctypeRequired() {
-    for (Map.Entry<Field, FieldResult> entry : fieldResults) {
+    for (Map.Entry<Field, FieldResult> entry : formResult.getFieldResults()) {
       if (entry.getKey().fieldType instanceof ForceFileuploadMethod) {
         return true;
       }
@@ -65,9 +67,9 @@ public final class FormModel {
     Map<String, ProducerInfos> piMap = new LinkedHashMap<>();
     List<String> names = new ArrayList<>();
     int tabIndex = 1;
-    for (Map.Entry<Field, FieldResult> entry : fieldResults) {
+    for (Map.Entry<Field, FieldResult> entry : formResult.getFieldResults()) {
       FieldResult fieldResult = entry.getValue();
-      ProducerInfos pi = new ProducerInfos(formId, tabIndex, fieldResult, entry.getKey(),
+      ProducerInfos pi = new ProducerInfos(formResult.getFormId(), tabIndex, fieldResult, entry.getKey(),
         createProducerInfoChilds(fieldResult.getChilds(), tabIndex));
       piList.add(pi);
       piMap.put(fieldResult.getStaticFieldInfo().getName(), pi);
@@ -95,11 +97,18 @@ public final class FormModel {
     List<ProducerInfos> listOfPis = new ArrayList<>(); // RFE: only, if childs is not empty!
     // RFE: This allows only one depth! It would be cooler, if we can do infinite depth
     for (Entry<Field, FieldResult> elem : childs) {
-      listOfPis.add(new ProducerInfos(formId, tabIndex, elem.getValue(), elem.getKey()));
+      listOfPis.add(new ProducerInfos(formResult.getFormId(), tabIndex, elem.getValue(), elem.getKey()));
     }
     return listOfPis;
   }
 
+  public FormResult getFormResult() {
+    return formResult;
+  }
+
+  public Html5Validation getHtml5Validaiton() {
+    return html5Validaiton;
+  }
 
   /////////////////////////////////////////////------------------
 
@@ -109,7 +118,11 @@ public final class FormModel {
 
 
   public enum Html5Validation {
-    ON, OFF
+    ON, OFF;
+
+    public boolean asBoolean() {
+      return this == ON;
+    }
   }
 }
 

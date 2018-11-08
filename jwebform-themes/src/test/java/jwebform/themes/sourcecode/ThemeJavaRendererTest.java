@@ -91,8 +91,8 @@ public class ThemeJavaRendererTest {
     FormResult result = f.run(env);
     // result.logForm(System.err::print);
     ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-        new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
-    String content = renderer.render(result, Method.POST, true, msg -> msg).trim();
+        new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)), msg -> msg);
+    String content = renderer.render(result, Method.POST, true).trim();
     String filecontent;
     try {
       filecontent = this.template.loadAndProcessTempalte(templateName);

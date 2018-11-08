@@ -9,6 +9,8 @@ import javax.validation.Validator;
 import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
+
+import jwebform.themes.FormModelWithFormRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -115,7 +117,7 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public FormRenderer formRenderer() {
       ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-          new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
+          new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)), msg->msg);
       return renderer;
     }
 
@@ -127,8 +129,9 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
 
 
     @Bean
-    public FormModelBuilder formModelBuilder() {
-      return FormModel::new;
+    public FormModelBuilder formModelBuilder(FormRenderer formRenderer) {
+      // TODO: get REAL message source here!
+      return (a,b,c) -> new FormModelWithFormRenderer(a,b,c, formRenderer, msg -> msg);
     }
 
   }

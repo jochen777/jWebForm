@@ -15,16 +15,18 @@ public class ThemeMustacheRenderer implements FormRenderer {
 
 
   private final MustacheRenderer renderer;
+  private final MessageSource messageSource;
 
-  public ThemeMustacheRenderer(MustacheRenderer renderer) {
+  public ThemeMustacheRenderer(MustacheRenderer renderer, MessageSource messageSource) {
     this.renderer = renderer;
+    this.messageSource = messageSource;
   }
 
 
 
   @Override
-  public String render(FormResult result, Method method, boolean html5Validation,
-      MessageSource messageSource) {
+  public String render(FormResult result, Method method, boolean html5Validation
+      ) {
     FormModel view = result.getFormModel(Html5Validation.ON, Method.GET);
     StartEndRenderer startEndRenderer = new StartEndRenderer(result, "POST", true);
 

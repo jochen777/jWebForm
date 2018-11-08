@@ -22,15 +22,16 @@ public class ThemeJavaRenderer implements FormRenderer {
   public static final String BOOTSTRAP = "bootstrap";
 
   private final Mapper mapper;
+  private final MessageSource messageSource;
 
   // IDEA: provide mapping between elements and Renderers. Default Mapping is provided
-  public ThemeJavaRenderer(Mapper mapper) {
+  public ThemeJavaRenderer(Mapper mapper, MessageSource messageSource) {
     this.mapper = mapper;
+    this.messageSource = messageSource;
   }
 
   @Override
-  public String render(FormResult result, Method method, boolean html5Validation,
-      MessageSource messageSource) {
+  public String render(FormResult result, Method method, boolean html5Validation) {
     StringBuilder html = new StringBuilder();
     StartEndRenderer startEndRenderer =
         new StartEndRenderer(result, method.toString(), html5Validation);

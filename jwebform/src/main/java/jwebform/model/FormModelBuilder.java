@@ -3,10 +3,12 @@ package jwebform.model;
 import jwebform.FormModel;
 import jwebform.FormModel.Html5Validation;
 import jwebform.FormModel.Method;
+import jwebform.FormResult;
 import jwebform.processor.FieldResults;
 
 @FunctionalInterface
 public interface FormModelBuilder {
-  FormModel build(String formId, FieldResults fieldResults, Method method,
+  FormModel build(
+    FormResult formResult, Method method,
       Html5Validation html5Validation);
 }

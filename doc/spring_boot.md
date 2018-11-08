@@ -91,6 +91,6 @@ public String demoJWebForm(FormRunner form) {   // arguemnt resulover will fill 
 
 
 Note: Output inside the template is exact like in the other frameworks. 
-You will find the view in the model with the key __form__. See: [Rendering the form in template](template.md)
+You will find the view in the model with the key __form.formModel__. See: [Rendering the form in template](template.md)
 
-Additionally you will find in __form_rendered__ an object that can output the rendered html via "form_rendered.html".
+Additionally you will find in __form.formModel.html__ the html for the form.

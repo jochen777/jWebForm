@@ -93,8 +93,8 @@ public class ThemeMustacheRendererTest {
 
 
 
-    FormRenderer renderer = new ThemeMustacheRenderer(new MustacheRendererImpl());
-    String content = renderer.render(result, Method.POST, true, msg -> msg).trim();
+    FormRenderer renderer = new ThemeMustacheRenderer(new MustacheRendererImpl(), msg-> msg);
+    String content = renderer.render(result, Method.POST, true).trim();
     String filecontent;
     try {
       filecontent = this.template.loadAndProcessTempalte(templateName);

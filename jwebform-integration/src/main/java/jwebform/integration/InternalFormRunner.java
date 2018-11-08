@@ -29,37 +29,8 @@ class InternalFormRunner {
     FormResult fr = form.run(env, formResultBuilder, formRunnerConfig.formModelBuilder);
     // RFE: What can we do, if we have more than one Form on the page?
     model.accept(formRunnerConfig.templateName, fr);
-    // TODO: Must be configuraable
-    model.accept(formRunnerConfig.templateName + "_rendered", new LazyHTMLRenderer(
-        formRunnerConfig.formRenderer, fr, Method.POST, true /* html5Validation */, msg -> msg));
 
     return fr;
-  }
-
-  // this "in the middle" object to allow rendering the httml just in case your really need it
-  public class LazyHTMLRenderer {
-    private FormRenderer fr;
-    private FormResult result;
-    private Method method;
-    private boolean html5Validation;
-    private MessageSource messageSource;
-
-
-
-    public LazyHTMLRenderer(FormRenderer fr, FormResult result, Method method,
-        boolean html5Validation, MessageSource messageSource) {
-      this.fr = fr;
-      this.result = result;
-      this.method = method;
-      this.html5Validation = html5Validation;
-      this.messageSource = messageSource;
-    }
-
-
-
-    public String getHtml() {
-      return fr.render(result, method, html5Validation, messageSource);
-    }
   }
 
 }

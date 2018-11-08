@@ -73,19 +73,19 @@ public class FormResult {
 
 
   public FormModel getFormModel(Html5Validation html5Validation) {
-    return formModelBuilder.build(formId, fieldResults, FormModel.Method.POST, html5Validation);
+    return formModelBuilder.build(this, FormModel.Method.POST, html5Validation);
   }
 
   public FormModel getFormModel(Html5Validation html5Validation, FormModel.Method method) {
-    return formModelBuilder.build(formId, fieldResults, method, html5Validation);
+    return formModelBuilder.build(this, method, html5Validation);
   }
 
   public FormModel getFormModel(FormModel.Method method) {
-    return formModelBuilder.build(formId, fieldResults, method, Html5Validation.ON);
+    return formModelBuilder.build(this, method, Html5Validation.ON);
   }
 
   public FormModel getFormModel() {
-    return formModelBuilder.build(formId, fieldResults, FormModel.Method.POST, Html5Validation.ON);
+    return formModelBuilder.build(this, FormModel.Method.POST, Html5Validation.ON);
   }
 
 
