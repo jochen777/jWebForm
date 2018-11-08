@@ -3,7 +3,6 @@ package jwebform.usage;
 import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormResult;
-import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
 import jwebform.usage.helper.ExampleRequests;
 import jwebform.validation.criteria.Criteria;

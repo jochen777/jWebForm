@@ -54,8 +54,8 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
 
     FormRunnerConfig formRunnerConfig = new FormRunnerConfig(formRenderer, bean2Form,
         formModelBuilder, properties.getTemplateName());
-    argumentResolver.add(new JWebFormArgumentResolver(formRunnerConfig));
-    argumentResolver.add(new SimpleJWebFormArgumentResolver(formRunnerConfig));
+    argumentResolver.add(new FormRunnerArgumentResolver(formRunnerConfig));
+    argumentResolver.add(new ContainerFormRunnerArgumentResolver(formRunnerConfig));
   }
 
 

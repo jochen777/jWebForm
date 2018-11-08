@@ -14,11 +14,11 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import jwebform.processor.FormGenerator;
 
 
-public class SimpleJWebFormArgumentResolver implements HandlerMethodArgumentResolver {
+public class ContainerFormRunnerArgumentResolver implements HandlerMethodArgumentResolver {
 
   private final FormRunnerConfig formRunnerConfig;
 
-  public SimpleJWebFormArgumentResolver(
+  public ContainerFormRunnerArgumentResolver(
     FormRunnerConfig formRunnerConfig) {
     this.formRunnerConfig = formRunnerConfig;
   }

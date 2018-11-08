@@ -14,11 +14,11 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 
-public class JWebFormArgumentResolver implements HandlerMethodArgumentResolver {
+public class FormRunnerArgumentResolver implements HandlerMethodArgumentResolver {
 
   private final FormRunnerConfig formRunnerConfig;
 
-  public JWebFormArgumentResolver(
+  public FormRunnerArgumentResolver(
     FormRunnerConfig formRunnerConfig) {
     this.formRunnerConfig = formRunnerConfig;
   }
