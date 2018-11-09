@@ -151,7 +151,7 @@ public class BootstrapRenderer implements ElementRenderer {
 
   protected String generatePlaceholder(Decoration decoration) {
     String placeholder = "";
-    if (decoration.getPlaceholder() != Decoration.EMPTY) {
+    if (!decoration.getPlaceholder().isEmpty()) {
       placeholder =
           " placeholder=\"" + messageSource.getMessage(decoration.getPlaceholder()) + "\"";
     }
@@ -160,7 +160,7 @@ public class BootstrapRenderer implements ElementRenderer {
 
 
   protected boolean isHelpDesired(Decoration decoration) {
-    return decoration.getHelptext() != Decoration.EMPTY;
+    return !decoration.getHelptext().isEmpty();
   }
 
   protected String renderHelpText(ProducerInfos pi, Decoration decoration) {

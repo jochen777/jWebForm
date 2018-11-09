@@ -15,8 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import jwebform.FormModel;
@@ -49,6 +51,10 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
 
   @Autowired
   public FormModelBuilder formModelBuilder;
+
+  @Autowired
+  private MessageSource messageSource;
+
 
 
   @Override
@@ -115,9 +121,10 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
 
 
     @Bean
-    public FormRenderer formRenderer() {
+    public FormRenderer formRenderer(MessageSource messageSource ) {
       ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-          new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
+          new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(key -> messageSource.getMessage(key, null, LocaleContextHolder
+            .getLocale()))));
       return renderer;
     }
 
