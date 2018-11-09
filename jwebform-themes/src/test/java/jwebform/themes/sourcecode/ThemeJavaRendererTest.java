@@ -23,10 +23,10 @@ public class ThemeJavaRendererTest {
   SimpleTemplate template = new SimpleTemplate();
 
   // TODO: Enable this again!!
-  //@Test
+  @Test
   public void testnormalUsageFirstRun() {
 
-    Env env = new EnvBuilder().of(it -> null, // this simulates the first run (all values null)
+    Env env = new EnvBuilder().of(it -> null, // this simulates the first run (not submitted) (all values null)
         t -> t, (k, v) -> {
         });
     boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_firstrun.html");
@@ -89,9 +89,9 @@ public class ThemeJavaRendererTest {
     MyFormBuilder formBuilder = new MyFormBuilder(formId);
     Form f = formBuilder.buildForm();
     FormResult result = f.run(env);
-    // result.logForm(System.err::print);
+
     ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-        new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)), msg -> msg);
+        new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
     String content = renderer.render(result, Method.POST, true).trim();
     String filecontent;
     try {

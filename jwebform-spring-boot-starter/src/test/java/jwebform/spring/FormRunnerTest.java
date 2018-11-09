@@ -38,7 +38,7 @@ public class FormRunnerTest {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Bean2Form bean2FromContract = getBean2Form(factory.getValidator());
     FormRenderer formRenderer = new ThemeJavaRenderer(
-        new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)), msg->msg);
+        new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
 
     FormRunnerConfig formRunnerConfig =
         new FormRunnerConfig(formRenderer, bean2FromContract, FormModel::new, "form");

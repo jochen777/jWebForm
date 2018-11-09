@@ -228,7 +228,11 @@ Ja: includiere FormRunner und FormGenerator in helper package
 
 [x] Rename Spring ArgumentResolver
 [x] Don't use form_generated but use form.formModel.html ! (This must be possible to configure!)
+[ ] Rename this isValidatedAndOk() ... -> check symfony/.net/python...
 
+[x] Remove this ugly msg->msg, msg->msg
+[ ] Introduce real messages in spring-boot
+[ ] Search for TODOS
 ---------- -> U!
 
     [ ] Test for String, Boolean, LocalDate, Integer Fields

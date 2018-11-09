@@ -117,7 +117,7 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public FormRenderer formRenderer() {
       ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-          new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)), msg->msg);
+          new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
       return renderer;
     }
 

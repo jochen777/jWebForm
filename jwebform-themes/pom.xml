@@ -35,7 +35,7 @@
 			<groupId>com.samskivert</groupId>
 			<artifactId>jmustache</artifactId>
 			<version>1.14</version>
-      <scope>test</scope>
+      		<scope>test</scope>
 		</dependency>
 
 		<dependency>
