@@ -9,8 +9,6 @@ import javax.validation.Validator;
 import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
-
-import jwebform.themes.FormModelWithFormRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -21,7 +19,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import jwebform.FormModel;
 import jwebform.integration.FormRenderer;
 import jwebform.integration.FormRunnerConfig;
 import jwebform.integration.bean2form.Bean2Form;
@@ -31,6 +28,7 @@ import jwebform.integration.beanvalidation.BeanValidationValidator;
 import jwebform.integration.beanvalidation.ExternalValidation;
 import jwebform.integration.beanvalidation.ExternalValidationDescription;
 import jwebform.model.FormModelBuilder;
+import jwebform.themes.FormModelWithFormRenderer;
 import jwebform.themes.sourcecode.ThemeJavaRenderer;
 import jwebform.themes.sourcecode.mapper.StandardMapper;
 
@@ -121,10 +119,10 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
 
 
     @Bean
-    public FormRenderer formRenderer(MessageSource messageSource ) {
+    public FormRenderer formRenderer(MessageSource messageSource) {
       ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-          new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(key -> messageSource.getMessage(key, null, LocaleContextHolder
-            .getLocale()))));
+          new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(
+              key -> messageSource.getMessage(key, null, LocaleContextHolder.getLocale()))));
       return renderer;
     }
 
@@ -137,8 +135,7 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
     public FormModelBuilder formModelBuilder(FormRenderer formRenderer) {
-      // TODO: get REAL message source here!
-      return (a,b,c) -> new FormModelWithFormRenderer(a,b,c, formRenderer, msg -> msg);
+      return (a, b, c) -> new FormModelWithFormRenderer(a, b, c, formRenderer);
     }
 
   }

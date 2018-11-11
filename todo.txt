@@ -231,7 +231,7 @@ Ja: includiere FormRunner und FormGenerator in helper package
 [x] Remove this ugly msg->msg, msg->msg
 [x] Introduce real messages in spring-boot
 
-[ ] Rename this isValidatedAndOk() ... -> check symfony/.net/python... (isSubmitted && isValid) - python: isValid
+[x] Rename this isValidatedAndOk() ... -> check symfony/.net/python... (isSubmitted && isValid) - python: isValid
 [ ] Search for TODOS
 ---------- -> U!
 

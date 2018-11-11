@@ -1,4 +1,4 @@
-package jwebform.integration;
+package jwebform.integration.fromBean;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -9,6 +9,7 @@ import jwebform.env.EnvBuilder;
 import jwebform.integration.bean2form.AbstractJWebFormBean;
 import jwebform.integration.bean2form.DefaultBean2Form;
 import jwebform.integration.beanvalidation.ExternalValidation;
+import jwebform.integration.fromBean.ExampleRequests;
 
 public class TestBeanValidationViaJwebFormBean {
 
