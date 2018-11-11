@@ -1,19 +1,18 @@
 package jwebform.usage;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
 import jwebform.field.builder.BuildInType;
-import jwebform.processor.LoggingFormResult;
 import jwebform.validation.criteria.Criteria;
-import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
-import static org.junit.Assert.*;
 
 // tests the NumberInput
 public class NumberInputTest {
@@ -59,7 +58,7 @@ public class NumberInputTest {
                                                                     // (all values null)
     ));
     // first run is never ok
-    assertFalse(result.isSubmittedAndOk());
+    assertFalse(result.isValid());
   }
 
   @Test
@@ -68,7 +67,7 @@ public class NumberInputTest {
     Map<String, String> params = new HashMap<>();
     params.put("WF_SUBMITTED", "WF-id");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
-    assertTrue(result.isSubmittedAndOk());
+    assertTrue(result.isValid());
     assertEquals("", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
@@ -79,10 +78,9 @@ public class NumberInputTest {
     Map<String, String> params = new HashMap<>();
     params.put("WF_SUBMITTED", "WF-id");
     params.put(FIELD_NAME, "9");
-    FormResult result =
-      testForm.run(new EnvBuilder().of(it -> params.get(it)));
-    //result.logForm(System.err::println);
-    assertTrue(result.isSubmittedAndOk());
+    FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
+    // result.logForm(System.err::println);
+    assertTrue(result.isValid());
     assertEquals("9", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.of(9), result.getObectValue(FIELD_NAME));
   }
@@ -94,7 +92,7 @@ public class NumberInputTest {
     params.put("WF_SUBMITTED", "WF-id");
     params.put(FIELD_NAME, "a");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
-    assertTrue(!result.isSubmittedAndOk());
+    assertTrue(!result.isValid());
     assertEquals("", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }
@@ -105,7 +103,7 @@ public class NumberInputTest {
     Map<String, String> params = new HashMap<>();
     params.put("WF_SUBMITTED", "WF-id");
     FormResult result = testForm.run(new EnvBuilder().of(it -> params.get(it)));
-    assertTrue(!result.isSubmittedAndOk());
+    assertTrue(!result.isValid());
     assertEquals("", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.empty(), result.getObectValue(FIELD_NAME));
   }

@@ -5,14 +5,13 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import jwebform.FormResult;
 import jwebform.FormModel;
 import jwebform.FormModel.Html5Validation;
+import jwebform.FormResult;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
-import jwebform.processor.LoggingFormResult;
 
 public class SampleUsage {
 
@@ -48,7 +47,7 @@ public class SampleUsage {
     testExpectectedResults(result, expRes.getList());
 
 
-    assertTrue("The form should be not true, because it is the firstrun", !result.isSubmittedAndOk());
+    assertTrue("The form should be not true, because it is the firstrun", !result.isValid());
   }
 
 
@@ -106,7 +105,7 @@ public class SampleUsage {
     expRes.add("radio", true, "1");
     testExpectectedResults(result, expRes.getList());
 
-    assertTrue("The form should be true, because the inputs are ok", result.isSubmittedAndOk());
+    assertTrue("The form should be true, because the inputs are ok", result.isValid());
   }
 
   @Test
@@ -144,7 +143,7 @@ public class SampleUsage {
     testExpectectedResults(result, expRes.getList());
 
     assertTrue("The form should be false, because some fields are required or reqire a number",
-        !result.isSubmittedAndOk());
+        !result.isValid());
   }
 
 
@@ -182,7 +181,7 @@ public class SampleUsage {
     expRes.add("radio", true, "");
     testExpectectedResults(result, expRes.getList());
     assertTrue("The form should be false, because some fields are required or reqire a number",
-        !result.isSubmittedAndOk());
+        !result.isValid());
   }
 
   private FormResult getFormResult(Env env) {

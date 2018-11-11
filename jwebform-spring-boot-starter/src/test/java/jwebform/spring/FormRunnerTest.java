@@ -50,10 +50,10 @@ public class FormRunnerTest {
     FormResult fr = jwebform.run(new MyForm10());
     assertTrue(
         "The form should be not okay, beause the validation should fail ('test' is smaller than 10 chars)",
-        !fr.isSubmittedAndOk());
+        !fr.isValid());
 
     FormResult fr2 = jwebform.run(new MyForm2());
-    assertTrue("The form should be okay, 'test' is bigger than 2 chars", fr2.isSubmittedAndOk());
+    assertTrue("The form should be okay, 'test' is bigger than 2 chars", fr2.isValid());
 
   }
 

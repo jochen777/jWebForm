@@ -11,8 +11,8 @@ import jwebform.model.FormModelBuilder;
  * A form result that can additionally log the form in an convenient way
  */
 public class LoggingFormResult extends FormResult {
-  public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid, boolean isFirstrun,
-      FormModelBuilder formModelBuilder) {
+  public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid,
+      boolean isFirstrun, FormModelBuilder formModelBuilder) {
     super(formId, fieldResults, formIsValid, isFirstrun, formModelBuilder);
   }
 
@@ -33,7 +33,7 @@ public class LoggingFormResult extends FormResult {
         debugOutput(result.getChilds(), b, indent + "---- ");
       }
     });
-    return "Form valid: " + this.isSubmittedAndOk() + "\n " + b.toString();
+    return "Form valid: " + this.isValid() + "\n " + b.toString();
   }
 
   private void appendSingleType(StringBuilder b, Field container, FieldResult result,

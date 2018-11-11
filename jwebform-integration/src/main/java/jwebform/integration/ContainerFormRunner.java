@@ -42,8 +42,8 @@ public class ContainerFormRunner<T> {
   }
 
 
-  public boolean isSubmittedAndOk() {
-    return formResult.isSubmittedAndOk();
+  public boolean isValid() {
+    return formResult.isValid();
   }
 
   public boolean isSubmitted() {

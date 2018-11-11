@@ -18,7 +18,7 @@ public class TestBeanValidationViaJwebFormBean {
     Form form = new DefaultBean2Form().getFormFromBean(new TestBean());
     FormResult fr =
         form.run(new EnvBuilder().of(ExampleRequests.exampleSubmittedRequest("password1", "xy")));
-    assertTrue("Form should not be valid, because pw1 != pw2", !fr.isSubmittedAndOk());
+    assertTrue("Form should not be valid, because pw1 != pw2", !fr.isValid());
 
   }
 

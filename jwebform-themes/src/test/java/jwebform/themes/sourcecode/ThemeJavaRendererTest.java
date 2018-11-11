@@ -3,14 +3,12 @@ package jwebform.themes.sourcecode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
-
-import jwebform.FormResult;
 import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormModel.Method;
+import jwebform.FormResult;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
-import jwebform.processor.LoggingFormResult;
 import jwebform.themes.MyFormBuilder;
 import jwebform.themes.SimpleTemplate;
 import jwebform.themes.sourcecode.mapper.StandardMapper;
@@ -26,7 +24,8 @@ public class ThemeJavaRendererTest {
   @Test
   public void testnormalUsageFirstRun() {
 
-    Env env = new EnvBuilder().of(it -> null, // this simulates the first run (not submitted) (all values null)
+    Env env = new EnvBuilder().of(it -> null, // this simulates the first run (not submitted) (all
+                                              // values null)
         t -> t, (k, v) -> {
         });
     boolean result = testFormAgainstRequest(env, "test/expectedHTMLExampleForm_firstrun.html");
@@ -97,11 +96,11 @@ public class ThemeJavaRendererTest {
     try {
       filecontent = this.template.loadAndProcessTempalte(templateName);
       assertEquals(filecontent.trim(), content);
-      return result.isSubmittedAndOk();
+      return result.isValid();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return !result.isSubmittedAndOk();
+    return !result.isValid();
   }
 
 

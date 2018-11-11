@@ -1,8 +1,8 @@
 package jwebform;
 
 import jwebform.FormModel.Html5Validation;
-import jwebform.processor.FieldResults;
 import jwebform.model.FormModelBuilder;
+import jwebform.processor.FieldResults;
 
 /**
  * The result of a form.run It contains all infos, that is needed to get the entered values, the
@@ -17,8 +17,8 @@ public class FormResult {
   private final boolean isFirstRun;
 
 
-  public FormResult(String formId, FieldResults fieldResults, boolean formIsValid, boolean isFirstRun,
-      FormModelBuilder formModelBuilder) {
+  public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
+      boolean isFirstRun, FormModelBuilder formModelBuilder) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;
@@ -34,17 +34,18 @@ public class FormResult {
 
 
   /**
-   * Checks, if the Form was submitted AND correctly validated.
-   * So if this returns true, the user has submitted the form and every value in it is correct.
+   * Checks, if the Form was submitted AND correctly validated. So if this returns true, the user
+   * has submitted the form and every value in it is correct.
+   * 
    * @return
    */
-  public final boolean isSubmittedAndOk() {
+  public final boolean isValid() {
     return formIsValid;
   }
 
 
 
-  // Please use isSubmittedAndOk (This name is much more readable)
+  // Please use isValid (This name is much more readable)
   @Deprecated
   public final boolean isOK() {
     return formIsValid;
@@ -52,23 +53,19 @@ public class FormResult {
 
 
   /**
-   * Checks, the form was submitted.
-   * If not submitted, it will return true
-   * If submitted, it will return false
+   * Checks, the form was submitted. If not submitted, it will return true If submitted, it will
+   * return false
    *
    * You can use this to show to the user some explanations in case of errors or not.
    *
    *
-   * Note: This does not correspond to valdiation errors.
-   * If the user submitted and the form is not correct, this will return true.
+   * Note: This does not correspond to valdiation errors. If the user submitted and the form is not
+   * correct, this will return true.
+   * 
    * @return
    */
   public final boolean isSubmitted() {
     return !isFirstRun;
-  }
-
-  public final boolean isSubmittedAndNotOk() {
-    return !isFirstRun && !formIsValid;
   }
 
 

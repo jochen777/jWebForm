@@ -10,8 +10,8 @@ import java.io.Reader;
 import java.util.Map;
 import com.samskivert.mustache.Mustache;
 import jwebform.Form;
-import jwebform.FormResult;
 import jwebform.FormModel.Method;
+import jwebform.FormResult;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
 import jwebform.integration.FormRenderer;
@@ -93,17 +93,17 @@ public class ThemeMustacheRendererTest {
 
 
 
-    FormRenderer renderer = new ThemeMustacheRenderer(new MustacheRendererImpl(), msg-> msg);
+    FormRenderer renderer = new ThemeMustacheRenderer(new MustacheRendererImpl(), msg -> msg);
     String content = renderer.render(result, Method.POST, true).trim();
     String filecontent;
     try {
       filecontent = this.template.loadAndProcessTempalte(templateName);
       assertEquals(filecontent.trim(), content);
-      return result.isSubmittedAndOk();
+      return result.isValid();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return !result.isSubmittedAndOk();
+    return !result.isValid();
   }
 
 
