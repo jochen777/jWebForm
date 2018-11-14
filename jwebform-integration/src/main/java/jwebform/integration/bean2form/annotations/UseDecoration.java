@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UseDecoration {
 
-  String label();
+  String label() default "";
   String helpText() default "";
   String placeholder() default "";
 
