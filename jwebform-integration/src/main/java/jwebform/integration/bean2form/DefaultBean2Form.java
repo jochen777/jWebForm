@@ -22,6 +22,7 @@ import jwebform.field.structure.Decoration;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldType;
 import jwebform.integration.bean2form.annotations.IgnoreField;
+import jwebform.integration.bean2form.annotations.IsRequired;
 import jwebform.integration.bean2form.annotations.UseDecoration;
 import jwebform.integration.bean2form.annotations.UseFieldType;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
@@ -105,7 +106,7 @@ public class DefaultBean2Form implements Bean2Form {
       Decoration decoration = getDecoration(fieldOfBean, name);
 
       Optional<FieldType> oFieldType = checkAnnoation(fieldOfBean, name, initialValue);
-      Criterion[] criteras = getCriterias(bean, name);
+      Criterion[] criteras = getCriterias(bean, name, fieldOfBean);
       if (oFieldType.isPresent()) {
         fields.add(new Field(oFieldType.get(), decoration, criteras));
       } else {
@@ -130,24 +131,27 @@ public class DefaultBean2Form implements Bean2Form {
   }
 
 
-  private Criterion[] getCriterias(Object bean, String name) {
+  private Criterion[] getCriterias(Object bean, String name, java.lang.reflect.Field fieldOfBean) {
+
+    List<Criterion> criterionList = new ArrayList<>();
+
+    if (fieldOfBean.isAnnotationPresent(IsRequired.class)) {
+      criterionList.add(Criteria.required());
+    }
+
 
     Set<ExternalValidationDescription> annotations =
         beanValidationRuleDeliverer.getCriteriaForField(bean, name);
     if (!annotations.isEmpty()) {
-      List<Criterion> criterionList = new ArrayList<>();
       for (ExternalValidationDescription a : annotations) {
-        if (a.name.contains("NotEmpty")) {
+        if (a.name.contains("NotEmpty")) {  // RFE better instanceof ... Is there a superclass?
           criterionList.add(Criteria.required());
-        } else if (a.name.contains("Size")) {
-
+        } else if (a.name.contains("Size")) {  // RFE better instanceof ... Is there a superclass?
           criterionList.add(Criteria.maxLength((Integer) a.parameters.get("max")));
         }
-
       }
-      return criterionList.toArray(new Criterion[0]);
     }
-    return new Criterion[0];
+    return criterionList.toArray(new Criterion[criterionList.size()]);
   }
 
 
