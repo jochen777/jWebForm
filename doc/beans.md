@@ -50,6 +50,7 @@ Theses types will be converted automatically for you.
 | @UseFieldType | Forces a specific type | @UseFieldType(TextAreaType.class) String notes;|
 | @IgnoreField | Ignores the field in the bean and will not process it | @IgnoreField String secret;|
 | @UseDecoration | Fills in decoration for this field | @UseDecoration(label="Your first name") String firstnaem;|
+| @IsRequired| Marks the field as required| @IsRequired |
 
 ## Bean Validation
 
@@ -59,7 +60,7 @@ Yes, you can use bean validation too. Be aware, that you have to tell this the B
 
 public class MyForm {
 
-    @NotEmpty    
+    @Size(min=3, max=20)    
     public String firstname="";
 }
 ```
