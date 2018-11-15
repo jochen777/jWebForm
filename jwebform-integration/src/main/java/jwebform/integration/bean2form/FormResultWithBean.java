@@ -18,6 +18,7 @@ public class FormResultWithBean extends FormResult {
     /*
      * if (bean instanceof JWebFormBean) { fillBean(bean, ((JWebFormBean) bean).postRun(this)); }
      * else { fillBean(bean, this); }
+     *
      */
   }
 
