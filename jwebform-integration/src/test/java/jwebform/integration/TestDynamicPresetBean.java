@@ -33,10 +33,11 @@ public class TestDynamicPresetBean {
       ExampleRequests.emptySessionGet(), ExampleRequests.emptySessionPut(),
       ExampleRequests.stupidModel(), formRunnerConfig);
 
-    FormResultWithBean fr = (FormResultWithBean) jwebform.run(new DemoForm("peter"));
+    DemoForm demoForm = new DemoForm("peter");
+    FormResultWithBean fr = jwebform.runWithBean(demoForm);
     assertTrue(fr.isValid());
     assertEquals(
-      "Jochen", ((DemoForm)fr.getBean()).firstname);
+      "Jochen", demoForm.firstname);
   }
 
 

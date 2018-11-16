@@ -6,6 +6,7 @@ import jwebform.FormModel.Method;
 import jwebform.FormResult;
 import jwebform.env.Env;
 import jwebform.integration.bean2form.FormResultWithBean;
+import jwebform.model.FormModelBuilder;
 import jwebform.processor.FormGenerator;
 import jwebform.processor.FormResultBuilder;
 
@@ -32,5 +33,28 @@ class InternalFormRunner {
 
     return fr;
   }
+
+  public FormResult runWithBFormGenerator(FormGenerator formGenerator, Env env, BiConsumer<String, Object> model,
+    FormRunnerConfig formRunnerConfig){
+    Form form = formGenerator.generateForm();
+    FormResultBuilder formResultBuilder = standardFormResultBuidler;
+    return runInternal(form, env, formResultBuilder, formRunnerConfig, model);
+  }
+
+
+  public FormResultWithBean runWithBean(Object input, Env env, BiConsumer<String, Object> model,
+    FormRunnerConfig formRunnerConfig){
+    Form form = formRunnerConfig.bean2Form.getFormFromBean(input);
+    FormResultBuilder formResultBuilder = (a, b, c, d, e) -> new FormResultWithBean(a, b, c, d, e, input);
+    return (FormResultWithBean) runInternal(form, env, formResultBuilder, formRunnerConfig, model);
+  }
+
+  private FormResult runInternal(Form form, Env env, FormResultBuilder formResultBuilder,
+    FormRunnerConfig formRunnerConfig, BiConsumer<String, Object> model) {
+    FormResult fr = form.run(env, formResultBuilder, formRunnerConfig.formModelBuilder);
+    model.accept(formRunnerConfig.templateName, fr);
+    return fr;
+  }
+
 
 }

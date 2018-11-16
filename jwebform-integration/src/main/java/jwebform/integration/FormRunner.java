@@ -7,6 +7,8 @@ import jwebform.env.EnvBuilder;
 import jwebform.env.Request;
 import jwebform.env.SessionGet;
 import jwebform.env.SessionSet;
+import jwebform.integration.bean2form.FormResultWithBean;
+import jwebform.processor.FormGenerator;
 
 // Container, that holds a jWebForm Form (or a normal bean) and provides a facade to jwebform
 // objects
@@ -24,6 +26,16 @@ public class FormRunner {
     this.formRunnerConfig = formRunnerConfig;
   }
 
+  public FormResultWithBean runWithBean(Object bean) {
+    return formRunner.runWithBean(bean, env, model, formRunnerConfig);
+  }
+
+  public FormResult runWitFormGenerator(FormGenerator formGenerator) {
+    return formRunner.runWithBFormGenerator(formGenerator, env, model, formRunnerConfig);
+  }
+
+
+  @Deprecated // Use either runWithBean or runWithFormGenerator
   public FormResult run(Object formOrBean) {
     return formRunner.run(formOrBean, env, model, formRunnerConfig);
   }
