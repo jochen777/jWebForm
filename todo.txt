@@ -232,7 +232,9 @@ Ja: includiere FormRunner und FormGenerator in helper package
 [x] Introduce real messages in spring-boot
 
 [x] Rename this isValidatedAndOk() ... -> check symfony/.net/python... (isSubmitted && isValid) - python: isValid
-[ ] Introduce own "required annotation"
+[x] Introduce own "required annotation"
+[x] Test for FormRunner with dynamic Bean
+[ ] Possible to use FormRunner with Generics?
 [ ] Search for TODOS
 ---------- -> U!
 
