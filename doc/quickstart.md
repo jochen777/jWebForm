@@ -32,7 +32,7 @@ Fill a Form object with your Form-fields:
     }
     
 ```
-Or define your form as a Java POJO:
+Or define your form as a Java POJO: (see jwebform-integration project)
 
 ```Java
     public class MyForm {

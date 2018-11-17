@@ -16,8 +16,9 @@ Add this dependency to your project:
 ...
 ```
 
-## Define a form (Simple case)
+# Simple Case
 
+## Define a Form
 
 Define a POJO:
 (See: [Working with beans](beans.md))
@@ -57,9 +58,18 @@ Write a controller, like this with ContainerFormRunner<Myform> form as argument:
 
 ```
 
+## Template
+
+In your template, just refer to the generated HTML
+
+```HTML
+
+  {{{ form.formModel.html }}}
+
+```
 
 
-## Complex case
+# Complex case
 
 In case, you need greater control over your form, beans are sometimes to limited. 
 (For example, one user needs more fields, than another)
