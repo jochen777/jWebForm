@@ -34,7 +34,6 @@ public class SimpleTemplate {
     try {
       return readFile(f);
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return "";
@@ -70,7 +69,6 @@ public class SimpleTemplate {
     for (String snipName : snips.keySet()) {
       finalContent = finalContent.replaceAll("##" + snipName + "##", snips.get(snipName));
     }
-    // TODO Auto-generated method stub
     return finalContent;
   }
 

@@ -6,7 +6,7 @@ public class Tag {
   private TagAttributes tagAttributes;
   private String inner;
 
-  // TODO: Introduce "inner" to build tag-hierarchies
+  // RFE: Introduce "inner" to build tag-hierarchies
 
   public Tag(String name) {
     this.name = name;

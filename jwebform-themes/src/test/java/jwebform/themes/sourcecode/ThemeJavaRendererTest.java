@@ -15,12 +15,10 @@ import jwebform.themes.sourcecode.mapper.StandardMapper;
 
 public class ThemeJavaRendererTest {
 
-  // TODO: Test if complete form is valid!!
   String formId = "fid";
 
   SimpleTemplate template = new SimpleTemplate();
 
-  // TODO: Enable this again!!
   @Test
   public void testnormalUsageFirstRun() {
 

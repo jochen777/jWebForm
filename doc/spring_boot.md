@@ -16,24 +16,10 @@ Add this dependency to your project:
 ...
 ```
 
-## Define a form
+## Define a form (Simple case)
 
-Write a class, that builds the form. You have to implement the "FormGenerator" interface.
-```Java
-public class MyForm implements FormGenerator{ 
-    @Override public Form generateForm() {
-      return FormBuilder.simple().typeBuilder(
-        text("firstname").
-          label("Firstname"), 
-        text("email").
-          label("Email").
-          criteria(Criteria.required(), Criteria.email())
-        ).build();
-    }
-}    
-```
 
-or define a POJO:
+Define a POJO:
 (See: [Working with beans](beans.md))
 
 ```Java
@@ -55,25 +41,54 @@ or define a POJO:
 
 ## Controller
 
-Write a controller, like this with SimpleJWebform<Myform> form as argument: 
-(MyForm has to implement the FormGenerator interface!)
+Write a controller, like this with ContainerFormRunner<Myform> form as argument: 
 
 ```Java
 
   @RequestMapping("/form")
-  public String demoJWebForm(ContainerFormRunner<MyForm> form) {   // argument resolver will fill request-vars
+  public String index(ContainerFormRunner<MyForm> form) {   // argument resolver will fill request-vars
   
     if (form.isValid()) {   // check if the form was submitted and is valid
-      log.debug("Valid firstname from form:"  + form.getStringValue("firstname"));   // if everything was okay, we can get the values from the form
       
-      log.debug("Valid firstname from form:"  + form.getBean().firstname);   // in case you used the POJO way
+      log.debug("Valid firstname from form:"  + form.getBean().firstname);   
       
     }
-    
-    return "index"; // the template, that renders the form
   }
 
 ```
+
+
+
+## Complex case
+
+In case, you need greater control over your form, beans are sometimes to limited. 
+(For example, one user needs more fields, than another)
+
+### Define the form
+
+Write a class, that builds the form. You have to implement the "FormGenerator" interface.
+```Java
+public class UserForm implements FormGenerator{ 
+
+    private final String userFirstname;
+    
+    public MyForm(String userFirstname){
+      this.userFirstname = userFirstname;
+    }
+
+    @Override public Form generateForm() {
+      return FormBuilder.simple().typeBuilder(
+        text("firstname", userFirstname).
+          label("Firstname"), 
+        text("email").
+          label("Email").
+          criteria(Criteria.required(), Criteria.email())
+        ).build();
+    }
+}    
+```
+
+### Controller 
 
 If you need to pass parameters to your formBuilder, use JWebForm and pass the FormGenerator instance to the run method.
 
@@ -83,11 +98,11 @@ Example
 
 ...
 public String demoJWebForm(FormRunner form) {   // arguemnt resulover will fill request-vars
-    MyForm myForm = new MyForm(LocalDate.now())
-    FormResult formResult = form.run(myForm);   
+    UserForm userForm = new UserForm(userService.provideUsersFirstname());
+    FormResult formResult = form.run(userForm);   
     
     if (formResult.isValid()) {   // check if the form was submitted and is valid
-      log.info(myform.date);  // access bean properties just by calling them
+      log.info(userForm.getStringValue("firstname");  
 ...
 ```
 
@@ -95,4 +110,4 @@ public String demoJWebForm(FormRunner form) {   // arguemnt resulover will fill 
 Note: Output inside the template is exact like in the other frameworks. 
 You will find the view in the model with the key __form.formModel__. See: [Rendering the form in template](template.md)
 
-Additionally you will find in __form.formModel.html__ the html for the form.
+Additionally you will find in __form.formModel.html__ the html for the form coming from the theme (see jwebform-themes).

@@ -19,7 +19,6 @@ import jwebform.themes.MyFormBuilder;
 import jwebform.themes.SimpleTemplate;
 
 public class ThemeMustacheRendererTest {
-  // TODO: Test if complete form is valid!!
   String formId = "fid";
 
   SimpleTemplate template = new SimpleTemplate();

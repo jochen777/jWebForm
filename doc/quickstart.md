@@ -61,17 +61,16 @@ Write a controller, that uses this form: (Here Spring MVC)
   Form form = buildForm(); // See "Define a form"
 
   @RequestMapping("/form")
-  public String demoJWebForm(HttpServletRequest request, Model model) {
+  public void index(HttpServletRequest request, Model model) {
    
     FormResult formResult = form.run((key) -> request.getParameter(key)); // pass the request-params via lambda 
     
     model.addAttribute("form", formResult); 
     
-    if (formResult.isSubmittedAndOk()) {   // check if the form was submitted and is valid
+    if (formResult.isValid()) {   // check if the form was submitted and is valid
       log.debug("Valid firstname from form:"  + formResult.getStringValue("firstname"));   // if everything was okay, we can get the values from the form
     }
     
-    return "index"; // the template, that renders the form
   }
 
 ```
