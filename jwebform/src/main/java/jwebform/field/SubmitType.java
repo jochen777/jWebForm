@@ -7,15 +7,9 @@ import jwebform.field.structure.StaticFieldInfo;
 
 public class SubmitType implements SingleFieldType {
 
-  public final String label;
   public final String name;
 
-  public SubmitType(String label) {
-    this(label, "submit");
-  }
-
-  public SubmitType(String label, String name) {
-    this.label = label;
+  public SubmitType(String name) {
     this.name = name;
   }
 

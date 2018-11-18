@@ -61,7 +61,8 @@ public class MyFormBuilder {
     select                ("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"}).
       label          ("Gender"),
 
-    submit("Submit"),
+    submit                ("submit").
+      label               ("Submit"),
 
     checkbox              ("chk", true).
       criteria       (req).

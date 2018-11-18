@@ -47,12 +47,12 @@ public class FormRunnerTest {
         ExampleRequests.emptySessionGet(), ExampleRequests.emptySessionPut(),
         ExampleRequests.stupidModel(), formRunnerConfig);
 
-    FormResult fr = jwebform.run(new MyForm10());
+    FormResult fr = jwebform.runWithBean(new MyForm10());
     assertTrue(
         "The form should be not okay, beause the validation should fail ('test' is smaller than 10 chars)",
         !fr.isValid());
 
-    FormResult fr2 = jwebform.run(new MyForm2());
+    FormResult fr2 = jwebform.runWithBean(new MyForm2());
     assertTrue("The form should be okay, 'test' is bigger than 2 chars", fr2.isValid());
 
   }

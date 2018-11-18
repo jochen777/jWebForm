@@ -60,7 +60,10 @@ Write a controller, like this with ContainerFormRunner<Myform> form as argument:
 
 ## Template
 
-In your template, just refer to the generated HTML
+In your template, just refer to the generated HTML. 
+The default implementatin will deliver HTML for Bootstrap3.
+You can adapt it to your own needs or render the form via 
+your known template-mechanisms.  
 
 ```HTML
 

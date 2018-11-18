@@ -118,6 +118,11 @@ public class BuildInType {
     return new FieldBuilder().withTypeSupplier(() -> new SelectDateType(name,  initialValue, yearStart, yearEnd));
   }
 
+  // without initial value
+  public static FieldBuilder selectDate(String name, int yearStart, int yearEnd){
+    return new FieldBuilder().withTypeSupplier(() -> new SelectDateType(name,  yearStart, yearEnd));
+  }
+
   public static FieldBuilder textDate(String name, LocalDate initialValue){
     return new FieldBuilder().withTypeSupplier(() -> new TextDateType(name,  initialValue));
   }

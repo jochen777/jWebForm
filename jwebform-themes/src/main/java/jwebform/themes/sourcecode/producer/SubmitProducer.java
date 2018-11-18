@@ -17,7 +17,7 @@ public class SubmitProducer implements HTMLProducer {
   public String getHTML(ProducerInfos pi) {
     SubmitType type = (SubmitType) pi.getType();
     return "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"submit\" name=\"" + type.name
-        + "\" value=\"" + type.label + "\">\n";
+        + "\" value=\"" + pi.getDecoration().getLabel() + "\">\n";
   }
 
 }

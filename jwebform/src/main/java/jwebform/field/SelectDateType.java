@@ -30,21 +30,33 @@ public class SelectDateType implements GroupFieldType {
 
   private final  DateTypeHelper helper;
 
+  //
   public SelectDateType(String name, LocalDate initialValue, int yearStart, int yearEnd) {
+    this(name, yearStart, yearEnd, String.valueOf(initialValue.getDayOfMonth()), String.valueOf(initialValue.getMonthValue()),
+      String.valueOf(initialValue.getYear()));
+  }
 
-    this.day = new SelectType(name + "_day", String.valueOf(initialValue.getDayOfMonth()),
-        CommonSelects.build().buildDays()).of(new Decoration("Day"), Criteria.number());
+  // without initial value!
+  public SelectDateType(String name, int yearStart, int yearEnd) {
+    this(name, yearStart, yearEnd, "", "",
+      "");
+  }
 
-    this.month = new SelectType(name + "_month", String.valueOf(initialValue.getMonthValue()),
-        CommonSelects.build().buildMonths()).of(new Decoration("Month"), Criteria.number());
+  private SelectDateType(String name, int yearStart, int yearEnd,
+    String initialValueDay, String initialValueMonth, String initialValueYear) {
 
-    this.year = new SelectType(name + "_year", String.valueOf(initialValue.getYear()),
-        CommonSelects.build().getYears(yearStart, yearEnd)).of(
-            new Decoration("Year"), Criteria.number());
+    this.day = new SelectType(name + "_day", initialValueDay,
+      CommonSelects.build().buildDays()).of(new Decoration("Day"), Criteria.number());
+
+    this.month = new SelectType(name + "_month", initialValueMonth,
+      CommonSelects.build().buildMonths()).of(new Decoration("Month"), Criteria.number());
+
+    this.year = new SelectType(name + "_year", initialValueYear,
+      CommonSelects.build().getYears(yearStart, yearEnd)).of(
+      new Decoration("Year"), Criteria.number());
 
     helper = new DateTypeHelper(day, month, year,  name);
   }
-
 
 
   @Override
