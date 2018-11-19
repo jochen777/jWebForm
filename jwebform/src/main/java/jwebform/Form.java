@@ -29,14 +29,14 @@ public final class Form {
 
 
   // process each fieldType, run validations
-  public final FormResult run(Env env, FormResultBuilder formResultBuilder, FormModelBuilder formModelBuilder) {
+  // RFE: We don't need the FormModelBuilder here really. It should be enough, to inject this to the formResuultBuilder
+  public final FormResult run(Env env, FormResultBuilder formResultBuilder) {
     FieldResults result = p.run(env.getEnvWithSumitInfo(id), group);
-    return formResultBuilder.build(id, result, p.checkAllValidationResults(result), env.getEnvWithSumitInfo(id).isFirstRun(),
-      formModelBuilder);
+    return formResultBuilder.build(id, result, p.checkAllValidationResults(result), env.getEnvWithSumitInfo(id).isFirstRun());
   }
 
   public final FormResult run(Env env) {
-    return run(env, FormResult::new, FormModel::new);
+    return run(env, FormResult::new);
   }
 
 

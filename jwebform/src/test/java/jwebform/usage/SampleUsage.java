@@ -33,7 +33,7 @@ public class SampleUsage {
     expRes.add("dateInput", false, "");
     expRes.add("textInput2", false, "Peter\"Paul");
     expRes.add("gender", false, "");
-    expRes.add("submit", false, "");
+    expRes.add("Submit", false, "");
     expRes.add("chk", false, "true");
     expRes.add("", true, "");
     expRes.add("", true, "");
@@ -93,7 +93,7 @@ public class SampleUsage {
     expRes.add("dateInput", true, "0001-01-01");
     expRes.add("textInput2", true, "1");
     expRes.add("gender", true, "m");
-    expRes.add("submit", true, "");
+    expRes.add("Submit", true, "");
     expRes.add("chk", true, "true");
     expRes.add("", true, "");
     expRes.add("", true, "");
@@ -130,7 +130,7 @@ public class SampleUsage {
     expRes.add("dateInput", false, "");
     expRes.add("textInput2", false, "");
     expRes.add("gender", true, "");
-    expRes.add("submit", true, "");
+    expRes.add("Submit", true, "");
     expRes.add("chk", false, "");
     expRes.add("", true, "");
     expRes.add("", true, "");
@@ -169,7 +169,7 @@ public class SampleUsage {
     expRes.add("dateInput", false, "");
     expRes.add("textInput2", false, "");
     expRes.add("gender", true, "");
-    expRes.add("submit", true, "");
+    expRes.add("Submit", true, "");
     expRes.add("chk", false, "");
     expRes.add("", true, "");
     expRes.add("", true, "");

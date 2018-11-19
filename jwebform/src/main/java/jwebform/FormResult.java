@@ -16,14 +16,22 @@ public class FormResult {
   private final FormModelBuilder formModelBuilder;
   private final boolean isFirstRun;
 
-
   public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
-      boolean isFirstRun, FormModelBuilder formModelBuilder) {
+    boolean isFirstRun, FormModelBuilder formModelBuilder) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;
     this.isFirstRun = isFirstRun;
     this.formModelBuilder = formModelBuilder;
+  }
+
+  public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
+      boolean isFirstRun) {
+    this.formId = formId;
+    this.formIsValid = formIsValid;
+    this.fieldResults = fieldResults;
+    this.isFirstRun = isFirstRun;
+    this.formModelBuilder = FormModel::new;
   }
 
   @Override

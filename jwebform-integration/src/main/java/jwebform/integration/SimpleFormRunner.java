@@ -15,10 +15,10 @@ public class SimpleFormRunner {
 
 
   public static FormResult run(FormGenerator generator, Map<String, String> params) {
-    return SimpleFormRunner.run(generator, params, FormResult::new, FormModel::new);
+    return SimpleFormRunner.run(generator, params, FormResult::new);
   }
 
-  public static FormResult run(FormGenerator generator, Map<String, String> params, FormResultBuilder formResultBuilder, FormModelBuilder formModelBuilder) {
-    return generator.generateForm().run(new EnvBuilder().of(params::get), formResultBuilder, formModelBuilder);
+  public static FormResult run(FormGenerator generator, Map<String, String> params, FormResultBuilder formResultBuilder) {
+    return generator.generateForm().run(new EnvBuilder().of(params::get), formResultBuilder);
   }
 }

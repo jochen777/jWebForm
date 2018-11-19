@@ -1,5 +1,6 @@
 package jwebform.processor;
 
+import jwebform.FormModel;
 import jwebform.FormResult;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
@@ -11,6 +12,13 @@ import jwebform.model.FormModelBuilder;
  * A form result that can additionally log the form in an convenient way
  */
 public class LoggingFormResult extends FormResult {
+
+  public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid,
+    boolean isFirstrun) {
+    super(formId, fieldResults, formIsValid, isFirstrun, FormModel::new);
+  }
+
+
   public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid,
       boolean isFirstrun, FormModelBuilder formModelBuilder) {
     super(formId, fieldResults, formIsValid, isFirstrun, formModelBuilder);

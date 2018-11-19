@@ -12,8 +12,8 @@ public class FormResultWithBean extends FormResult {
   private final Object bean;
 
   public FormResultWithBean(String formId, FieldResults fieldResults, boolean formIsValid, boolean isFirstRun,
-      FormModelBuilder viewBuilder, Object bean) {
-    super(formId, fieldResults, formIsValid, isFirstRun, viewBuilder);
+      FormModelBuilder modelBuikder, Object bean) {
+    super(formId, fieldResults, formIsValid, isFirstRun, modelBuikder);
     this.bean = bean;
     /*
      * if (bean instanceof JWebFormBean) { fillBean(bean, ((JWebFormBean) bean).postRun(this)); }
