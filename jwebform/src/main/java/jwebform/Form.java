@@ -10,19 +10,19 @@ import jwebform.processor.Processor;
 import jwebform.model.FormModelBuilder;
 
 /**
- * Represents a form Holds Fields and a formId - and can be "run"
+ * Represents a form
+ * Holds Fields and a formId - and can be "run"
  */
 public final class Form {
 
   private final String id;
 
   private final GroupFieldType group;
-  // RFE: maybe we should inject this in the fututer too.
+  // RFE: maybe we should inject this in the future too.
   private final Processor p = new Processor();
 
 
-  public Form(String id, GroupFieldType group
-      ) {
+  public Form(String id, GroupFieldType group) {
     this.id = id;
     this.group = group;
   }
