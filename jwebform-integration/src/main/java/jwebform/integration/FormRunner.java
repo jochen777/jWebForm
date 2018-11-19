@@ -17,7 +17,7 @@ public class FormRunner {
   private final Env env;
   private final BiConsumer<String, Object> model;
   private final FormRunnerConfig formRunnerConfig;
-  private final InternalFormRunner formRunner = new InternalFormRunner();
+  private final InternalFormRunner internalFormRunner = new InternalFormRunner();
 
   public FormRunner(Request request, SessionGet sessionGet, SessionSet sessionSet,
       BiConsumer<String, Object> model, FormRunnerConfig formRunnerConfig) {
@@ -27,17 +27,17 @@ public class FormRunner {
   }
 
   public FormResultWithBean runWithBean(Object bean) {
-    return formRunner.runWithBean(bean, env, model, formRunnerConfig);
+    return internalFormRunner.runWithBean(bean, env, model, formRunnerConfig);
   }
 
   public FormResult runWitFormGenerator(FormGenerator formGenerator) {
-    return formRunner.runWithBFormGenerator(formGenerator, env, model, formRunnerConfig);
+    return internalFormRunner.runWithBFormGenerator(formGenerator, env, model, formRunnerConfig);
   }
 
 
   @Deprecated // Use either runWithBean or runWithFormGenerator
   public FormResult run(Object formOrBean) {
-    return formRunner.run(formOrBean, env, model, formRunnerConfig);
+    return internalFormRunner.run(formOrBean, env, model, formRunnerConfig);
   }
 
 
