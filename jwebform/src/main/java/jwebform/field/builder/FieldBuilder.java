@@ -21,7 +21,7 @@ public class FieldBuilder {
   private Supplier<FieldType> typeSupplier;
 
 
-  FieldBuilder withTypeSupplier(Supplier<FieldType> typeSupplier) {
+  public FieldBuilder withTypeSupplier(Supplier<FieldType> typeSupplier) {
     this.typeSupplier = typeSupplier;
     return this;
   }

@@ -27,12 +27,12 @@ Define a POJO:
     public class MyForm {
   
       @UseDecoration(label="Firstname")
-      String firstname;
+      public String firstname;
       
       @UseDecoration(label="Email")
       @NotEmpty
       @Email(message = "Email should be valid")
-      String email;
+      public String email;
             
     }
     

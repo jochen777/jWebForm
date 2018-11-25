@@ -27,9 +27,7 @@ public final class Form {
     this.group = group;
   }
 
-
   // process each fieldType, run validations
-  // RFE: We don't need the FormModelBuilder here really. It should be enough, to inject this to the formResuultBuilder
   public final FormResult run(Env env, FormResultBuilder formResultBuilder) {
     FieldResults result = p.run(env.getEnvWithSumitInfo(id), group);
     return formResultBuilder.build(id, result, p.checkAllValidationResults(result), env.getEnvWithSumitInfo(id).isFirstRun());
@@ -39,8 +37,6 @@ public final class Form {
     return run(env, FormResult::new);
   }
 
-
-
   public final List<Field> getFields() {
     return group.getChilds();
   }
@@ -48,7 +44,4 @@ public final class Form {
   public final String getId() {
     return id;
   }
-
-
-
 }

@@ -32,13 +32,12 @@ public class CommonSelects {
 
   public List<SelectType.SelectInputEntry> buildDays() {
     List<SelectType.SelectInputEntry> daySelect = buildMap(1, 31, "jwebform.select.day");
-    daySelect.add(0, new SelectType.SelectInputEntry("", "jwebform.select.date.select_day"));
     return daySelect;
   }
 
   public List<SelectType.SelectInputEntry> buildMonths() {
     List<SelectType.SelectInputEntry> monthsList = new ArrayList<>();
-    monthsList.add(new SelectType.SelectInputEntry("", "jwebform.select.date.select_month"));
+    monthsList.add(new SelectType.SelectInputEntry("", "jwebform.select.month"));
     for (int i = 1; i <= 12; i++) {
       monthsList.add(
         new SelectType.SelectInputEntry(Integer.toString(i), "jwebform.select." + months[i - 1]));
@@ -53,7 +52,6 @@ public class CommonSelects {
       endYear = tmp;
     }
     List<SelectType.SelectInputEntry> yearMap =  builReverseMap(startYear, endYear, "jwebform.select.year");
-    yearMap.add(0, new SelectType.SelectInputEntry("", "jwebform.select.date.select_year"));
     return yearMap;
   }
 
