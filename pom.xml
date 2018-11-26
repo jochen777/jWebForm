@@ -1,21 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.cyclon-softworx</groupId>
-	<artifactId>jwebform-project</artifactId>
+	<artifactId>jwebform-parent</artifactId>
 	<version>0.0.11</version>
 
 	<packaging>pom</packaging>
   
   <modules>
     <module>jwebform</module>
-    <module>jwebform-spring-boot-starter</module>
+    <!-- <module>jwebform-spring-boot-starter</module>  -->
     <module>jwebform-integration</module>
     <module>jwebform-themes</module>
   </modules>
 	
-	<name>jWebform Project</name>
+	<name>jwebform-parent</name>
   <description>jWebform Project</description>
 	<url>https://github.com/jochen777/jWebForm</url>
 
