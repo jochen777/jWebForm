@@ -9,7 +9,7 @@
   
   <modules>
     <module>jwebform</module>
-    <!-- <module>jwebform-spring-boot-starter</module>  -->
+    <module>jwebform-spring-boot-starter</module>
     <module>jwebform-integration</module>
     <module>jwebform-themes</module>
   </modules>
