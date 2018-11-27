@@ -11,7 +11,7 @@ Add this dependency to your project:
         <dependency>
             <groupId>de.cyclon-softworx</groupId>
             <artifactId>jwebform-spring-boot-starter</artifactId>
-            <version>0.0.10-SNAPSHOT</version>
+            <version>0.0.11</version>
         </dependency>
 ...
 ```
