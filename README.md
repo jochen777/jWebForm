@@ -1,6 +1,6 @@
 # jWebForm
 
-HTML forms in Java made easy.  
+HTML forms in Java made easy.  Independent of Web-Frameworks.
 
 (Please be aware, that this is beta software. API can still change in a greater detail. 
 Wait for the version 1.0.0 to adapt it.)
@@ -34,7 +34,7 @@ jWebForm is for java what Symfony-Forms is for PHP or Rose::HTML for Perl.
 
 Example project (Spring-Web MVC):
 
-https://github.com/jochen777/jWebformExample 
+https://github.com/jochen777/jWebFormSpringBoot2Thymeleaf
 
 ## When to use it
 
@@ -53,7 +53,7 @@ Especially useful:
 <dependency>
     <groupId>de.cyclon-softworx</groupId>
     <artifactId>jWebForm</artifactId>
-    <version>0.0.10</version> <!-- check on maven central for the latest version -->
+    <version>0.0.11</version> <!-- check on maven central for the latest version -->
 </dependency>
 ...
 ```
