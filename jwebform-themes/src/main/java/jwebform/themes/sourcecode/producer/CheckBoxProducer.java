@@ -19,8 +19,8 @@ public class CheckBoxProducer implements HTMLProducer {
     String aria = renderer.renderAriaDescribedBy(pi, pi.getDecoration());
     String val = renderer.renderValue(pi.getValue());
     boolean checked = (boolean) pi.getValueObject();
-    String inputHtml = "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"checkbox\" name=\""
-        + pi.getName() + "\" value" + val + (checked ? " checked" : "") + aria + ">";
+    String inputHtml = "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"checkbox\" id=\""+pi.getFormId()+"-"+pi.getName()+"\" name=\""
+        + pi.getName() + "\" value" + val + (checked ? " checked" : "") + aria + " class=\"form-check-input\" >";
     return renderer.renderInputFree(inputHtml, pi, pi.getDecoration(),
         ElementRenderer.InputVariant.checkbox);
   }

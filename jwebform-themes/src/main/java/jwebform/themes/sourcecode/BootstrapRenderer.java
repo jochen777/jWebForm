@@ -25,8 +25,6 @@ public class BootstrapRenderer implements ElementRenderer {
     String aria = renderAriaDescribedBy(pi, decoration);
     String val = renderValue(pi.getValue());
 
-
-
     return renderInputFree("<input class=\"form-control\" tabindex=\"" + pi.getTabIndex()
         + "\" type=\"" + type + "\" name=\"" + pi.getName() + "\" value" + val + placeholder + aria
         + renderRequired(pi.getValidator()) + renderMaxLen(pi.getValidator()) + additional + ">",
@@ -72,24 +70,25 @@ public class BootstrapRenderer implements ElementRenderer {
   public String renderInputFree(String free, ProducerInfos pi, Decoration decoration,
       ElementRenderer.InputVariant variant) {
     String wrapperClass;
-    boolean renderLabelOutside = false;
+    PlaceWhereToRenderLabel placeWhereToRenderLabel = PlaceWhereToRenderLabel.overInput;
     switch (variant) {
       case radio:
         wrapperClass = "radio";
-        renderLabelOutside = true;
+        placeWhereToRenderLabel = PlaceWhereToRenderLabel.outside;
         break;
       case checkbox:
-        wrapperClass = "form-check";
+        wrapperClass = getGroupClass() + " form-check";
+        placeWhereToRenderLabel = PlaceWhereToRenderLabel.underInput;
         break;
       default:
         wrapperClass = getGroupClass();
     }
-    return renderInputFree(free, pi, decoration, wrapperClass, renderLabelOutside);
+    return renderInputFree(free, pi, decoration, wrapperClass, placeWhereToRenderLabel);
   }
 
 
   private String renderInputFree(String free, ProducerInfos pi, Decoration decoration,
-      String classNameWrapper, boolean renderLabelOutside) {
+      String classNameWrapper, PlaceWhereToRenderLabel placeWhereToRenderLabel) {
     String errorMessage = renderErrorMessage(pi);
 
     String labelStr = generateLabel(pi, decoration);
@@ -98,14 +97,17 @@ public class BootstrapRenderer implements ElementRenderer {
 
     StringBuilder buf = new StringBuilder();
     Wrapper wrapAroundCompleteInfo = getWrapper(pi, classNameWrapper);
-    if (renderLabelOutside) {
+    if (placeWhereToRenderLabel == PlaceWhereToRenderLabel.outside) {
       Wrapper labelWrapper = new Wrapper(
           "<div class=\"" + getGroupClass() + " " + calculateErrorClass(pi) + "\">", "</div>");
       buf.append(labelWrapper.start).append(errorMessage).append(labelStr).append(labelWrapper.end)
           .append(free).append(helpHTML).append("\n");
-    } else {
+    } else if(placeWhereToRenderLabel == PlaceWhereToRenderLabel.overInput) {
       buf.append(wrapAroundCompleteInfo.start).append(errorMessage).append(labelStr).append(free)
           .append(helpHTML).append(wrapAroundCompleteInfo.end).append("\n");
+    } else if (placeWhereToRenderLabel == PlaceWhereToRenderLabel.underInput) {
+      buf.append(wrapAroundCompleteInfo.start).append(errorMessage).append(free)
+        .append(helpHTML).append(labelStr).append(wrapAroundCompleteInfo.end).append("\n");
     }
 
     String input = buf.toString();
@@ -137,12 +139,12 @@ public class BootstrapRenderer implements ElementRenderer {
   }
 
   protected String generateLabel(ProducerInfos pi, Decoration decoration) {
-    StringBuilder labelAppend = new StringBuilder(":");
+    StringBuilder labelAppend = new StringBuilder();
     if (pi.getValidator().isRequired()) {
       labelAppend.append(" *");
     }
     StringBuilder complete = new StringBuilder();
-    return complete.append("<label class=\"control-label\" for=\"").append(pi.getName())
+    return complete.append("<label class=\"control-label\" for=\"").append(pi.getFormId()+"-" + pi.getName())
         .append("\">").append(messageSource.getMessage(decoration.getLabel())).append(labelAppend)
         .append("</label>").toString();
 
@@ -207,5 +209,8 @@ public class BootstrapRenderer implements ElementRenderer {
     return "<label class=\"control-label\" for=\"" + forAttribute + "\">" + label + "</label>\n";
   }
 
+  enum PlaceWhereToRenderLabel{
+    outside, overInput, underInput
+  }
 
 }

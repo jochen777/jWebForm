@@ -44,24 +44,14 @@ public class SimpleTemplate {
     return new String(encoded, Charset.defaultCharset());
   }
 
-  private String getFileContent(InputStream f) throws IOException {
-    ByteArrayOutputStream result = new ByteArrayOutputStream();
-    byte[] buffer = new byte[1024];
-    int length;
-    while ((length = f.read(buffer)) != -1) {
-      result.write(buffer, 0, length);
-    }
-    // StandardCharsets.UTF_8.name() > JDK 7
-    return result.toString("UTF-8");
-  }
+
 
 
   public String loadAndProcessTempalte(String name) throws IOException {
-    InputStream in = this.getClass().getClassLoader().getResourceAsStream(name);
-    String fileContent = getFileContent(in);
 
-    String processedContent = processContent(fileContent);
-    return processedContent;
+    FileReader fr = new FileReader();
+
+    return processContent(fr.loadFileFromClasspath(name));
   }
 
   private String processContent(String fileContent) {
