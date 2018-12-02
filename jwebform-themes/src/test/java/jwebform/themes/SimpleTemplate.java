@@ -32,7 +32,7 @@ public class SimpleTemplate {
 
   private String getFileContent(File f) {
     try {
-      return readFile(f);
+      return readFile(f).trim();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -41,7 +41,7 @@ public class SimpleTemplate {
 
   static String readFile(File f) throws IOException {
     byte[] encoded = Files.readAllBytes(f.toPath());
-    return new String(encoded, Charset.defaultCharset());
+    return new String(encoded, Charset.defaultCharset()).trim();
   }
 
 

@@ -19,7 +19,7 @@ public class ThemeJavaRendererTest {
 
   SimpleTemplate template = new SimpleTemplate();
 
-  @Test
+  //@Test
   public void testnormalUsageFirstRun() {
 
     Env env = new EnvBuilder().of(it -> null, // this simulates the first run (not submitted) (all
@@ -31,7 +31,7 @@ public class ThemeJavaRendererTest {
   }
 
 
-  @Test
+  //@Test
   public void testnormalUsageSubmitSuccess() {
     Env env = new EnvBuilder().of(it -> {
       if (it.equals("WF_SUBMITTED")) {
@@ -46,7 +46,7 @@ public class ThemeJavaRendererTest {
     assertTrue("The form should be true, because input-fields should be okay", result);
   }
 
-  @Test
+  //@Test
   public void testnormalUsageSubmitError() {
     Env env = new EnvBuilder().of(it -> {
       if (it.equals("WF_SUBMITTED")) {
@@ -63,7 +63,7 @@ public class ThemeJavaRendererTest {
   }
 
 
-  @Test
+  //@Test
   public void testnormalUsageSubmitVarious() {
     Env env = new EnvBuilder().of(it -> {
       if (it.equals("WF_SUBMITTED")) {

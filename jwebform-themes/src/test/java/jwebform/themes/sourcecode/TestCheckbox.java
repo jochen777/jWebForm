@@ -10,6 +10,7 @@ import jwebform.field.builder.BuildInType;
 import jwebform.processor.FormGenerator;
 import jwebform.themes.ExampleRequests;
 import jwebform.themes.FileReader;
+import jwebform.themes.SimpleTemplate;
 import jwebform.themes.sourcecode.mapper.StandardMapper;
 import org.junit.Test;
 
@@ -31,7 +32,9 @@ public class TestCheckbox {
     String content = renderer.render(result, FormModel.Method.POST, true).trim();
 
     FileReader fr = new FileReader();
-    assertEquals(fr.loadTrimmedFileFromClasspath("test/checkbox_not_submitted.html"), content);
+    SimpleTemplate template = new SimpleTemplate();
+    String filecontent = template.loadAndProcessTempalte("test/checkbox_not_submitted.html");
+    assertEquals(filecontent, content);
   }
 
 
@@ -50,7 +53,7 @@ public class TestCheckbox {
     }
 
     @Override public Form generateForm() {
-      return FormBuilder.simple().typeBuilder(BuildInType.array(BuildInType.checkbox(name, initial).
+      return FormBuilder.withId("fid").typeBuilder(BuildInType.array(BuildInType.checkbox(name, initial).
         label(label).
         helpText(helptext))).build();
     }

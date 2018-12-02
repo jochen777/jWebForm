@@ -8,11 +8,7 @@ public class FileReader {
 
   public String loadFileFromClasspath(String name) throws IOException {
     InputStream in = this.getClass().getClassLoader().getResourceAsStream(name);
-    return getFileContent(in);
-  }
-
-  public String loadTrimmedFileFromClasspath(String name) throws IOException {
-    return loadFileFromClasspath(name).trim();
+    return getFileContent(in).trim();
   }
 
 
