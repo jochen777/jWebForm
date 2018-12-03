@@ -107,7 +107,7 @@ public class BootstrapRenderer implements ElementRenderer {
           .append(helpHTML).append(wrapAroundCompleteInfo.end).append("\n");
     } else if (placeWhereToRenderLabel == PlaceWhereToRenderLabel.underInput) {
       buf.append(wrapAroundCompleteInfo.start).append(errorMessage).append(free)
-        .append(helpHTML).append(labelStr).append(wrapAroundCompleteInfo.end).append("\n");
+        .append(labelStr).append(helpHTML).append(wrapAroundCompleteInfo.end).append("\n");
     }
 
     String input = buf.toString();
@@ -122,18 +122,17 @@ public class BootstrapRenderer implements ElementRenderer {
   }
 
   private Wrapper getWrapper(ProducerInfos pi, String className) {
-    String errorClass = calculateErrorClass(pi);
-    return new Wrapper("<div class=\"" + className + errorClass + "\">", "</div>");
+    return new Wrapper("<div class=\"" + className + "\">", "</div>");
   }
 
-
-  protected String calculateErrorClass(ProducerInfos pi) {
+  @Override
+  public String calculateErrorClass(ProducerInfos pi) {
     ValidationResult vr = pi.getValidationResult();
     String errorClass = "";
     if (vr.isSuccess()) {
-      errorClass = " has-success";
+      errorClass = "is-valid";
     } else if (vr.isError()) {
-      errorClass = " has-error";
+      errorClass = "is-invalid";
     }
     return errorClass;
   }
@@ -168,8 +167,8 @@ public class BootstrapRenderer implements ElementRenderer {
   protected String renderHelpText(ProducerInfos pi, Decoration decoration) {
     String helpHTML;
     if (isHelpDesired(decoration)) {
-      helpHTML = "<span id=\"helpBlock-" + pi.getName() + "\" class=\"help-block\">"
-          + messageSource.getMessage(decoration.getHelptext()) + "</span>";
+      helpHTML = "\n<small id=\"" + pi.getFormId() + "-" + pi.getName() + "-help_block\" class=\"form-text text-muted\">\n"
+          + messageSource.getMessage(decoration.getHelptext()) + "\n</small>\n";
     } else {
       helpHTML = "";
     }

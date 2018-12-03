@@ -4,8 +4,8 @@ import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormModel;
 import jwebform.FormResult;
-import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
+import jwebform.env.Request;
 import jwebform.field.builder.BuildInType;
 import jwebform.processor.FormGenerator;
 import jwebform.themes.ExampleRequests;
@@ -20,21 +20,56 @@ import static org.junit.Assert.assertEquals;
 
 public class TestCheckbox {
 
+  FileReader fr = new FileReader();
+  SimpleTemplate template = new SimpleTemplate();
+  static String formId = "fid";
+
+
 
   @Test
-  public void testRenderInitialCommit() throws IOException {
-    FormResult result = new CheckBoxForm("ch","lbl", "help", true).generateForm().
-      run(new EnvBuilder().of(ExampleRequests.notSubmittedRequest())
-      );
+  public void test_renderInitialCommit() throws IOException {
+    FormResult result = getFormResult(true, false, false);
+    assertEquals(processTemplate("test/checkbox_not_submitted.html"), renderForm(result));
+  }
 
-    ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-      new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
-    String content = renderer.render(result, FormModel.Method.POST, true).trim();
+  @Test
+  public void test_renderInitialCommitFalse() throws IOException {
+    FormResult result = getFormResult(false, false, false);
+    assertEquals(processTemplate("test/checkbox_not_submitted_false.html"), renderForm(result));
+  }
 
-    FileReader fr = new FileReader();
-    SimpleTemplate template = new SimpleTemplate();
-    String filecontent = template.loadAndProcessTempalte("test/checkbox_not_submitted.html");
-    assertEquals(filecontent, content);
+  @Test
+  public void test_renderSubmitClicked() throws IOException {
+    FormResult result = getFormResult(false, true, true);
+    assertEquals(processTemplate("test/checkbox_submitted_ok.html"), renderForm(result));
+  }
+
+  @Test
+  public void test_renderSubmitNotClicked() throws IOException {
+    FormResult result = getFormResult(false, true, false);
+    assertEquals(processTemplate("test/checkbox_submitted_not_clicked_ok.html"), renderForm(result));
+  }
+
+
+  private String renderForm(FormResult result) {
+    ThemeJavaRenderer renderer =
+      new ThemeJavaRenderer(new StandardMapper(BootstrapTheme.instance(msg -> msg)));
+    return renderer.render(result, FormModel.Method.POST, true).trim();
+  }
+
+  private String processTemplate(String s) throws IOException {
+    return template.loadAndProcessTempalte(s);
+  }
+
+
+  private FormResult getFormResult(boolean initialValue, boolean submitted, boolean clicked) {
+    ExampleRequests exampleRequests = new ExampleRequests(formId);
+    Request request = exampleRequests.notSubmittedRequest();
+    if (submitted) {
+      request = exampleRequests.exampleSubmittedRequest("ch", clicked?"ch":"");
+    }
+    return new CheckBoxForm("ch", "lbl", "help", initialValue).generateForm().
+      run(new EnvBuilder().of(request));
   }
 
 
@@ -53,7 +88,7 @@ public class TestCheckbox {
     }
 
     @Override public Form generateForm() {
-      return FormBuilder.withId("fid").typeBuilder(BuildInType.array(BuildInType.checkbox(name, initial).
+      return FormBuilder.withId(formId).typeBuilder(BuildInType.array(BuildInType.checkbox(name, initial).
         label(label).
         helpText(helptext))).build();
     }

@@ -36,6 +36,8 @@ public interface ElementRenderer {
   // highlighting!
   String renderSimpleLabel(String forAttribute, String label);
 
+  String calculateErrorClass(ProducerInfos pi);
+
   public String renderErrorMessage(ProducerInfos pi);
 
   public static enum InputVariant {
