@@ -238,6 +238,9 @@ Ja: includiere FormRunner und FormGenerator in helper package
 [ ] Remove ":" from theme
 [ ] Allow in Spring-Boot easy configuration of a message source, that does not translate
 [ ] Possible to use FormRunner with Generics?
+[ ] Get listed on awesome java
+[ ] get listed on baeldung weekly
+[ ] get in contact with webframework vendors
 [ ] Possible to use FormRunner with Generics?
 
 [ ] Search for TODOS

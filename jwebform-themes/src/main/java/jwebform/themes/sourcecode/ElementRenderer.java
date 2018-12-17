@@ -1,6 +1,7 @@
 package jwebform.themes.sourcecode;
 
 import jwebform.field.structure.Decoration;
+import jwebform.integration.MessageSource;
 import jwebform.model.ProducerInfos;
 
 public interface ElementRenderer {
@@ -31,6 +32,8 @@ public interface ElementRenderer {
 
   // render the value attribute
   String renderValue(String value);
+
+  MessageSource getMessageSource();
 
   // This may be used, to render label for radio-inputs. No error-highlighting, no required
   // highlighting!

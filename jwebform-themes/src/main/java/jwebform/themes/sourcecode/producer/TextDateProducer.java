@@ -30,7 +30,7 @@ public class TextDateProducer implements HTMLProducer {
 
     List<ProducerInfos> childs = pi.getChilds();
     StringBuffer html =
-        new StringBuffer("\n" + pi.getDecoration().getLabel() + "<br/>" + errorMessage);
+        new StringBuffer("\n" + theme.getRenderer().getMessageSource().getMessage(pi.getDecoration().getLabel()) + "<br/>" + errorMessage);
     for (ProducerInfos producerInfo : childs) {
       HTMLProducer producer = mapper.fromElement(producerInfo.getType()).get();
       html.append(producer.getHTML(producerInfo));

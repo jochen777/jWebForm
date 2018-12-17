@@ -193,6 +193,11 @@ public class BootstrapRenderer implements ElementRenderer {
     }
     return val;
   }
+
+  @Override public MessageSource getMessageSource() {
+    return messageSource;
+  }
+
   @Override
   public String renderErrorMessage(ProducerInfos pi) {
     ValidationResult vr = pi.getValidationResult();
