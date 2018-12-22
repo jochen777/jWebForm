@@ -1,18 +1,17 @@
 package jwebform.field;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.field.helper.DateTypeHelper;
 import jwebform.field.structure.Decoration;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.GroupFieldType;
-import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.processor.FieldResults;
 import jwebform.validation.FormValidator;
 import jwebform.validation.criteria.Criteria;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Date-Input with simple text-fields
@@ -23,7 +22,7 @@ import java.util.List;
 public class TextDateType implements GroupFieldType {
 
 
-  private final  Field day;
+  private final Field day;
   private final Field month;
   private final Field year;
 
@@ -33,29 +32,32 @@ public class TextDateType implements GroupFieldType {
   public TextDateType(String name, LocalDate initialValue) {
 
     day = new TextType(name + "_day", String.valueOf(initialValue.getDayOfMonth()))
-      .of(new Decoration("Day"), Criteria.number());
+        .of(new Decoration("jwebform.select.day"), Criteria.number());
 
     month = new TextType(name + "_month", String.valueOf(initialValue.getMonthValue()))
-      .of(new Decoration("Month"), Criteria.number());
+        .of(new Decoration("jwebform.select.month"), Criteria.number());
 
     year = new TextType(name + "_year", String.valueOf(initialValue.getYear()))
-      .of(new Decoration("Year"), Criteria.number());
+        .of(new Decoration("jwebform.select.year"), Criteria.number());
 
-    helper = new DateTypeHelper(day, month, year,  name);
+    helper = new DateTypeHelper(day, month, year, name);
   }
 
 
-  @Override public List<Field> getChilds() {
+  @Override
+  public List<Field> getChilds() {
     return Arrays.asList(day, month, year);
   }
 
 
-  @Override public List<FormValidator> getValidators(Field source) {
+  @Override
+  public List<FormValidator> getValidators(Field source) {
     return helper.getValidators();
   }
 
 
-  @Override public FieldResult process(EnvWithSubmitInfo env, FieldResults childs) {
+  @Override
+  public FieldResult process(EnvWithSubmitInfo env, FieldResults childs) {
     return helper.processDateVal(env, childs, "text Date");
   }
 }
