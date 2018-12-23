@@ -212,8 +212,9 @@ public class BootstrapRenderer implements ElementRenderer {
       } else {
         errorMessage = messageSource.getMessage(vr.getMessageKey());
       }
+      return "<div class=\"invalid-feedback\">" + errorMessage + "</div>";
     }
-    return "<div class=\"invalid-feedback\">" + errorMessage + "</div>";
+    return "";
   }
 
   @Override
