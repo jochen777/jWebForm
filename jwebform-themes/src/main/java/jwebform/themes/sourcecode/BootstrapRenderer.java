@@ -4,10 +4,10 @@ import java.util.Optional;
 import com.coverity.security.Escape;
 import jwebform.field.structure.Decoration;
 import jwebform.integration.MessageSource;
+import jwebform.model.ProducerInfos;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.MaxLength;
-import jwebform.model.ProducerInfos;
 
 // Renderer for bootstrap for common elements
 public class BootstrapRenderer implements ElementRenderer {
@@ -25,9 +25,11 @@ public class BootstrapRenderer implements ElementRenderer {
     String aria = renderAriaDescribedBy(pi, decoration);
     String val = renderValue(pi.getValue());
 
-    return renderInputFree("<input class=\"form-control\" tabindex=\"" + pi.getTabIndex()
-        + "\" type=\"" + type + "\" name=\"" + pi.getName() + "\" value" + val + placeholder + aria
-        + renderRequired(pi.getValidator()) + renderMaxLen(pi.getValidator()) + additional + ">",
+    return renderInputFree(
+        "<input class=\"form-control " + calculateErrorClass(pi) + "\" tabindex=\""
+            + pi.getTabIndex() + "\" type=\"" + type + "\" name=\"" + pi.getName() + "\" value"
+            + val + placeholder + aria + renderRequired(pi.getValidator())
+            + renderMaxLen(pi.getValidator()) + additional + ">",
         pi, decoration, ElementRenderer.InputVariant.normal);
   }
 
@@ -98,16 +100,15 @@ public class BootstrapRenderer implements ElementRenderer {
     StringBuilder buf = new StringBuilder();
     Wrapper wrapAroundCompleteInfo = getWrapper(pi, classNameWrapper);
     if (placeWhereToRenderLabel == PlaceWhereToRenderLabel.outside) {
-      Wrapper labelWrapper = new Wrapper(
-          "<div class=\"" + getGroupClass() + " " + calculateErrorClass(pi) + "\">", "</div>");
+      Wrapper labelWrapper = new Wrapper("<div class=\"" + getGroupClass() + "\">", "</div>");
       buf.append(labelWrapper.start).append(errorMessage).append(labelStr).append(labelWrapper.end)
           .append(free).append(helpHTML).append("\n");
-    } else if(placeWhereToRenderLabel == PlaceWhereToRenderLabel.overInput) {
+    } else if (placeWhereToRenderLabel == PlaceWhereToRenderLabel.overInput) {
       buf.append(wrapAroundCompleteInfo.start).append(errorMessage).append(labelStr).append(free)
           .append(helpHTML).append(wrapAroundCompleteInfo.end).append("\n");
     } else if (placeWhereToRenderLabel == PlaceWhereToRenderLabel.underInput) {
-      buf.append(wrapAroundCompleteInfo.start).append(errorMessage).append(free)
-        .append(labelStr).append(helpHTML).append(wrapAroundCompleteInfo.end).append("\n");
+      buf.append(wrapAroundCompleteInfo.start).append(errorMessage).append(free).append(labelStr)
+          .append(helpHTML).append(wrapAroundCompleteInfo.end).append("\n");
     }
 
     String input = buf.toString();
@@ -143,8 +144,9 @@ public class BootstrapRenderer implements ElementRenderer {
       labelAppend.append(" *");
     }
     StringBuilder complete = new StringBuilder();
-    return complete.append("<label class=\"control-label\" for=\"").append(pi.getFormId()+"-" + pi.getName())
-        .append("\">").append(messageSource.getMessage(decoration.getLabel())).append(labelAppend)
+    return complete.append("<label class=\"control-label\" for=\"")
+        .append(pi.getFormId() + "-" + pi.getName()).append("\">")
+        .append(messageSource.getMessage(decoration.getLabel())).append(labelAppend)
         .append("</label>").toString();
 
   }
@@ -167,7 +169,8 @@ public class BootstrapRenderer implements ElementRenderer {
   protected String renderHelpText(ProducerInfos pi, Decoration decoration) {
     String helpHTML;
     if (isHelpDesired(decoration)) {
-      helpHTML = "\n<small id=\"" + pi.getFormId() + "-" + pi.getName() + "-help_block\" class=\"form-text text-muted\">\n"
+      helpHTML = "\n<small id=\"" + pi.getFormId() + "-" + pi.getName()
+          + "-help_block\" class=\"form-text text-muted\">\n"
           + messageSource.getMessage(decoration.getHelptext()) + "\n</small>\n";
     } else {
       helpHTML = "";
@@ -194,7 +197,8 @@ public class BootstrapRenderer implements ElementRenderer {
     return val;
   }
 
-  @Override public MessageSource getMessageSource() {
+  @Override
+  public MessageSource getMessageSource() {
     return messageSource;
   }
 
@@ -203,7 +207,11 @@ public class BootstrapRenderer implements ElementRenderer {
     ValidationResult vr = pi.getValidationResult();
     String errorMessage = "";
     if (vr.isError()) {
-      errorMessage = "Problem: " + messageSource.getMessage(vr.getMessageKey()) + "<br>";
+      if (StringUtils.isEmpty(vr.getMessageKey())) {
+        errorMessage = "Problem: " + vr.getTranslatedMessage() + "<br>";
+      } else {
+        errorMessage = "Problem: " + messageSource.getMessage(vr.getMessageKey()) + "<br>";
+      }
     }
     return errorMessage;
   }
@@ -213,7 +221,7 @@ public class BootstrapRenderer implements ElementRenderer {
     return "<label class=\"control-label\" for=\"" + forAttribute + "\">" + label + "</label>\n";
   }
 
-  enum PlaceWhereToRenderLabel{
+  enum PlaceWhereToRenderLabel {
     outside, overInput, underInput
   }
 

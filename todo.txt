@@ -234,7 +234,9 @@ Ja: includiere FormRunner und FormGenerator in helper package
 [x] Rename this isValidatedAndOk() ... -> check symfony/.net/python... (isSubmitted && isValid) - python: isValid
 [x] Introduce own "required annotation"
 [x] Test for FormRunner with dynamic Bean
-[ ] Fix TODOs in Tymeleaf project
+[x] Fix TODOs in Tymeleaf project
+[ ] Add correct classes in case of fail/success (make it green or red)
+[x] Fix problem, when Error-message is provided via annotation/Validation API
 [ ] Remove ":" from theme
 [ ] Make Ajax Respond Object that can be transferred via REST-Controller to JSON
 [ ] Make Sample Javascript Handler (try to use no dependencies.
