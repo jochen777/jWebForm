@@ -1,5 +1,13 @@
 # jwebform changelog
 
+### 0.0.12 
+
+2018/xx/xx 
+
+* Improve theme via sourcecode renderer. Adaption to 4.1.3 Bootstrap 
+
+
+
 ### 0.0.11 
 
 2018/11/25 

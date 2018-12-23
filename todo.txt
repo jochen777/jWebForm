@@ -237,10 +237,10 @@ Ja: includiere FormRunner und FormGenerator in helper package
 [x] Fix TODOs in Tymeleaf project
 [x] Add correct classes in case of fail/success (make it green or red)
 [x] Fix problem, when Error-message is provided via annotation/Validation API
-[ ] Fix problem with dateText field: Why is error-msg not displayd?
-[ ] Submit button must be nicer
+[x] Submit button must be nicer
+[x] Remove ":" from theme
 [x] Error-msg must be nicer
-[ ] Remove ":" from theme
+[ ] Fix problem with dateText field: Why is error-msg not displayd?
 [ ] Make Ajax Respond Object that can be transferred via REST-Controller to JSON
 [ ] Make Sample Javascript Handler (try to use no dependencies.
 [ ] Allow in Spring-Boot easy configuration of a message source, that does not translate
