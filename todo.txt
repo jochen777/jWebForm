@@ -235,8 +235,11 @@ Ja: includiere FormRunner und FormGenerator in helper package
 [x] Introduce own "required annotation"
 [x] Test for FormRunner with dynamic Bean
 [x] Fix TODOs in Tymeleaf project
-[ ] Add correct classes in case of fail/success (make it green or red)
+[x] Add correct classes in case of fail/success (make it green or red)
 [x] Fix problem, when Error-message is provided via annotation/Validation API
+[ ] Fix problem with dateText field: Why is error-msg not displayd?
+[ ] Submit button must be nicer
+[x] Error-msg must be nicer
 [ ] Remove ":" from theme
 [ ] Make Ajax Respond Object that can be transferred via REST-Controller to JSON
 [ ] Make Sample Javascript Handler (try to use no dependencies.

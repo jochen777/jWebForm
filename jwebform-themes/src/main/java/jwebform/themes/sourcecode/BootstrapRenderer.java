@@ -101,13 +101,13 @@ public class BootstrapRenderer implements ElementRenderer {
     Wrapper wrapAroundCompleteInfo = getWrapper(pi, classNameWrapper);
     if (placeWhereToRenderLabel == PlaceWhereToRenderLabel.outside) {
       Wrapper labelWrapper = new Wrapper("<div class=\"" + getGroupClass() + "\">", "</div>");
-      buf.append(labelWrapper.start).append(errorMessage).append(labelStr).append(labelWrapper.end)
-          .append(free).append(helpHTML).append("\n");
+      buf.append(labelWrapper.start).append(labelStr).append(labelWrapper.end).append(free)
+          .append(errorMessage).append(helpHTML).append("\n");
     } else if (placeWhereToRenderLabel == PlaceWhereToRenderLabel.overInput) {
-      buf.append(wrapAroundCompleteInfo.start).append(errorMessage).append(labelStr).append(free)
+      buf.append(wrapAroundCompleteInfo.start).append(labelStr).append(free).append(errorMessage)
           .append(helpHTML).append(wrapAroundCompleteInfo.end).append("\n");
     } else if (placeWhereToRenderLabel == PlaceWhereToRenderLabel.underInput) {
-      buf.append(wrapAroundCompleteInfo.start).append(errorMessage).append(free).append(labelStr)
+      buf.append(wrapAroundCompleteInfo.start).append(free).append(errorMessage).append(labelStr)
           .append(helpHTML).append(wrapAroundCompleteInfo.end).append("\n");
     }
 
@@ -208,12 +208,12 @@ public class BootstrapRenderer implements ElementRenderer {
     String errorMessage = "";
     if (vr.isError()) {
       if (StringUtils.isEmpty(vr.getMessageKey())) {
-        errorMessage = "Problem: " + vr.getTranslatedMessage() + "<br>";
+        errorMessage = vr.getTranslatedMessage();
       } else {
-        errorMessage = "Problem: " + messageSource.getMessage(vr.getMessageKey()) + "<br>";
+        errorMessage = messageSource.getMessage(vr.getMessageKey());
       }
     }
-    return errorMessage;
+    return "<div class=\"invalid-feedback\">" + errorMessage + "</div>";
   }
 
   @Override
