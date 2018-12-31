@@ -1,13 +1,12 @@
 package jwebform.field.helper;
 
+import java.util.function.Predicate;
+import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.HTMLProducer;
 import jwebform.field.structure.StaticFieldInfo;
-import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
-
-import java.util.function.Predicate;
 
 /**
  * Generic class that helps with processing and rendering of standard single types

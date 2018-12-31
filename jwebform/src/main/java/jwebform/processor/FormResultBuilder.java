@@ -1,7 +1,6 @@
 package jwebform.processor;
 
 import jwebform.FormResult;
-import jwebform.model.FormModelBuilder;
 
 /**
  * builds formResults. Allows to create subclassed FormResults by implementing this

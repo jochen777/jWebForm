@@ -3,6 +3,7 @@ package jwebform;
 import jwebform.FormModel.Html5Validation;
 import jwebform.model.FormModelBuilder;
 import jwebform.processor.FieldResults;
+import jwebform.resultprocessor.NewResultProcessor;
 
 /**
  * The result of a form.run It contains all infos, that is needed to get the entered values, the
@@ -12,18 +13,32 @@ public class FormResult {
 
   private final String formId;
   private final FieldResults fieldResults;
-  private final boolean formIsValid;
+  protected final boolean formIsValid;
   private final FormModelBuilder formModelBuilder;
   private final boolean isFirstRun;
+  private final NewResultProcessor resultProcessor;
 
   public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
-    boolean isFirstRun, FormModelBuilder formModelBuilder) {
+      boolean isFirstRun, FormModelBuilder formModelBuilder) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;
     this.isFirstRun = isFirstRun;
     this.formModelBuilder = formModelBuilder;
+    this.resultProcessor = new NewResultProcessor();
   }
+
+
+  public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
+      boolean isFirstRun, NewResultProcessor resultProcessor) {
+    this.formId = formId;
+    this.formIsValid = formIsValid;
+    this.fieldResults = fieldResults;
+    this.isFirstRun = isFirstRun;
+    this.formModelBuilder = FormModel::new;
+    this.resultProcessor = resultProcessor;
+  }
+
 
   public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
       boolean isFirstRun) {
@@ -32,6 +47,7 @@ public class FormResult {
     this.fieldResults = fieldResults;
     this.isFirstRun = isFirstRun;
     this.formModelBuilder = FormModel::new;
+    this.resultProcessor = new NewResultProcessor();
   }
 
   @Override
@@ -90,7 +106,7 @@ public class FormResult {
   }
 
   public FormModel getFormModel() {
-    return formModelBuilder.build(this, FormModel.Method.POST, Html5Validation.ON);
+    return resultProcessor.getFormModel(this);
   }
 
 

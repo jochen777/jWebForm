@@ -2,10 +2,10 @@ package jwebform.field;
 
 import java.util.ArrayList;
 import java.util.List;
+import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.field.helper.OneValueTypeProcessor;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
-import jwebform.env.Env.EnvWithSubmitInfo;
 
 public class RadioType implements SingleFieldType {
 

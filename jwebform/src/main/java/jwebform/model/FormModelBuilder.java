@@ -4,7 +4,6 @@ import jwebform.FormModel;
 import jwebform.FormModel.Html5Validation;
 import jwebform.FormModel.Method;
 import jwebform.FormResult;
-import jwebform.processor.FieldResults;
 
 @FunctionalInterface
 public interface FormModelBuilder {

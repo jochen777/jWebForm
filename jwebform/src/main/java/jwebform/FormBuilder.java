@@ -9,8 +9,6 @@ import jwebform.field.builder.FieldBuilder;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.GroupFieldType;
 import jwebform.field.structure.SingleFieldType;
-import jwebform.processor.FormResultBuilder;
-import jwebform.processor.LoggingFormResult;
 import jwebform.validation.FormValidator;
 
 // Simplifies Building of a form.

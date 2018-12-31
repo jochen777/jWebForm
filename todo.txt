@@ -249,6 +249,8 @@ Ja: includiere FormRunner und FormGenerator in helper package
 [ ] get listed on baeldung weekly
 [ ] get in contact with webframework vendors
 [ ] Possible to use FormRunner with Generics?
+[ ] Consider a Config-Object for form.run that delivers: ModelBuilder, ResultBuilder, AjaxResultBuilder, FormRenderer...
+[ ] -> Or even better than config object: FormResultProcessors 
 
 [ ] Search for TODOS
 ---------- -> U!

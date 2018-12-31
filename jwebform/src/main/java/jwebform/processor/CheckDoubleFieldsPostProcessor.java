@@ -1,11 +1,10 @@
 package jwebform.processor;
 
-import jwebform.field.structure.Field;
-import jwebform.field.structure.FieldResult;
-
 import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
+import jwebform.field.structure.Field;
+import jwebform.field.structure.FieldResult;
 
 
 /**

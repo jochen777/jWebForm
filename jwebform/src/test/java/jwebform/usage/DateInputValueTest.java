@@ -10,7 +10,6 @@ import java.util.Optional;
 import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormBuilder;
-import jwebform.FormModel;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
 import jwebform.field.builder.BuildInType;

@@ -1,10 +1,9 @@
 package jwebform.field.structure;
 
+import java.util.List;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.processor.FieldResults;
 import jwebform.validation.FormValidator;
-
-import java.util.List;
 
 // a group of fields. this is basically a form.
 /**

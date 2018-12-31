@@ -1,9 +1,8 @@
 package jwebform.field.helper;
 
-import jwebform.field.SelectType;
-
 import java.util.ArrayList;
 import java.util.List;
+import jwebform.field.SelectType;
 
 /**
  * Common convenience setups for select fields.

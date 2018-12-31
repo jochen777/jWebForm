@@ -1,14 +1,13 @@
 package jwebform.field;
 
+import java.util.List;
+import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.GroupFieldType;
 import jwebform.field.structure.StaticFieldInfo;
-import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.processor.FieldResults;
 import jwebform.validation.FormValidator;
-
-import java.util.List;
 
 public class SimpleGroup implements GroupFieldType {
 
