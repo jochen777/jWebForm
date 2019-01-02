@@ -11,6 +11,7 @@ import jwebform.integration.bean2form.annotations.UseFieldType;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
 import jwebform.integration.beanvalidation.BeanValidationValidator;
 import jwebform.integration.fromBean.ExampleRequests;
+import jwebform.resultprocessor.ModelResultProcessor;
 import org.junit.Test;
 
 import javax.validation.constraints.NotEmpty;
@@ -27,7 +28,8 @@ public class TestDynamicPresetBean {
     Bean2Form bean2FromContract = getBean2Form();
 
     FormRunnerConfig formRunnerConfig =
-      new FormRunnerConfig((a, b, c) -> "", bean2FromContract, FormModel::new, "form");
+      new FormRunnerConfig((a, b, c) -> "", bean2FromContract, FormModel::new, "form",
+        ModelResultProcessor::new);
 
     FormRunner jwebform = new FormRunner(ExampleRequests.exampleSubmittedRequest("firstname", "Jochen"),
       ExampleRequests.emptySessionGet(), ExampleRequests.emptySessionPut(),

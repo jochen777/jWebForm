@@ -24,7 +24,6 @@ import jwebform.FormResult;
 import jwebform.field.builder.BuildInType;
 import jwebform.field.builder.FieldBuilder;
 import jwebform.processor.FieldValdationResults;
-import jwebform.processor.LoggingFormResult;
 import jwebform.validation.Criterion;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;

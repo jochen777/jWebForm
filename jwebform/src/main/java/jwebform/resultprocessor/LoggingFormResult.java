@@ -1,4 +1,4 @@
-package jwebform.processor;
+package jwebform.resultprocessor;
 
 import jwebform.FormModel;
 import jwebform.FormResult;
@@ -6,27 +6,23 @@ import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
 import jwebform.model.FormModelBuilder;
+import jwebform.processor.FieldResults;
 
 
 /**
  * A form result that can additionally log the form in an convenient way
  */
-public class LoggingFormResult extends FormResult {
-
-  public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid,
-    boolean isFirstrun) {
-    super(formId, fieldResults, formIsValid, isFirstrun, FormModel::new);
-  }
+public class LoggingFormResult extends ModelResultProcessor {
 
 
-  public LoggingFormResult(String formId, FieldResults fieldResults, boolean formIsValid,
-      boolean isFirstrun, FormModelBuilder formModelBuilder) {
-    super(formId, fieldResults, formIsValid, isFirstrun, formModelBuilder);
+
+  public LoggingFormResult(FormResult formResult) {
+    super(formResult);
   }
 
   public void logForm(Logger logger) {
     StringBuilder b = new StringBuilder("\n");
-    this.debugOutput(getFieldResults(), b, "");
+    this.debugOutput(formResult.getFieldResults(), b, "");
     logger.log(b.toString());
   }
 
@@ -41,7 +37,7 @@ public class LoggingFormResult extends FormResult {
         debugOutput(result.getChilds(), b, indent + "---- ");
       }
     });
-    return "Form valid: " + this.isValid() + "\n " + b.toString();
+    return "Form valid: " + formResult.isValid() + "\n " + b.toString();
   }
 
   private void appendSingleType(StringBuilder b, Field container, FieldResult result,

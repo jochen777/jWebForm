@@ -3,7 +3,8 @@ package jwebform;
 import jwebform.FormModel.Html5Validation;
 import jwebform.model.FormModelBuilder;
 import jwebform.processor.FieldResults;
-import jwebform.resultprocessor.NewResultProcessor;
+import jwebform.resultprocessor.ModelResultProcessor;
+import jwebform.resultprocessor.ResultProcessorBuilder;
 
 /**
  * The result of a form.run It contains all infos, that is needed to get the entered values, the
@@ -14,29 +15,29 @@ public class FormResult {
   private final String formId;
   private final FieldResults fieldResults;
   protected final boolean formIsValid;
-  private final FormModelBuilder formModelBuilder;
   private final boolean isFirstRun;
-  private final NewResultProcessor resultProcessor;
 
+
+  private final ResultProcessorBuilder resultProcessorBuilder;
+
+  @Deprecated
   public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
-      boolean isFirstRun, FormModelBuilder formModelBuilder) {
+      boolean isFirstRun,  FormModelBuilder formModelBuilder) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;
     this.isFirstRun = isFirstRun;
-    this.formModelBuilder = formModelBuilder;
-    this.resultProcessor = new NewResultProcessor();
+    this.resultProcessorBuilder = ModelResultProcessor::new;
   }
 
 
   public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
-      boolean isFirstRun, NewResultProcessor resultProcessor) {
+      boolean isFirstRun, ResultProcessorBuilder resultProcessorBuilder) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;
     this.isFirstRun = isFirstRun;
-    this.formModelBuilder = FormModel::new;
-    this.resultProcessor = resultProcessor;
+    this.resultProcessorBuilder = resultProcessorBuilder;
   }
 
 
@@ -46,8 +47,7 @@ public class FormResult {
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;
     this.isFirstRun = isFirstRun;
-    this.formModelBuilder = FormModel::new;
-    this.resultProcessor = new NewResultProcessor();
+    this.resultProcessorBuilder = ModelResultProcessor::new;
   }
 
   @Override
@@ -93,20 +93,29 @@ public class FormResult {
   }
 
 
+  public ModelResultProcessor getResultProcessor() {
+    return resultProcessorBuilder.build(this);
+  }
+
+
+  @Deprecated
   public FormModel getFormModel(Html5Validation html5Validation) {
-    return formModelBuilder.build(this, FormModel.Method.POST, html5Validation);
+    return getResultProcessor().getFormModel(FormModel.Method.POST, html5Validation);
   }
 
+  @Deprecated
   public FormModel getFormModel(Html5Validation html5Validation, FormModel.Method method) {
-    return formModelBuilder.build(this, method, html5Validation);
+    return getResultProcessor().getFormModel( method, html5Validation);
   }
 
+  @Deprecated
   public FormModel getFormModel(FormModel.Method method) {
-    return formModelBuilder.build(this, method, Html5Validation.ON);
+    return getResultProcessor().getFormModel( method, Html5Validation.ON);
   }
 
+  @Deprecated
   public FormModel getFormModel() {
-    return resultProcessor.getFormModel(this);
+    return getResultProcessor().getFormModel();
   }
 
 

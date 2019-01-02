@@ -15,6 +15,7 @@ import jwebform.FormResult;
  * @author pier
  *
  */
+@Deprecated
 @FunctionalInterface
 public interface FormResultBuilder {
 

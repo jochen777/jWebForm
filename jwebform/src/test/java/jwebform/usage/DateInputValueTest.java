@@ -13,7 +13,7 @@ import jwebform.FormBuilder;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
 import jwebform.field.builder.BuildInType;
-import jwebform.processor.LoggingFormResult;
+import jwebform.resultprocessor.LoggingFormResult;
 import jwebform.validation.criteria.Criteria;
 
 // tests the DateInput Default and empty behaviour
@@ -79,9 +79,9 @@ public class DateInputValueTest {
     params.put("date_day", "5");
     params.put("date_month", "10");
     params.put("date_year", "2018");
-    LoggingFormResult result = (LoggingFormResult) testForm
+    FormResult result = testForm
         .run(new EnvBuilder().of(it -> params.get(it)), LoggingFormResult::new);
-    // result.logForm(System.err::print);
+    ((LoggingFormResult)result.getResultProcessor()).logForm(System.err::print);
     assertTrue(result.isValid());
     assertEquals("2018-10-05", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.of(LocalDate.of(2018, 10, 5)), result.getObectValue(FIELD_NAME));

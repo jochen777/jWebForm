@@ -1,4 +1,4 @@
-package jwebform.processor;
+package jwebform.resultprocessor;
 
 /**
  * Whith this logger interface you can "inject" Logging Mechanisms as you need it.

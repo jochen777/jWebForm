@@ -9,6 +9,9 @@ import javax.validation.Validator;
 import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
+
+import jwebform.resultprocessor.ModelResultProcessor;
+import jwebform.resultprocessor.ResultProcessorBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -53,13 +56,16 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
   @Autowired
   private MessageSource messageSource;
 
+  @Autowired
+  private ResultProcessorBuilder resultProcessorBuilder;
+
 
 
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolver) {
 
     FormRunnerConfig formRunnerConfig = new FormRunnerConfig(formRenderer, bean2Form,
-        formModelBuilder, properties.getTemplateName());
+        formModelBuilder, properties.getTemplateName(), resultProcessorBuilder);
     argumentResolver.add(new FormRunnerArgumentResolver(formRunnerConfig));
     argumentResolver.add(new ContainerFormRunnerArgumentResolver(formRunnerConfig));
   }
@@ -112,6 +118,17 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
     }
   }
 
+  @Configuration
+  @ConditionalOnMissingBean(value = ResultProcessorBuilder.class)
+  public static class ResultProcessorBuilderConfig {
+
+
+    @Bean
+    public ResultProcessorBuilder resultProcessorBuilder() {
+      return ModelResultProcessor::new;
+    }
+
+  }
 
   @Configuration
   @ConditionalOnMissingBean(value = FormRenderer.class)

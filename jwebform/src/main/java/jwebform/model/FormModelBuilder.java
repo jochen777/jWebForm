@@ -5,6 +5,7 @@ import jwebform.FormModel.Html5Validation;
 import jwebform.FormModel.Method;
 import jwebform.FormResult;
 
+@Deprecated
 @FunctionalInterface
 public interface FormModelBuilder {
   FormModel build(

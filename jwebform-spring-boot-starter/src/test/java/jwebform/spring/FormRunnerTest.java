@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
+
+import jwebform.resultprocessor.ModelResultProcessor;
 import org.junit.Test;
 import jwebform.FormModel;
 import jwebform.FormResult;
@@ -41,7 +43,7 @@ public class FormRunnerTest {
         new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
 
     FormRunnerConfig formRunnerConfig =
-        new FormRunnerConfig(formRenderer, bean2FromContract, FormModel::new, "form");
+        new FormRunnerConfig(formRenderer, bean2FromContract, FormModel::new, "form", ModelResultProcessor::new);
 
     FormRunner jwebform = new FormRunner(ExampleRequests.exampleSubmittedRequest("name", "test"),
         ExampleRequests.emptySessionGet(), ExampleRequests.emptySessionPut(),
