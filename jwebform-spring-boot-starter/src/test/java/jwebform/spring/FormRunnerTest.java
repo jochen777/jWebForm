@@ -33,7 +33,7 @@ import jwebform.themes.sourcecode.mapper.StandardMapper;
 
 public class FormRunnerTest {
 
-  // test if bean-validation works in JWebForm
+  // test if bean-validation works in JWebForm.
   @Test
   public void testRun_beanValidation() {
 
