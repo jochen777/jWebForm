@@ -12,15 +12,29 @@ import jwebform.processor.FieldResults;
 /**
  * A form result that can additionally log the form in an convenient way
  */
-public class LoggingFormResult extends ModelResultProcessor {
+public class LoggingFormResult  {
 
+  public static class LoggingFormResultProcessor implements ResultProcessor<LoggingFormResult> {
 
+    private final Logger logger;
+    public LoggingFormResultProcessor(Logger logger) {
+      this.logger = logger;
+    }
 
-  public LoggingFormResult(FormResult formResult) {
-    super(formResult);
+    @Override public LoggingFormResult process(FormResult formResult) {
+      return new LoggingFormResult(formResult, logger);
+    }
   }
 
-  public void logForm(Logger logger) {
+  private final FormResult formResult;
+  private final Logger logger;
+
+  public LoggingFormResult(FormResult formResult, Logger logger) {
+    this.formResult = formResult;
+    this.logger = logger;
+  }
+
+  public void logForm() {
     StringBuilder b = new StringBuilder("\n");
     this.debugOutput(formResult.getFieldResults(), b, "");
     logger.log(b.toString());

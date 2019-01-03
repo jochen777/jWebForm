@@ -4,6 +4,7 @@ import jwebform.FormModel.Html5Validation;
 import jwebform.model.FormModelBuilder;
 import jwebform.processor.FieldResults;
 import jwebform.resultprocessor.ModelResultProcessor;
+import jwebform.resultprocessor.ResultProcessor;
 import jwebform.resultprocessor.ResultProcessorBuilder;
 
 /**
@@ -18,7 +19,6 @@ public class FormResult {
   private final boolean isFirstRun;
 
 
-  private final ResultProcessorBuilder resultProcessorBuilder;
 
   @Deprecated
   public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
@@ -27,17 +27,6 @@ public class FormResult {
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;
     this.isFirstRun = isFirstRun;
-    this.resultProcessorBuilder = ModelResultProcessor::new;
-  }
-
-
-  public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
-      boolean isFirstRun, ResultProcessorBuilder resultProcessorBuilder) {
-    this.formId = formId;
-    this.formIsValid = formIsValid;
-    this.fieldResults = fieldResults;
-    this.isFirstRun = isFirstRun;
-    this.resultProcessorBuilder = resultProcessorBuilder;
   }
 
 
@@ -47,7 +36,6 @@ public class FormResult {
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;
     this.isFirstRun = isFirstRun;
-    this.resultProcessorBuilder = ModelResultProcessor::new;
   }
 
   @Override
@@ -93,29 +81,30 @@ public class FormResult {
   }
 
 
-  public ModelResultProcessor getResultProcessor() {
-    return resultProcessorBuilder.build(this);
-  }
-
-
-  @Deprecated
-  public FormModel getFormModel(Html5Validation html5Validation) {
-    return getResultProcessor().getFormModel(FormModel.Method.POST, html5Validation);
+  public <T> T process(ResultProcessor<T> resultProcessor) {
+    return resultProcessor.process(this);
   }
 
   @Deprecated
   public FormModel getFormModel(Html5Validation html5Validation, FormModel.Method method) {
-    return getResultProcessor().getFormModel( method, html5Validation);
+    ModelResultProcessor modelResultProcessor = new ModelResultProcessor(method, html5Validation);
+    return process(modelResultProcessor);
   }
 
   @Deprecated
+  public FormModel getFormModel(Html5Validation html5Validation) {
+    return getFormModel(html5Validation, FormModel.Method.POST);
+  }
+
+
+  @Deprecated
   public FormModel getFormModel(FormModel.Method method) {
-    return getResultProcessor().getFormModel( method, Html5Validation.ON);
+    return getFormModel(Html5Validation.ON,  method);
   }
 
   @Deprecated
   public FormModel getFormModel() {
-    return getResultProcessor().getFormModel();
+    return getFormModel(Html5Validation.ON,  FormModel.Method.POST);
   }
 
 

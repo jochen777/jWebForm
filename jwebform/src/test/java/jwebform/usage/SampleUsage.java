@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
+
+import jwebform.resultprocessor.ModelResultProcessor;
 import org.junit.Test;
 import jwebform.FormModel;
 import jwebform.FormModel.Html5Validation;
@@ -58,11 +60,12 @@ public class SampleUsage {
         t -> t, (k, v) -> {
         });
     FormResult result = getFormResult(env);
-    FormModel v = result.getResultProcessor().getFormModel(Html5Validation.ON);
+
+    FormModel v = result.process(new ModelResultProcessor(FormModel.Method.POST, Html5Validation.ON));
     assertEquals(true, v.isUploadEnctypeRequired());
 
     FormResult resultWithoutUpload = getFormResultWithoutUpload(env);
-    FormModel v2 = resultWithoutUpload.getResultProcessor().getFormModel(Html5Validation.ON);
+    FormModel v2 = resultWithoutUpload.process(new ModelResultProcessor(FormModel.Method.POST, Html5Validation.ON));
     assertEquals(false, v2.isUploadEnctypeRequired());
 
 
@@ -241,15 +244,15 @@ public class SampleUsage {
     assertEquals(formId, result.getFormId());
 
 
-    FormModel v = result.getResultProcessor().getFormModel(Html5Validation.ON);
+    FormModel v = result.process(new ModelResultProcessor(FormModel.Method.POST, Html5Validation.ON));
     assertEquals("POST", v.getMethod());
     assertEquals(true, v.isHtml5Validaiton());
 
-    FormModel v2 = result.getResultProcessor().getFormModel(FormModel.Method.GET);
+    FormModel v2 = result.process(new ModelResultProcessor(FormModel.Method.GET, Html5Validation.ON));
     assertEquals("GET", v2.getMethod());
     assertEquals(true, v2.isHtml5Validaiton());
 
-    FormModel v3 = result.getResultProcessor().getFormModel(FormModel.Method.POST, Html5Validation.OFF);
+    FormModel v3 = result.process(new ModelResultProcessor(FormModel.Method.POST, Html5Validation.OFF));
     assertEquals("POST", v3.getMethod());
     assertEquals(false, v3.isHtml5Validaiton());
 

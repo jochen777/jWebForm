@@ -10,6 +10,7 @@ import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
 
+import jwebform.FormModel;
 import jwebform.resultprocessor.ModelResultProcessor;
 import jwebform.resultprocessor.ResultProcessorBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +52,11 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
   public Bean2Form bean2Form;
 
   @Autowired
-  public FormModelBuilder formModelBuilder;
+  public ModelResultProcessor modelResultProcessor;
 
   @Autowired
   private MessageSource messageSource;
 
-  @Autowired
-  private ResultProcessorBuilder resultProcessorBuilder;
 
 
 
@@ -65,7 +64,7 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolver) {
 
     FormRunnerConfig formRunnerConfig = new FormRunnerConfig(formRenderer, bean2Form,
-        formModelBuilder, properties.getTemplateName(), resultProcessorBuilder);
+      modelResultProcessor, properties.getTemplateName());
     argumentResolver.add(new FormRunnerArgumentResolver(formRunnerConfig));
     argumentResolver.add(new ContainerFormRunnerArgumentResolver(formRunnerConfig));
   }
@@ -118,17 +117,6 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
     }
   }
 
-  @Configuration
-  @ConditionalOnMissingBean(value = ResultProcessorBuilder.class)
-  public static class ResultProcessorBuilderConfig {
-
-
-    @Bean
-    public ResultProcessorBuilder resultProcessorBuilder() {
-      return ModelResultProcessor::new;
-    }
-
-  }
 
   @Configuration
   @ConditionalOnMissingBean(value = FormRenderer.class)
@@ -146,13 +134,13 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
   }
 
   @Configuration
-  @ConditionalOnMissingBean(FormModelBuilder.class)
+  @ConditionalOnMissingBean(ModelResultProcessor.class)
   public static class FormModelBuilderDefaultConfiguration {
 
 
     @Bean
-    public FormModelBuilder formModelBuilder(FormRenderer formRenderer) {
-      return (a, b, c) -> new FormModelWithFormRenderer(a, b, c, formRenderer);
+    public ModelResultProcessor formModelBuilder(FormRenderer formRenderer) {
+      return new ModelResultProcessor(FormModel.Method.POST, FormModel.Html5Validation.ON);
     }
 
   }

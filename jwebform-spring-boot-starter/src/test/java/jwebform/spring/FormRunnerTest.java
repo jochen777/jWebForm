@@ -43,19 +43,19 @@ public class FormRunnerTest {
         new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
 
     FormRunnerConfig formRunnerConfig =
-        new FormRunnerConfig(formRenderer, bean2FromContract, FormModel::new, "form", ModelResultProcessor::new);
+        new FormRunnerConfig(formRenderer, bean2FromContract, new ModelResultProcessor(), "form");
 
     FormRunner jwebform = new FormRunner(ExampleRequests.exampleSubmittedRequest("name", "test"),
         ExampleRequests.emptySessionGet(), ExampleRequests.emptySessionPut(),
         ExampleRequests.stupidModel(), formRunnerConfig);
 
-    FormResult fr = jwebform.runWithBean(new MyForm10());
+    FormRunner.FormResultAndBean fr = jwebform.runWithBean(new MyForm10());
     assertTrue(
         "The form should be not okay, beause the validation should fail ('test' is smaller than 10 chars)",
-        !fr.isValid());
+        !fr.getFr().isValid());
 
-    FormResult fr2 = jwebform.runWithBean(new MyForm2());
-    assertTrue("The form should be okay, 'test' is bigger than 2 chars", fr2.isValid());
+    FormRunner.FormResultAndBean fr2 = jwebform.runWithBean(new MyForm2());
+    assertTrue("The form should be okay, 'test' is bigger than 2 chars", fr2.getFr().isValid());
 
   }
 

@@ -35,17 +35,13 @@ public final class Form {
         env.getEnvWithSumitInfo(id).isFirstRun());
   }
 
-  public final FormResult run(Env env, ResultProcessorBuilder resultProcessor) {
+  public final FormResult run(Env env) {
     FieldResults result = processor.run(env.getEnvWithSumitInfo(id), group);
     FormResult formResult = new FormResult(id, result, processor.checkAllValidationResults(result),
-        env.getEnvWithSumitInfo(id).isFirstRun(), resultProcessor);
+        env.getEnvWithSumitInfo(id).isFirstRun());
     return formResult;
   }
 
-
-  public final FormResult run(Env env) {
-    return run(env, ModelResultProcessor::new);
-  }
 
   public final List<Field> getFields() {
     return group.getChilds();

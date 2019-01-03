@@ -8,30 +8,24 @@ import jwebform.FormResult;
  * A result processor does something with a formResult.
  * Examples are creation of FormModel, rendering HTML (via themes), logging, Ajax Response Objects...
   */
-public class ModelResultProcessor {
+public class ModelResultProcessor implements ResultProcessor<FormModel>{
 
-  protected final FormResult formResult;
+  // RFE: Maybe merge this with FormModel?!?
 
-  public ModelResultProcessor(FormResult formResult) {
-    this.formResult = formResult;
+  private final FormModel.Method method;
+  private final Html5Validation valdiaton;
+
+  public ModelResultProcessor() {
+    this(FormModel.Method.POST, Html5Validation.ON);
   }
 
-  public FormModel getFormModel(FormModel.Method method, Html5Validation valdiaton) {
+  public ModelResultProcessor(FormModel.Method method, Html5Validation valdiaton) {
+    this.method = method;
+    this.valdiaton = valdiaton;
+  }
+
+
+  @Override public FormModel process(FormResult formResult) {
     return new FormModel(formResult, method, valdiaton);
-  }
-
-
-  public FormModel getFormModel() {
-    return getFormModel(FormModel.Method.POST, Html5Validation.ON);
-  }
-
-
-  public FormModel getFormModel(Html5Validation valdiaton) {
-    return getFormModel(FormModel.Method.POST, valdiaton);
-  }
-
-
-  public FormModel getFormModel(FormModel.Method method) {
-    return getFormModel(method, Html5Validation.ON);
   }
 }

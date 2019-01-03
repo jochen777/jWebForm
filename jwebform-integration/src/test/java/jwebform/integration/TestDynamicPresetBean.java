@@ -5,7 +5,6 @@ import jwebform.FormResult;
 import jwebform.field.SubmitType;
 import jwebform.integration.bean2form.Bean2Form;
 import jwebform.integration.bean2form.DefaultBean2Form;
-import jwebform.integration.bean2form.FormResultWithBean;
 import jwebform.integration.bean2form.annotations.UseDecoration;
 import jwebform.integration.bean2form.annotations.UseFieldType;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
@@ -28,16 +27,16 @@ public class TestDynamicPresetBean {
     Bean2Form bean2FromContract = getBean2Form();
 
     FormRunnerConfig formRunnerConfig =
-      new FormRunnerConfig((a, b, c) -> "", bean2FromContract, FormModel::new, "form",
-        ModelResultProcessor::new);
+      new FormRunnerConfig((a, b, c) -> "", bean2FromContract, new ModelResultProcessor(
+        FormModel.Method.POST, FormModel.Html5Validation.ON), "form");
 
     FormRunner jwebform = new FormRunner(ExampleRequests.exampleSubmittedRequest("firstname", "Jochen"),
       ExampleRequests.emptySessionGet(), ExampleRequests.emptySessionPut(),
       ExampleRequests.stupidModel(), formRunnerConfig);
 
     DemoForm demoForm = new DemoForm("peter");
-    FormResultWithBean fr = jwebform.runWithBean(demoForm);
-    assertTrue(fr.isValid());
+    FormRunner.FormResultAndBean fr = jwebform.runWithBean(demoForm);
+    assertTrue(fr.getFr().isValid());
     assertEquals(
       "Jochen", demoForm.firstname);
   }
