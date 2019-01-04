@@ -11,6 +11,7 @@ Wait for the version 1.0.0 to adapt it.)
 
 [Changelog](doc/CHANGELOG.md)
 
+[![Build Status](https://travis-ci.org/jochen777/jWebForm.svg?branch=master)](https://travis-ci.org/jochen777/jWebForm)
 
 ## Overview
 
