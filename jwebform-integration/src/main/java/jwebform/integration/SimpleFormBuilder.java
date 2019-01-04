@@ -1,13 +1,13 @@
 package jwebform.integration;
 
-import java.util.ArrayList;
-import java.util.List;
 import jwebform.Form;
-import jwebform.FormResult;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldType;
 import jwebform.validation.Criterion;
 import jwebform.validation.FormValidator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // convenience methods for building the form
 public class SimpleFormBuilder {

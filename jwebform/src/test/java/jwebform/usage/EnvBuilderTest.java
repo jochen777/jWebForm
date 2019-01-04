@@ -1,9 +1,10 @@
 package jwebform.usage;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class EnvBuilderTest {
   @Test

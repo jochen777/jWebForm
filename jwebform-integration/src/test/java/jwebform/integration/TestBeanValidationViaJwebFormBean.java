@@ -1,8 +1,5 @@
 package jwebform.integration;
 
-import static org.junit.Assert.assertTrue;
-import java.util.List;
-import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
@@ -10,6 +7,11 @@ import jwebform.integration.bean2form.AbstractJWebFormBean;
 import jwebform.integration.bean2form.DefaultBean2Form;
 import jwebform.integration.beanvalidation.ExternalValidation;
 import jwebform.integration.fromBean.ExampleRequests;
+import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class TestBeanValidationViaJwebFormBean {
 

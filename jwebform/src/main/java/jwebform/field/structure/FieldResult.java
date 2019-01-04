@@ -1,8 +1,9 @@
 package jwebform.field.structure;
 
-import javax.annotation.Generated;
 import jwebform.processor.FieldResults;
 import jwebform.validation.ValidationResult;
+
+import javax.annotation.Generated;
 
 /**
  * that what is coming out of a "run" method of an fieldType

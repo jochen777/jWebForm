@@ -1,11 +1,12 @@
 package jwebform.integration.bean2form;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.integration.beanvalidation.ExternalValidation;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 // if a bean implements this, these hooks will be called, when it is transformed to a form
 public interface JWebFormBean {

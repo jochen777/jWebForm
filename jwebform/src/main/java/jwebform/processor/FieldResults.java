@@ -1,13 +1,14 @@
 package jwebform.processor;
 
+import jwebform.field.structure.Field;
+import jwebform.field.structure.FieldResult;
+import jwebform.validation.ValidationResult;
+
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import jwebform.field.structure.Field;
-import jwebform.field.structure.FieldResult;
-import jwebform.validation.ValidationResult;
 
 /**
  * Holds the field results of the form.

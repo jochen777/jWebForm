@@ -1,15 +1,16 @@
 package jwebform;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.ForceFileuploadMethod;
 import jwebform.model.ProducerInfos;
 import jwebform.processor.FieldResults;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * The FormModel just "enhances" a formResult and is perfect to give informations to your template.

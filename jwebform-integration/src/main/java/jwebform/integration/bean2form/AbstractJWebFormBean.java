@@ -1,10 +1,11 @@
 package jwebform.integration.bean2form;
 
-import java.util.Collections;
-import java.util.List;
 import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.integration.beanvalidation.ExternalValidation;
+
+import java.util.Collections;
+import java.util.List;
 
 // Default implementations for JWeboFormBean. Allows to override just one...
 public abstract class AbstractJWebFormBean implements JWebFormBean {

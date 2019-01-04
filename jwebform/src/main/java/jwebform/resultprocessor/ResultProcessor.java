@@ -3,8 +3,8 @@ package jwebform.resultprocessor;
 import jwebform.FormResult;
 
 /**
- * Class that implement this interface can ask a formResult to be processed.
- * @param <T>
+ * A result processor does something with a formResult.
+ * Examples are creation of FormModel, rendering HTML (via themes), logging, Ajax Response Objects...
  */
 @FunctionalInterface
 public interface ResultProcessor <T> {

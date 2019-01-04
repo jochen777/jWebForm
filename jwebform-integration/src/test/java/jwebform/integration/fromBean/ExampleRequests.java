@@ -1,13 +1,10 @@
 package jwebform.integration.fromBean;
 
+import jwebform.env.*;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import jwebform.env.Env;
-import jwebform.env.EnvBuilder;
-import jwebform.env.Request;
-import jwebform.env.SessionGet;
-import jwebform.env.SessionSet;
 
 public class ExampleRequests {
 

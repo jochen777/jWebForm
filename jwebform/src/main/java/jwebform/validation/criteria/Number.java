@@ -1,8 +1,9 @@
 package jwebform.validation.criteria;
 
-import java.util.regex.Pattern;
 import jwebform.validation.Criterion;
 import jwebform.validation.ValidationResult;
+
+import java.util.regex.Pattern;
 
 /**
  * Checks that value is a number.

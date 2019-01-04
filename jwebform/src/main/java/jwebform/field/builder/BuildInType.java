@@ -1,23 +1,9 @@
 package jwebform.field.builder;
 
+import jwebform.field.*;
+
 import java.time.LocalDate;
 import java.util.List;
-import jwebform.field.CheckBoxType;
-import jwebform.field.HiddenType;
-import jwebform.field.HtmlType;
-import jwebform.field.LabelType;
-import jwebform.field.NumberType;
-import jwebform.field.PasswordType;
-import jwebform.field.RadioType;
-import jwebform.field.SelectDateType;
-import jwebform.field.SelectType;
-import jwebform.field.SimpleType;
-import jwebform.field.SubmitType;
-import jwebform.field.TextAreaType;
-import jwebform.field.TextDateType;
-import jwebform.field.TextType;
-import jwebform.field.UploadType;
-import jwebform.field.XSRFProtectionType;
 
 /**
  *  central builder class to allow simple building of all build-in types.

@@ -1,20 +1,17 @@
 package jwebform.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import jwebform.field.NumberType;
-import jwebform.field.PasswordType;
-import jwebform.field.RadioType;
-import jwebform.field.SelectType;
-import jwebform.field.TextType;
+import jwebform.field.*;
 import jwebform.field.structure.Decoration;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.FieldType;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // Infos, that the HTMLProducer needs to render the HTML. This will be provided by the form-run
 public class ProducerInfos {

@@ -1,8 +1,5 @@
 package jwebform.processor;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
@@ -11,6 +8,10 @@ import jwebform.field.structure.SingleFieldType;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 // this is doing the "hard work": Let each field do the apply function, run validations, run
 // form-validations

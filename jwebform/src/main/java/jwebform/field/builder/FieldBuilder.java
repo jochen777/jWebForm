@@ -1,10 +1,11 @@
 package jwebform.field.builder;
 
-import java.util.function.Supplier;
 import jwebform.field.structure.Decoration;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldType;
 import jwebform.validation.Criterion;
+
+import java.util.function.Supplier;
 
 
 /**

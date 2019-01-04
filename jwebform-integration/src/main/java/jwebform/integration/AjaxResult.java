@@ -1,5 +1,7 @@
 package jwebform.integration;
 
+import jwebform.FormResult;
+
 import java.util.Map;
 
 /*
@@ -14,7 +16,7 @@ public class AjaxResult {
   public String status;
   public Map<String, String> data;
 
-  public AjaxResult(boolean ok, Map<String, String> data) {
-    status = ok ? "success" : "fail";
+  public AjaxResult(FormResult formResult) {
+    status = formResult.isValid() ? "success" : "fail";
   }
 }

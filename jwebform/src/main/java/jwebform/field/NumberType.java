@@ -1,12 +1,13 @@
 package jwebform.field;
 
-import java.util.Optional;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.field.helper.OneValueTypeProcessor;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
 import jwebform.field.structure.StaticFieldInfo;
 import jwebform.validation.ValidationResult;
+
+import java.util.Optional;
 
 public class NumberType implements SingleFieldType {
 

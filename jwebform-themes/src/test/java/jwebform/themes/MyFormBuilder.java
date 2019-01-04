@@ -1,23 +1,5 @@
 package jwebform.themes;
 
-import static jwebform.field.builder.BuildInType.checkbox;
-import static jwebform.field.builder.BuildInType.hidden;
-import static jwebform.field.builder.BuildInType.html;
-import static jwebform.field.builder.BuildInType.label;
-import static jwebform.field.builder.BuildInType.number;
-import static jwebform.field.builder.BuildInType.password;
-import static jwebform.field.builder.BuildInType.radio;
-import static jwebform.field.builder.BuildInType.select;
-import static jwebform.field.builder.BuildInType.simple;
-import static jwebform.field.builder.BuildInType.submit;
-import static jwebform.field.builder.BuildInType.text;
-import static jwebform.field.builder.BuildInType.textArea;
-import static jwebform.field.builder.BuildInType.textDate;
-import static jwebform.field.builder.BuildInType.upload;
-import static jwebform.field.builder.BuildInType.xsrfProtectionForTesting;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormResult;
@@ -28,6 +10,12 @@ import jwebform.validation.Criterion;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.criteria.Criteria;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import static jwebform.field.builder.BuildInType.*;
 
 public class MyFormBuilder {
 

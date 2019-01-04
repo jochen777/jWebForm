@@ -1,12 +1,5 @@
 package jwebform.usage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import java.util.ArrayList;
-import java.util.List;
-
-import jwebform.resultprocessor.ModelResultProcessor;
-import org.junit.Test;
 import jwebform.FormModel;
 import jwebform.FormModel.Html5Validation;
 import jwebform.FormResult;
@@ -14,6 +7,14 @@ import jwebform.env.Env;
 import jwebform.env.EnvBuilder;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
+import jwebform.resultprocessor.ModelResultProcessor;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SampleUsage {
 

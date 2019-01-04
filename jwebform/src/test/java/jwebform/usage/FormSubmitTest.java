@@ -1,14 +1,15 @@
 package jwebform.usage;
 
-import static junit.framework.TestCase.assertTrue;
-import static jwebform.field.builder.BuildInType.text;
-import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
 import jwebform.usage.helper.ExampleRequests;
 import jwebform.validation.criteria.Criteria;
+import org.junit.Test;
+
+import static junit.framework.TestCase.assertTrue;
+import static jwebform.field.builder.BuildInType.text;
 
 // test, if submitted info is coming correctly
 public class FormSubmitTest {

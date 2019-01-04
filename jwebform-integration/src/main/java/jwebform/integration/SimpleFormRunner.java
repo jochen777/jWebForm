@@ -1,10 +1,11 @@
 package jwebform.integration;
 
-import java.util.Map;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
 import jwebform.processor.FormGenerator;
 import jwebform.processor.FormResultBuilder;
+
+import java.util.Map;
 
 public class SimpleFormRunner {
   private SimpleFormRunner() {

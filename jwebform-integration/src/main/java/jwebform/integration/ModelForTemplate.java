@@ -2,17 +2,17 @@ package jwebform.integration;
 
 import jwebform.FormModel;
 import jwebform.FormResult;
-import jwebform.resultprocessor.LoggingFormResult;
+import jwebform.resultprocessor.FormLogger;
 
 // Collection of objects that are useful for templates
 public class ModelForTemplate {
   private final FormModel formModel;
-  private final LoggingFormResult loggingFormResult;
+  private final FormLogger loggingFormResult;
   private final FormResult formResult;
   private final FormRenderer formRenderer;
 
   public ModelForTemplate(
-    FormModel formModel, LoggingFormResult loggingFormResult, FormResult formResult, FormRenderer formRenderer) {
+    FormModel formModel, FormLogger loggingFormResult, FormResult formResult, FormRenderer formRenderer) {
     this.formModel = formModel;
     this.loggingFormResult = loggingFormResult;
     this.formResult = formResult;
@@ -27,7 +27,7 @@ public class ModelForTemplate {
     return formRenderer;
   }
 
-  public LoggingFormResult getLoggingFormResult() {
+  public FormLogger getLoggingFormResult() {
     return loggingFormResult;
   }
 

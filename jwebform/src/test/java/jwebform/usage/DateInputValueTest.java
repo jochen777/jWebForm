@@ -1,20 +1,20 @@
 package jwebform.usage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormResult;
 import jwebform.env.EnvBuilder;
 import jwebform.field.builder.BuildInType;
-import jwebform.resultprocessor.LoggingFormResult;
+import jwebform.resultprocessor.FormLogger;
 import jwebform.validation.criteria.Criteria;
+import org.junit.Test;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import static org.junit.Assert.*;
 
 // tests the DateInput Default and empty behaviour
 public class DateInputValueTest {
@@ -81,7 +81,7 @@ public class DateInputValueTest {
     params.put("date_year", "2018");
     FormResult result = testForm
         .run(new EnvBuilder().of(it -> params.get(it)));
-    result.process(new LoggingFormResult.LoggingFormResultProcessor(System.err::print)).logForm();
+    result.process(new FormLogger.LoggingFormResultProcessor(System.err::print)).logForm();
     assertTrue(result.isValid());
     assertEquals("2018-10-05", result.getStringValue(FIELD_NAME));
     assertEquals(Optional.of(LocalDate.of(2018, 10, 5)), result.getObectValue(FIELD_NAME));

@@ -1,13 +1,12 @@
 package jwebform.integration;
 
-import java.util.function.BiConsumer;
 import jwebform.Form;
-import jwebform.FormModel;
 import jwebform.FormResult;
 import jwebform.env.Env;
 import jwebform.processor.FormGenerator;
-import jwebform.processor.FormResultBuilder;
-import jwebform.resultprocessor.LoggingFormResult;
+import jwebform.resultprocessor.FormLogger;
+
+import java.util.function.BiConsumer;
 
 class InternalFormRunner {
 
@@ -27,8 +26,8 @@ class InternalFormRunner {
     // RFE: What can we do, if we have more than one Form on the page?
     FormRenderer formRenderer = formRunnerConfig.formRenderer;
     ModelForTemplate modelForTemplate = new ModelForTemplate(fr.process(formRunnerConfig.modelResultProcessor),
-      fr.process(new LoggingFormResult.LoggingFormResultProcessor(System.err::print)), fr, formRenderer);
-    model.accept(formRunnerConfig.templateName, modelForTemplate);
+      fr.process(new FormLogger.LoggingFormResultProcessor(System.err::print)), fr, formRenderer);
+    model.accept(formRunnerConfig.templateKey, modelForTemplate);
 
     return fr;
   }
@@ -49,7 +48,7 @@ class InternalFormRunner {
   private FormResult runInternal(Form form, Env env,
     FormRunnerConfig formRunnerConfig, BiConsumer<String, Object> model) {
     FormResult fr = form.run(env);
-    model.accept(formRunnerConfig.templateName, fr);
+    model.accept(formRunnerConfig.templateKey, fr);
     return fr;
   }
 

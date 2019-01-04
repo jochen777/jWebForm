@@ -1,35 +1,37 @@
 package jwebform.resultprocessor;
 
-import jwebform.FormModel;
 import jwebform.FormResult;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.field.structure.SingleFieldType;
-import jwebform.model.FormModelBuilder;
 import jwebform.processor.FieldResults;
 
 
 /**
- * A form result that can additionally log the form in an convenient way
+ * A class, that can log the form in an convenient way
+ * Use this for debugging! It contains a ResultProcessor
+ *
+ * Use it like this:
+ * formResult.process(new FormLogger(System.out::print)).logForm();
  */
-public class LoggingFormResult  {
+public class FormLogger {
 
-  public static class LoggingFormResultProcessor implements ResultProcessor<LoggingFormResult> {
+  public static class LoggingFormResultProcessor implements ResultProcessor<FormLogger> {
 
     private final Logger logger;
     public LoggingFormResultProcessor(Logger logger) {
       this.logger = logger;
     }
 
-    @Override public LoggingFormResult process(FormResult formResult) {
-      return new LoggingFormResult(formResult, logger);
+    @Override public FormLogger process(FormResult formResult) {
+      return new FormLogger(formResult, logger);
     }
   }
 
   private final FormResult formResult;
   private final Logger logger;
 
-  public LoggingFormResult(FormResult formResult, Logger logger) {
+  public FormLogger(FormResult formResult, Logger logger) {
     this.formResult = formResult;
     this.logger = logger;
   }

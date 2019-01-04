@@ -1,13 +1,5 @@
 package jwebform.themes.mustache;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Map;
 import com.samskivert.mustache.Mustache;
 import jwebform.Form;
 import jwebform.FormModel.Method;
@@ -17,6 +9,12 @@ import jwebform.env.EnvBuilder;
 import jwebform.integration.FormRenderer;
 import jwebform.themes.MyFormBuilder;
 import jwebform.themes.SimpleTemplate;
+
+import java.io.*;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ThemeMustacheRendererTest {
   String formId = "fid";

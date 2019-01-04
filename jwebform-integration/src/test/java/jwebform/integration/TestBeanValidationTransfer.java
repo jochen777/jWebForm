@@ -1,20 +1,5 @@
 package jwebform.integration;
 
-import static org.junit.Assert.assertTrue;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import javax.validation.metadata.BeanDescriptor;
-import javax.validation.metadata.ConstraintDescriptor;
-import javax.validation.metadata.PropertyDescriptor;
-import org.junit.Test;
 import jwebform.Form;
 import jwebform.integration.bean2form.DefaultBean2Form;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
@@ -24,6 +9,23 @@ import jwebform.integration.beanvalidation.ExternalValidationDescription;
 import jwebform.validation.Criterion;
 import jwebform.validation.criteria.MaxLength;
 import jwebform.validation.criteria.Required;
+import org.junit.Test;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+import javax.validation.metadata.BeanDescriptor;
+import javax.validation.metadata.ConstraintDescriptor;
+import javax.validation.metadata.PropertyDescriptor;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.Assert.assertTrue;
 
 public class TestBeanValidationTransfer {
 

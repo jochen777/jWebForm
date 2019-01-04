@@ -1,7 +1,5 @@
 package jwebform.field;
 
-import java.security.SecureRandom;
-import java.util.Base64;
 import jwebform.env.Env;
 import jwebform.env.Env.EnvWithSubmitInfo;
 import jwebform.field.structure.FieldResult;
@@ -9,6 +7,9 @@ import jwebform.field.structure.HTMLProducer;
 import jwebform.field.structure.SingleFieldType;
 import jwebform.field.structure.StaticFieldInfo;
 import jwebform.validation.ValidationResult;
+
+import java.security.SecureRandom;
+import java.util.Base64;
 
 // Form-Elmement, that provides XSRF protection
 public class XSRFProtectionType implements SingleFieldType {

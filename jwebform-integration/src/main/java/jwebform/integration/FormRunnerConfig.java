@@ -1,9 +1,7 @@
 package jwebform.integration;
 
 import jwebform.integration.bean2form.Bean2Form;
-import jwebform.model.FormModelBuilder;
 import jwebform.resultprocessor.ModelResultProcessor;
-import jwebform.resultprocessor.ResultProcessorBuilder;
 
 // collects different settings for the formRunner
 public class FormRunnerConfig {
@@ -13,14 +11,14 @@ public class FormRunnerConfig {
 
   public final ModelResultProcessor modelResultProcessor;
 
-  public String templateName;
+  public String templateKey;
 
   public FormRunnerConfig(FormRenderer formRenderer, Bean2Form bean2Form,
-    ModelResultProcessor modelResultProcessor, String templateName) {
+    ModelResultProcessor modelResultProcessor, String templateKey) {
     this.formRenderer = formRenderer;
     this.bean2Form = bean2Form;
     this.modelResultProcessor = modelResultProcessor;
-    this.templateName = templateName;
+    this.templateKey = templateKey;
   }
 
 }

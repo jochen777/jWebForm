@@ -1,13 +1,10 @@
 package jwebform.integration;
 
-import java.util.function.BiConsumer;
 import jwebform.FormResult;
-import jwebform.env.Env;
-import jwebform.env.EnvBuilder;
-import jwebform.env.Request;
-import jwebform.env.SessionGet;
-import jwebform.env.SessionSet;
+import jwebform.env.*;
 import jwebform.processor.FormGenerator;
+
+import java.util.function.BiConsumer;
 
 // Container, that holds a jWebForm Form (or a normal bean) and provides a facade to jwebform
 // objects
@@ -41,22 +38,5 @@ public class FormRunner {
     return internalFormRunner.run(formOrBean, env, model, formRunnerConfig);
   }
 
-  public static class FormResultAndBean {
-    private final FormResult fr;
-    private final Object bean;
-
-    public FormResultAndBean(FormResult fr, Object bean) {
-      this.fr = fr;
-      this.bean = bean;
-    }
-
-    public FormResult getFr() {
-      return fr;
-    }
-
-    public Object getBean() {
-      return bean;
-    }
-  }
 
 }

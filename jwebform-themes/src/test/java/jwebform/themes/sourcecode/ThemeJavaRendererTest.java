@@ -1,9 +1,5 @@
 package jwebform.themes.sourcecode;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import java.io.IOException;
-import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormModel.Method;
 import jwebform.FormResult;
@@ -12,6 +8,11 @@ import jwebform.env.EnvBuilder;
 import jwebform.themes.MyFormBuilder;
 import jwebform.themes.SimpleTemplate;
 import jwebform.themes.sourcecode.mapper.StandardMapper;
+
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ThemeJavaRendererTest {
 

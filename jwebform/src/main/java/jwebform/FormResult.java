@@ -5,7 +5,6 @@ import jwebform.model.FormModelBuilder;
 import jwebform.processor.FieldResults;
 import jwebform.resultprocessor.ModelResultProcessor;
 import jwebform.resultprocessor.ResultProcessor;
-import jwebform.resultprocessor.ResultProcessorBuilder;
 
 /**
  * The result of a form.run It contains all infos, that is needed to get the entered values, the

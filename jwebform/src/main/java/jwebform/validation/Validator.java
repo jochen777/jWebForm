@@ -1,8 +1,9 @@
 package jwebform.validation;
 
-import java.util.Optional;
 import jwebform.validation.criteria.Criteria;
 import jwebform.validation.criteria.MaxLength;
+
+import java.util.Optional;
 
 /**
  * Validator, that checks a field

@@ -1,12 +1,14 @@
 package jwebform.integration;
 
-import static org.junit.Assert.assertEquals;
-import javax.validation.constraints.NotEmpty;
-import org.junit.Test;
 import jwebform.Form;
+import jwebform.FormResult;
 import jwebform.integration.bean2form.DefaultBean2Form;
 import jwebform.integration.fromBean.ExampleRequests;
-import jwebform.processor.FormResultBuilder;
+import org.junit.Test;
+
+import javax.validation.constraints.NotEmpty;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestAjaxFormResult {
 
@@ -14,11 +16,10 @@ public class TestAjaxFormResult {
   public void testAjaxFormResult() {
     Form f = new DefaultBean2Form().getFormFromBean(new MyFormRequired());
 
-    FormResultBuilder ajaxFormResultBuilder = AjaxFormResult::new;
-    AjaxFormResult fr = (AjaxFormResult) f.run(
-        ExampleRequests.fromRequest(ExampleRequests.exampleSubmittedRequest("name", "jochen")),
-        ajaxFormResultBuilder);
-    assertEquals("success", fr.getAjaxResult().status);
+    FormResult fr = f.run(
+        ExampleRequests.fromRequest(ExampleRequests.exampleSubmittedRequest("name", "jochen")));
+    AjaxResult ajaxResult = fr.process(new AjaxResultProcessor());
+    assertEquals("success", ajaxResult.status);
   }
 
 

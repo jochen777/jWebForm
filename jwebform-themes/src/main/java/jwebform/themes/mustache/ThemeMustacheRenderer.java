@@ -1,14 +1,15 @@
 package jwebform.themes.mustache;
 
-import java.util.HashMap;
-import java.util.Map;
-import jwebform.FormResult;
 import jwebform.FormModel;
 import jwebform.FormModel.Html5Validation;
 import jwebform.FormModel.Method;
+import jwebform.FormResult;
 import jwebform.integration.FormRenderer;
 import jwebform.integration.MessageSource;
 import jwebform.themes.common.StartEndRenderer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 // renders the form with help of mustache
 public class ThemeMustacheRenderer implements FormRenderer {

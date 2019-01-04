@@ -1,9 +1,10 @@
 package jwebform.usage.validation;
 
-import static junit.framework.TestCase.assertTrue;
-import org.junit.Test;
 import jwebform.validation.criteria.Criteria;
 import jwebform.validation.criteria.Url;
+import org.junit.Test;
+
+import static junit.framework.TestCase.assertTrue;
 
 public class TestUrl {
 

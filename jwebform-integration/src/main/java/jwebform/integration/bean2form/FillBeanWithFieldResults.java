@@ -1,9 +1,10 @@
 package jwebform.integration.bean2form;
 
-import java.util.Optional;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldResult;
 import jwebform.processor.FieldResults;
+
+import java.util.Optional;
 
 public class FillBeanWithFieldResults {
 

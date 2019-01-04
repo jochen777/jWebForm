@@ -1,17 +1,15 @@
 package jwebform.spring;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Validator;
-import jwebform.integration.FormRenderer;
 import jwebform.integration.FormRunner;
 import jwebform.integration.FormRunnerConfig;
-import jwebform.integration.bean2form.Bean2Form;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.annotation.ModelFactory;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 public class FormRunnerArgumentResolver implements HandlerMethodArgumentResolver {

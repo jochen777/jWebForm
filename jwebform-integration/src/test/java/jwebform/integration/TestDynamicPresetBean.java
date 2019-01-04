@@ -1,7 +1,6 @@
 package jwebform.integration;
 
 import jwebform.FormModel;
-import jwebform.FormResult;
 import jwebform.field.SubmitType;
 import jwebform.integration.bean2form.Bean2Form;
 import jwebform.integration.bean2form.DefaultBean2Form;
@@ -35,8 +34,8 @@ public class TestDynamicPresetBean {
       ExampleRequests.stupidModel(), formRunnerConfig);
 
     DemoForm demoForm = new DemoForm("peter");
-    FormRunner.FormResultAndBean fr = jwebform.runWithBean(demoForm);
-    assertTrue(fr.getFr().isValid());
+    FormResultAndBean fr = jwebform.runWithBean(demoForm);
+    assertTrue(fr.isValid());
     assertEquals(
       "Jochen", demoForm.firstname);
   }

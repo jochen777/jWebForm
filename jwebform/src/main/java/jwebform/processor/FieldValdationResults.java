@@ -1,9 +1,10 @@
 package jwebform.processor;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import jwebform.field.structure.Field;
 import jwebform.validation.ValidationResult;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * represents some fields with their ValidationResults. Normally a result of a validator

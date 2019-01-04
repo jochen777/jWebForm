@@ -1,23 +1,8 @@
 package jwebform.integration.bean2form;
 
-import java.time.LocalDate;
-import java.util.*;
-import java.util.function.BiFunction;
 import jwebform.Form;
 import jwebform.FormBuilder;
-import jwebform.field.CheckBoxType;
-import jwebform.field.HiddenType;
-import jwebform.field.HtmlType;
-import jwebform.field.LabelType;
-import jwebform.field.NumberType;
-import jwebform.field.PasswordType;
-import jwebform.field.RadioType;
-import jwebform.field.SelectDateType;
-import jwebform.field.SelectType;
-import jwebform.field.SubmitType;
-import jwebform.field.TextAreaType;
-import jwebform.field.TextDateType;
-import jwebform.field.TextType;
+import jwebform.field.*;
 import jwebform.field.structure.Decoration;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldType;
@@ -34,6 +19,10 @@ import jwebform.validation.Criterion;
 import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.criteria.Criteria;
+
+import java.time.LocalDate;
+import java.util.*;
+import java.util.function.BiFunction;
 
 
 /**

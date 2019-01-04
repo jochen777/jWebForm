@@ -1,23 +1,12 @@
 package jwebform.themes.sourcecode.mapper;
 
-import java.util.Optional;
-
 import jwebform.field.*;
 import jwebform.field.structure.FieldType;
 import jwebform.field.structure.HTMLProducer;
 import jwebform.themes.sourcecode.Theme;
-import jwebform.themes.sourcecode.producer.CheckBoxProducer;
-import jwebform.themes.sourcecode.producer.HiddenProducer;
-import jwebform.themes.sourcecode.producer.LabelProducer;
-import jwebform.themes.sourcecode.producer.NumberProducer;
-import jwebform.themes.sourcecode.producer.PasswordProducer;
-import jwebform.themes.sourcecode.producer.RadioProducer;
-import jwebform.themes.sourcecode.producer.SelectProducer;
-import jwebform.themes.sourcecode.producer.SubmitProducer;
-import jwebform.themes.sourcecode.producer.TextAreaProducer;
-import jwebform.themes.sourcecode.producer.TextDateProducer;
-import jwebform.themes.sourcecode.producer.TextProducer;
-import jwebform.themes.sourcecode.producer.UploadProducer;
+import jwebform.themes.sourcecode.producer.*;
+
+import java.util.Optional;
 
 public class StandardMapper implements Mapper{
 

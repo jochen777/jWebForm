@@ -1,11 +1,12 @@
 package jwebform.themes.sourcecode;
 
-import java.util.HashMap;
-import java.util.Map;
 import jwebform.FormResult;
 import jwebform.field.structure.HTMLProducer;
 import jwebform.integration.MessageSource;
 import jwebform.themes.common.StartEndRenderer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class BootstrapTheme implements Theme {
   public Map<String, HTMLProducer> htmlProducer;
