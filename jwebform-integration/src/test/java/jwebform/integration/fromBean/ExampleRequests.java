@@ -1,10 +1,13 @@
 package jwebform.integration.fromBean;
 
-import jwebform.env.*;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import jwebform.env.Env;
+import jwebform.env.EnvBuilder;
+import jwebform.env.Request;
+import jwebform.env.SessionGet;
+import jwebform.env.SessionSet;
 
 public class ExampleRequests {
 
@@ -17,11 +20,15 @@ public class ExampleRequests {
     return (t) -> null;
   }
 
-  public static Request exampleSubmittedRequest(String key, String value) {
+  public static Request exampleSubmittedRequest(String key, String value, String... strings) {
     Map<String, String> exampleMap = new HashMap<>();
     exampleMap.put(key, value);
+    for (int i = 0; i < strings.length; i += 2) {
+      exampleMap.put(strings[i], strings[i + 1]);
+    }
     return ExampleRequests.exampleSubmittedRequest(exampleMap);
   }
+
 
   public static Env fromRequest(Request r) {
     return new EnvBuilder().of(r);

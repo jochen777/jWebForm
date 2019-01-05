@@ -63,7 +63,7 @@ Write a controller, that uses this form: (Here Spring MVC)
   @RequestMapping("/form")
   public void index(HttpServletRequest request, Model model) {
    
-    FormResult formResult = form.run((key) -> request.getParameter(key)); // pass the request-params via lambda 
+    FormResult formResult = form.run( key -> request.getParameter(key)); // pass the request-params via lambda 
     
     model.addAttribute("form", formResult); 
     

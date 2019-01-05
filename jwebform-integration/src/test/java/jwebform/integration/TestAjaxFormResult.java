@@ -1,30 +1,53 @@
 package jwebform.integration;
 
-import jwebform.Form;
-import jwebform.FormResult;
-import jwebform.integration.bean2form.DefaultBean2Form;
-import jwebform.integration.fromBean.ExampleRequests;
-import org.junit.Test;
-
-import javax.validation.constraints.NotEmpty;
-
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+import jwebform.Form;
+import jwebform.FormBuilder;
+import jwebform.FormResult;
+import jwebform.field.builder.BuildInType;
+import jwebform.integration.fromBean.ExampleRequests;
+import jwebform.validation.criteria.Criteria;
 
 public class TestAjaxFormResult {
 
   @Test
-  public void testAjaxFormResult() {
-    Form f = new DefaultBean2Form().getFormFromBean(new MyFormRequired());
+  public void testAjaxFormResultSuccess() {
+    Form f = new MyFormRequired().build();
 
-    FormResult fr = f.run(
-        ExampleRequests.fromRequest(ExampleRequests.exampleSubmittedRequest("name", "jochen")));
+    FormResult fr = f.run(ExampleRequests.fromRequest(
+        ExampleRequests.exampleSubmittedRequest("name", "pier", "firstname", "jochen")));
     AjaxResult ajaxResult = fr.process(new AjaxResultProcessor());
     assertEquals("success", ajaxResult.status);
+    assertTrue(ajaxResult.data.size() == 0);
+  }
+
+  @Test
+  public void testAjaxFormResultFail() {
+    Form f = new MyFormRequired().build();
+
+    FormResult fr = f.run(ExampleRequests
+        .fromRequest(ExampleRequests.exampleSubmittedRequest("name", "pier", "firstname", "")));
+    AjaxResult ajaxResult = fr.process(new AjaxResultProcessor());
+    assertEquals("fail", ajaxResult.status);
+    assertTrue(ajaxResult.data.size() == 1);
+    assertEquals("jwebform.required", ajaxResult.data.get("firstname"));
   }
 
 
+
   public class MyFormRequired {
-    @NotEmpty
-    public String name;
+
+    public Form build() {
+      return FormBuilder.simple()
+          .typeBuilder(BuildInType.text("name").criteria(Criteria.required()),
+              BuildInType.text("firstname").criteria(Criteria.required())
+
+          ).build();
+
+    }
+
+
   }
 }

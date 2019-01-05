@@ -5,7 +5,8 @@
 2018/xx/xx 
 
 * Improve theme via sourcecode renderer. Adaption to 4.1.3 Bootstrap 
-
+* Architectural shift from subclassing FormResult to ResultProcessors. Improves extensibility and results in less code
+* Ajax support 
 
 
 ### 0.0.11 
