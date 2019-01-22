@@ -17,6 +17,7 @@ public class SubmitType implements SingleFieldType {
   @Override
   public FieldResult apply(EnvWithSubmitInfo env) {
     return FieldResult.builder()
+      .withValue(env.getEnv().getParameter(name))
         .withStaticFieldInfo(new StaticFieldInfo(name, t -> "<!-- submit -->", 1)).build();
   }
 

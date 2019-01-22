@@ -10,7 +10,7 @@ public class TextType implements SingleFieldType {
   public final OneValueTypeProcessor oneValueField;
 
   public TextType(String name) {
-    this.oneValueField = new OneValueTypeProcessor(name, "");
+    this(name, "");
   }
 
   public TextType(String name, String initialValue) {

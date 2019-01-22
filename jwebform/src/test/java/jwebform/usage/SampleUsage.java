@@ -97,7 +97,7 @@ public class SampleUsage {
     expRes.add("dateInput", true, "0001-01-01");
     expRes.add("textInput2", true, "1");
     expRes.add("gender", true, "m");
-    expRes.add("Submit", true, "");
+    expRes.add("Submit", true, "1");
     expRes.add("chk", true, "true");
     expRes.add("", true, "");
     expRes.add("", true, "");
