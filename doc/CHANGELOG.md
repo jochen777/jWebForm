@@ -2,12 +2,12 @@
 
 ### 0.0.12 
 
-2018/xx/xx 
+2019/01/22 
 
 * Improve theme via sourcecode renderer. Adaption to 4.1.3 Bootstrap 
 * Architectural shift from subclassing FormResult to ResultProcessors. Improves extensibility and results in less code
 * Ajax support 
-
+* SubmitType now have a value from the request. This allows handling more than one submit button per form.
 
 ### 0.0.11 
 
