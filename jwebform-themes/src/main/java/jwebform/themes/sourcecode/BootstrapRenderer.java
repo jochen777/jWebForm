@@ -1,5 +1,6 @@
 package jwebform.themes.sourcecode;
 
+import java.util.Optional;
 import com.coverity.security.Escape;
 import jwebform.field.structure.Decoration;
 import jwebform.integration.MessageSource;
@@ -7,8 +8,6 @@ import jwebform.model.ProducerInfos;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.Validator;
 import jwebform.validation.criteria.MaxLength;
-
-import java.util.Optional;
 
 // Renderer for bootstrap for common elements
 public class BootstrapRenderer implements ElementRenderer {
@@ -26,11 +25,11 @@ public class BootstrapRenderer implements ElementRenderer {
     String aria = renderAriaDescribedBy(pi, decoration);
     String val = renderValue(pi.getValue());
 
-    return renderInputFree(
-        "<input class=\"form-control " + calculateErrorClass(pi) + "\" tabindex=\""
-            + pi.getTabIndex() + "\" type=\"" + type + "\" name=\"" + pi.getName() + "\" value"
-            + val + placeholder + aria + renderRequired(pi.getValidator())
-            + renderMaxLen(pi.getValidator()) + additional + ">",
+    // TODO: id must be dynamic!
+    return renderInputFree("<input id=\"form-id-" + pi.getName() + "\" class=\"form-control "
+        + calculateErrorClass(pi) + "\" tabindex=\"" + pi.getTabIndex() + "\" type=\"" + type
+        + "\" name=\"" + pi.getName() + "\" value" + val + placeholder + aria
+        + renderRequired(pi.getValidator()) + renderMaxLen(pi.getValidator()) + additional + ">",
         pi, decoration, ElementRenderer.InputVariant.normal);
   }
 
