@@ -57,7 +57,12 @@ public class FieldResults implements Iterable<Map.Entry<Field, FieldResult>> {
         String.format("The field named '%s' does not exist in form", fieldName));
   }
 
+  @Deprecated // use getObjectValue instead! It just was a typo...
   public final Object getObectValue(String fieldName) {
+    return getObectValue(fieldName);
+  }
+
+  public final Object getObjectValue(String fieldName) {
     for (FieldResult i : fieldResultMap.values()) {
       if (fieldName.equals(i.getStaticFieldInfo().getName())) {
         return i.getValueObject();

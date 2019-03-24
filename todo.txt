@@ -270,6 +270,7 @@ Ja: includiere FormRunner und FormGenerator in helper package
 [ ] Share Test code between maven modules (http://maven.apache.org/guides/mini/guide-attached-tests.html)
 
 [ ] Make validation optional in spring-boot module
+[ ] Document how to write own validators
 
 [x] Introduce "firstRun" check
 

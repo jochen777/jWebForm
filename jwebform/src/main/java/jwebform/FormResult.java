@@ -116,7 +116,7 @@ public class FormResult {
   }
 
   public final Object getObectValue(String name) {
-    return fieldResults.getObectValue(name);
+    return fieldResults.getObjectValue(name);
   }
 
 

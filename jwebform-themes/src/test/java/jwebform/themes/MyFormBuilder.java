@@ -93,7 +93,7 @@ public class MyFormBuilder {
   }
 
   public LocalDate getDateValue(FormResult formResult) {
-    return (LocalDate) formResult.getFieldResults().getObectValue("dateInput");
+    return (LocalDate) formResult.getFieldResults().getObjectValue("dateInput");
   }
 
   public Form buildForm() {
