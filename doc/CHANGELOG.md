@@ -1,5 +1,15 @@
 # jwebform changelog
 
+### 0.0.13 
+
+2019/xx/xx
+
+* Fix email regexp (allow lowercase chars)
+* fix typo in method
+*  
+
+
+
 ### 0.0.12 
 
 2019/01/22 
