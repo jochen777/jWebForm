@@ -271,6 +271,7 @@ Ja: includiere FormRunner und FormGenerator in helper package
 
 [ ] Make validation optional in spring-boot module
 [ ] Document how to write own validators
+[ ] Allow reverse order of years in date-select
 
 [x] Introduce "firstRun" check
 
