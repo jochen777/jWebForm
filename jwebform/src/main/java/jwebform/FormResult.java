@@ -21,7 +21,7 @@ public class FormResult {
 
   @Deprecated
   public FormResult(String formId, FieldResults fieldResults, boolean formIsValid,
-      boolean isFirstRun,  FormModelBuilder formModelBuilder) {
+      boolean isFirstRun, FormModelBuilder formModelBuilder) {
     this.formId = formId;
     this.formIsValid = formIsValid;
     this.fieldResults = fieldResults;
@@ -84,7 +84,8 @@ public class FormResult {
     return resultProcessor.process(this);
   }
 
-  @Deprecated
+  @Deprecated // use new FormModel(FormResult formResult, Method method, Html5Validation
+              // html5Validation) ... instead
   public FormModel getFormModel(Html5Validation html5Validation, FormModel.Method method) {
     ModelResultProcessor modelResultProcessor = new ModelResultProcessor(method, html5Validation);
     return process(modelResultProcessor);
@@ -98,12 +99,12 @@ public class FormResult {
 
   @Deprecated
   public FormModel getFormModel(FormModel.Method method) {
-    return getFormModel(Html5Validation.ON,  method);
+    return getFormModel(Html5Validation.ON, method);
   }
 
   @Deprecated
   public FormModel getFormModel() {
-    return getFormModel(Html5Validation.ON,  FormModel.Method.POST);
+    return getFormModel(Html5Validation.ON, FormModel.Method.POST);
   }
 
 

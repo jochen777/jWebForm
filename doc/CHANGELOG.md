@@ -2,11 +2,11 @@
 
 ### 0.0.13 
 
-2019/xx/xx
+2019/04/03
 
 * Fix email regexp (allow lowercase chars)
-* fix typo in method
-*  
+* Fix typo in method
+* Allow invidiudal order in years on year-select (ie: 2000 - 2002 will result in 2000,2001,2002 and 2002-2000 will result in 2002,2001,200)
 
 
 
