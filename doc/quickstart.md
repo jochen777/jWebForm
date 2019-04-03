@@ -10,7 +10,7 @@ Add this dependency to your project:
 <dependency>
     <groupId>de.cyclon-softworx</groupId>
     <artifactId>jwebform</artifactId>
-    <version>0.0.11</version> <!-- Please check for the latest version on maven central or in the changelog! -->
+    <version>0.0.13</version> <!-- Please check for the latest version on maven central or in the changelog! -->
 </dependency>
 ...
 ```
