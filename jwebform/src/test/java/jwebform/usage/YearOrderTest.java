@@ -6,8 +6,8 @@ import org.junit.Test;
 import jwebform.field.SelectType.SelectInputEntry;
 import jwebform.field.helper.CommonSelects;
 
-// tests the DateInputSelect behaviour
-public class DateInputValueTest {
+// tests if the order of the years can be invidual
+public class YearOrderTest {
 
   private static final int LARGE_YEAR = 2020;
   private static final int SMALL_YEAR = 2010;

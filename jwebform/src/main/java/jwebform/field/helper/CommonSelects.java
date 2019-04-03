@@ -41,12 +41,13 @@ public class CommonSelects {
   /**
    * will always return a list of years from startYear to endYear. Example:
    * 
-   * startyear: 2010, endyear: 2012: => 2010,2011,2012 startyear: 2012, endyear: 2010: =>
-   * 2012,2011,2010
+   * startyear: 2010, endyear: 2012: -> 2010,2011,2012
    * 
-   * @param startYear
-   * @param endYear
-   * @return
+   * startyear: 2012, endyear: 2010: -> 2012,2011,2010
+   * 
+   * @param startYear first year in select
+   * @param endYear last year in select
+   * @return selectEntries containing the list of years
    */
   public List<SelectType.SelectInputEntry> getYears(int startYear, int endYear) {
     if (startYear < endYear) {
