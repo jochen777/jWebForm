@@ -41,9 +41,9 @@ public class CommonSelects {
   /**
    * will always return a list of years from startYear to endYear. Example:
    * 
-   * startyear: 2010, endyear: 2012: -> 2010,2011,2012
+   * startyear: 2010, endyear: 2012 result: 2010,2011,2012
    * 
-   * startyear: 2012, endyear: 2010: -> 2012,2011,2010
+   * startyear: 2012, endyear: 2010 result: 2012,2011,2010
    * 
    * @param startYear first year in select
    * @param endYear last year in select
