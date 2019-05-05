@@ -1,5 +1,12 @@
 # jwebform changelog
 
+### 0.0.14 
+
+2019/xx/xx
+
+* Allow untranslated Messages in beans. ( Example @Decoration(label="Dein Name", isTranslated=true) )
+
+
 ### 0.0.13 
 
 2019/04/03

@@ -4,12 +4,13 @@ import javax.annotation.Generated;
 
 /**
  * Decorative data for typical inputfield, can be subclassed to use more data.
-  */
+ */
 public class Decoration {
 
   private final String label;
   private final String helptext;
   private final String placeholder;
+  private final boolean isTranlated;
 
   public static final String EMPTY = "";
 
@@ -18,17 +19,23 @@ public class Decoration {
     this.label = builder.label;
     this.helptext = builder.helptext;
     this.placeholder = builder.placeholder;
+    this.isTranlated = builder.isTranslated;
   }
 
   public Decoration(String label) {
     this(label, EMPTY, EMPTY);
   }
 
-
   public Decoration(String label, String helptext, String placeholder) {
+    this(label, helptext, placeholder, false);
+  }
+
+
+  public Decoration(String label, String helptext, String placeholder, boolean isTranslated) {
     this.label = label;
     this.helptext = helptext;
     this.placeholder = placeholder;
+    this.isTranlated = isTranslated;
   }
 
   public Decoration(String label, String helptext) {
@@ -66,11 +73,17 @@ public class Decoration {
     private String label;
     private String helptext = EMPTY;
     private String placeholder = EMPTY;
+    private boolean isTranslated = false;
 
     private Builder() {}
 
     public Builder withLabel(String label) {
       this.label = label;
+      return this;
+    }
+
+    public Builder withTranslated(boolean isTranslated) {
+      this.isTranslated = isTranslated;
       return this;
     }
 
@@ -87,6 +100,10 @@ public class Decoration {
     public Decoration build() {
       return new Decoration(this);
     }
+  }
+
+  public boolean isTranlated() {
+    return isTranlated;
   }
 
 

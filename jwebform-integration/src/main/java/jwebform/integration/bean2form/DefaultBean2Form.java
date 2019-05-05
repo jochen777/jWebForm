@@ -1,8 +1,28 @@
 package jwebform.integration.bean2form;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.BiFunction;
 import jwebform.Form;
 import jwebform.FormBuilder;
-import jwebform.field.*;
+import jwebform.field.CheckBoxType;
+import jwebform.field.HiddenType;
+import jwebform.field.HtmlType;
+import jwebform.field.LabelType;
+import jwebform.field.NumberType;
+import jwebform.field.PasswordType;
+import jwebform.field.RadioType;
+import jwebform.field.SelectDateType;
+import jwebform.field.SelectType;
+import jwebform.field.SubmitType;
+import jwebform.field.TextAreaType;
+import jwebform.field.TextDateType;
+import jwebform.field.TextType;
 import jwebform.field.structure.Decoration;
 import jwebform.field.structure.Field;
 import jwebform.field.structure.FieldType;
@@ -20,27 +40,18 @@ import jwebform.validation.FormValidator;
 import jwebform.validation.ValidationResult;
 import jwebform.validation.criteria.Criteria;
 
-import java.time.LocalDate;
-import java.util.*;
-import java.util.function.BiFunction;
-
 
 /**
- * Standard implementation for Bean2Form.
- * Considers Bean-Validation if available, can be injected with Fieldcreators
- * Only public fields in the Bean are considered, not the methods!
- * You have to init each field.
- * Can handle @Ignore, @UseDecoration and @UseFieldType Annoations
+ * Standard implementation for Bean2Form. Considers Bean-Validation if available, can be injected
+ * with Fieldcreators Only public fields in the Bean are considered, not the methods! You have to
+ * init each field. Can handle @Ignore, @UseDecoration and @UseFieldType Annoations
  *
- * Example:
- * public MyForm {
- *   public String firstname="";
- *   public String lastname="";
- * }
+ * Example: public MyForm { public String firstname=""; public String lastname=""; }
  */
 public class DefaultBean2Form implements Bean2Form {
 
-  static final LinkedHashMap<Class, BiFunction<String, Object, FieldType>> preBuildfieldCreators = fillFieldCreators();
+  static final LinkedHashMap<Class, BiFunction<String, Object, FieldType>> preBuildfieldCreators =
+      fillFieldCreators();
   final LinkedHashMap<Class, BiFunction<String, Object, FieldType>> fieldCreators;
   final BeanValidationValidator beanValidator;
   final BeanValidationRuleDeliverer beanValidationRuleDeliverer;
@@ -49,13 +60,15 @@ public class DefaultBean2Form implements Bean2Form {
     // no bean validation at all!
     this((b) -> new ArrayList<>(), (bean, name) -> Collections.emptySet(), new LinkedHashMap<>());
   }
+
   public DefaultBean2Form(BeanValidationValidator beanValidator,
-    BeanValidationRuleDeliverer ruleDeliverer) {
+      BeanValidationRuleDeliverer ruleDeliverer) {
     this(beanValidator, ruleDeliverer, new LinkedHashMap<>());
   }
 
   public DefaultBean2Form(BeanValidationValidator beanValidator,
-      BeanValidationRuleDeliverer ruleDeliverer, LinkedHashMap<Class, BiFunction<String, Object, FieldType>> additionalFieldCreators) {
+      BeanValidationRuleDeliverer ruleDeliverer,
+      LinkedHashMap<Class, BiFunction<String, Object, FieldType>> additionalFieldCreators) {
 
     this.beanValidator = beanValidator;
     this.beanValidationRuleDeliverer = ruleDeliverer;
@@ -72,7 +85,8 @@ public class DefaultBean2Form implements Bean2Form {
    * @param bean
    * @return
    */
-  @Override public Form getFormFromBean(Object bean) {
+  @Override
+  public Form getFormFromBean(Object bean) {
 
     java.lang.reflect.Field[] fieldsOfBean = bean.getClass().getFields();
 
@@ -109,8 +123,8 @@ public class DefaultBean2Form implements Bean2Form {
 
     }
     // add formValdidator (with beanvalidation)
-    Form f = FormBuilder.withId("id")
-        .fields(fields).validation(generateFormValidator(bean)).build();
+    Form f =
+        FormBuilder.withId("id").fields(fields).validation(generateFormValidator(bean)).build();
     if (bean instanceof JWebFormBean) {
       // callback "prerun" - called in case of the JwebFormBean. Can modify the form.
       Form processedByBean = ((JWebFormBean) bean).preRun(f);
@@ -133,9 +147,9 @@ public class DefaultBean2Form implements Bean2Form {
         beanValidationRuleDeliverer.getCriteriaForField(bean, name);
     if (!annotations.isEmpty()) {
       for (ExternalValidationDescription a : annotations) {
-        if (a.name.contains("NotEmpty")) {  // RFE better instanceof ... Is there a superclass?
+        if (a.name.contains("NotEmpty")) { // RFE better instanceof ... Is there a superclass?
           criterionList.add(Criteria.required());
-        } else if (a.name.contains("Size")) {  // RFE better instanceof ... Is there a superclass?
+        } else if (a.name.contains("Size")) { // RFE better instanceof ... Is there a superclass?
           criterionList.add(Criteria.maxLength((Integer) a.parameters.get("max")));
         }
       }
@@ -174,18 +188,22 @@ public class DefaultBean2Form implements Bean2Form {
   }
 
   private static LinkedHashMap<Class, BiFunction<String, Object, FieldType>> fillFieldCreators() {
-    LinkedHashMap<Class, BiFunction<String, Object, FieldType>> prebuildFieldCreators = new LinkedHashMap<>();
+    LinkedHashMap<Class, BiFunction<String, Object, FieldType>> prebuildFieldCreators =
+        new LinkedHashMap<>();
     BiFunction<String, Object, FieldType> bool2checkbox =
         (s, o) -> new CheckBoxType(s, getVal(o, Boolean.class));
     BiFunction<String, Object, FieldType> int2Number =
         (s, o) -> new NumberType(s, getVal(o, Integer.class));
 
 
-    prebuildFieldCreators.put(CheckBoxType.class, (s, o) -> new CheckBoxType(s, getVal(o, Boolean.class)));
-    prebuildFieldCreators.put(HiddenType.class, (s, o) -> new HiddenType(s, getVal(o, String.class)));
+    prebuildFieldCreators.put(CheckBoxType.class,
+        (s, o) -> new CheckBoxType(s, getVal(o, Boolean.class)));
+    prebuildFieldCreators.put(HiddenType.class,
+        (s, o) -> new HiddenType(s, getVal(o, String.class)));
     prebuildFieldCreators.put(HtmlType.class, (s, o) -> new HtmlType(getVal(o, String.class)));
     prebuildFieldCreators.put(LabelType.class, (s, o) -> new LabelType(getVal(o, String.class)));
-    prebuildFieldCreators.put(NumberType.class, (s, o) -> new NumberType(s, getVal(o, Integer.class)));
+    prebuildFieldCreators.put(NumberType.class,
+        (s, o) -> new NumberType(s, getVal(o, Integer.class)));
     prebuildFieldCreators.put(PasswordType.class, (s, o) -> new PasswordType(s));
     prebuildFieldCreators.put(RadioType.class,
         (s, o) -> new RadioType(s, getVal(o, String.class), getKeys(o), getVals(o)));
@@ -194,7 +212,8 @@ public class DefaultBean2Form implements Bean2Form {
             LocalDate.now().getYear() + 1));
     prebuildFieldCreators.put(SelectType.class,
         (s, o) -> new SelectType(s, getVal(o, String.class), getKeys(o), getVals(o)));
-    prebuildFieldCreators.put(TextAreaType.class, (s, o) -> new TextAreaType(s, getVal(o, String.class)));
+    prebuildFieldCreators.put(TextAreaType.class,
+        (s, o) -> new TextAreaType(s, getVal(o, String.class)));
     prebuildFieldCreators.put(SubmitType.class, (s, o) -> new SubmitType(s));
     prebuildFieldCreators.put(TextDateType.class,
         (s, o) -> new TextDateType(s, getVal(o, LocalDate.class)));
@@ -210,7 +229,8 @@ public class DefaultBean2Form implements Bean2Form {
     prebuildFieldCreators.put(int.class, int2Number);
     prebuildFieldCreators.put(Boolean.class, bool2checkbox);
     prebuildFieldCreators.put(boolean.class, bool2checkbox);
-    prebuildFieldCreators.put(LocalDate.class, (s, o) -> new TextDateType(s, getVal(o, LocalDate.class)));
+    prebuildFieldCreators.put(LocalDate.class,
+        (s, o) -> new TextDateType(s, getVal(o, LocalDate.class)));
     return prebuildFieldCreators;
 
   }
@@ -259,9 +279,8 @@ public class DefaultBean2Form implements Bean2Form {
   private Decoration getDecoration(java.lang.reflect.Field fieldOfBean, String name) {
     UseDecoration decoration = fieldOfBean.getAnnotation(UseDecoration.class);
     if (decoration != null) {
-      Decoration d =
-          new Decoration(decoration.label(), decoration.helpText(), decoration.placeholder());
-      return d;
+      return new Decoration(decoration.label(), decoration.helpText(), decoration.placeholder(),
+          decoration.isTranslated());
     }
     return new Decoration(name);
   }

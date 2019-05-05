@@ -146,8 +146,9 @@ public class BootstrapRenderer implements ElementRenderer {
     StringBuilder complete = new StringBuilder();
     return complete.append("<label class=\"control-label\" for=\"")
         .append(pi.getFormId() + "-" + pi.getName()).append("\">")
-        .append(messageSource.getMessage(decoration.getLabel())).append(labelAppend)
-        .append("</label>").toString();
+        .append(decoration.isTranlated() ? decoration.getLabel()
+            : messageSource.getMessage(decoration.getLabel()))
+        .append(labelAppend).append("</label>").toString();
 
   }
 
@@ -155,8 +156,8 @@ public class BootstrapRenderer implements ElementRenderer {
   protected String generatePlaceholder(Decoration decoration) {
     String placeholder = "";
     if (!decoration.getPlaceholder().isEmpty()) {
-      placeholder =
-          " placeholder=\"" + messageSource.getMessage(decoration.getPlaceholder()) + "\"";
+      placeholder = " placeholder=\"" + (decoration.isTranlated() ? decoration.getPlaceholder()
+          : messageSource.getMessage(decoration.getPlaceholder())) + "\"";
     }
     return placeholder;
   }
@@ -171,7 +172,9 @@ public class BootstrapRenderer implements ElementRenderer {
     if (isHelpDesired(decoration)) {
       helpHTML = "\n<small id=\"" + pi.getFormId() + "-" + pi.getName()
           + "-help_block\" class=\"form-text text-muted\">\n"
-          + messageSource.getMessage(decoration.getHelptext()) + "\n</small>\n";
+          + (decoration.isTranlated() ? decoration.getHelptext()
+              : messageSource.getMessage(decoration.getHelptext()))
+          + "\n</small>\n";
     } else {
       helpHTML = "";
     }
