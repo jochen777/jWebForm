@@ -13,7 +13,7 @@
 
 * Fix email regexp (allow lowercase chars)
 * Fix typo in method
-* Allow invidiudal order in years on year-select (ie: 2000 - 2002 will result in 2000,2001,2002 and 2002-2000 will result in 2002,2001,200)
+* Allow invidiudal order in years on year-select (ie: 2000 - 2002 will result in 2000,2001,2002 and 2002-2000 will result in 2002,2001,2000)
 
 
 
