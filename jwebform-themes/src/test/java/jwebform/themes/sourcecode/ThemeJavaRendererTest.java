@@ -1,5 +1,8 @@
 package jwebform.themes.sourcecode;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import java.io.IOException;
 import jwebform.Form;
 import jwebform.FormModel.Method;
 import jwebform.FormResult;
@@ -9,18 +12,13 @@ import jwebform.themes.MyFormBuilder;
 import jwebform.themes.SimpleTemplate;
 import jwebform.themes.sourcecode.mapper.StandardMapper;
 
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 public class ThemeJavaRendererTest {
 
   String formId = "fid";
 
   SimpleTemplate template = new SimpleTemplate();
 
-  //@Test
+  // @Test
   public void testnormalUsageFirstRun() {
 
     Env env = new EnvBuilder().of(it -> null, // this simulates the first run (not submitted) (all
@@ -32,7 +30,7 @@ public class ThemeJavaRendererTest {
   }
 
 
-  //@Test
+  // @Test
   public void testnormalUsageSubmitSuccess() {
     Env env = new EnvBuilder().of(it -> {
       if (it.equals("WF_SUBMITTED")) {
@@ -47,7 +45,7 @@ public class ThemeJavaRendererTest {
     assertTrue("The form should be true, because input-fields should be okay", result);
   }
 
-  //@Test
+  // @Test
   public void testnormalUsageSubmitError() {
     Env env = new EnvBuilder().of(it -> {
       if (it.equals("WF_SUBMITTED")) {
@@ -64,7 +62,7 @@ public class ThemeJavaRendererTest {
   }
 
 
-  //@Test
+  // @Test
   public void testnormalUsageSubmitVarious() {
     Env env = new EnvBuilder().of(it -> {
       if (it.equals("WF_SUBMITTED")) {
@@ -88,8 +86,8 @@ public class ThemeJavaRendererTest {
     Form f = formBuilder.buildForm();
     FormResult result = f.run(env);
 
-    ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-        new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
+    ThemeJavaRenderer renderer =
+        new ThemeJavaRenderer(new StandardMapper(new BootstrapTheme(msg -> msg)));
     String content = renderer.render(result, Method.POST, true).trim();
     String filecontent;
     try {

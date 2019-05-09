@@ -1,5 +1,8 @@
 package jwebform.themes.sourcecode;
 
+import static org.junit.Assert.assertEquals;
+import java.io.IOException;
+import org.junit.Test;
 import jwebform.Form;
 import jwebform.FormBuilder;
 import jwebform.FormModel;
@@ -12,11 +15,6 @@ import jwebform.themes.ExampleRequests;
 import jwebform.themes.FileReader;
 import jwebform.themes.SimpleTemplate;
 import jwebform.themes.sourcecode.mapper.StandardMapper;
-import org.junit.Test;
-
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
 
 public class TestCheckbox {
 
@@ -47,13 +45,14 @@ public class TestCheckbox {
   @Test
   public void test_renderSubmitNotClicked() throws IOException {
     FormResult result = getFormResult(false, true, false);
-    assertEquals(processTemplate("test/checkbox_submitted_not_clicked_ok.html"), renderForm(result));
+    assertEquals(processTemplate("test/checkbox_submitted_not_clicked_ok.html"),
+        renderForm(result));
   }
 
 
   private String renderForm(FormResult result) {
     ThemeJavaRenderer renderer =
-      new ThemeJavaRenderer(new StandardMapper(BootstrapTheme.instance(msg -> msg)));
+        new ThemeJavaRenderer(new StandardMapper(new BootstrapTheme(msg -> msg)));
     return renderer.render(result, FormModel.Method.POST, true).trim();
   }
 
@@ -66,10 +65,10 @@ public class TestCheckbox {
     ExampleRequests exampleRequests = new ExampleRequests(formId);
     Request request = exampleRequests.notSubmittedRequest();
     if (submitted) {
-      request = exampleRequests.exampleSubmittedRequest("ch", clicked?"ch":"");
+      request = exampleRequests.exampleSubmittedRequest("ch", clicked ? "ch" : "");
     }
-    return new CheckBoxForm("ch", "lbl", "help", initialValue).generateForm().
-      run(new EnvBuilder().of(request));
+    return new CheckBoxForm("ch", "lbl", "help", initialValue).generateForm()
+        .run(new EnvBuilder().of(request));
   }
 
 
@@ -87,10 +86,11 @@ public class TestCheckbox {
       this.initial = initial;
     }
 
-    @Override public Form generateForm() {
-      return FormBuilder.withId(formId).typeBuilder(BuildInType.array(BuildInType.checkbox(name, initial).
-        label(label).
-        helpText(helptext))).build();
+    @Override
+    public Form generateForm() {
+      return FormBuilder.withId(formId).typeBuilder(
+          BuildInType.array(BuildInType.checkbox(name, initial).label(label).helpText(helptext)))
+          .build();
     }
   }
 }

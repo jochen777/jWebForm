@@ -1,6 +1,20 @@
 package jwebform.spring;
 
 
+import static org.junit.Assert.assertTrue;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.validation.constraints.Size;
+import javax.validation.metadata.BeanDescriptor;
+import javax.validation.metadata.ConstraintDescriptor;
+import javax.validation.metadata.PropertyDescriptor;
+import org.junit.Test;
 import jwebform.integration.FormRenderer;
 import jwebform.integration.FormResultAndBean;
 import jwebform.integration.FormRunner;
@@ -12,24 +26,9 @@ import jwebform.integration.beanvalidation.BeanValidationValidator;
 import jwebform.integration.beanvalidation.ExternalValidation;
 import jwebform.integration.beanvalidation.ExternalValidationDescription;
 import jwebform.resultprocessor.ModelResultProcessor;
+import jwebform.themes.sourcecode.BootstrapTheme;
 import jwebform.themes.sourcecode.ThemeJavaRenderer;
 import jwebform.themes.sourcecode.mapper.StandardMapper;
-import org.junit.Test;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import javax.validation.constraints.Size;
-import javax.validation.metadata.BeanDescriptor;
-import javax.validation.metadata.ConstraintDescriptor;
-import javax.validation.metadata.PropertyDescriptor;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static org.junit.Assert.assertTrue;
 
 public class FormRunnerTest {
 
@@ -39,8 +38,8 @@ public class FormRunnerTest {
 
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Bean2Form bean2FromContract = getBean2Form(factory.getValidator());
-    FormRenderer formRenderer = new ThemeJavaRenderer(
-        new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
+    FormRenderer formRenderer =
+        new ThemeJavaRenderer(new StandardMapper(new BootstrapTheme(msg -> msg)));
 
     FormRunnerConfig formRunnerConfig =
         new FormRunnerConfig(formRenderer, bean2FromContract, new ModelResultProcessor(), "form");
@@ -55,7 +54,8 @@ public class FormRunnerTest {
         !fr.isValid());
 
     FormResultAndBean fr2 = jwebform.runWithBean(new MyForm2());
-    assertTrue("The form should be okay, 'test' is bigger than 2 chars", fr2.getFormResult().isValid());
+    assertTrue("The form should be okay, 'test' is bigger than 2 chars",
+        fr2.getFormResult().isValid());
 
   }
 

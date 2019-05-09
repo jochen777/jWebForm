@@ -1,17 +1,14 @@
 package jwebform.spring;
 
-import jwebform.FormModel;
-import jwebform.integration.FormRenderer;
-import jwebform.integration.FormRunnerConfig;
-import jwebform.integration.bean2form.Bean2Form;
-import jwebform.integration.bean2form.DefaultBean2Form;
-import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
-import jwebform.integration.beanvalidation.BeanValidationValidator;
-import jwebform.integration.beanvalidation.ExternalValidation;
-import jwebform.integration.beanvalidation.ExternalValidationDescription;
-import jwebform.resultprocessor.ModelResultProcessor;
-import jwebform.themes.sourcecode.ThemeJavaRenderer;
-import jwebform.themes.sourcecode.mapper.StandardMapper;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.metadata.BeanDescriptor;
+import javax.validation.metadata.ConstraintDescriptor;
+import javax.validation.metadata.PropertyDescriptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -22,16 +19,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import javax.validation.metadata.BeanDescriptor;
-import javax.validation.metadata.ConstraintDescriptor;
-import javax.validation.metadata.PropertyDescriptor;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import jwebform.FormModel;
+import jwebform.integration.FormRenderer;
+import jwebform.integration.FormRunnerConfig;
+import jwebform.integration.bean2form.Bean2Form;
+import jwebform.integration.bean2form.DefaultBean2Form;
+import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
+import jwebform.integration.beanvalidation.BeanValidationValidator;
+import jwebform.integration.beanvalidation.ExternalValidation;
+import jwebform.integration.beanvalidation.ExternalValidationDescription;
+import jwebform.resultprocessor.ModelResultProcessor;
+import jwebform.themes.sourcecode.BootstrapTheme;
+import jwebform.themes.sourcecode.ThemeJavaRenderer;
+import jwebform.themes.sourcecode.mapper.StandardMapper;
 
 @Configuration
 @ConditionalOnClass(FormRenderer.class)
@@ -56,12 +56,11 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
 
 
 
-
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolver) {
 
     FormRunnerConfig formRunnerConfig = new FormRunnerConfig(formRenderer, bean2Form,
-      modelResultProcessor, properties.getTemplateName());
+        modelResultProcessor, properties.getTemplateName());
     argumentResolver.add(new FormRunnerArgumentResolver(formRunnerConfig));
     argumentResolver.add(new ContainerFormRunnerArgumentResolver(formRunnerConfig));
   }
@@ -122,9 +121,8 @@ public class JWebFormAutoConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
     public FormRenderer formRenderer(MessageSource messageSource) {
-      ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-          new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(
-              key -> messageSource.getMessage(key, null, LocaleContextHolder.getLocale()))));
+      ThemeJavaRenderer renderer = new ThemeJavaRenderer(new StandardMapper(new BootstrapTheme(
+          key -> messageSource.getMessage(key, null, LocaleContextHolder.getLocale()))));
       return renderer;
     }
 

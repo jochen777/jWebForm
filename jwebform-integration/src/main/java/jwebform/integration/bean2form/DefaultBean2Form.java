@@ -117,6 +117,7 @@ public class DefaultBean2Form implements Bean2Form {
           fields.add(new Field(fieldCreators.get(classOfField).apply(name, initialValue),
               decoration, criteras));
         } else {
+          // RFE: Get rid of this!
           System.err.println("Unsupported value:" + classOfField);
         }
       }

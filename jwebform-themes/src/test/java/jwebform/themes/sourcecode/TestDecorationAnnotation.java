@@ -6,6 +6,7 @@ import jwebform.Form;
 import jwebform.FormModel;
 import jwebform.env.EnvBuilder;
 import jwebform.env.Request;
+import jwebform.integration.MessageSource;
 import jwebform.integration.bean2form.DefaultBean2Form;
 import jwebform.integration.bean2form.annotations.UseDecoration;
 import jwebform.themes.ExampleRequests;
@@ -15,7 +16,7 @@ public class TestDecorationAnnotation {
 
   public class TestForm_Not_TranslatedAnnotation {
     @UseDecoration(label = "NameNotTranslated", helpText = "helpTextNotTranslated",
-        placeholder = "PlaceholderNotTranslated")
+        placeholder = "PlaceholderNotTranslated", isTranslated = false)
     public String name = "";
   }
 
@@ -23,9 +24,9 @@ public class TestDecorationAnnotation {
   public void testTranslatedKey() {
     TestForm_Not_TranslatedAnnotation testBean = new TestForm_Not_TranslatedAnnotation();
     String renderedForm = renderBean(testBean);
-    assertTrue(renderedForm.contains("namenottranslated"));
-    assertTrue(renderedForm.contains("helptextnottranslated"));
-    assertTrue(renderedForm.contains("placeholdernottranslated"));
+    assertTrue(renderedForm.contains("#namenottranslated#"));
+    assertTrue(renderedForm.contains("#helptextnottranslated#"));
+    assertTrue(renderedForm.contains("#placeholdernottranslated#"));
   }
 
   public class TestFormTranslatedAnnotation {
@@ -46,13 +47,13 @@ public class TestDecorationAnnotation {
 
 
   private String renderBean(Object testBean) {
-    Form translatedBean = new DefaultBean2Form().getFormFromBean(testBean);
+    Form formFromBean = new DefaultBean2Form().getFormFromBean(testBean);
     Request request = new ExampleRequests("id").notSubmittedRequest();
-    ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-        new StandardMapper(BootstrapTheme.instance(msg -> msg.toLowerCase())));
+    MessageSource msgSource = msg -> "#" + msg.toLowerCase() + "#";
+    ThemeJavaRenderer renderer =
+        new ThemeJavaRenderer(new StandardMapper(new BootstrapTheme(msgSource)));
     String renderedForm = renderer
-        .render(translatedBean.run(new EnvBuilder().of(request)), FormModel.Method.POST, true)
-        .trim();
+        .render(formFromBean.run(new EnvBuilder().of(request)), FormModel.Method.POST, true).trim();
     return renderedForm;
   }
 
