@@ -14,7 +14,7 @@ You have to use the jwebform-integration project for this. (This is included in 
 public class MyForm {
   
     @UseDecoration(label = "Your Firstname", helpText = "Please don't cheat here",
-          placeholder = "Max Mustermann")
+          placeholder = "Max Mustermann", isTranslated = true)
     public String firstname="";
     
     
@@ -49,7 +49,7 @@ Theses types will be converted automatically for you.
 | --------------- |------------------------------------|-------------------|
 | @UseFieldType | Forces a specific type | @UseFieldType(TextAreaType.class) String notes;|
 | @IgnoreField | Ignores the field in the bean and will not process it | @IgnoreField String secret;|
-| @UseDecoration | Fills in decoration for this field | @UseDecoration(label="Your first name") String firstnaem;|
+| @UseDecoration | Fills in decoration for this field | @UseDecoration(label="Your first name") String firstname;|
 | @IsRequired| Marks the field as required| @IsRequired |
 
 ## Bean Validation
@@ -91,9 +91,15 @@ currently not implemented (TODO!)
 This is the most useful: Here you can write your own validation rules. This is simmpler than the Bean Validation API.
 
 
+## Translation
+
+In a multi-language setup it is common to use .property files to store translated keys. If you use the themeRenderer, 
+you can choose, whether you want to have translations in the Decoration or not. 
+
+@Decoration(..., isTranslated=true) - will output the texts as they are
+@Decoration(..., isTranslated=false) - will translate the text via .propertys (default) 
 
 ## Notes
 
 * The bean has to be public acessible.
 * All fields must be public and must be initialised. (Subject to change)
-
