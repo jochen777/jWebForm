@@ -45,7 +45,7 @@ import jwebform.validation.criteria.Criteria;
  * Standard implementation for Bean2Form. Considers Bean-Validation if available, can be injected
  * with Fieldcreators Only public fields in the Bean are considered, not the methods! You have to
  * init each field. Can handle @Ignore, @UseDecoration and @UseFieldType Annoations
- *
+ * <p>
  * Example: public MyForm { public String firstname=""; public String lastname=""; }
  */
 public class DefaultBean2Form implements Bean2Form {
@@ -101,6 +101,9 @@ public class DefaultBean2Form implements Bean2Form {
       Object initialValue = null;
       try {
         initialValue = fieldOfBean.get(bean);
+        if (initialValue == null) {
+          initialValue = "";
+        }
       } catch (IllegalAccessException e) {
         e.printStackTrace();
       }
@@ -223,7 +226,6 @@ public class DefaultBean2Form implements Bean2Form {
     // XSRFType sould be added by frombuilder
 
 
-
     // Standard classes (without annoation)
     prebuildFieldCreators.put(String.class, (s, o) -> new TextType(s, getVal(o, String.class)));
     prebuildFieldCreators.put(Integer.class, int2Number);
@@ -267,7 +269,6 @@ public class DefaultBean2Form implements Bean2Form {
         "Please call the getKeys just with a ValuesOfObject field. You called with: "
             + o.getClass());
   }
-
 
 
   private boolean isIgnore(java.lang.reflect.Field fieldOfBean) {

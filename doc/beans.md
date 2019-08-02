@@ -102,4 +102,5 @@ you can choose, whether you want to have translations in the Decoration or not.
 ## Notes
 
 * The bean has to be public acessible.
-* All fields must be public and must be initialised. (Subject to change)
+* All fields must be public.
+* All fields should be initialised. (Subject to change)

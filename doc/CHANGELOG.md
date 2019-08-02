@@ -5,6 +5,8 @@
 2019/xx/xx
 
 * Allow untranslated Messages in beans. ( Example @Decoration(label="Dein Name", isTranslated=true) )
+* Allow uninitialised variables in beans.
+* Improved documentation
 
 
 ### 0.0.13 
