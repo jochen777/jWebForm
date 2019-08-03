@@ -27,12 +27,12 @@ Define a POJO:
     public class MyForm {
   
       @UseDecoration(label="Firstname")
-      public String firstname;
+      public String firstname="";
       
       @UseDecoration(label="Email")
       @NotEmpty
       @Email(message = "Email should be valid")
-      public String email;
+      public String email="";
             
     }
     
@@ -54,6 +54,7 @@ Write a controller, like this with ContainerFormRunner<Myform> form as argument:
       log.debug("Valid firstname from form:"  + form.getBean().firstname);   
       
     }
+    return "my_form_template";
   }
 
 ```
