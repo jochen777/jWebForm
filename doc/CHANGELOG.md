@@ -2,11 +2,12 @@
 
 ### 0.0.14 
 
-2019/xx/xx
+2021/07/01
 
 * Allow untranslated Messages in beans. ( Example @Decoration(label="Dein Name", isTranslated=true) )
 * Allow uninitialised variables in beans.
 * Improved documentation
+* Bump dependencies (security...)
 
 
 ### 0.0.13 
