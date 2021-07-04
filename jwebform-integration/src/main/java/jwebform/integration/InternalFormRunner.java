@@ -48,7 +48,9 @@ class InternalFormRunner {
   private FormResult runInternal(Form form, Env env,
     FormRunnerConfig formRunnerConfig, BiConsumer<String, Object> model) {
     FormResult fr = form.run(env);
-    model.accept(formRunnerConfig.templateKey, fr);
+    ModelForTemplate modelForTemplate = new ModelForTemplate(fr.process(formRunnerConfig.modelResultProcessor),
+            fr.process(new FormLogger.LoggingFormResultProcessor(System.err::print)), fr, formRunnerConfig.formRenderer);
+    model.accept(formRunnerConfig.templateKey, modelForTemplate);
     return fr;
   }
 

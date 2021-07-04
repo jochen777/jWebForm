@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.cyclon-softworx</groupId>
 	<artifactId>jwebform-parent</artifactId>
-	<version>0.0.14</version>
+	<version>0.0.15-SNAPSHOT</version>
 
 	<packaging>pom</packaging>
   
