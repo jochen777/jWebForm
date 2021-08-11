@@ -25,7 +25,7 @@ List of features:
 * allow groups of fields for complex types
 * automatically set correct transfer mode if fileupload elment is used
 * easy handling of mulitple forms on the same page
-* form can be defined in runtime
+* form can be defined at runtime
 * form can be build by a POJO. Annotations exist to tweak it. BeanValidation works
 * allow more than one form per page
 
