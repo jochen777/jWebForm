@@ -3,7 +3,6 @@ package jwebform.field.structure;
 import jwebform.processor.FieldResults;
 import jwebform.validation.ValidationResult;
 
-import javax.annotation.Generated;
 
 /**
  * that what is coming out of a "run" method of an fieldType
@@ -23,7 +22,6 @@ public final class FieldResult {
   public static final String NO_NAME = "";
   public static final FieldResults NOCHILDS = new FieldResults();
 
-  @Generated("SparkTools")
   private FieldResult(Builder builder) {
     this.validationResult = builder.validationResult;
     this.value = builder.value;
@@ -83,7 +81,6 @@ public final class FieldResult {
    * 
    * @return created builder
    */
-  @Generated("SparkTools")
   public static Builder builder() {
     return new Builder();
   }
@@ -91,7 +88,6 @@ public final class FieldResult {
   /**
    * Builder to build {@link FieldResult}.
    */
-  @Generated("SparkTools")
   public static final class Builder {
     private ValidationResult validationResult = ValidationResult.undefined();
     private String value = EMPTY_STRING;

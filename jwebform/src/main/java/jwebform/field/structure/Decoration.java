@@ -1,6 +1,5 @@
 package jwebform.field.structure;
 
-import javax.annotation.Generated;
 
 /**
  * Decorative data for typical inputfield, can be subclassed to use more data.
@@ -14,7 +13,6 @@ public class Decoration {
 
   public static final String EMPTY = "";
 
-  @Generated("SparkTools")
   private Decoration(Builder builder) {
     this.label = builder.label;
     this.helptext = builder.helptext;
@@ -60,7 +58,6 @@ public class Decoration {
    * 
    * @return created builder
    */
-  @Generated("SparkTools")
   public static Builder builder() {
     return new Builder();
   }
@@ -68,7 +65,6 @@ public class Decoration {
   /**
    * Builder to build {@link Decoration}.
    */
-  @Generated("SparkTools")
   public static final class Builder {
     private String label;
     private String helptext = EMPTY;

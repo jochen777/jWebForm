@@ -23,6 +23,7 @@ public class TestCheckbox {
   static String formId = "fid";
 
 
+  
 
   @Test
   public void test_renderInitialCommit() throws IOException {
@@ -53,11 +54,11 @@ public class TestCheckbox {
   private String renderForm(FormResult result) {
     ThemeJavaRenderer renderer =
         new ThemeJavaRenderer(new StandardMapper(new BootstrapTheme(msg -> msg)));
-    return renderer.render(result, FormModel.Method.POST, true).trim();
+    return renderer.render(result, FormModel.Method.POST, true).trim().replaceAll("[\n\r]",  "");
   }
 
   private String processTemplate(String s) throws IOException {
-    return template.loadAndProcessTempalte(s);
+    return template.loadAndProcessTempalte(s).replaceAll("[\n\r]",  "");
   }
 
 
