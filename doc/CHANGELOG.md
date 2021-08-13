@@ -1,5 +1,12 @@
 # jwebform changelog
 
+### 0.0.15
+
+2021/xx/xx
+
+* Fix bug in FormRunner in Spring integration (rendered form can be accessed via form.html)
+* fix label id generation in sourcecode-renderer (click on label works again)
+
 ### 0.0.14 
 
 2021/07/01
@@ -8,7 +15,6 @@
 * Allow uninitialised variables in beans.
 * Improved documentation
 * Bump dependencies (security...)
-
 
 ### 0.0.13 
 

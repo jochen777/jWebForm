@@ -25,8 +25,7 @@ public class BootstrapRenderer implements ElementRenderer {
     String aria = renderAriaDescribedBy(pi, decoration);
     String val = renderValue(pi.getValue());
 
-    // TODO: id must be dynamic!
-    return renderInputFree("<input id=\"form-id-" + pi.getName() + "\" class=\"form-control "
+    return renderInputFree("<input id=\"form-" + pi.getFormId() + "-" + pi.getName() + "\" class=\"form-control "
         + calculateErrorClass(pi) + "\" tabindex=\"" + pi.getTabIndex() + "\" type=\"" + type
         + "\" name=\"" + pi.getName() + "\" value" + val + placeholder + aria
         + renderRequired(pi.getValidator()) + renderMaxLen(pi.getValidator()) + additional + ">",
@@ -144,7 +143,7 @@ public class BootstrapRenderer implements ElementRenderer {
       labelAppend.append(" *");
     }
     StringBuilder complete = new StringBuilder();
-    return complete.append("<label class=\"control-label\" for=\"")
+    return complete.append("<label class=\"control-label\" for=\"form-")
         .append(pi.getFormId() + "-" + pi.getName()).append("\">")
         .append(decoration.isTranlated() ? decoration.getLabel()
             : messageSource.getMessage(decoration.getLabel()))

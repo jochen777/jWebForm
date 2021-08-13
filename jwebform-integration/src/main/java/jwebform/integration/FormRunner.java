@@ -1,10 +1,12 @@
 package jwebform.integration;
 
+import jwebform.Form;
 import jwebform.FormResult;
 import jwebform.env.*;
 import jwebform.processor.FormGenerator;
 
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 // Container, that holds a jWebForm Form (or a normal bean) and provides a facade to jwebform
 // objects
@@ -32,8 +34,12 @@ public class FormRunner {
     return internalFormRunner.runWithBFormGenerator(formGenerator, env, model, formRunnerConfig);
   }
 
+  public FormResult runWithFromSupplier(Supplier<Form> formSupplier) {
+    return internalFormRunner.runWithForm(formSupplier.get(), env, formRunnerConfig, model);
+  }
 
-  @Deprecated // Use either runWithBean or runWithFormGenerator
+
+  @Deprecated // Use either runWithBean or runWithFormGenerator or runWithFormSupplier
   public FormResult run(Object formOrBean) {
     return internalFormRunner.run(formOrBean, env, model, formRunnerConfig);
   }

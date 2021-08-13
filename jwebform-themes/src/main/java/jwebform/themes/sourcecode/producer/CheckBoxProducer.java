@@ -19,7 +19,7 @@ public class CheckBoxProducer implements HTMLProducer {
     String aria = renderer.renderAriaDescribedBy(pi, pi.getDecoration());
     String val = pi.getName();
     boolean checked = (boolean) pi.getValueObject();
-    String inputHtml = "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"checkbox\" id=\""+pi.getFormId()+"-"+pi.getName()+"\" name=\""
+    String inputHtml = "<input tabindex=\"" + pi.getTabIndex() + "\" type=\"checkbox\" id=\"form-"+pi.getFormId()+"-"+pi.getName()+"\" name=\""
         + pi.getName() + "\" value=\"" + val + "\""+ (checked ? " checked" : "") + aria + " class=\"form-check-input "+
       theme.getRenderer().calculateErrorClass(pi)+ "\" >";
     return renderer.renderInputFree(inputHtml, pi, pi.getDecoration(),
