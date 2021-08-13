@@ -34,12 +34,13 @@ public class FormRunner {
     return internalFormRunner.runWithBFormGenerator(formGenerator, env, model, formRunnerConfig);
   }
 
-  public FormResult runWithFromSupplier(Supplier<Form> formSupplier) {
+ 
+  public FormResult runWithFormSupplier(Supplier<Form> formSupplier) {
     return internalFormRunner.runWithForm(formSupplier.get(), env, formRunnerConfig, model);
   }
 
 
-  @Deprecated // Use either runWithBean or runWithFormGenerator or runWithFormSupplier
+  @Deprecated // Use either runWithBean or runWithFormSupplier
   public FormResult run(Object formOrBean) {
     return internalFormRunner.run(formOrBean, env, model, formRunnerConfig);
   }

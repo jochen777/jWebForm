@@ -6,6 +6,7 @@
 
 * Fix bug in FormRunner in Spring integration (rendered form can be accessed via form.html)
 * fix label id generation in sourcecode-renderer (click on label works again)
+* New formRunner.runWithFormSupplier method
 
 ### 0.0.14 
 
