@@ -45,6 +45,11 @@ class InternalFormRunner {
     return runInternal(form, env, formRunnerConfig, model);
   }
 
+  public FormResult runWithForm(Form form, Env env,
+                                FormRunnerConfig formRunnerConfig, BiConsumer<String, Object> model) {
+    return runInternal(form, env, formRunnerConfig, model);
+  }
+
   private FormResult runInternal(Form form, Env env,
     FormRunnerConfig formRunnerConfig, BiConsumer<String, Object> model) {
     FormResult fr = form.run(env);
