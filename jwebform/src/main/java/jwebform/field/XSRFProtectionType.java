@@ -48,7 +48,7 @@ public class XSRFProtectionType implements SingleFieldType {
 
     ValidationResult tempValidationResult;
 
-    boolean isSubmitted = env.isSubmitted(TOKENVAL);
+    boolean isSubmitted = env.isSubmitted(TOKENVAL) && envWith.isSubmitted();
     boolean submittedValueEqualsSessionVal = isSubmitted && xsrfVal
         .equals(env.getSessionAttribute(env.getParameter(TOKENNAME)));
 
