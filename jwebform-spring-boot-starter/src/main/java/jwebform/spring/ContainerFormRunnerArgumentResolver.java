@@ -29,9 +29,10 @@ public class ContainerFormRunnerArgumentResolver implements HandlerMethodArgumen
     Class<FormGenerator> typeOfBean = (Class<FormGenerator>) methodParam.getNestedParameterType();
     methodParam.decreaseNestingLevel();
 
-    ContainerFormRunner f = new ContainerFormRunner<FormGenerator>(typeOfBean, t -> request.getParameter(t),
-        t -> request.getNativeRequest(HttpServletRequest.class).getAttribute(t),
-        (t, v) -> request.getNativeRequest(HttpServletRequest.class).setAttribute(t, v),
+    ContainerFormRunner f = new ContainerFormRunner<FormGenerator>(
+    		typeOfBean, t -> request.getParameter(t),
+        t -> request.getNativeRequest(HttpServletRequest.class).getSession().getAttribute(t),
+        (t, v) -> request.getNativeRequest(HttpServletRequest.class).getSession().setAttribute(t, v),
         (t, v) -> mavContainer.addAttribute(t, v), formRunnerConfig);
 
     return f;

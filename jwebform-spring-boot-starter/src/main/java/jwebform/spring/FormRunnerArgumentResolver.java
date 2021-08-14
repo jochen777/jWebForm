@@ -27,8 +27,8 @@ public class FormRunnerArgumentResolver implements HandlerMethodArgumentResolver
 
 
     FormRunner f = new FormRunner(t -> request.getParameter(t),
-        t -> request.getNativeRequest(HttpServletRequest.class).getAttribute(t),
-        (t, v) -> request.getNativeRequest(HttpServletRequest.class).setAttribute(t, v),
+        t -> request.getNativeRequest(HttpServletRequest.class).getSession().getAttribute(t),
+        (t, v) -> request.getNativeRequest(HttpServletRequest.class).getSession().setAttribute(t, v),
         (t, v) -> mavContainer.addAttribute(t, v), formRunnerConfig);
 
     return f;
