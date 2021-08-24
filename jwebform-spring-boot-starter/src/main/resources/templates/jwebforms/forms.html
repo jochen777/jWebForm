@@ -1,0 +1,263 @@
+<!doctype html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+
+<form th:fragment="renderForm(form )" th:with="method=${method} ?: 'GET', action=${action} ?: ''" 
+th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }"
+    	 class="row g-3"
+    	 th:enctype="${form.formModel.isUploadEnctypeRequired()} ? 'multipart/form-data': ''"
+          th:action="${action}"
+          novalidate
+          th:id="@{${form.formModel.formId} +'-FORMCHECKER'}"
+>
+        <input type="hidden" name="WF_SUBMITTED" th:value="@{'WF-'+${form.formModel.formId}}">
+    <th:block th:each="producerInfo: ${form.formModel.producerInfosContainer.piList}">
+    <div th:replace="jwebforms/forms :: ${#strings.replace(producerInfo.typeName, '.', '_')}(${producerInfo})"></div>
+    </th:block>
+
+</form>
+
+<form th:fragment="flex_form(form, content)" th:with="method=${method} ?: 'GET', action=${action} ?: ''" 
+th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }"
+    	 class="row g-3"
+    	 th:enctype="${form.formModel.isUploadEnctypeRequired()} ? 'multipart/form-data': ''"
+          th:action="${action}"
+          novalidate
+          th:id="@{${form.formModel.formId} +'-FORMCHECKER'}"
+
+>
+        <input type="hidden" name="WF_SUBMITTED" th:value="@{'WF-'+${form.formModel.formId}}">
+
+ <th:block th:replace="${content}" />
+
+</form>
+
+
+<th:block th:fragment="field(form, fieldname)">
+<div th:replace="jwebforms/forms :: ${#strings.replace(form.formModel.producerInfosContainer.piMap[fieldname+''].typeName, '.', '_')}
+(${form.formModel.producerInfosContainer.piMap[fieldname+'']})"></div>
+</th:block>
+
+
+<!-- ########## Text ###### -->
+<div  th:fragment="jwebform_field_TextType(producerInfo) " th:with="class=${class} ?: 'mb-3'" th:class="${class}">
+        <label class="form-label" th:for="@{'form-id-' + ${producerInfo.name}}" 
+        th:text="#{${producerInfo.decoration.label}} + ${producerInfo.validator.required?'*':''}">
+        </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
+                       th:required="${producerInfo.validator.required}"
+                       th:placeholder="${producerInfo.decoration.placeholder}"
+                       class="form-control" 
+                       th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+                       th:tabindex="${producerInfo.tabIndex}" type="text" th:name="${producerInfo.name}"
+                       th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
+        <b th:replace="jwebforms/forms :: render_error(${producerInfo})"></b>
+        <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
+            <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
+        </small>
+</div>
+
+<!-- ########## TextDate ###### -->
+<th:block  th:fragment="jwebform_field_TextDateType(producerInfo)"><!-- textdate -->
+        <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+        <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+        <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+        </label>
+        <!--/* This "fake" input is just used to display the error message (invalid-feedback needs a corresponding invalid input) */-->
+        <input type="text" style="display:none" class="form-control is-invalid" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}"> 
+        <div th:replace="jwebforms/forms :: render_error(${producerInfo})"></div>
+        <th:block  th:each="piChild : ${producerInfo.childs}">
+        	<div th:replace="jwebforms/forms :: jwebform_field_TextType(producerInfo=${piChild}, class='col-md-4')"></div>
+        </th:block>
+</th:block>
+
+<!-- ########## error-label ###### -->
+<div  th:fragment="render_error(producerInfo)" class="invalid-feedback" th:if="${producerInfo.validationResult.isError()}">
+    [[
+    
+    (${#strings.isEmpty(producerInfo.validationResult.messageKey)}) ? 
+    	${producerInfo.validationResult.translatedMessage}
+    :
+    	(${#lists.size(producerInfo.validationResult.errorVals)} ?
+    	${#messages.msgWithParams(producerInfo.validationResult.messageKey, producerInfo.validationResult.errorVals)}
+    		:
+    	${#messages.msg(producerInfo.validationResult.messageKey)}
+    )
+    ]]
+</div>
+
+<!-- ########## XSRF Protection ###### -->
+<div  th:fragment="jwebform_field_XSRFProtectionType(producerInfo)">
+<span th:utext="${producerInfo.html}"></span>
+</div>
+
+
+<!-- ########## Checkbox ###### -->
+<div  th:fragment="jwebform_field_CheckBoxType(producerInfo)">
+    <div class="mb-3 form-check">
+        <input th:tabindex="${producerInfo.tabIndex}"
+               type="checkbox" th:id="@{'form-id-' + ${producerInfo.name}}"
+               th:name="${producerInfo.name}"
+               th:checked="${producerInfo.valueObject}"
+               th:value="${producerInfo.name}"
+               class="form-check-input" 
+               th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+               >
+        <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+            <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+            <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+        </label>
+    </div>
+</div>
+
+<!-- ########## Select ###### -->
+<div  th:fragment="jwebform_field_SelectType(producerInfo)">
+    <div class="mb-3">
+        <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+            <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+            <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+        </label>
+        <select 
+            class="form-select" 
+            th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+        	th:tabindex="${producerInfo.tabIndex}"
+               type="checkbox" th:id="@{'form-id-' + ${producerInfo.name}}"
+               th:name="${producerInfo.name}"
+               th:value="${producerInfo.value}"
+
+                >
+            <option th:each="selectElem: ${producerInfo.type.entries}" th:value="${selectElem.key}"
+            th:text="${selectElem.value}" th:selected="${producerInfo.value == selectElem.key}"
+            ></option>
+        </select>
+    </div>
+</div>
+
+<!-- ########## Radio ###### -->
+<div  th:fragment="jwebform_field_RadioType(producerInfo)">
+    <div class="mb-3">
+     <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+     <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+     </label>
+    <div th:each="selectElem: ${producerInfo.type.entries}">
+        <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}+ '-' + ${selectElem.key}}" >
+        <input 
+                th:tabindex="${producerInfo.tabIndex}"
+               type="radio" th:id="@{'form-id-' + ${producerInfo.name} + '-' + ${selectElem.key}}"
+               th:name="${producerInfo.name}"
+               th:value="${selectElem.key}"
+               th:checked="${producerInfo.value == selectElem.key}"
+               class="form-radio" 
+               th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+                />
+          
+            <span th:text="#{${selectElem.value}}">Label</span>
+            <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+        </label>
+        </div>
+    </div>
+</div>
+
+<div  th:fragment="jwebform_field_UploadType(producerInfo)">
+    <div class="mb-3">
+        <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+        <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+        <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+        </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
+                       th:required="${producerInfo.validator.required}"
+                       class="form-control" 
+               		   th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+                       
+                       th:placeholder="${producerInfo.decoration.placeholder}"
+                       th:tabindex="${producerInfo.tabIndex}" type="file" th:name="${producerInfo.name}"
+                       th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
+        <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
+            <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
+        </small>
+    </div>
+</div>
+
+
+<div  th:fragment="jwebform_field_LabelType(producerInfo)">
+    <div>
+        <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+            <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+            <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+        </label>
+    </div>
+</div>
+
+<div  th:fragment="jwebform_field_HtmlType(producerInfo)">
+    <div>
+        <span th:utext="${producerInfo.html}"></span>
+    </div>
+</div>
+
+<div  th:fragment="jwebform_field_HiddenType(producerInfo)">
+    <div>
+        <input type="hidden" th:name="${producerInfo.name}" th:value="${producerInfo.value}">
+    </div>
+</div>
+
+<div  th:fragment="jwebform_field_NumberType(producerInfo)">
+    <div class="mb-3"><label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+        <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+        <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+    </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
+                   th:required="${producerInfo.validator.required}"
+                    th:placeholder="${producerInfo.decoration.placeholder}"
+                                           class="form-control" 
+               		   th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+                    
+                   th:tabindex="${producerInfo.tabIndex}" type="number" th:name="${producerInfo.name}"
+                   th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
+        <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
+            <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
+        </small>
+    </div>
+</div>
+
+<div  th:fragment="jwebform_field_TextAreaType(producerInfo)">
+    <div class="mb-3"><label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+        <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+        <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+    </label><textarea th:id="@{'form-id-' + ${producerInfo.name}}"
+                   th:required="${producerInfo.validator.required}"
+                                          class="form-control" 
+               		   th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+                   
+                    th:placeholder="${producerInfo.decoration.placeholder}"
+                   th:tabindex="${producerInfo.tabIndex}" type="number" th:name="${producerInfo.name}"
+                    th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">[[${producerInfo.value}]]</textarea>
+        <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
+            <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
+        </small>
+    </div>
+</div>
+
+<div  th:fragment="jwebform_field_PasswordType(producerInfo)">
+    <div class="mb-3"><label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+        <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+        <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+    </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
+                   th:required="${producerInfo.validator.required}"
+                                          class="form-control" 
+               		   th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+                   
+                   th:tabindex="${producerInfo.tabIndex}" type="password" th:name="${producerInfo.name}"
+                   th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
+        <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
+            <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
+        </small>
+    </div>
+</div>
+
+
+<div  th:fragment="jwebform_field_SubmitType(producerInfo)">
+        <button type="submit" class="btn btn-primary"
+                th:name="${ producerInfo.name }" value="" th:tabindex="${producerInfo.tabIndex}" ><span th:text="${ producerInfo.decoration.label }">Submit</button><br>
+</div>
+
+</html>
