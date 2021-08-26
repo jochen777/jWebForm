@@ -27,7 +27,7 @@ List of features:
 * easy handling of mulitple forms on the same page
 * form can be defined at runtime
 * form can be build by a POJO. Annotations exist to tweak it. BeanValidation works
-* allow more than one form per page
+
 
 ## Available extensions
 
