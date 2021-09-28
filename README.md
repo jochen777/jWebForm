@@ -2,8 +2,6 @@
 
 HTML forms in Java made easy.  Independent of Web-Frameworks.
 
-(Please be aware, that this is beta software. API can still change in a greater detail. 
-Wait for the version 1.0.0 to adapt it.)
 
 [Quickstart](doc/quickstart.md)
 
