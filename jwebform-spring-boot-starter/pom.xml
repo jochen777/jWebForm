@@ -17,7 +17,7 @@
 
 
     <properties>
-        <boot.version>1.5.15.RELEASE</boot.version>
+        <boot.version>2.5.12</boot.version>
         <spring.version>4.1.0.RELEASE</spring.version>
     </properties>
 
