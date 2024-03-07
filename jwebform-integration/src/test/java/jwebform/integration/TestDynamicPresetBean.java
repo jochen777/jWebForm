@@ -12,7 +12,7 @@ import jwebform.integration.fromBean.ExampleRequests;
 import jwebform.resultprocessor.ModelResultProcessor;
 import org.junit.Test;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
