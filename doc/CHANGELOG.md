@@ -2,12 +2,14 @@
 
 ### 0.0.15
 
-2021/xx/xx
+2024/03/07
 
 * Fix bug in FormRunner in Spring integration (rendered form can be accessed via form.html)
 * fix label id generation in sourcecode-renderer (click on label works again)
 * New formRunner.runWithFormSupplier method
 * Fix Session-Management in Spring integration
+* Move to Spring 3x
+* Move to Java11 (remove javax dependencies)
 
 ### 0.0.14 
 
