@@ -4,7 +4,7 @@ import jwebform.validation.Criterion;
 import jwebform.validation.ValidationResult;
 
 /**
- * Performs an <tt>AND</tt> over all criteria on the given value.
+ * Performs an <b>AND</b> over all criteria on the given value.
  * 
  * Based on work of armandino (at) gmail.com
  */
