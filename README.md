@@ -52,7 +52,7 @@ Especially useful:
 <dependency>
     <groupId>de.cyclon-softworx</groupId>
     <artifactId>jWebForm</artifactId>
-    <version>0.0.13</version> <!-- check on maven central for the latest version -->
+    <version>0.0.15</version> <!-- check on maven central for the latest version -->
 </dependency>
 ...
 ```
